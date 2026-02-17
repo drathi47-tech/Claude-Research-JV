@@ -5,150 +5,22 @@
 // =====================================================
 
 const COMPANIES = [
-    {
-        id: 'thepantproject',
-        name: 'The Pant Project',
-        sector: 'fashion',
-        sectorLabel: 'Fashion & Apparel',
-        website: 'thepantproject.com',
-        color: '#3b82f6',
-        estValuation: '$15-25M',
-    },
-    {
-        id: 'littlebox',
-        name: 'LittleBox',
-        sector: 'fashion',
-        sectorLabel: 'Fashion & Apparel',
-        website: 'littleboxindia.com',
-        color: '#ec4899',
-        estValuation: '$5-15M',
-    },
-    {
-        id: 'anveshan',
-        name: 'Anveshan',
-        sector: 'food',
-        sectorLabel: 'Food & Beverage',
-        website: 'anveshan.farm',
-        color: '#f59e0b',
-        estValuation: '$20-40M',
-    },
-    {
-        id: 'perfora',
-        name: 'Perfora',
-        sector: 'health',
-        sectorLabel: 'Health & Wellness',
-        website: 'perfora.in',
-        color: '#06b6d4',
-        estValuation: '$10-20M',
-    },
-    {
-        id: 'letsdressup',
-        name: "Let's Dress Up",
-        sector: 'fashion',
-        sectorLabel: 'Fashion & Apparel',
-        website: 'letsdressup.in',
-        color: '#d946ef',
-        estValuation: '$8-18M',
-    },
-    {
-        id: 'snitch',
-        name: 'Snitch',
-        sector: 'fashion',
-        sectorLabel: 'Fashion & Apparel',
-        website: 'snitch.co.in',
-        color: '#10b981',
-        estValuation: '$80-120M',
-    },
-    {
-        id: 'slurrp',
-        name: 'Slurrp Farm',
-        sector: 'food',
-        sectorLabel: 'Food & Beverage',
-        website: 'slurrpfarm.com',
-        color: '#84cc16',
-        estValuation: '$30-50M',
-    },
-    {
-        id: 'arata',
-        name: 'Arata',
-        sector: 'beauty',
-        sectorLabel: 'Beauty & Personal Care',
-        website: 'arata.in',
-        color: '#a855f7',
-        estValuation: '$15-25M',
-    },
-    {
-        id: 'dailyobjects',
-        name: 'DailyObjects',
-        sector: 'fashion',
-        sectorLabel: 'Fashion & Apparel',
-        website: 'dailyobjects.com',
-        color: '#f97316',
-        estValuation: '$40-70M',
-    },
-    {
-        id: 'beminimalist',
-        name: 'Be Minimalist',
-        sector: 'beauty',
-        sectorLabel: 'Beauty & Personal Care',
-        website: 'beminimalist.co',
-        color: '#14b8a6',
-        estValuation: '$80-150M',
-    },
-    {
-        id: 'assemblyfootwear',
-        name: 'Assembly',
-        sector: 'fashion',
-        sectorLabel: 'Fashion & Apparel',
-        website: 'assemblyfootwear.com',
-        color: '#6366f1',
-        estValuation: '$5-10M',
-    },
-    {
-        id: 'auric',
-        name: 'Auric',
-        sector: 'health',
-        sectorLabel: 'Health & Wellness',
-        website: 'theauric.com',
-        color: '#eab308',
-        estValuation: '$10-20M',
-    },
-    {
-        id: 'kapiva',
-        name: 'Kapiva',
-        sector: 'health',
-        sectorLabel: 'Health & Wellness',
-        website: 'kapiva.in',
-        color: '#22c55e',
-        estValuation: '$60-100M',
-    },
-    {
-        id: 'fablestreet',
-        name: 'FableStreet',
-        sector: 'fashion',
-        sectorLabel: 'Fashion & Apparel',
-        website: 'fablestreet.com',
-        color: '#e11d48',
-        estValuation: '$10-20M',
-    },
-    {
-        id: 'bluekaktus',
-        name: 'Blue Tokai',
-        sector: 'food',
-        sectorLabel: 'Food & Beverage',
-        website: 'bluetokaicoffee.com',
-        color: '#0ea5e9',
-        estValuation: '$80-150M',
-    },
-    {
-        id: 'conscent',
-        name: 'Conscious Chemist',
-        sector: 'beauty',
-        sectorLabel: 'Beauty & Personal Care',
-        website: 'consciouschemist.com',
-        color: '#8b5cf6',
-        estValuation: '$5-10M',
-    },
+    { id: 'wakao', name: 'Wakao Foods', sector: 'food', sectorLabel: 'Food & Beverage', website: 'wakaofoods.com', color: '#f59e0b', estValuation: '$2-5M' },
+    { id: 'bummer', name: 'Bummer', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'byvbummer.com', color: '#ec4899', estValuation: '$5-10M' },
+    { id: 'flatheads', name: 'Flatheads', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'flatheads.in', color: '#3b82f6', estValuation: '$3-8M' },
+    { id: 'phool', name: 'Phool', sector: 'home', sectorLabel: 'Home & Living', website: 'phool.co', color: '#10b981', estValuation: '$8-15M' },
+    { id: 'sidsfarm', name: "Sid's Farm", sector: 'food', sectorLabel: 'Food & Beverage', website: 'sidsfarm.com', color: '#06b6d4', estValuation: '$15-30M' },
+    { id: 'koparo', name: 'Koparo', sector: 'home', sectorLabel: 'Home & Living', website: 'koparoclean.com', color: '#84cc16', estValuation: '$3-8M' },
+    { id: 'gynoveda', name: 'Gynoveda', sector: 'health', sectorLabel: 'Health & Wellness', website: 'gynoveda.com', color: '#d946ef', estValuation: '$10-20M' },
+    { id: 'bareanatomy', name: 'Bare Anatomy', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'bareanatomy.com', color: '#a855f7', estValuation: '$5-12M' },
+    { id: 'tbof', name: 'Two Brothers Organic Farms', sector: 'food', sectorLabel: 'Food & Beverage', website: 'twobrothersindiashop.com', color: '#22c55e', estValuation: '$8-15M' },
+    { id: 'ellementry', name: 'Ellementry', sector: 'home', sectorLabel: 'Home & Living', website: 'ellementry.com', color: '#f97316', estValuation: '$5-10M' },
+    { id: 'cosmix', name: 'Cosmix', sector: 'health', sectorLabel: 'Health & Wellness', website: 'cosmix.in', color: '#14b8a6', estValuation: '$3-8M' },
+    { id: 'neemli', name: 'Neemli Naturals', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'neemlinaturals.com', color: '#8b5cf6', estValuation: '$3-8M' },
+    { id: 'samosaparty', name: 'Samosa Party', sector: 'food', sectorLabel: 'Food & Beverage', website: 'samosaparty.com', color: '#e11d48', estValuation: '$5-12M' },
+    { id: 'earthrhythm', name: 'Earth Rhythm', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'earthrhythm.com', color: '#0ea5e9', estValuation: '$8-15M' },
+    { id: 'bombaysweets', name: 'Bombay Sweet Shop', sector: 'food', sectorLabel: 'Food & Beverage', website: 'bombaysweetshop.com', color: '#eab308', estValuation: '$3-8M' },
+    { id: 'staccato', name: 'Staccato Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'staccato.co.in', color: '#6366f1', estValuation: '$2-5M' },
 ];
 
 // --- Helper: generate time-series data ---
@@ -182,35 +54,14 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
+const GT_GROWTH = { wakao: 0.85, bummer: 0.78, flatheads: 0.55, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48 };
+const GT_BASE = { wakao: 12, bummer: 22, flatheads: 15, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10 };
 COMPANIES.forEach(c => {
-    const growth = c.id === 'snitch' ? 0.9 :
-                   c.id === 'beminimalist' ? 0.85 :
-                   c.id === 'thepantproject' ? 0.75 :
-                   c.id === 'anveshan' ? 0.7 :
-                   c.id === 'perfora' ? 0.65 :
-                   c.id === 'littlebox' ? 0.6 :
-                   c.id === 'bluekaktus' ? 0.55 :
-                   c.id === 'kapiva' ? 0.5 :
-                   c.id === 'slurrp' ? 0.45 :
-                   c.id === 'letsdressup' ? 0.6 :
-                   c.id === 'dailyobjects' ? 0.35 :
-                   0.15 + Math.random() * 0.4;
-    const base = c.id === 'snitch' ? 55 :
-                 c.id === 'beminimalist' ? 48 :
-                 c.id === 'bluekaktus' ? 42 :
-                 c.id === 'kapiva' ? 38 :
-                 c.id === 'thepantproject' ? 18 :
-                 c.id === 'anveshan' ? 22 :
-                 c.id === 'littlebox' ? 12 :
-                 c.id === 'perfora' ? 15 :
-                 8 + Math.random() * 20;
+    const growth = GT_GROWTH[c.id] || 0.3;
+    const base = GT_BASE[c.id] || 12;
     GOOGLE_TRENDS_DATA[c.id] = {
         timeSeries: generateWeeklyTimeSeries(52, base, growth, 0.15),
-        currentIndex: 0,
-        change30d: 0,
-        change90d: 0,
-        peak12m: 0,
-        volatility: 0,
+        currentIndex: 0, change30d: 0, change90d: 0, peak12m: 0, volatility: 0,
         regions: {
             'Maharashtra': Math.round(60 + Math.random() * 40),
             'Karnataka': Math.round(50 + Math.random() * 40),
@@ -232,91 +83,110 @@ COMPANIES.forEach(c => {
         Math.sqrt(vals.reduce((s, v) => s + (v - mean) ** 2, 0) / vals.length) / mean * 100
     );
     if (ts.length >= 5) {
-        GOOGLE_TRENDS_DATA[c.id].change30d = Math.round(
-            ((ts[ts.length - 1].value / ts[ts.length - 5].value) - 1) * 100
-        );
+        GOOGLE_TRENDS_DATA[c.id].change30d = Math.round(((ts[ts.length - 1].value / ts[ts.length - 5].value) - 1) * 100);
     }
     if (ts.length >= 13) {
-        GOOGLE_TRENDS_DATA[c.id].change90d = Math.round(
-            ((ts[ts.length - 1].value / ts[ts.length - 13].value) - 1) * 100
-        );
+        GOOGLE_TRENDS_DATA[c.id].change90d = Math.round(((ts[ts.length - 1].value / ts[ts.length - 13].value) - 1) * 100);
     }
 });
 
 // Rising queries
 const RISING_QUERIES = {
-    thepantproject: [
-        { text: 'the pant project review', growth: '+1200%' },
-        { text: 'custom pants online india', growth: '+850%' },
-        { text: 'the pant project coupon', growth: '+620%' },
-        { text: 'pant project shark tank', growth: '+540%' },
-        { text: 'best custom trousers india', growth: '+380%' },
+    wakao: [
+        { text: 'wakao jackfruit meat review', growth: '+1400%' },
+        { text: 'plant based meat india', growth: '+950%' },
+        { text: 'wakao foods shark tank', growth: '+820%' },
+        { text: 'jackfruit biryani recipe', growth: '+540%' },
     ],
-    littlebox: [
-        { text: 'littlebox india dresses', growth: '+950%' },
-        { text: 'littlebox co-ord sets', growth: '+720%' },
-        { text: 'littlebox size guide', growth: '+480%' },
-        { text: 'littlebox vs zara', growth: '+350%' },
+    bummer: [
+        { text: 'bummer underwear review', growth: '+1100%' },
+        { text: 'micro modal underwear india', growth: '+780%' },
+        { text: 'bummer innerwear quality', growth: '+620%' },
+        { text: 'fun print boxer shorts', growth: '+450%' },
     ],
-    anveshan: [
-        { text: 'anveshan ghee review', growth: '+780%' },
-        { text: 'anveshan a2 cow ghee', growth: '+650%' },
-        { text: 'anveshan honey pure', growth: '+520%' },
-        { text: 'farm to fork brands india', growth: '+380%' },
-        { text: 'anveshan wild forest honey', growth: '+310%' },
+    flatheads: [
+        { text: 'flatheads shoes review', growth: '+680%' },
+        { text: 'bamboo sneakers india', growth: '+520%' },
+        { text: 'sustainable footwear brands', growth: '+480%' },
+        { text: 'merino wool shoes', growth: '+350%' },
     ],
-    perfora: [
-        { text: 'perfora toothpaste review', growth: '+1400%' },
-        { text: 'perfora electric toothbrush', growth: '+1100%' },
-        { text: 'best oral care brand india', growth: '+680%' },
-        { text: 'perfora vs colgate', growth: '+450%' },
+    phool: [
+        { text: 'phool incense sticks', growth: '+1600%' },
+        { text: 'fleather vegan leather', growth: '+1200%' },
+        { text: 'temple flower recycling', growth: '+880%' },
+        { text: 'phool social enterprise', growth: '+650%' },
     ],
-    snitch: [
-        { text: 'snitch clothing review', growth: '+620%' },
-        { text: 'snitch shirts quality', growth: '+480%' },
-        { text: 'snitch vs zara men', growth: '+350%' },
-        { text: 'snitch new arrivals', growth: '+290%' },
+    sidsfarm: [
+        { text: 'sids farm milk review', growth: '+920%' },
+        { text: 'farm fresh milk hyderabad', growth: '+750%' },
+        { text: 'sids farm subscription', growth: '+580%' },
+        { text: 'a2 cow milk delivery', growth: '+420%' },
     ],
-    beminimalist: [
-        { text: 'minimalist salicylic acid', growth: '+580%' },
-        { text: 'minimalist retinol review', growth: '+450%' },
-        { text: 'be minimalist vs ordinary', growth: '+380%' },
-        { text: 'minimalist niacinamide serum', growth: '+320%' },
+    koparo: [
+        { text: 'koparo floor cleaner review', growth: '+780%' },
+        { text: 'non toxic cleaning india', growth: '+620%' },
+        { text: 'koparo vs mamaearth cleaning', growth: '+480%' },
+        { text: 'baby safe floor cleaner', growth: '+350%' },
     ],
-    slurrp: [
-        { text: 'slurrp farm ragi cookies', growth: '+520%' },
-        { text: 'slurrp farm dosa mix review', growth: '+410%' },
-        { text: 'healthy kids snacks india', growth: '+350%' },
-        { text: 'slurrp farm cereal baby', growth: '+280%' },
+    gynoveda: [
+        { text: 'gynoveda pcod review', growth: '+1300%' },
+        { text: 'ayurvedic period pain relief', growth: '+980%' },
+        { text: 'gynoveda shark tank', growth: '+750%' },
+        { text: 'pcos ayurveda treatment', growth: '+580%' },
     ],
-    bluekaktus: [
-        { text: 'blue tokai coffee subscription', growth: '+480%' },
-        { text: 'blue tokai vienna roast', growth: '+380%' },
-        { text: 'best specialty coffee india', growth: '+350%' },
-        { text: 'blue tokai near me', growth: '+290%' },
+    bareanatomy: [
+        { text: 'bare anatomy hair quiz', growth: '+850%' },
+        { text: 'personalized shampoo india', growth: '+680%' },
+        { text: 'bare anatomy review', growth: '+520%' },
+        { text: 'custom hair care', growth: '+380%' },
     ],
-    kapiva: [
-        { text: 'kapiva shilajit review', growth: '+720%' },
-        { text: 'kapiva dia free juice', growth: '+550%' },
-        { text: 'kapiva ayurveda genuine', growth: '+420%' },
-        { text: 'kapiva vs zandu', growth: '+310%' },
+    tbof: [
+        { text: 'two brothers organic ghee', growth: '+720%' },
+        { text: 'tbof a2 ghee review', growth: '+580%' },
+        { text: 'premium organic staples india', growth: '+450%' },
+        { text: 'bilona ghee online', growth: '+380%' },
     ],
-    letsdressup: [
-        { text: 'lets dress up saree', growth: '+680%' },
-        { text: 'lets dress up lehenga review', growth: '+520%' },
-        { text: 'affordable indian ethnic wear', growth: '+380%' },
-        { text: 'lets dress up quality', growth: '+290%' },
+    ellementry: [
+        { text: 'ellementry ceramics', growth: '+520%' },
+        { text: 'handcrafted homeware india', growth: '+420%' },
+        { text: 'sustainable dinnerware', growth: '+350%' },
+        { text: 'ellementry store near me', growth: '+280%' },
     ],
-    arata: [
-        { text: 'arata shampoo review', growth: '+450%' },
-        { text: 'arata hair gel natural', growth: '+380%' },
-        { text: 'arata vs mamaearth', growth: '+290%' },
-        { text: 'plant based hair care india', growth: '+240%' },
+    cosmix: [
+        { text: 'cosmix superfood blends', growth: '+880%' },
+        { text: 'adaptogen powder india', growth: '+720%' },
+        { text: 'cosmix sleep blend review', growth: '+580%' },
+        { text: 'ashwagandha latte mix', growth: '+420%' },
     ],
-    dailyobjects: [
-        { text: 'dailyobjects desk mat review', growth: '+380%' },
-        { text: 'dailyobjects laptop sleeve', growth: '+310%' },
-        { text: 'dailyobjects phone case quality', growth: '+250%' },
+    neemli: [
+        { text: 'neemli naturals serum review', growth: '+620%' },
+        { text: 'neemli hyaluronic acid', growth: '+480%' },
+        { text: 'clean active skincare india', growth: '+380%' },
+        { text: 'neemli vs minimalist', growth: '+290%' },
+    ],
+    samosaparty: [
+        { text: 'samosa party frozen samosa', growth: '+1500%' },
+        { text: 'gourmet frozen snacks india', growth: '+1100%' },
+        { text: 'samosa party review bangalore', growth: '+780%' },
+        { text: 'best frozen samosa online', growth: '+580%' },
+    ],
+    earthrhythm: [
+        { text: 'earth rhythm shampoo bar', growth: '+650%' },
+        { text: 'refillable beauty products india', growth: '+520%' },
+        { text: 'earth rhythm sunscreen review', growth: '+420%' },
+        { text: 'zero waste beauty brand', growth: '+350%' },
+    ],
+    bombaysweets: [
+        { text: 'bombay sweet shop mithai', growth: '+780%' },
+        { text: 'artisanal indian sweets online', growth: '+620%' },
+        { text: 'bombay sweet shop review', growth: '+480%' },
+        { text: 'premium mithai delivery', growth: '+350%' },
+    ],
+    staccato: [
+        { text: 'staccato coffee beans', growth: '+580%' },
+        { text: 'micro roaster coffee india', growth: '+450%' },
+        { text: 'staccato single origin', growth: '+350%' },
+        { text: 'specialty coffee subscription', growth: '+280%' },
     ],
 };
 Object.keys(RISING_QUERIES).forEach(k => {
@@ -324,469 +194,209 @@ Object.keys(RISING_QUERIES).forEach(k => {
         GOOGLE_TRENDS_DATA[k].risingQueries = RISING_QUERIES[k];
     }
 });
-
 // --- E-commerce Reviews Data with Consumer Summaries ---
 const ECOMMERCE_DATA = {};
 
-// Detailed review summaries for each company
 const REVIEW_SUMMARIES = {
-    thepantproject: {
+    wakao: {
         amazon: {
-            topLikes: [
-                'Custom fit is exceptional — feels tailor-made at a fraction of the cost',
-                'Fabric quality is premium, holds up well after multiple washes',
-                'Easy measurement process through their website',
-                'Great range of fabric choices from formals to chinos',
-            ],
-            topDislikes: [
-                'Delivery takes 10-14 days since it\'s made to order',
-                'Return/alteration process can be slow',
-                'Limited options for women\'s trousers',
-                'Pricing on the higher side for some fabrics',
-            ],
-            summary: 'Customers rave about the custom-fit quality, often comparing it favorably to local tailors. The online measurement system is surprisingly accurate. Main complaints center around delivery time (expected for custom) and limited style range.',
-        },
-        myntra: {
-            topLikes: [
-                'Perfect fit — no alterations needed',
-                'Professional look, great for office wear',
-                'Fabric doesn\'t wrinkle easily',
-            ],
-            topDislikes: [
-                'Not available for quick delivery',
-                'Some color options look different in person',
-                'Wish they had more casual styles',
-            ],
-            summary: 'Myntra shoppers love the fit guarantee. Repeat purchase rate appears very high. Complaints are minor — mostly around color accuracy in photos vs reality.',
-        },
-    },
-    littlebox: {
-        amazon: {
-            topLikes: [
-                'Trendy designs that look straight off Instagram',
-                'Great co-ord sets and matching outfits',
-                'Affordable pricing for the style quotient',
-                'Fun packaging — feels like a gift',
-            ],
-            topDislikes: [
-                'Sizing can be inconsistent across collections',
-                'Some fabrics feel thin / not durable for the price',
-                'Limited plus-size options',
-                'Stitching quality varies by product',
-            ],
-            summary: 'Huge hit with Gen-Z buyers for its Instagram-worthy designs and affordable trend-forward fashion. Repeat buyers mention addictive shopping experience. Quality concerns exist but are tolerated given the price-to-style ratio.',
-        },
-        myntra: {
-            topLikes: [
-                'Very fashionable pieces at amazing prices',
-                'Co-ord sets are the bestsellers for a reason',
-                'Quick to pick up on trends',
-            ],
-            topDislikes: [
-                'Sizing runs small — need to size up',
-                'Material could be better quality',
-                'Some pieces look different from photos',
-            ],
-            summary: 'Strong following among young women on Myntra. Co-ord sets and bodycon dresses are standout categories. Customers wish for better size consistency.',
-        },
-    },
-    anveshan: {
-        amazon: {
-            topLikes: [
-                'A2 cow ghee tastes like homemade — incredible aroma',
-                'Honey is genuinely pure, passes the quality test',
-                'Farm-to-table transparency with QR code traceability',
-                'Cold-pressed oils are noticeably fresher than store brands',
-                'Supporting farmers directly feels good',
-            ],
-            topDislikes: [
-                'Premium pricing — significantly costlier than regular brands',
-                'Ghee jar packaging could be improved',
-                'Limited availability in local stores',
-                'Some products go out of stock frequently',
-            ],
-            summary: 'Customers are passionate advocates — the ghee and honey have cult-like followings. The farm traceability feature via QR codes is a major trust builder. Price sensitivity is the main barrier, but repeat purchase rate is very high among converts.',
-        },
-        myntra: {
-            topLikes: [
-                'Not applicable — primarily a food/grocery brand',
-            ],
-            topDislikes: [
-                'Not applicable — primarily a food/grocery brand',
-            ],
-            summary: 'Anveshan is primarily sold on Amazon, BigBasket, and their own website. Limited presence on fashion-focused Myntra.',
-        },
-    },
-    perfora: {
-        amazon: {
-            topLikes: [
-                'Electric toothbrush quality rivals Oral-B at half the price',
-                'Toothpaste ingredients are clean and effective',
-                'Mouth freshness lasts much longer than regular brands',
-                'Beautiful packaging — feels premium',
-                'Probiotic mouthwash is a game-changer',
-            ],
-            topDislikes: [
-                'Electric brush battery could last longer',
-                'Toothpaste flavor is too mild for some',
-                'Replacement brush heads are hard to find',
-                'Pricey compared to Colgate/Sensodyne',
-            ],
-            summary: 'Perfora has built a passionate community around premium oral care. The electric toothbrush is their hero product with excellent reviews. Consumers love the science-backed, clean ingredient approach. Main pushback is on pricing vs mass-market alternatives.',
-        },
-        myntra: {
-            topLikes: [
-                'Premium personal care gifting option',
-                'Aesthetic product design',
-            ],
-            topDislikes: [
-                'Limited product range on Myntra',
-                'Better deals available on their own website',
-            ],
-            summary: 'Small but growing presence on Myntra, primarily in the personal care gifting segment.',
-        },
-    },
-    snitch: {
-        amazon: {
-            topLikes: [
-                'Incredible value — Zara-like designs at 1/4th the price',
-                'Fit is on point for Indian body types',
-                'Fabric quality keeps improving with every order',
-                'Huge variety of printed shirts and casual wear',
-                'Fast fashion done right for men',
-            ],
-            topDislikes: [
-                'Some products pill after a few washes',
-                'Oversized fits can be too oversized',
-                'Color fading in dark-colored shirts after 5-6 washes',
-                'Customer service response can be slow',
-            ],
-            summary: 'Snitch has become the go-to brand for young men wanting trendy fashion at affordable prices. Strong word-of-mouth growth. Quality has improved significantly from early days. The brand is now seen as a credible Zara alternative for Indian men.',
-        },
-        myntra: {
-            topLikes: [
-                'Best men\'s casual wear brand on Myntra currently',
-                'Printed shirts and co-ords are bestsellers',
-                'True to size, great fit',
-                'Value for money is unmatched',
-            ],
-            topDislikes: [
-                'Popular sizes sell out very quickly',
-                'Returns can be delayed during sales',
-                'Wish they had a formal wear line',
-            ],
-            summary: 'Dominating men\'s casual wear on Myntra with phenomenal growth. Reviews consistently highlight the price-to-design ratio. Repeat purchase behavior is extremely strong — many customers buy 5+ items per order.',
-        },
-    },
-    beminimalist: {
-        amazon: {
-            topLikes: [
-                'Transparent ingredient lists — you know exactly what you\'re getting',
-                'Salicylic acid serum cleared acne in weeks',
-                'Affordable compared to The Ordinary (imported)',
-                'Scientific approach to skincare is refreshing',
-                'Retinol serum shows visible results within a month',
-            ],
-            topDislikes: [
-                'Some products cause initial purging / irritation',
-                'Packaging leaks during transit occasionally',
-                'Vitamin C serum oxidizes quickly once opened',
-                'Results take time — not an overnight fix',
-            ],
-            summary: 'Be Minimalist has essentially become "The Ordinary of India." Science-backed, affordable, and transparent. The brand has a cult following among skincare enthusiasts. Niacinamide and Salicylic acid serums are hero products. Some users report initial adjustment period.',
-        },
-        myntra: {
-            topLikes: [
-                'Genuine alternative to expensive imported serums',
-                'Works well for Indian skin types',
-                'Great starter skincare brand',
-            ],
-            topDislikes: [
-                'Some products not always in stock',
-                'Need better guidance on product combinations',
-            ],
-            summary: 'Strong and growing presence on Myntra. Frequently appears in beauty bestseller lists. Dermatologist-recommended positioning is working well.',
-        },
-    },
-    slurrp: {
-        amazon: {
-            topLikes: [
-                'Kids actually love the taste — rare for healthy food',
-                'Ragi and millet-based snacks feel genuinely nutritious',
-                'No junk ingredients — parents trust the label',
-                'Dosa mix and pancake mix are breakfast lifesavers',
-                'Good variety of flavors for picky eaters',
-            ],
-            topDislikes: [
-                'Expensive for everyday snacking',
-                'Portion sizes are small for the price',
-                'Some cookies crumble too easily',
-                'Wish they had more savory options',
-            ],
-            summary: 'Slurrp Farm has won over health-conscious parents who struggle to find genuinely healthy kids\' snacks. The millet-based positioning is unique and resonates strongly. Price is the barrier to switching from regular snacks entirely, but repeat purchases are high.',
+            topLikes: ['Jackfruit meat texture is surprisingly close to real meat', 'Great taste in biryani and curry preparations', 'Clean label — no artificial preservatives', 'Innovative plant-based option for Indian cooking'],
+            topDislikes: ['Expensive for the quantity provided', 'Requires proper cooking — raw taste is bland', 'Limited availability and frequent stockouts', 'Packaging could be more eco-friendly'],
+            summary: 'Wakao has created genuine excitement in India\'s nascent plant-based meat space. The jackfruit meat is praised for its versatility in Indian recipes. Price and availability are the main barriers to repeat purchase.',
         },
         myntra: {
             topLikes: ['Not applicable — food brand'],
             topDislikes: ['Not applicable — food brand'],
-            summary: 'Slurrp Farm is a food brand, not available on Myntra. Sold on Amazon, BigBasket, and their own website.',
+            summary: 'Wakao Foods is a food brand, not available on Myntra.',
         },
     },
-    arata: {
+    bummer: {
         amazon: {
-            topLikes: [
-                'Truly plant-based — no hidden chemicals',
-                'Hair gel provides hold without stiffness',
-                'Shampoo leaves hair soft without residue',
-                'Eco-friendly packaging is a great touch',
-                'Gentle enough for color-treated hair',
-            ],
-            topDislikes: [
-                'Products are expensive for the quantity',
-                'Hair serum runs out very fast',
-                'Scent is too subtle for some users',
-                'Doesn\'t lather as much as chemical shampoos',
-            ],
-            summary: 'Arata has carved a niche as the premium plant-based personal care brand. Customers switching from chemical products report positive hair health changes. The no-lather concern is common but educated buyers understand and accept it.',
+            topLikes: ['Micro-modal fabric is incredibly soft and breathable', 'Fun quirky prints are a conversation starter', 'No-ride-up design works as advertised', 'Packaging is gift-worthy and fun'],
+            topDislikes: ['Premium pricing for innerwear category', 'Elastic waistband loosens after 15-20 washes', 'Limited size range for larger body types', 'Some prints fade slightly over time'],
+            summary: 'Bummer is disrupting the boring innerwear market with personality-driven designs. Micro-modal fabric quality is consistently praised. Price sensitivity is the main challenge in a category dominated by Rs 99 packs.',
         },
         myntra: {
-            topLikes: [
-                'Good discovery via Myntra beauty section',
-                'Clean beauty credentials are genuine',
-            ],
-            topDislikes: [
-                'Limited shade range for styling products',
-                'Price feels high for first-time buyers',
-            ],
-            summary: 'Growing discovery through Myntra\'s clean beauty curation. Appeals to the conscious consumer segment.',
+            topLikes: ['Trendy innerwear finally available on Myntra', 'Soft fabric stands out from regular brands', 'Great gifting option for friends'],
+            topDislikes: ['Expensive compared to Jockey/FCUK alternatives', 'Wish they had more solid color options'],
+            summary: 'Growing presence on Myntra. The fun-print positioning differentiates well. Young buyers love it as a gifting category.',
         },
     },
-    dailyobjects: {
+    flatheads: {
         amazon: {
-            topLikes: [
-                'Desk mats and laptop sleeves are beautifully designed',
-                'Phone cases are slim yet protective',
-                'Unique artist collaborations and designs',
-                'Great gifting option — premium packaging',
-            ],
-            topDislikes: [
-                'Pricing is steep for phone cases',
-                'Some designs fade with heavy use',
-                'Customer service could be more responsive',
-                'Laptop sleeves lack padding',
-            ],
-            summary: 'DailyObjects has positioned itself as the lifestyle accessories brand for design-conscious professionals. Desk accessories and tech cases are the strongest categories. The design variety is unmatched, but price-quality perception varies.',
+            topLikes: ['Bamboo fiber makes them incredibly lightweight', 'All-day comfort — feels like walking on clouds', 'Sustainable materials appeal to eco-conscious buyers', 'Minimalist design works for office and casual'],
+            topDislikes: ['Sole durability is questionable after 6 months', 'Limited style and color options', 'Price feels steep for an unknown brand', 'Break-in period of 3-4 days'],
+            summary: 'Flatheads has a small but devoted following among sustainable fashion enthusiasts. The bamboo/merino material is genuinely differentiated. Limited style range and brand awareness are growth barriers.',
         },
         myntra: {
-            topLikes: [
-                'Stylish bags and sleeves available',
-                'Great prints and patterns',
-            ],
-            topDislikes: [
-                'Limited product range compared to their website',
-                'Expensive for fashion accessories',
-            ],
-            summary: 'Select products available on Myntra, mainly bags and sleeves. Most customers prefer buying directly from DailyObjects website for full range.',
+            topLikes: ['Unique material story stands out', 'Comfortable for daily wear'],
+            topDislikes: ['Very few reviews — hard to trust', 'Not well-known yet'],
+            summary: 'Early Myntra presence. Needs more reviews and visibility to gain traction.',
         },
     },
-    letsdressup: {
+    phool: {
         amazon: {
-            topLikes: [
-                'Affordable ethnic wear that looks expensive',
-                'Lehengas and sarees perfect for wedding season',
-                'Color accuracy is good — matches photos well',
-                'Trendy Indo-western fusion pieces',
-            ],
-            topDislikes: [
-                'Fabric could be higher quality for some products',
-                'Blouse fitting is often off',
-                'Heavy work pieces are fragile',
-                'Limited exchange options',
-            ],
-            summary: 'Let\'s Dress Up is winning the affordable ethnic wear segment. Wedding and festive season drives massive sales spikes. Young women love the Instagram-worthy designs at accessible prices. Quality is acceptable for the price point.',
+            topLikes: ['Incense sticks smell divine — natural flower fragrance', 'Beautiful story of temple flower upcycling', 'Fleather (flower leather) products are innovative', 'Supporting women workers in Kanpur adds emotional value', 'Packaging is elegant and eco-friendly'],
+            topDislikes: ['Premium pricing compared to regular incense', 'Fragrance doesn\'t last as long as chemical incense', 'Limited product range beyond incense', 'Availability issues on Amazon'],
+            summary: 'Phool has created an entirely new category — upcycled temple flower products. The social impact story (women workers, river cleanup) drives strong emotional purchasing. Fleather is getting global attention as a vegan leather alternative.',
         },
         myntra: {
-            topLikes: [
-                'Festive collection is a standout',
-                'Great for college events and sangeets',
-                'Affordable compared to ethnic wear brands',
-            ],
-            topDislikes: [
-                'Some embellishments come loose',
-                'Need better size guides for lehengas',
-            ],
-            summary: 'Strong seasonal performer on Myntra. Especially popular during Diwali and wedding season. Price-to-design ratio is the key selling point.',
+            topLikes: ['Not applicable — home/lifestyle brand'],
+            topDislikes: ['Not applicable — home/lifestyle brand'],
+            summary: 'Phool is primarily sold on Amazon and their own website. Not a Myntra category.',
         },
     },
-    assemblyfootwear: {
+    sidsfarm: {
         amazon: {
-            topLikes: [
-                'Minimalist sneaker design is classy',
-                'Extremely comfortable for all-day wear',
-                'Quality leather at an accessible price point',
-                'Versatile — works with casuals and semi-formals',
-            ],
-            topDislikes: [
-                'Limited color and style options',
-                'Sole wears down faster than expected',
-                'Break-in period can be uncomfortable',
-                'Sizing runs slightly large',
-            ],
-            summary: 'Assembly is building a quiet following among men who want clean, minimalist sneakers. The leather quality surprises buyers at the price point. Small product range is both a limitation and a brand strength (focused curation).',
+            topLikes: ['Milk freshness is unmatched — delivered within hours of milking', 'Can taste the difference from packaged milk instantly', 'A2 cow milk option for health-conscious families', 'Subscription model ensures daily delivery reliability', 'Transparent sourcing from own farms'],
+            topDislikes: ['Only available in Hyderabad/Telangana region', 'Premium pricing vs Amul/Mother Dairy', 'Occasional delivery delays on holidays', 'Glass bottle return system can be inconvenient'],
+            summary: 'Sid\'s Farm has built cult-like loyalty in Hyderabad. Customers who switch from packaged milk rarely go back. The freshness and traceability narrative is extremely powerful. Geographic limitation is the main growth constraint.',
         },
         myntra: {
-            topLikes: [
-                'Clean aesthetic stands out among clutter',
-                'Good quality for the price segment',
-            ],
-            topDislikes: [
-                'Very few styles available',
-                'Not well-known yet — hard to find',
-            ],
-            summary: 'Early presence on Myntra. The minimalist positioning differentiates them from the crowded sneaker market, but awareness is still low.',
+            topLikes: ['Not applicable — dairy brand'],
+            topDislikes: ['Not applicable — dairy brand'],
+            summary: 'Sid\'s Farm is a dairy brand with direct delivery. Not available on Myntra.',
         },
     },
-    auric: {
+    koparo: {
         amazon: {
-            topLikes: [
-                'Ayurvedic beverages that actually taste good',
-                'Women\'s wellness drinks address real health gaps',
-                'Natural ingredients with no artificial sweeteners',
-                'Ready-to-drink format is super convenient',
-            ],
-            topDislikes: [
-                'Expensive for regular consumption',
-                'Taste can be too herbal for some',
-                'Results are gradual — not immediately noticeable',
-                'Glass bottles are heavy to carry',
-            ],
-            summary: 'Auric has found product-market fit in Ayurvedic wellness drinks for urban millennials. The ready-to-drink format solves the inconvenience problem of traditional Ayurveda. Women\'s health range is their fastest growing category.',
+            topLikes: ['Baby-safe and pet-safe cleaning products give peace of mind', 'Floor cleaner leaves no chemical residue', 'Pleasant natural fragrance without being overpowering', 'Effective cleaning despite being non-toxic'],
+            topDislikes: ['Costs 3-4x regular cleaning products', 'Needs more product to achieve same cleaning effect', 'Limited variants compared to Harpic/Lizol range', 'Some users feel it\'s not strong enough for tough stains'],
+            summary: 'Koparo is tapping into the growing paranoia about chemical cleaners, especially among new parents and pet owners. Product works well for daily cleaning but struggles with heavy-duty needs. The "safe for baby" messaging is their strongest hook.',
         },
         myntra: {
-            topLikes: ['Not applicable — beverage brand'],
-            topDislikes: ['Not applicable — beverage brand'],
-            summary: 'Auric is a beverage brand, not available on Myntra.',
+            topLikes: ['Not applicable — home cleaning brand'],
+            topDislikes: ['Not applicable — home cleaning brand'],
+            summary: 'Koparo is a home cleaning brand, not available on Myntra.',
         },
     },
-    kapiva: {
+    gynoveda: {
         amazon: {
-            topLikes: [
-                'Shilajit resin is potent and shows results in 2-3 weeks',
-                'Dia Free juice is popular among diabetic consumers',
-                'Genuine Ayurvedic formulations backed by research',
-                'Good variety of traditional health products modernized',
-                'Aloe Vera juice is a bestseller for digestion',
-            ],
-            topDislikes: [
-                'Some juices taste very bitter',
-                'Pricing has increased substantially',
-                'Packaging leaks during shipping occasionally',
-                'Need to take consistently for weeks to see results',
-            ],
-            summary: 'Kapiva is winning in the modern Ayurveda space with products that bridge traditional knowledge and contemporary formats. Shilajit and Dia Free are hero products. Trust factor is high due to ingredient transparency.',
+            topLikes: ['Period pain relief without painkillers is a game-changer', 'PCOD management shows visible results in 2-3 months', 'Ayurvedic approach feels safer than hormonal medication', 'Personalized treatment plans via their app', 'Strong community support from other women users'],
+            topDislikes: ['Results take 2-3 months of consistent use', 'Taste of some preparations is unpleasant', 'Expensive for long-term use', 'Not a substitute for medical diagnosis'],
+            summary: 'Gynoveda has found remarkable product-market fit in women\'s Ayurvedic health — a massively underserved segment. Community-driven testimonials are the primary growth driver. The period care + PCOS combination addresses two huge pain points.',
         },
         myntra: {
             topLikes: ['Not applicable — health/wellness brand'],
             topDislikes: ['Not applicable — health/wellness brand'],
-            summary: 'Kapiva is primarily available on Amazon, Flipkart, and their own website.',
+            summary: 'Gynoveda sells through Amazon and their own app/website.',
         },
     },
-    fablestreet: {
+    bareanatomy: {
         amazon: {
-            topLikes: [
-                'Work wear that flatters Indian women\'s body types',
-                'Fabric quality is excellent for the price',
-                'Size-inclusive range is appreciated',
-                'Wrinkle-resistant fabric perfect for office',
-            ],
-            topDislikes: [
-                'Limited casual wear — mostly formal/work',
-                'Some colors look different online vs in person',
-                'Wish they had more frequent new launches',
-                'Delivery time is longer than expected',
-            ],
-            summary: 'FableStreet has nailed workwear for Indian women — a massively underserved segment. The fit engineering for Indian body proportions is their moat. Customers who discover them become loyal repeat buyers.',
+            topLikes: ['Personalization quiz makes you feel the product is truly custom', 'Noticeable difference in hair texture within 3-4 weeks', 'Silicone-free and sulfate-free formulations', 'Premium feel — salon-like experience at home'],
+            topDislikes: ['Expensive for a shampoo/conditioner', 'Personalization feels more like marketing than science', 'Products run out fast for long hair', 'Limited offline availability to test before buying'],
+            summary: 'Bare Anatomy\'s personalization angle is clever and drives high first-purchase conversion. Repeat rates depend on actual results, which are generally positive. Skeptics question if the personalization is genuinely different across variants.',
         },
         myntra: {
-            topLikes: [
-                'Best work trousers for women on Myntra',
-                'Fits better than international brands for Indian sizes',
-                'Professional yet stylish designs',
-            ],
-            topDislikes: [
-                'Limited styles compared to their website',
-                'Premium pricing segment',
-            ],
-            summary: 'Growing steadily on Myntra in the women\'s workwear niche. Strong repeat purchase signals and high ratings.',
+            topLikes: ['Discovered through Myntra beauty section', 'Premium packaging stands out', 'Good for gifting'],
+            topDislikes: ['Price point is a barrier for trial', 'Unsure if personalization works via Myntra'],
+            summary: 'Growing on Myntra as a premium hair care option. The personalization story is harder to convey on marketplace vs own website.',
         },
     },
-    bluekaktus: {
+    tbof: {
         amazon: {
-            topLikes: [
-                'Coffee beans are incredibly fresh — roasted to order',
-                'Vienna roast is smooth with no bitterness',
-                'Subscription model ensures you never run out',
-                'Single-origin options for coffee enthusiasts',
-                'Pour-over packs are perfect for travel',
-            ],
-            topDislikes: [
-                'Expensive for daily consumption at ~Rs 800+/250g',
-                'Some blends are too acidic for Indian taste preferences',
-                'Delivery delays during festive seasons',
-                'Bag resealability could be improved',
-            ],
-            summary: 'Blue Tokai has created the specialty coffee category in India single-handedly. Coffee purists swear by the freshness and single-origin offerings. The brand is expanding cafes rapidly while maintaining online loyalty. Price is the main barrier to mass adoption.',
+            topLikes: ['A2 Bilona ghee is absolutely incredible — aroma and taste', 'Organic certification builds trust', 'Farm-to-table story resonates strongly', 'Multi-flora honey tastes distinctly different from commercial honey', 'Cold-pressed oils are noticeably fresher'],
+            topDislikes: ['Very premium pricing — ghee is Rs 2500+/litre', 'Small packaging sizes for the price', 'Limited product availability — frequent stockouts', 'Shipping can be slow for perishables'],
+            summary: 'Two Brothers has built a premium organic brand that commands loyalty through genuinely superior product quality. The farm story and founder narrative are compelling. Price is a real barrier — this is 3-5x regular grocery pricing.',
         },
         myntra: {
-            topLikes: ['Not applicable — food/beverage brand'],
-            topDislikes: ['Not applicable — food/beverage brand'],
-            summary: 'Blue Tokai is a coffee brand, not available on Myntra. Sold on Amazon, their website, and physical cafes.',
+            topLikes: ['Not applicable — organic food brand'],
+            topDislikes: ['Not applicable — organic food brand'],
+            summary: 'Two Brothers is an organic food brand. Not available on Myntra.',
         },
     },
-    conscent: {
+    ellementry: {
         amazon: {
-            topLikes: [
-                'Clean ingredient formulations that actually work',
-                'SPF moisturizers are lightweight and non-greasy',
-                'Vitamin C serum shows visible brightening',
-                'Affordable entry into clean beauty',
-            ],
-            topDislikes: [
-                'Brand awareness is still very low',
-                'Some products have short shelf life',
-                'Limited shade range for tinted products',
-                'Packaging feels basic for a premium positioning',
-            ],
-            summary: 'Conscious Chemist is an emerging clean beauty brand gaining traction among ingredient-conscious consumers. Products deliver results but the brand needs more awareness. Early adopters are very vocal advocates.',
+            topLikes: ['Ceramic and terracotta products are genuinely handcrafted', 'Each piece feels unique with artisan touches', 'Sustainable materials and minimal plastic packaging', 'Beautiful tableware that elevates everyday dining'],
+            topDislikes: ['Fragile products — breakage during delivery is common', 'Pricing is premium for everyday homeware', 'Limited replacement policy for damaged items', 'Styles may be too minimal for traditional Indian homes'],
+            summary: 'Ellementry targets the urban, design-conscious homeowner who values craft and sustainability. Product quality is excellent but the fragile nature and premium pricing limit mass appeal. Strong gifting potential.',
         },
         myntra: {
-            topLikes: [
-                'Discovered through Myntra beauty curation',
-                'Good for sensitive skin types',
-            ],
-            topDislikes: [
-                'Hard to find on the platform — needs better visibility',
-                'Limited reviews make it hard to trust initially',
-            ],
-            summary: 'Very early presence on Myntra. The clean beauty positioning aligns with Myntra\'s curation efforts but needs more critical mass of reviews.',
+            topLikes: ['Not applicable — homeware brand'],
+            topDislikes: ['Not applicable — homeware brand'],
+            summary: 'Ellementry is a homeware brand. Sold on their website and Amazon.',
+        },
+    },
+    cosmix: {
+        amazon: {
+            topLikes: ['Sleep blend actually works — noticeable difference in sleep quality', 'Tastes good mixed with milk — not bitter like most supplements', 'Clean ingredient list with no fillers', 'Beauty blend improved skin glow over 4-6 weeks'],
+            topDislikes: ['Expensive for a supplement powder', 'Jar runs out in 2-3 weeks with daily use', 'Effects are subtle and gradual', 'Limited scientific evidence for some adaptogen claims'],
+            summary: 'Cosmix is riding the adaptogen/superfood wave in India. The Sleep and Beauty blends are hero products with genuine repeat customers. Taste is a differentiator — they\'ve made health supplements enjoyable. Efficacy skepticism exists but testimonials are strong.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — supplement brand'],
+            topDislikes: ['Not applicable — supplement brand'],
+            summary: 'Cosmix is a wellness supplement brand. Not on Myntra.',
+        },
+    },
+    neemli: {
+        amazon: {
+            topLikes: ['Hyaluronic acid serum hydrates without feeling greasy', 'Clean formulations suitable for sensitive Indian skin', 'Affordable clean beauty compared to imports', 'Rosehip oil is excellent for acne scars'],
+            topDislikes: ['Brand awareness is very low — hard to trust initially', 'Some products have a short shelf life', 'Results take time compared to chemical actives', 'Packaging feels basic for the price'],
+            summary: 'Neemli Naturals fills a gap in affordable, clean active skincare. Products genuinely work but the brand lacks the marketing muscle of competitors like Be Minimalist. Early adopters become loyal advocates.',
+        },
+        myntra: {
+            topLikes: ['Good clean beauty option on Myntra', 'Suitable for sensitive skin types'],
+            topDislikes: ['Very few reviews — needs social proof', 'Hard to find on the platform'],
+            summary: 'Early presence on Myntra. The clean beauty angle aligns with Myntra\'s curation but needs more critical mass.',
+        },
+    },
+    samosaparty: {
+        amazon: {
+            topLikes: ['Frozen samosas taste freshly made — crispy and flavorful', 'Gourmet fillings like cheese-corn and paneer tikka are addictive', 'Perfect for unexpected guests — ready in 10 minutes', 'Consistent quality across orders', 'Great party snack without the prep work'],
+            topDislikes: ['Expensive for samosas — Rs 40-50 per piece', 'Only available in select cities', 'Some variants are too spicy', 'Packaging could keep them crispier during transit'],
+            summary: 'Samosa Party has turned a street food staple into a premium frozen brand. The convenience factor is massive for urban households. Gourmet variants differentiate from local frozen samosas. Price perception is the biggest challenge.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — food brand'],
+            topDislikes: ['Not applicable — food brand'],
+            summary: 'Samosa Party is a frozen food brand. Not on Myntra.',
+        },
+    },
+    earthrhythm: {
+        amazon: {
+            topLikes: ['Shampoo bars last 2-3x longer than liquid shampoo', 'Refillable containers reduce plastic waste meaningfully', 'Lip balms and sunscreen are genuinely effective', 'Brand walks the sustainability talk'],
+            topDislikes: ['Transition period from liquid to bar shampoo is rough', 'Some products dry out skin — not for everyone', 'Pricing is premium for conscious beauty', 'Refill system isn\'t available everywhere yet'],
+            summary: 'Earth Rhythm is for the committed sustainable beauty buyer. Shampoo bars are the hero product and gateway to the brand. The refillable model is genuinely innovative but requires behavior change from consumers.',
+        },
+        myntra: {
+            topLikes: ['Sustainable beauty option on Myntra', 'Shampoo bars are unique in the category'],
+            topDislikes: ['Very niche appeal', 'Limited reviews on platform'],
+            summary: 'Small but growing Myntra presence. Appeals to the eco-conscious beauty buyer.',
+        },
+    },
+    bombaysweets: {
+        amazon: {
+            topLikes: ['Mithai quality rivals the best halwais — artisanal perfection', 'Creative modern twists on classic Indian sweets', 'Packaging is gorgeous — perfect for festive gifting', 'No artificial colors or preservatives'],
+            topDislikes: ['Extremely expensive — Rs 500+ for a small box', 'Short shelf life due to no preservatives', 'Limited availability outside Mumbai/metros', 'Delivery packaging needs improvement for delicate sweets'],
+            summary: 'Bombay Sweet Shop has elevated Indian mithai to a premium gifting category. Quality is exceptional and the modern twist on traditional sweets resonates with urban millennials. Price makes it a special-occasion purchase, not daily indulgence.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — food/sweets brand'],
+            topDislikes: ['Not applicable — food/sweets brand'],
+            summary: 'Bombay Sweet Shop is a confectionery brand. Not on Myntra.',
+        },
+    },
+    staccato: {
+        amazon: {
+            topLikes: ['Micro-lot coffee beans are incredibly flavorful', 'Roast-to-order freshness is noticeable', 'Founder\'s passion for coffee comes through in quality', 'Tasting notes are accurate and helpful'],
+            topDislikes: ['Very small brand — limited availability', 'Premium pricing even among specialty coffee', 'No cafe experience to try before buying', 'Delivery times can be unpredictable'],
+            summary: 'Staccato is a purist\'s coffee brand. Ultra-small batch, roast-to-order model delivers exceptional quality. The challenge is scaling without compromising the artisan positioning.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — coffee brand'],
+            topDislikes: ['Not applicable — coffee brand'],
+            summary: 'Staccato is a specialty coffee brand. Not on Myntra.',
         },
     },
 };
 
+const EC_AMAZON_BASE = { wakao: 280, bummer: 650, flatheads: 320, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, ellementry: 350, cosmix: 420, neemli: 280, samosaparty: 900, earthrhythm: 380, bombaysweets: 450, staccato: 180 };
 COMPANIES.forEach(c => {
-    const amazonBase = c.id === 'snitch' ? 2800 :
-                       c.id === 'beminimalist' ? 2200 :
-                       c.id === 'kapiva' ? 1800 :
-                       c.id === 'bluekaktus' ? 1200 :
-                       c.id === 'dailyobjects' ? 900 :
-                       c.id === 'anveshan' ? 850 :
-                       c.id === 'slurrp' ? 700 :
-                       c.id === 'perfora' ? 600 :
-                       c.id === 'thepantproject' ? 400 :
-                       c.id === 'littlebox' ? 350 :
-                       150 + Math.random() * 500;
-    const myntraBase = c.sector === 'fashion' ? 500 + Math.random() * 1200 :
-                       c.sector === 'beauty' ? 300 + Math.random() * 800 : 50 + Math.random() * 200;
-
+    const amazonBase = EC_AMAZON_BASE[c.id] || 250;
+    const myntraBase = c.sector === 'fashion' ? 300 + Math.random() * 800 :
+                       c.sector === 'beauty' ? 200 + Math.random() * 600 : 30 + Math.random() * 150;
     ECOMMERCE_DATA[c.id] = {
         amazon: {
             totalReviews: Math.round(amazonBase * 6),
@@ -827,56 +437,38 @@ COMPANIES.forEach(c => {
 
 const REVIEW_KEYWORDS = {
     positive: [
-        { text: 'great quality', size: 22, color: '#10b981' },
-        { text: 'value for money', size: 20, color: '#10b981' },
-        { text: 'clean ingredients', size: 19, color: '#10b981' },
-        { text: 'perfect fit', size: 18, color: '#10b981' },
-        { text: 'premium feel', size: 17, color: '#10b981' },
-        { text: 'love the taste', size: 16, color: '#10b981' },
-        { text: 'highly recommend', size: 19, color: '#10b981' },
+        { text: 'natural ingredients', size: 22, color: '#10b981' },
+        { text: 'sustainable packaging', size: 20, color: '#10b981' },
+        { text: 'genuinely effective', size: 19, color: '#10b981' },
+        { text: 'farm fresh quality', size: 18, color: '#10b981' },
+        { text: 'innovative product', size: 17, color: '#10b981' },
+        { text: 'great for gifting', size: 16, color: '#10b981' },
+        { text: 'supports local artisans', size: 19, color: '#10b981' },
         { text: 'visible results', size: 17, color: '#10b981' },
-        { text: 'farm fresh', size: 16, color: '#10b981' },
-        { text: 'supports farmers', size: 15, color: '#10b981' },
+        { text: 'unique in market', size: 16, color: '#10b981' },
+        { text: 'clean label', size: 15, color: '#10b981' },
     ],
     negative: [
-        { text: 'overpriced', size: 16, color: '#ef4444' },
-        { text: 'sizing issues', size: 15, color: '#ef4444' },
-        { text: 'slow delivery', size: 14, color: '#ef4444' },
-        { text: 'quality inconsistent', size: 13, color: '#ef4444' },
-        { text: 'out of stock often', size: 12, color: '#ef4444' },
+        { text: 'premium pricing', size: 16, color: '#ef4444' },
+        { text: 'limited availability', size: 15, color: '#ef4444' },
+        { text: 'slow results', size: 14, color: '#ef4444' },
+        { text: 'needs more variants', size: 13, color: '#ef4444' },
+        { text: 'fragile in transit', size: 12, color: '#ef4444' },
     ],
     neutral: [
-        { text: 'decent product', size: 13, color: '#6b7280' },
-        { text: 'average packaging', size: 12, color: '#6b7280' },
-        { text: 'takes time to show results', size: 11, color: '#6b7280' },
+        { text: 'niche product', size: 13, color: '#6b7280' },
+        { text: 'acquired taste', size: 12, color: '#6b7280' },
+        { text: 'gradual improvement', size: 11, color: '#6b7280' },
     ],
 };
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
+const TR_BASE = { wakao: 45000, bummer: 180000, flatheads: 85000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000 };
+const TR_GROWTH = { wakao: 0.90, bummer: 0.75, flatheads: 0.50, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42 };
 COMPANIES.forEach(c => {
-    const base = c.id === 'snitch' ? 1800000 :
-                 c.id === 'beminimalist' ? 1200000 :
-                 c.id === 'bluekaktus' ? 950000 :
-                 c.id === 'kapiva' ? 680000 :
-                 c.id === 'dailyobjects' ? 520000 :
-                 c.id === 'thepantproject' ? 180000 :
-                 c.id === 'anveshan' ? 250000 :
-                 c.id === 'littlebox' ? 140000 :
-                 c.id === 'perfora' ? 220000 :
-                 c.id === 'slurrp' ? 310000 :
-                 c.id === 'letsdressup' ? 160000 :
-                 c.id === 'fablestreet' ? 190000 :
-                 60000 + Math.random() * 200000;
-    const growth = c.id === 'snitch' ? 0.9 :
-                   c.id === 'thepantproject' ? 0.85 :
-                   c.id === 'perfora' ? 0.8 :
-                   c.id === 'littlebox' ? 0.75 :
-                   c.id === 'anveshan' ? 0.7 :
-                   c.id === 'beminimalist' ? 0.55 :
-                   c.id === 'letsdressup' ? 0.65 :
-                   0.1 + Math.random() * 0.4;
-
+    const base = TR_BASE[c.id] || 60000;
+    const growth = TR_GROWTH[c.id] || 0.3;
     TRAFFIC_DATA[c.id] = {
         monthlyVisits: generateTimeSeries(12, base, growth, 0.2),
         bounceRate: Math.round(28 + Math.random() * 20),
@@ -899,685 +491,641 @@ COMPANIES.forEach(c => {
         );
     }
 });
-
 // --- Social Commentary Summaries (Reddit / Instagram / LinkedIn per company) ---
 const SOCIAL_SUMMARIES = {
-    thepantproject: {
+    wakao: {
         reddit: {
-            summary: 'Reddit users are overwhelmingly positive about The Pant Project\'s custom-fit model. r/IndianFashionAddicts has multiple viral threads recommending the brand. Discussion has evolved from "is this legit?" to "which fabric should I pick next?"',
-            topLikes: ['Custom fit accuracy is praised repeatedly', 'Price-to-quality ratio vs local tailors', 'Easy online measurement process', 'Good fabric variety for work and casual'],
-            topDislikes: ['Delivery time (10-14 days) frustrates impatient buyers', 'Limited women\'s range mentioned often', 'Return process for fit issues is clunky'],
+            summary: 'Wakao Foods appears in r/IndianFood and r/PlantBasedDiet threads as India\'s answer to Beyond Meat. Users share recipe experiments with jackfruit meat. The Shark Tank appearance drove a spike in curiosity posts.',
+            topLikes: ['Jackfruit meat works brilliantly in biryani and curry', 'Finally a plant-based option designed for Indian cooking', 'Clean label with no weird additives', 'Shark Tank validation adds credibility'],
+            topDislikes: ['Premium pricing limits regular use', 'Requires proper seasoning — bland on its own', 'Availability is patchy across cities', 'Texture not convincing for hardcore meat lovers'],
         },
         instagram: {
-            summary: 'Instagram presence is growing rapidly via influencer try-on reels. Most engagement comes from "before/after" fit comparison content. The brand\'s own content is polished but user-generated content drives more engagement.',
-            topLikes: ['Fit transformation content goes viral', 'Office wear styling posts get high saves', 'Clean product photography appreciated'],
-            topDislikes: ['Limited influencer diversity (mostly metro males)', 'Wish they showcased more casual fits', 'Ads can feel repetitive'],
+            summary: 'Instagram presence growing via food blogger collaborations. Recipe reels featuring Wakao in Indian dishes perform well. The "plant-based biryani" content goes viral periodically.',
+            topLikes: ['Recipe content is creative and shareable', 'Plant-based Indian food narrative resonates', 'Founder story is compelling'],
+            topDislikes: ['Low follower count limits organic reach', 'Need more relatable everyday cooking content', 'Product photography could be more appetizing'],
         },
         linkedin: {
-            summary: 'LinkedIn buzz focuses on The Pant Project\'s D2C model and Shark Tank appearance. Founders are active posters sharing growth metrics. The brand is frequently cited in "India\'s next D2C success" threads by VCs and startup enthusiasts.',
-            topLikes: ['Founder transparency about growth numbers', 'D2C customization model seen as innovative', 'Shark Tank story generates engagement', 'Frequently cited in startup ecosystem posts'],
-            topDislikes: ['Some skepticism about scalability of custom model', 'Questions about unit economics at scale'],
+            summary: 'Wakao founders are active on LinkedIn sharing the plant-based meat opportunity in India. Posts about Shark Tank journey and food-tech innovation get engagement from VC and food industry circles.',
+            topLikes: ['Plant-based meat market in India narrative', 'Shark Tank journey storytelling', 'Sustainability + food-tech positioning'],
+            topDislikes: ['Niche audience on LinkedIn', 'Limited business metrics shared'],
         },
     },
-    littlebox: {
+    phool: {
         reddit: {
-            summary: 'LittleBox has a dedicated fan base on r/IndianFashionAddicts. Users frequently post haul reviews with photos. The brand is recommended in almost every "affordable trendy wear" thread. Quality debates are common but most conclude the value is worth it.',
-            topLikes: ['Best affordable co-ord sets in India', 'Trend-forward designs praised', 'Packaging feels premium for the price', 'New drops create genuine excitement'],
-            topDislikes: ['Sizing inconsistency is the #1 complaint', 'Fabric quality varies between collections', 'Plus-size options are severely limited'],
+            summary: 'Phool\'s story of upcycling temple flowers into incense and vegan leather (Fleather) is one of the most-shared Indian startup stories on Reddit. r/ZeroWaste and r/Sustainability threads feature them regularly. The social impact angle drives emotional engagement.',
+            topLikes: ['Temple flower upcycling is a genuinely novel concept', 'Fleather vegan leather getting international attention', 'Women empowerment story resonates deeply', 'Incense quality rivals premium Japanese brands'],
+            topDislikes: ['Limited product range — mostly incense', 'Fleather products not yet widely available', 'Premium pricing for incense category'],
         },
         instagram: {
-            summary: 'LittleBox is essentially an Instagram-first brand. Their content strategy drives massive organic reach through reels and user tagging. The aesthetic is aspirational yet affordable, which resonates strongly with 18-25 demographic.',
-            topLikes: ['Outfit-of-the-day content is highly shareable', 'Affordable luxury aesthetic', 'Quick to adopt trending styles', 'Strong community of brand advocates'],
-            topDislikes: ['Product sometimes looks different in person vs Insta', 'Limited content showing diverse body types', 'Over-reliance on trendy filters in photos'],
+            summary: 'Phool\'s Instagram is a masterclass in purpose-driven content. Temple flower collection, women workers\' stories, and river cleanup impact drive exceptional engagement. The visual storytelling is powerful.',
+            topLikes: ['Impact storytelling is world-class', 'Visual content of flower collection is beautiful', 'Women workers\' stories humanize the brand', 'Fleather product reveals generate excitement'],
+            topDislikes: ['Content can feel repetitive with same narrative', 'Need more product-focused content', 'Limited engagement beyond impact audience'],
         },
         linkedin: {
-            summary: 'Minimal LinkedIn presence. Occasional mentions in D2C fashion roundups. The founder has started sharing growth insights recently, generating interest from early-stage investors.',
-            topLikes: ['Gen-Z fashion market insights shared by team', 'Growing interest from fashion-tech VCs'],
-            topDislikes: ['Very low posting frequency', 'Brand story not well articulated on LinkedIn'],
+            summary: 'Phool is a LinkedIn darling — the social enterprise narrative, IIT founder, Shark Tank success, and circular economy model generate massive engagement. Featured in multiple international publications, boosting LinkedIn discussion.',
+            topLikes: ['Circular economy model cited as exemplary', 'Founder\'s IIT-to-social-enterprise journey inspires', 'International media coverage adds prestige', 'Sustainability + profitability narrative'],
+            topDislikes: ['Risk of being seen as more story than scale', 'Limited financial transparency in posts'],
         },
     },
-    anveshan: {
+    sidsfarm: {
         reddit: {
-            summary: 'Anveshan has strong advocacy on r/india and r/indiashopping. The Shark Tank appearance drove a massive spike in discussions. QR-code traceability is frequently cited as the key differentiator. Price debates are common but advocates defend the premium.',
-            topLikes: ['QR code farm traceability is a trust game-changer', 'Ghee and honey quality consistently praised', 'Shark Tank story adds credibility', 'Supporting farmers resonates emotionally'],
-            topDislikes: ['Price premium is 2-3x regular brands', 'Limited product range beyond ghee/honey/oils', 'Some users question if premium is justified'],
+            summary: 'Sid\'s Farm has passionate advocates on r/Hyderabad and r/india. The "you can taste the difference" testimonials are common. Discussions often compare it to childhood milk quality. The subscription model is praised for convenience.',
+            topLikes: ['Freshness is incomparable to packaged milk', 'A2 cow milk option for health benefits', 'Subscription ensures daily doorstep delivery', 'Transparent sourcing from own farms'],
+            topDislikes: ['Only available in Hyderabad — when will it expand?', 'Premium pricing vs regular dairy', 'Occasional delivery misses on holidays', 'Limited product range beyond milk'],
         },
         instagram: {
-            summary: 'Anveshan\'s Instagram focuses on farm stories and ingredient sourcing journeys. Recipe content featuring their products performs exceptionally well. The emotional "farm to fork" narrative drives strong engagement.',
-            topLikes: ['Farm-to-fork storytelling is compelling', 'Recipe reels using their products are popular', 'Transparent sourcing content builds trust', 'Community of health-conscious food lovers'],
-            topDislikes: ['Content can feel repetitive (same farm narrative)', 'Limited engagement with urban cooking trends', 'Need more diverse recipe creators'],
+            summary: 'Instagram content focuses on farm life, cow care, and fresh milk journey. Videos of milking process and farm operations build transparency. Local Hyderabad food bloggers are strong advocates.',
+            topLikes: ['Farm transparency content builds trust', 'Cow care videos resonate with animal lovers', 'Local influencer advocacy is authentic', 'Fresh milk journey content is compelling'],
+            topDislikes: ['Geographically limited appeal', 'Content variety is narrow', 'Need more recipe/usage content'],
         },
         linkedin: {
-            summary: 'Very active on LinkedIn. Founders regularly post about rural supply chain innovation, farmer impact stories, and growth milestones. The brand is positioned as a social enterprise success story, attracting impact investor attention.',
-            topLikes: ['Rural economy impact stories resonate strongly', 'Supply chain transparency narrative', 'Regular fundraise and growth updates', 'Positioned at intersection of D2C + social impact'],
-            topDislikes: ['Some view it as too much self-promotion', 'Limited technical detail on supply chain innovation'],
+            summary: 'Founder Kishore Indukuri\'s LinkedIn posts about leaving IT for dairy farming are inspirational content gold. The D2C dairy model is discussed as an innovative disruption of the dairy supply chain.',
+            topLikes: ['IT-to-dairy founder story is inspiring', 'D2C dairy supply chain innovation', 'Growth metrics from a single city are impressive', 'Unit economics discussion interests investors'],
+            topDislikes: ['Geographic limitation raises scalability questions', 'Limited operational scale insights'],
         },
     },
-    perfora: {
+    gynoveda: {
         reddit: {
-            summary: 'Perfora has cultivated a niche but passionate community on r/IndianSkincareAddicts (which also covers oral care). The electric toothbrush is frequently compared to Oral-B favorably. Users appreciate the science-first approach.',
-            topLikes: ['Electric toothbrush rivals international brands', 'Clean ingredients approach for oral care', 'Probiotic mouthwash is highly recommended', 'Dentists in the community validate the products'],
-            topDislikes: ['Replacement brush heads availability is poor', 'Premium pricing vs Colgate/Sensodyne', 'Battery life could be better on electric brush'],
+            summary: 'Gynoveda has a strong presence in women\'s health discussions on Reddit. Personal testimonials about period pain relief and PCOD management are common. The community-driven approach creates organic advocacy.',
+            topLikes: ['Period pain relief without chemicals is life-changing', 'PCOD management results with consistent use', 'Community of women sharing experiences', 'Ayurvedic approach feels safer than hormones'],
+            topDislikes: ['Results require 2-3 months of patience', 'Not a substitute for medical advice', 'Taste of some formulations is poor', 'Expensive for long-term use'],
         },
         instagram: {
-            summary: 'Perfora\'s Instagram is highly polished with an emphasis on "oral care as self-care" positioning. Dentist collaboration content performs well. The brand aesthetic is premium and clean, differentiating from typical FMCG brands.',
-            topLikes: ['Premium brand aesthetic stands out', 'Dentist-backed content builds credibility', 'Product design is Instagram-worthy', 'Educational oral care content is valued'],
-            topDislikes: ['Content feels too premium/aspirational for mass market', 'Limited user-generated content', 'Could do more relatable content'],
+            summary: 'Gynoveda\'s Instagram is a safe space for women\'s health discussions. Taboo-breaking content about periods and PCOD drives high engagement. Testimonial reels from real users are their strongest content format.',
+            topLikes: ['Breaking taboos around period health', 'Real user testimonials are powerful', 'Supportive community vibe', 'Educational content about women\'s health'],
+            topDislikes: ['Content can be overly emotional', 'Need more scientific backing in posts', 'Limited diversity in testimonials'],
         },
         linkedin: {
-            summary: 'Perfora founders are active LinkedIn voices in the D2C health-tech space. Posts about disrupting oral care in India get significant engagement. The brand is seen as an example of premiumization in everyday FMCG categories.',
-            topLikes: ['Thought leadership on FMCG disruption', 'Category creation narrative resonates', 'Investor community shows strong interest', 'Product innovation stories are well-received'],
-            topDislikes: ['Niche category limits broad LinkedIn appeal', 'Need more customer success stories'],
+            summary: 'Gynoveda is discussed as a case study in building a community-first D2C brand. The women\'s health market opportunity in India is a recurring LinkedIn topic that references them.',
+            topLikes: ['Community-first brand building model', 'Women\'s health market opportunity discussion', 'Shark Tank appearance adds credibility'],
+            topDislikes: ['Limited thought leadership beyond brand story', 'Need more data-driven content'],
         },
     },
-    snitch: {
+    samosaparty: {
         reddit: {
-            summary: 'Snitch dominates men\'s fashion discussions on Reddit India. Threads asking "best affordable men\'s brand" almost always have Snitch as the top answer. Quality perception has improved dramatically over the past year.',
-            topLikes: ['Unbeatable price-to-design ratio', 'Fit designed for Indian body types', 'Massive variety of printed shirts', 'Consistently recommended by community'],
-            topDislikes: ['Pilling after multiple washes', 'Color fading in darker fabrics', 'Customer service responsiveness', 'Some items feel like fast-fashion quality'],
+            summary: 'Samosa Party generates enthusiastic discussion on r/bangalore and r/IndianFood. The gourmet frozen samosa concept delights Reddit foodies. Taste comparisons with local street food are common and mostly favorable.',
+            topLikes: ['Frozen samosas that taste freshly made', 'Gourmet variants are creative and delicious', 'Perfect for lazy weekends and unexpected guests', 'Consistent quality across orders'],
+            topDislikes: ['Price is steep — Rs 40-50 per samosa', 'Limited city availability frustrates users', 'Some variants too experimental for purists', 'Street food should not be premium-priced debate'],
         },
         instagram: {
-            summary: 'Snitch has one of the strongest Instagram presences among Indian D2C menswear brands. Influencer partnerships drive viral content regularly. The brand\'s content strategy combines lifestyle aspirational posts with product drops.',
-            topLikes: ['Massive influencer network creates buzz', 'New collection drops generate excitement', 'Styling content is highly engaging', 'Brand personality is relatable for young men'],
-            topDislikes: ['Over-saturation of sponsored content', 'Some influencer reviews feel inauthentic', 'Need more size-inclusive content'],
+            summary: 'Instagram is Samosa Party\'s strongest channel. Food reels showing crispy golden samosas get massive engagement. User unboxing and taste-test content drives organic growth. Festival and party-themed content performs well.',
+            topLikes: ['Food photography is incredibly appetizing', 'Unboxing reels go viral regularly', 'Party hosting content is relatable', 'New flavor launches create buzz'],
+            topDislikes: ['Content is very product-focused', 'Limited brand story beyond food', 'Could do more recipe/pairing content'],
         },
         linkedin: {
-            summary: 'Snitch is frequently featured in D2C success story threads on LinkedIn. The rapid scaling from zero to multi-crore revenue is a popular case study. Founder interviews and fundraise announcements get high engagement.',
-            topLikes: ['Growth story from bootstrap to scale is inspiring', 'Frequently cited in D2C fashion case studies', 'Supply chain and ops insights shared', 'Strong employer brand building'],
-            topDislikes: ['Limited deep-dive content on unit economics', 'LinkedIn presence is more PR than substance'],
+            summary: 'Samosa Party is cited in food-tech and D2C discussions on LinkedIn. The frozen snack market opportunity in India and cloud kitchen model are popular discussion topics.',
+            topLikes: ['Frozen food market in India growing rapidly', 'Unique brand positioning in commoditized category', 'Growth from Bangalore to multiple cities'],
+            topDislikes: ['Limited founder presence on LinkedIn', 'Need more operational insight content'],
         },
     },
-    beminimalist: {
+    bummer: {
         reddit: {
-            summary: 'Be Minimalist is essentially the go-to recommendation on r/IndianSkincareAddicts. Almost every "beginner routine" thread features the brand. Detailed ingredient breakdowns by community members serve as free marketing.',
-            topLikes: ['Transparent ingredient lists at unbeatable prices', 'Serums genuinely comparable to The Ordinary', 'Science-backed formulations appreciated', 'Community has created detailed usage guides'],
-            topDislikes: ['Initial purging scares new users', 'Vitamin C serum oxidation complaints', 'Packaging could be more premium', 'Some products feel like reformulations, not innovation'],
+            summary: 'Bummer appears in men\'s fashion and innerwear discussions. Users love the fun prints and micro-modal comfort. The brand is recommended in "upgrade your basics" threads. Quality debates are minor — most agree it\'s worth the premium.',
+            topLikes: ['Micro-modal fabric is genuinely superior', 'Fun prints make innerwear exciting', 'No-ride-up design actually works', 'Great packaging for gifting'],
+            topDislikes: ['Premium pricing vs regular innerwear', 'Elastic could last longer', 'Limited size range for larger bodies', 'Need more solid/minimal options'],
         },
         instagram: {
-            summary: 'Be Minimalist\'s Instagram is educational and product-focused. Before/after skin transformation content drives massive engagement. Dermatologist collaborations lend authority. The brand\'s visual identity is clean and scientific.',
-            topLikes: ['Before/after transformations go viral', 'Ingredient education content is valued', 'Dermat collaborations build trust', 'Affordable luxury positioning works'],
-            topDislikes: ['Too much focus on actives, not routines', 'Content can feel clinical/cold', 'Limited diversity in skin types shown'],
+            summary: 'Bummer\'s Instagram is bold, colorful, and cheeky. The fun-print innerwear content stands out in feeds. Unboxing and gifting content performs well. The brand tone is playful, targeting 20-35 year olds.',
+            topLikes: ['Bold visual identity stands out', 'Print design creativity', 'Gifting-focused content works well', 'Playful brand tone resonates with millennials'],
+            topDislikes: ['Content can feel repetitive — always about prints', 'Limited lifestyle context', 'Need more body-positive messaging'],
         },
         linkedin: {
-            summary: 'Be Minimalist is a darling of the Indian D2C LinkedIn ecosystem. The brand\'s transparent approach to formulations and pricing is frequently praised. VCs and D2C operators regularly cite them as a category leader.',
-            topLikes: ['Transparency-first approach praised by industry', 'Growth trajectory impresses investors', 'Positioned as India\'s answer to The Ordinary', 'Team hiring posts show rapid scaling'],
-            topDislikes: ['Discussion mostly from outsiders, not the brand itself', 'Limited thought leadership content from founders'],
+            summary: 'Occasional mentions in D2C fashion innovation threads. The innerwear market disruption narrative generates some interest among consumer brand investors.',
+            topLikes: ['Innerwear market disruption angle', 'Brand differentiation through design'],
+            topDislikes: ['Very limited LinkedIn presence', 'Category may seem niche for LinkedIn audience'],
         },
     },
-    slurrp: {
+    tbof: {
         reddit: {
-            summary: 'Slurrp Farm has a dedicated parent community on Reddit. Discussions focus on genuine nutritional value vs marketing claims. Most parents report positive experiences and cite it as the only "healthy snack my kid actually eats."',
-            topLikes: ['Kids genuinely enjoy the taste', 'No junk ingredients — parents trust the label', 'Millet/ragi positioning is unique', 'Good variety for picky eaters'],
-            topDislikes: ['Expensive for everyday snacking', 'Small portion sizes for the price', 'Some cookies crumble easily', 'Limited savory options'],
+            summary: 'Two Brothers has passionate advocates on r/india and r/organicfarming. The A2 Bilona ghee is frequently recommended as "the best ghee in India." Price debates are heated but loyalists defend the premium.',
+            topLikes: ['Ghee quality is unmatched — genuinely artisanal', 'Farm transparency and organic certification', 'Founder brothers\' story is authentic', 'Products taste noticeably different from mass brands'],
+            topDislikes: ['Pricing is prohibitively expensive for most', 'Frequent stockouts frustrate loyal customers', 'Limited product range beyond ghee/honey/oils', 'Shipping costs add to already premium prices'],
         },
         instagram: {
-            summary: 'Slurrp Farm\'s Instagram is a mix of parenting tips and product showcases. Mom influencer collaborations are the primary driver. The brand has strong engagement from the urban millennial parent demographic.',
-            topLikes: ['Parenting + nutrition content resonates', 'Kid taste-test reels are entertaining', 'Trusted by mom influencer community', 'Recipe ideas using their products'],
-            topDislikes: ['Content focused mainly on mothers, excludes fathers', 'Need more age-diverse content (older kids)', 'Some posts feel too promotional'],
+            summary: 'Instagram showcases farm life, traditional production methods, and the brothers\' journey. The authentic rural narrative appeals to urban conscious consumers. Recipe content using their products drives engagement.',
+            topLikes: ['Authentic farm-to-table storytelling', 'Traditional Bilona process videos fascinate', 'Brothers\' personal journey is compelling', 'Recipe content using premium ingredients'],
+            topDislikes: ['Content feels slow-paced for Instagram', 'Limited urban lifestyle integration', 'Need more quick recipe content'],
         },
         linkedin: {
-            summary: 'Active LinkedIn presence from founders sharing insights on healthy kids\' food market in India. The brand is positioned as a mission-driven company tackling childhood nutrition. Impact metrics and growth numbers are regularly shared.',
-            topLikes: ['Mission-driven narrative resonates strongly', 'Childhood nutrition market insights', 'Regular growth and impact updates', 'Strong employer brand in food-tech'],
-            topDislikes: ['Limited engagement beyond parenting/food circles', 'Need more supply chain and ops content'],
+            summary: 'The Two Brothers story is a LinkedIn favorite — urban professionals returning to farming. Posts about organic farming economics and rural entrepreneurship get strong engagement.',
+            topLikes: ['Corporate-to-farming narrative inspires', 'Organic market insights shared regularly', 'Rural entrepreneurship case study', 'Premium D2C food brand building story'],
+            topDislikes: ['Limited scale discussion', 'Pricing justification needs more transparency'],
         },
     },
-    arata: {
+    bareanatomy: {
         reddit: {
-            summary: 'Arata appears in clean beauty discussions on Reddit, particularly for hair care. Users switching from chemical products report gradual improvements. The no-lather shampoo requires education but converts become advocates.',
-            topLikes: ['Genuinely plant-based with no hidden chemicals', 'Hair gel provides hold without stiffness', 'Eco-friendly packaging is appreciated', 'Gentle on color-treated and sensitive scalps'],
-            topDislikes: ['Expensive for the quantity provided', 'Hair serum runs out very fast', 'Low-lather shampoo confuses new users', 'Results take weeks to become visible'],
+            summary: 'Bare Anatomy appears in hair care discussions on r/IndianSkincareAddicts. The personalization quiz is discussed — some find it genuinely helpful, others see it as marketing. Product results are generally positive.',
+            topLikes: ['Personalization makes the experience feel premium', 'Silicone-free formula improves hair over time', 'Good for different hair types based on quiz', 'Premium salon-like experience at home'],
+            topDislikes: ['Skepticism about how personalized it really is', 'Expensive for regular hair care', 'Products run out quickly', 'Limited transparency about formulation differences'],
         },
         instagram: {
-            summary: 'Arata\'s Instagram emphasizes the plant-based, eco-conscious lifestyle. Content is visually clean and green-themed. Engagement is moderate but the audience is highly targeted and loyal.',
-            topLikes: ['Eco-conscious brand values shine through', 'Clean product photography', 'Ingredient transparency in posts', 'Sustainability messaging is authentic'],
-            topDislikes: ['Limited reach beyond eco-conscious niche', 'Content feels too niche for mass appeal', 'Need more before/after content'],
+            summary: 'Instagram content combines hair care education with personalization messaging. Before/after hair transformation content drives engagement. The premium aesthetic appeals to urban millennials.',
+            topLikes: ['Hair transformation content is compelling', 'Premium brand aesthetic', 'Hair quiz promotion drives engagement', 'Educational hair care tips'],
+            topDislikes: ['Content is too polished — needs relatability', 'Limited diversity in hair types shown', 'Personalization story can feel gimmicky'],
         },
         linkedin: {
-            summary: 'Occasional presence on LinkedIn with sustainability and clean beauty narrative. The brand is cited in green business and sustainability discussions but has limited direct posting activity.',
-            topLikes: ['Sustainability narrative aligns with ESG trends', 'Clean beauty category insights'],
-            topDislikes: ['Very infrequent posting', 'Founders not very active on the platform'],
-        },
-    },
-    dailyobjects: {
-        reddit: {
-            summary: 'DailyObjects is well-known on Reddit for phone cases and desk accessories. Users praise the design variety but debate value-for-money. The artist collaboration collections generate the most discussion.',
-            topLikes: ['Unmatched design variety for tech accessories', 'Artist collaborations are unique', 'Great gifting option for design lovers', 'Desk mats and organizers are standout products'],
-            topDislikes: ['Phone cases are overpriced for what they are', 'Some designs fade with use', 'Laptop sleeves lack adequate padding', 'Customer service needs improvement'],
-        },
-        instagram: {
-            summary: 'DailyObjects has a strong visual Instagram presence with artist collaboration showcases. Product photography is excellent. The brand targets the design-conscious urban professional effectively.',
-            topLikes: ['Beautiful product photography', 'Artist collab announcements drive buzz', 'Desk setup inspiration content', 'Gift guide content around festivals'],
-            topDislikes: ['Content is too product-focused, lacks lifestyle context', 'Limited user-generated content', 'Pricing perception gap with younger audience'],
-        },
-        linkedin: {
-            summary: 'DailyObjects is discussed in design and lifestyle brand circles on LinkedIn. The founder occasionally shares insights on building a design-led brand in India. Artist collaboration model is cited as innovative.',
-            topLikes: ['Design-led D2C brand narrative', 'Artist economy and collaboration model', 'Product innovation stories'],
-            topDislikes: ['Inconsistent posting schedule', 'Limited industry thought leadership'],
-        },
-    },
-    letsdressup: {
-        reddit: {
-            summary: 'Let\'s Dress Up appears frequently in wedding and festive wear recommendation threads. Users are impressed by the price-to-look ratio. Quality debates exist but the consensus is "amazing for the price."',
-            topLikes: ['Incredible value for festive/wedding wear', 'Designs look expensive despite low prices', 'Good color accuracy from photos to product', 'Indo-western fusion pieces are unique'],
-            topDislikes: ['Blouse fitting is often problematic', 'Heavy embellishment pieces are fragile', 'Quality appropriate for 1-2 uses, not long-term', 'Returns/exchange policy is restrictive'],
-        },
-        instagram: {
-            summary: 'Let\'s Dress Up is an Instagram powerhouse for ethnic wear. Wedding and sangeet outfit content drives massive seasonal engagement. User tagging and resharing creates strong organic growth.',
-            topLikes: ['Wedding outfit content is hugely popular', 'Affordable ethnic wear positioning', 'Strong seasonal campaign execution', 'User-generated wedding content is beautiful'],
-            topDislikes: ['Content is highly seasonal — gaps between events', 'Limited styling for non-wedding occasions', 'Model diversity could improve'],
-        },
-        linkedin: {
-            summary: 'Limited LinkedIn presence. Occasionally mentioned in D2C fashion articles. The ethnic wear market opportunity in India is a topic that references the brand.',
-            topLikes: ['Ethnic wear market opportunity discussion', 'Affordable fashion democratization narrative'],
-            topDislikes: ['Almost no direct brand presence on LinkedIn', 'No founder thought leadership visible'],
-        },
-    },
-    assemblyfootwear: {
-        reddit: {
-            summary: 'Assembly has a small but dedicated following on Reddit among minimalist fashion enthusiasts. Quality leather at the price point is frequently praised. Comparisons to international brands like Common Projects are common.',
-            topLikes: ['Clean, minimalist sneaker design', 'Leather quality surprises at the price', 'Versatile styling — casual to semi-formal', 'Curated, focused product range'],
-            topDislikes: ['Very limited color/style options', 'Sole durability concerns after 6+ months', 'Break-in period is uncomfortable', 'Sizing runs slightly large'],
-        },
-        instagram: {
-            summary: 'Assembly\'s Instagram is clean and minimal, matching the brand aesthetic. The focused product range means content is repetitive but high-quality. The brand targets a niche but loyal audience.',
-            topLikes: ['Minimalist aesthetic is distinctive', 'High-quality product shots', 'Clean brand identity', 'Lifestyle content resonates with target audience'],
-            topDislikes: ['Content variety is limited due to small range', 'Low posting frequency', 'Needs more styling inspiration content'],
-        },
-        linkedin: {
-            summary: 'Very limited LinkedIn presence. The brand occasionally appears in discussions about niche D2C footwear brands in India.',
-            topLikes: ['Niche premium D2C positioning discussed'],
-            topDislikes: ['Almost no direct presence', 'Missing opportunity for founder storytelling'],
-        },
-    },
-    auric: {
-        reddit: {
-            summary: 'Auric appears in health and wellness discussions on Reddit. The Ayurvedic beverages are seen as a convenient bridge between traditional Ayurveda and modern lifestyles. Women\'s health range is the most discussed.',
-            topLikes: ['Ready-to-drink Ayurvedic format is innovative', 'Women\'s wellness drinks address real gaps', 'Natural ingredients, no artificial sweeteners', 'Convenient for busy urban lifestyles'],
-            topDislikes: ['Expensive for regular consumption', 'Herbal taste is off-putting for some', 'Effects are gradual, not immediately noticeable', 'Glass bottles are impractical to carry'],
-        },
-        instagram: {
-            summary: 'Auric\'s Instagram leans into wellness and self-care aesthetics. Women\'s health and beauty-from-within content performs best. The brand is building a community around Ayurvedic wellness for millennials.',
-            topLikes: ['Wellness aesthetic is on-trend', 'Women\'s health content resonates deeply', 'Celebrity endorsements add credibility', 'Self-care narrative is compelling'],
-            topDislikes: ['Content can feel too aspirational', 'Limited content about men\'s products', 'Need more scientific backing in posts'],
-        },
-        linkedin: {
-            summary: 'Auric founders are active on LinkedIn sharing insights on modernizing Ayurveda. The brand\'s positioning at the intersection of tradition and convenience generates discussion among health-tech and D2C circles.',
-            topLikes: ['Modernizing Ayurveda narrative', 'Women\'s health market insights', 'D2C wellness category thought leadership'],
-            topDislikes: ['Limited broad business audience appeal', 'Need more data-driven content'],
-        },
-    },
-    kapiva: {
-        reddit: {
-            summary: 'Kapiva is well-discussed on health and Ayurveda subreddits. Shilajit and Dia Free are the most mentioned products. Community trust is high due to ingredient transparency. Debates about Ayurveda efficacy are common.',
-            topLikes: ['Shilajit resin is consistently praised for energy', 'Dia Free juice popular among diabetic consumers', 'Genuine Ayurvedic formulations backed by research', 'Ingredient transparency builds trust'],
-            topDislikes: ['Some juices taste very bitter', 'Pricing has increased substantially over time', 'Need to take consistently for weeks to see results', 'Packaging leaks during shipping occasionally'],
-        },
-        instagram: {
-            summary: 'Kapiva\'s Instagram combines Ayurvedic education with product promotion. Health tips and traditional wellness content drive engagement. The brand effectively bridges traditional Ayurveda with modern presentation.',
-            topLikes: ['Ayurvedic health tips are highly valued', 'Product usage guides are helpful', 'Traditional wisdom, modern packaging', 'Strong community of repeat buyers'],
-            topDislikes: ['Content can feel repetitive', 'Limited youth-oriented content', 'Need more lifestyle integration content'],
-        },
-        linkedin: {
-            summary: 'Kapiva is well-positioned on LinkedIn as a modern Ayurveda success story. Fundraise announcements and growth metrics generate significant engagement. The brand is seen as a leader in the Ayurveda-tech space.',
-            topLikes: ['Growth story from niche to mainstream', 'Ayurveda market modernization leadership', 'Regular business milestone sharing', 'Impact on traditional medicine accessibility'],
-            topDislikes: ['Content sometimes too promotional', 'Limited supply chain or operational insights'],
-        },
-    },
-    fablestreet: {
-        reddit: {
-            summary: 'FableStreet is recommended in every "best workwear for Indian women" thread on Reddit. Users praise the fit engineering specifically designed for Indian body proportions. The brand has high loyalty among working professionals.',
-            topLikes: ['Workwear that actually fits Indian women', 'Fabric quality is excellent for the price', 'Size-inclusive range appreciated', 'Wrinkle-resistant fabric perfect for office'],
-            topDislikes: ['Very limited casual wear options', 'Color accuracy can be off sometimes', 'Infrequent new launches', 'Delivery time is longer than expected'],
-        },
-        instagram: {
-            summary: 'FableStreet\'s Instagram targets the working woman with polished professional styling content. The "real women at work" content performs better than studio shoots. The brand is building authority in women\'s workwear.',
-            topLikes: ['Professional styling inspiration', 'Real women featuring builds relatability', 'Work-to-evening outfit transitions', 'Inclusive sizing shown in content'],
-            topDislikes: ['Content is narrowly focused on workwear', 'Limited casual/weekend content', 'Need more video content'],
-        },
-        linkedin: {
-            summary: 'FableStreet has a natural LinkedIn advantage as a workwear brand. Posts about women in the workplace, professional dressing, and the gender gap in work fashion resonate strongly. The founder is an active LinkedIn voice.',
-            topLikes: ['Women\'s workwear gap narrative is powerful', 'Founder is a strong LinkedIn voice', 'Natural brand-LinkedIn audience fit', 'Customer stories from working professionals'],
-            topDislikes: ['Could share more on D2C operations', 'Limited scale/growth metrics shared'],
-        },
-    },
-    bluekaktus: {
-        reddit: {
-            summary: 'Blue Tokai is the undisputed king of specialty coffee discussions on Indian Reddit. Recommendations are passionate and detailed. Coffee enthusiasts debate roast profiles and origins extensively.',
-            topLikes: ['Freshest coffee beans available in India', 'Single-origin options for connoisseurs', 'Vienna roast is a community favorite', 'Subscription model is convenient', 'Cafe experience is excellent'],
-            topDislikes: ['Premium pricing at Rs 800+/250g', 'Some blends are too acidic for Indian palates', 'Bag resealability needs improvement', 'Delivery delays during festive seasons'],
-        },
-        instagram: {
-            summary: 'Blue Tokai\'s Instagram celebrates coffee culture with beautiful cafe shots, brewing guides, and origin stories. The aesthetic is premium and aspirational. Cafe expansion announcements generate the most engagement.',
-            topLikes: ['Beautiful coffee photography and cafe content', 'Brewing guide content is educational', 'Origin stories for each blend', 'Cafe opening announcements drive excitement'],
-            topDislikes: ['Content can feel exclusionary for casual coffee drinkers', 'Pricing discussion is avoided on Instagram', 'Need more accessible/beginner content'],
-        },
-        linkedin: {
-            summary: 'Blue Tokai is frequently discussed on LinkedIn as India\'s specialty coffee pioneer. Cafe expansion strategy, farmer partnerships, and the premiumization of coffee in India are popular discussion topics.',
-            topLikes: ['India coffee market growth narrative', 'Cafe expansion strategy insights', 'Farmer partnership stories', 'Premiumization trend leadership'],
-            topDislikes: ['Limited operational/financial depth in posts', 'Mostly external commentary, not brand-driven content'],
-        },
-    },
-    conscent: {
-        reddit: {
-            summary: 'Conscious Chemist is an emerging name on r/IndianSkincareAddicts. Early adopters are vocal advocates. The brand is in the "discovery phase" where a few passionate users are evangelizing to the broader community.',
-            topLikes: ['Clean ingredients that actually deliver results', 'SPF moisturizers are lightweight and effective', 'Affordable clean beauty entry point', 'Vitamin C serum shows visible brightening'],
-            topDislikes: ['Brand awareness is still very low', 'Limited product range', 'Packaging feels basic for premium positioning', 'Some products have short shelf life'],
-        },
-        instagram: {
-            summary: 'Conscious Chemist\'s Instagram is growing with clean beauty education content. The brand is investing in dermatologist collaborations and ingredient deep-dives. Engagement is small but the audience is highly targeted.',
-            topLikes: ['Ingredient education content', 'Dermatologist collaborations', 'Clean beauty positioning', 'Growing community of advocates'],
-            topDislikes: ['Low follower count limits reach', 'Need more user-generated content', 'Content production quality is inconsistent'],
-        },
-        linkedin: {
-            summary: 'Minimal LinkedIn presence. The clean beauty market in India is discussed by industry observers who occasionally reference the brand.',
-            topLikes: ['Clean beauty market opportunity discussion'],
-            topDislikes: ['Almost no direct brand presence', 'Missing founder storytelling opportunity'],
+            summary: 'Bare Anatomy discussed in personalization-as-D2C-strategy threads. The customized beauty products market is a growing LinkedIn topic.',
+            topLikes: ['Personalization trend in D2C beauty', 'Data-driven product customization narrative'],
+            topDislikes: ['Very limited brand presence on LinkedIn', 'Need more business metrics'],
         },
     },
 };
 
-// --- Sentiment Mood Timeline (12-month evolution for e-commerce and social) ---
+// Default social summary for brands without detailed entries
+const DEFAULT_SOCIAL_SUMMARY = {
+    reddit: { summary: 'Emerging presence on Reddit with growing discussions among early adopters.', topLikes: ['Innovative product concept', 'Good quality for the price'], topDislikes: ['Low brand awareness', 'Limited availability'] },
+    instagram: { summary: 'Building Instagram presence with product-focused content.', topLikes: ['Clean visual identity', 'Product quality visible in posts'], topDislikes: ['Low follower count', 'Need more engagement'] },
+    linkedin: { summary: 'Minimal LinkedIn presence. Occasionally mentioned in D2C ecosystem discussions.', topLikes: ['Innovative brand model'], topDislikes: ['Very limited presence'] },
+};
+
+// --- Sentiment Mood Timeline (12-month evolution) ---
 const MOOD_TIMELINE = {
-    thepantproject: {
+    wakao: {
         ecommerce: [
-            { quarter: 'Q1 2025', mood: 'cautious', score: 58, theme: 'Early adopters testing the custom model. Main concern: "Will the fit actually be accurate?" Delivery time complaints were high.' },
-            { quarter: 'Q2 2025', mood: 'improving', score: 66, theme: 'Word-of-mouth spreading. Fit accuracy praised more frequently. Delivery complaints persist but customers accept it as part of the custom process.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 74, theme: 'Post-Shark Tank surge. New buyers arrive with higher expectations. Fabric quality becomes the new praise point. Return policy improved per feedback.' },
-            { quarter: 'Q1 2026', mood: 'very positive', score: 82, theme: 'Delivery times reduced to 8-10 days. Repeat purchase rate very high. Community now recommends specific fabrics. Women\'s range launch drives new excitement.' },
+            { quarter: 'Q1 2025', mood: 'curious', score: 48, theme: 'Early buyers experimenting with jackfruit meat. Mixed reactions — some love it, others expected more meat-like texture. Recipe guidance was lacking.' },
+            { quarter: 'Q2 2025', mood: 'improving', score: 58, theme: 'Shark Tank appearance drove trial purchases. Brand added recipe cards and cooking tips. Biryani and curry use cases emerged as winners.' },
+            { quarter: 'Q3 2025', mood: 'positive', score: 68, theme: 'Repeat purchases growing. Community sharing recipes on social media. New marinaded variants launched. Quality consistency improved.' },
+            { quarter: 'Q1 2026', mood: 'enthusiastic', score: 76, theme: 'Word-of-mouth driving organic growth. Restaurant partnerships adding credibility. Being featured in "best plant-based" lists.' },
         ],
         social: [
-            { quarter: 'Q1 2025', mood: 'curious', score: 52, theme: 'Reddit: "Has anyone tried The Pant Project?" threads emerging. Instagram presence was minimal. LinkedIn: Shark Tank buzz beginning.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 63, theme: 'Reddit reviews becoming detailed with fit photos. Instagram influencer try-ons start. LinkedIn founders sharing early metrics.' },
-            { quarter: 'Q3 2025', mood: 'enthusiastic', score: 75, theme: 'Reddit: now a default recommendation in fashion threads. Instagram: haul videos trending. LinkedIn: featured in D2C roundups.' },
-            { quarter: 'Q1 2026', mood: 'advocating', score: 85, theme: 'All platforms showing organic advocacy. Reddit users create fabric guides. Instagram UGC overtaking paid content. LinkedIn: VC interest discussions.' },
+            { quarter: 'Q1 2025', mood: 'niche', score: 42, theme: 'Reddit: scattered mentions in plant-based threads. Instagram: minimal presence. Very niche audience.' },
+            { quarter: 'Q2 2025', mood: 'buzzing', score: 58, theme: 'Shark Tank drove social media spike. Food bloggers experimenting. Recipe content emerging.' },
+            { quarter: 'Q3 2025', mood: 'growing', score: 68, theme: 'Recipe videos going viral. Reddit recommendations becoming common. Instagram food community adopting.' },
+            { quarter: 'Q1 2026', mood: 'advocating', score: 78, theme: 'Organic advocacy growing. Community creating content. LinkedIn attention from food-tech investors.' },
         ],
     },
-    snitch: {
+    phool: {
         ecommerce: [
-            { quarter: 'Q1 2025', mood: 'mixed', score: 55, theme: 'Early quality concerns: pilling, color fading after washes. Designs were praised but durability questioned. "Great for the price but don\'t expect longevity."' },
-            { quarter: 'Q2 2025', mood: 'improving', score: 65, theme: 'Fabric quality visibly improved. Customers noticed the change. Repeat buyers increased. "They\'re actually listening to feedback" sentiment emerged.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 76, theme: 'Quality concerns significantly reduced. The brand established itself as the go-to men\'s casual wear. Price-to-design ratio became the dominant positive theme.' },
-            { quarter: 'Q1 2026', mood: 'very positive', score: 84, theme: 'Now the #1 recommended men\'s D2C brand across platforms. Quality is no longer a concern. Customers buying 5+ items per order. "Indian Zara" narrative solidified.' },
+            { quarter: 'Q1 2025', mood: 'intrigued', score: 55, theme: 'Buyers attracted by the temple flower upcycling story. Incense quality praised. Impact story drives first purchase but product needs to stand on its own.' },
+            { quarter: 'Q2 2025', mood: 'positive', score: 65, theme: 'Repeat purchases growing for incense. Gifting use case emerging. Fleather products creating premium buzz.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 75, theme: 'Festive season drove gifting sales. Product range expanding. Quality consistency earning trust.' },
+            { quarter: 'Q1 2026', mood: 'excellent', score: 84, theme: 'International interest in Fleather boosting brand perception. ITC partnership validates quality. Strong repeat purchase rate.' },
         ],
         social: [
-            { quarter: 'Q1 2025', mood: 'debating', score: 50, theme: 'Reddit: active quality debates. Some defending, some criticizing. Instagram: growing influencer presence. LinkedIn: growth metrics turning heads.' },
-            { quarter: 'Q2 2025', mood: 'warming', score: 62, theme: 'Reddit quality defenders winning the argument. Instagram: haul content exploding. LinkedIn: "the next big thing in men\'s fashion" threads.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 74, theme: 'Reddit: default recommendation status achieved. Instagram: massive organic content creation. LinkedIn: featured in funding news.' },
-            { quarter: 'Q1 2026', mood: 'dominant', score: 88, theme: 'Cultural brand status on all platforms. Reddit memes about "Snitch addiction." Instagram content ecosystem self-sustaining. LinkedIn: scaling story widely cited.' },
+            { quarter: 'Q1 2025', mood: 'inspiring', score: 62, theme: 'Social impact story shared widely. Reddit sustainability threads feature Phool regularly. Instagram impact content performs well.' },
+            { quarter: 'Q2 2025', mood: 'viral', score: 74, theme: 'Fleather announcement went viral across platforms. International media coverage amplified social discussion.' },
+            { quarter: 'Q3 2025', mood: 'sustained', score: 78, theme: 'Consistent social engagement. LinkedIn becoming a strong channel. Forbes/Bloomberg features shared widely.' },
+            { quarter: 'Q1 2026', mood: 'iconic', score: 88, theme: 'Becoming a symbol of Indian social enterprise. LinkedIn engagement at peak. Community advocacy organic and sustained.' },
         ],
     },
-    beminimalist: {
+    sidsfarm: {
         ecommerce: [
-            { quarter: 'Q1 2025', mood: 'positive', score: 70, theme: 'Established trust in skincare community. Salicylic acid and Niacinamide serums were hero products. Main complaint: purging during initial use.' },
-            { quarter: 'Q2 2025', mood: 'positive', score: 73, theme: 'Vitamin C serum oxidation issue addressed with improved packaging. New retinol serum launched to strong reviews. Community creating combination guides.' },
-            { quarter: 'Q3 2025', mood: 'very positive', score: 80, theme: 'Positioned firmly as "India\'s The Ordinary." Reviews now focus on long-term results (6+ months). Dermatologist endorsements growing.' },
-            { quarter: 'Q1 2026', mood: 'strong', score: 85, theme: 'Category leader status. Reviews show high satisfaction across product range. Packaging concerns mostly resolved. New sunscreen line receiving excellent feedback.' },
+            { quarter: 'Q1 2025', mood: 'loyal', score: 72, theme: 'Existing subscribers are deeply loyal. Freshness is the primary driver. Expansion beyond Hyderabad is the most requested feature.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 76, theme: 'New product additions (curd, paneer) received well. Subscription base growing steadily. Word-of-mouth remains the primary acquisition channel.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 80, theme: 'Premium positioning justified by quality. Customer retention rates are exceptional. Delivery logistics improved.' },
+            { quarter: 'Q1 2026', mood: 'excellent', score: 85, theme: 'Brand becomes a Hyderabad institution. Expansion to Bangalore announced. Product range deepening with flavored milk and ghee.' },
         ],
         social: [
-            { quarter: 'Q1 2025', mood: 'enthusiastic', score: 72, theme: 'r/IndianSkincareAddicts: already a default recommendation. Instagram: before/after content driving conversions. LinkedIn: investors taking notice.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 76, theme: 'Reddit community creating detailed routine guides featuring the brand. Instagram engagement rates climbing. LinkedIn D2C beauty discussions.' },
-            { quarter: 'Q3 2025', mood: 'strong', score: 82, theme: 'All platforms: organic advocacy at scale. Reddit users defending against competitors. Instagram dermat collabs viral. LinkedIn: category leadership cited.' },
-            { quarter: 'Q1 2026', mood: 'dominant', score: 88, theme: 'Reddit: cult status, own recommendation tier. Instagram: massive UGC ecosystem. LinkedIn: frequently in D2C success stories and investment discussions.' },
+            { quarter: 'Q1 2025', mood: 'local hero', score: 65, theme: 'Strong Hyderabad-focused social presence. Local food bloggers are passionate advocates. Limited national social reach.' },
+            { quarter: 'Q2 2025', mood: 'expanding', score: 70, theme: 'Founder\'s LinkedIn posts gaining wider traction. Instagram farm content attracting national audience. Reddit recommendations beyond Hyderabad threads.' },
+            { quarter: 'Q3 2025', mood: 'inspiring', score: 76, theme: 'D2C dairy model gaining attention. LinkedIn posts about IT-to-dairy journey go viral. Social advocacy growing.' },
+            { quarter: 'Q1 2026', mood: 'national buzz', score: 82, theme: 'Bangalore expansion creates national social buzz. LinkedIn feature articles. Instagram following grows beyond Hyderabad.' },
         ],
     },
-    anveshan: {
+    gynoveda: {
         ecommerce: [
-            { quarter: 'Q1 2025', mood: 'niche positive', score: 65, theme: 'Strong reviews from health-conscious buyers. QR traceability praised but not well-known. Price sensitivity was the main barrier to adoption.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 70, theme: 'Post-Shark Tank buyer influx. New customers impressed by quality. Ghee becoming a cult product. Some complaints about out-of-stock items.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 78, theme: 'Repeat purchase rate very high. Honey and cold-pressed oils gaining traction. Packaging improvements acknowledged. Farm stories resonating.' },
-            { quarter: 'Q1 2026', mood: 'very positive', score: 84, theme: 'Brand advocates creating content organically. Price premium now accepted by core customers. Product range expansion (new oils, spices) received positively.' },
+            { quarter: 'Q1 2025', mood: 'building trust', score: 52, theme: 'New buyers cautious about Ayurvedic claims. Positive testimonials from early adopters building confidence. PCOD products gaining traction.' },
+            { quarter: 'Q2 2025', mood: 'gaining ground', score: 62, theme: 'Community testimonials driving conversions. 90-day results posts becoming common. Shark Tank appearance adds mainstream credibility.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 73, theme: 'Repeat purchase rate very high among converts. Word-of-mouth from friends/family is primary acquisition. Product range expanding.' },
+            { quarter: 'Q1 2026', mood: 'passionate', score: 82, theme: 'Brand has built a movement, not just a product. Customer advocacy is exceptional. Community support groups are active.' },
         ],
         social: [
-            { quarter: 'Q1 2025', mood: 'curious', score: 55, theme: 'Reddit: "Is Anveshan ghee worth the premium?" threads. Instagram: farm content beginning. LinkedIn: supply chain innovation narrative starting.' },
-            { quarter: 'Q2 2025', mood: 'positive', score: 65, theme: 'Reddit: Shark Tank boost, positive reviews flooding in. Instagram: recipe content gaining traction. LinkedIn: rural impact stories resonating.' },
-            { quarter: 'Q3 2025', mood: 'advocating', score: 76, theme: 'Reddit: "tried it, never going back" sentiment dominant. Instagram: UGC with recipe content. LinkedIn: impact investors showing interest.' },
-            { quarter: 'Q1 2026', mood: 'strong', score: 83, theme: 'Reddit: default recommendation for premium staples. Instagram: farm-to-fork narrative compelling. LinkedIn: featured in social enterprise discussions.' },
+            { quarter: 'Q1 2025', mood: 'taboo-breaking', score: 55, theme: 'Period health content breaking taboos on social media. Reddit discussions cautious but curious. Instagram creating safe space.' },
+            { quarter: 'Q2 2025', mood: 'community', score: 66, theme: 'Women sharing personal stories publicly. Instagram testimonials driving growth. Reddit health threads recommending Gynoveda.' },
+            { quarter: 'Q3 2025', mood: 'movement', score: 76, theme: 'Becoming a women\'s health movement. Social content driving both awareness and sales. LinkedIn featuring as community-building case study.' },
+            { quarter: 'Q1 2026', mood: 'iconic', score: 85, theme: 'One of the strongest community-driven brands in Indian D2C. Social advocacy at peak. Women recommending to friends and family.' },
         ],
     },
-    perfora: {
+    samosaparty: {
         ecommerce: [
-            { quarter: 'Q1 2025', mood: 'niche', score: 55, theme: 'Early adopters discovering the brand. Electric toothbrush getting first reviews — mostly positive but niche audience. Price comparisons to Oral-B common.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 63, theme: 'Probiotic mouthwash launching to positive reception. Community forming around premium oral care. Replacement brush head availability issue surfacing.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 72, theme: 'Dental professional endorsements boosting credibility. Product range expanding. Battery life improved in new toothbrush version. Growing recognition.' },
-            { quarter: 'Q1 2026', mood: 'strong', score: 80, theme: 'Established as the premium oral care brand. Reviews now compare others to Perfora (not the other way around). Brush head availability improved.' },
+            { quarter: 'Q1 2025', mood: 'surprised', score: 60, theme: 'Buyers pleasantly surprised by frozen samosa quality. "Tastes freshly made" is the dominant review theme. Price skepticism exists but taste wins.' },
+            { quarter: 'Q2 2025', mood: 'hooked', score: 70, theme: 'Repeat orders surging. Party and gathering use case driving bulk orders. New gourmet variants create excitement. Convenience factor appreciated.' },
+            { quarter: 'Q3 2025', mood: 'advocating', score: 78, theme: 'Strong word-of-mouth — customers gifting to friends. Festival season drives massive spike. Multiple city expansion adds new customer base.' },
+            { quarter: 'Q1 2026', mood: 'mainstream', score: 84, theme: 'Moving from novelty to household staple in served cities. Subscription model gaining traction. Quality consistency maintained during scaling.' },
         ],
         social: [
-            { quarter: 'Q1 2025', mood: 'discovering', score: 48, theme: 'Reddit: first mentions in oral care threads. Instagram: polished but small audience. LinkedIn: founder starting to share vision.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 58, theme: 'Reddit: dentist community members validating products. Instagram: "oral care as self-care" positioning resonating. LinkedIn: D2C health discussions.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 70, theme: 'Reddit: now recommended in oral care threads regularly. Instagram: professional content driving engagement. LinkedIn: category creation story gaining traction.' },
-            { quarter: 'Q1 2026', mood: 'advocating', score: 78, theme: 'All platforms: word-of-mouth driving organic growth. Reddit users comparing to international brands favorably. LinkedIn: VC interest growing.' },
+            { quarter: 'Q1 2025', mood: 'curious', score: 52, theme: 'Initial social buzz around "premium samosa" concept. Reddit foodies intrigued. Instagram unboxing content emerging.' },
+            { quarter: 'Q2 2025', mood: 'viral food', score: 68, theme: 'Food bloggers driving Instagram engagement. Reddit taste reviews going viral. The "Rs 50 samosa" debate creates awareness.' },
+            { quarter: 'Q3 2025', mood: 'beloved', score: 78, theme: 'Party hosting content goes viral. User-generated content driving growth. Becoming the go-to party snack brand.' },
+            { quarter: 'Q1 2026', mood: 'cult status', score: 86, theme: 'Cult following established. Social media is the primary discovery channel. LinkedIn food-tech discussions feature the brand.' },
         ],
     },
-    littlebox: {
+    bummer: {
         ecommerce: [
-            { quarter: 'Q1 2025', mood: 'trendy', score: 60, theme: 'Trendy designs appreciated but sizing inconsistency was a major complaint. Fabric quality was the most debated topic. "Cute but will it last?" sentiment.' },
-            { quarter: 'Q2 2025', mood: 'improving', score: 66, theme: 'Co-ord sets becoming the standout category. Sizing guides improved. New collections showing better fabric quality. Return experience still a pain point.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 73, theme: 'Established as the go-to for affordable trendy wear. Sizing concerns reduced but not eliminated. Customers now know to size up. Plus-size demand growing.' },
-            { quarter: 'Q1 2026', mood: 'loyal', score: 79, theme: 'Strong repeat buyer base. Quality improvements acknowledged. Community sharing outfit ideas. Plus-size range expansion received very positively.' },
+            { quarter: 'Q1 2025', mood: 'novelty', score: 55, theme: 'First-time buyers attracted by fun prints. Micro-modal comfort is a genuine surprise. Gifting use case is strong. Price pushback from value buyers.' },
+            { quarter: 'Q2 2025', mood: 'comfortable', score: 64, theme: 'Repeat purchases driven by fabric comfort. Customers upgrading entire innerwear drawer. Print collections creating seasonal excitement.' },
+            { quarter: 'Q3 2025', mood: 'loyal', score: 72, theme: 'Brand loyalty building. Customers recommend to friends. New collections eagerly awaited. Quality concerns (elastic) addressed.' },
+            { quarter: 'Q1 2026', mood: 'advocating', score: 79, theme: 'Strong repeat customer base. Gifting during occasions drives new customer acquisition. Brand expanding into loungewear.' },
         ],
         social: [
-            { quarter: 'Q1 2025', mood: 'buzzy', score: 58, theme: 'Instagram: haul videos gaining traction. Reddit: first haul reviews posted. Limited LinkedIn presence.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 66, theme: 'Instagram: becoming a go-to tag for outfit posts. Reddit: sizing advice threads popular. LinkedIn: occasional D2C fashion mentions.' },
-            { quarter: 'Q3 2025', mood: 'popular', score: 75, theme: 'Instagram: massive organic content. Reddit: active community sharing finds. LinkedIn: Gen-Z fashion market discussions reference the brand.' },
-            { quarter: 'Q1 2026', mood: 'mainstream', score: 82, theme: 'Instagram-first brand strategy paying off across all platforms. Reddit: cult following. LinkedIn: investors noticing growth trajectory.' },
-        ],
-    },
-    kapiva: {
-        ecommerce: [
-            { quarter: 'Q1 2025', mood: 'trusted', score: 68, theme: 'Established trust in Ayurveda space. Shilajit and aloe vera juice are bestsellers. Bitter taste complaints common but accepted as "natural."' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 72, theme: 'Dia Free juice gaining popularity among diabetic consumers. Product range expanding. Pricing increases noted and debated by customers.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 77, theme: 'New formulations addressing taste concerns. Packaging improvements ongoing. Brand trust solidifying. More health professionals recommending.' },
-            { quarter: 'Q1 2026', mood: 'strong', score: 82, theme: 'Market leader in modern Ayurveda e-commerce. Reviews consistently positive. Price sensitivity reduced as brand loyalty increased. New product launches well-received.' },
-        ],
-        social: [
-            { quarter: 'Q1 2025', mood: 'established', score: 62, theme: 'Reddit: regular presence in Ayurveda discussions. Instagram: health tips content. LinkedIn: modern Ayurveda narrative building.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 68, theme: 'Reddit: Shilajit results discussions trending. Instagram: influencer health partnerships. LinkedIn: fundraise discussions.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 75, theme: 'All platforms showing growth. Reddit: trusted source for Ayurveda recommendations. Instagram: community building. LinkedIn: industry leadership.' },
-            { quarter: 'Q1 2026', mood: 'leading', score: 82, theme: 'Reddit: go-to Ayurveda brand. Instagram: strong health community. LinkedIn: featured in health-tech and traditional medicine modernization stories.' },
-        ],
-    },
-    bluekaktus: {
-        ecommerce: [
-            { quarter: 'Q1 2025', mood: 'premium niche', score: 72, theme: 'Coffee purists love it. Fresh roasting and single-origin praised. Price is the main barrier. "Best coffee in India but expensive for daily use."' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 75, theme: 'Subscription model gaining traction — reduces effective cost perception. New blends receiving positive reviews. Cafe expansion adding credibility.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 79, theme: 'Pour-over packs driving trial among non-subscribers. Bag resealability improved. More price-accessible options introduced. Seasonal blends creating excitement.' },
-            { quarter: 'Q1 2026', mood: 'strong', score: 84, theme: 'Category definition achieved — "if you want specialty coffee, it\'s Blue Tokai." Reviews now reference them as the standard. Cafe + online synergy working.' },
-        ],
-        social: [
-            { quarter: 'Q1 2025', mood: 'passionate niche', score: 68, theme: 'Reddit: passionate coffee community discussing origins and roasts. Instagram: cafe aesthetics. LinkedIn: specialty coffee market insights.' },
-            { quarter: 'Q2 2025', mood: 'growing', score: 72, theme: 'Reddit: brewing guides shared. Instagram: cafe opening content viral. LinkedIn: expansion strategy discussions.' },
-            { quarter: 'Q3 2025', mood: 'mainstream', score: 78, theme: 'Reddit: default coffee recommendation. Instagram: coffee culture content thriving. LinkedIn: premiumization trend leadership cited.' },
-            { quarter: 'Q1 2026', mood: 'cultural', score: 85, theme: 'Blue Tokai becoming synonymous with Indian specialty coffee across all social platforms. Reddit advocacy is organic and passionate.' },
+            { quarter: 'Q1 2025', mood: 'cheeky', score: 50, theme: 'Bold innerwear content stands out on social. Reddit discussions mostly in fashion threads. Instagram unboxing content performing well.' },
+            { quarter: 'Q2 2025', mood: 'fun', score: 60, theme: 'Print reveal content driving engagement. Gifting-focused campaigns gaining traction. Reddit recommendations increasing.' },
+            { quarter: 'Q3 2025', mood: 'trending', score: 70, theme: 'Influencer partnerships expanding reach. Social media becoming primary discovery channel. Brand tone resonating with millennials.' },
+            { quarter: 'Q1 2026', mood: 'established', score: 77, theme: 'Recognized innerwear brand on social media. User-generated content growing. LinkedIn interest from fashion-tech investors.' },
         ],
     },
 };
 
-// Default mood timeline for companies without specific data
-function getDefaultMoodTimeline(companyId) {
-    const company = COMPANIES.find(c => c.id === companyId);
-    const name = company ? company.name : 'Brand';
-    return {
-        ecommerce: [
-            { quarter: 'Q1 2025', mood: 'early', score: 50, theme: `${name} was in early discovery phase. Initial reviews were few but generally positive. Brand awareness was limited.` },
-            { quarter: 'Q2 2025', mood: 'growing', score: 58, theme: `Review volume increasing. Product feedback being incorporated. Customer base starting to form habits.` },
-            { quarter: 'Q3 2025', mood: 'positive', score: 65, theme: `Word-of-mouth driving new customers. Quality perception improving. Repeat purchase signals emerging.` },
-            { quarter: 'Q1 2026', mood: 'building', score: 72, theme: `Growing customer loyalty. Reviews becoming more detailed and positive. Brand starting to be recommended organically.` },
-        ],
-        social: [
-            { quarter: 'Q1 2025', mood: 'minimal', score: 40, theme: `Limited social presence. Occasional mentions in niche communities. Brand building through content just beginning.` },
-            { quarter: 'Q2 2025', mood: 'growing', score: 52, theme: `Social mentions increasing. First influencer partnerships starting. Community beginning to form.` },
-            { quarter: 'Q3 2025', mood: 'active', score: 62, theme: `Regular engagement on social platforms. User-generated content appearing. Brand voice becoming more distinct.` },
-            { quarter: 'Q1 2026', mood: 'positive', score: 70, theme: `Organic social growth visible. Community advocacy building. Brand mentioned in relevant discussions.` },
-        ],
-    };
-}
-
-// --- Social Media Data (now includes LinkedIn) ---
+// Default mood timeline for brands without detailed entries
+const DEFAULT_MOOD_TIMELINE = {
+    ecommerce: [
+        { quarter: 'Q1 2025', mood: 'emerging', score: 50, theme: 'Early customer reviews trickling in. Product quality is promising but awareness is low. Initial buyers are enthusiastic early adopters.' },
+        { quarter: 'Q2 2025', mood: 'building', score: 58, theme: 'Review volume growing. Positive word-of-mouth emerging. Product iteration based on feedback visible.' },
+        { quarter: 'Q3 2025', mood: 'gaining', score: 66, theme: 'Steady improvement in ratings. Repeat purchase rate increasing. Brand starting to appear in category searches.' },
+        { quarter: 'Q1 2026', mood: 'positive', score: 74, theme: 'Solid foundation of positive reviews. Customer advocacy emerging. Growth trajectory encouraging.' },
+    ],
+    social: [
+        { quarter: 'Q1 2025', mood: 'quiet', score: 40, theme: 'Minimal social presence. Occasional mentions by early adopters. Brand building awareness slowly.' },
+        { quarter: 'Q2 2025', mood: 'emerging', score: 50, theme: 'Starting to appear in relevant discussions. Instagram content improving. Some Reddit mentions.' },
+        { quarter: 'Q3 2025', mood: 'growing', score: 60, theme: 'Social engagement increasing. More user-generated content appearing. Community starting to form.' },
+        { quarter: 'Q1 2026', mood: 'established', score: 70, theme: 'Consistent social presence. Organic advocacy growing. Brand becoming part of category conversations.' },
+    ],
+};
+// --- Social Media Data ---
 const SOCIAL_DATA = {};
+const SO_REDDIT = { wakao: 800, bummer: 1500, flatheads: 600, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400 };
+const SO_INSTA = { wakao: 12000, bummer: 35000, flatheads: 8000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000 };
+const SO_LINKEDIN = { wakao: 3000, bummer: 4500, flatheads: 2000, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500 };
 COMPANIES.forEach(c => {
-    const redditBase = c.id === 'snitch' ? 140 :
-                       c.id === 'beminimalist' ? 160 :
-                       c.id === 'thepantproject' ? 85 :
-                       c.id === 'anveshan' ? 70 :
-                       c.id === 'perfora' ? 55 :
-                       c.id === 'bluekaktus' ? 90 :
-                       c.id === 'kapiva' ? 60 :
-                       c.id === 'littlebox' ? 45 :
-                       10 + Math.random() * 50;
-    const igBase = c.id === 'snitch' ? 1200 :
-                   c.id === 'littlebox' ? 950 :
-                   c.id === 'beminimalist' ? 880 :
-                   c.id === 'letsdressup' ? 720 :
-                   c.id === 'thepantproject' ? 450 :
-                   c.id === 'anveshan' ? 380 :
-                   c.id === 'perfora' ? 320 :
-                   100 + Math.random() * 400;
-    const liBase = c.id === 'beminimalist' ? 180 :
-                   c.id === 'snitch' ? 150 :
-                   c.id === 'bluekaktus' ? 120 :
-                   c.id === 'kapiva' ? 110 :
-                   c.id === 'anveshan' ? 100 :
-                   c.id === 'fablestreet' ? 90 :
-                   c.id === 'thepantproject' ? 80 :
-                   c.id === 'perfora' ? 70 :
-                   c.id === 'slurrp' ? 65 :
-                   c.id === 'dailyobjects' ? 50 :
-                   20 + Math.random() * 60;
-
     SOCIAL_DATA[c.id] = {
         reddit: {
-            mentions: Math.round(redditBase * 3),
-            mentionsTrend: generateWeeklyTimeSeries(12, redditBase, 0.5, 0.3),
-            sentiment: Math.round(58 + Math.random() * 30),
-            topSubreddits: ['r/IndianSkincareAddicts', 'r/india', 'r/indiashopping', 'r/IndianFashionAddicts'],
+            mentions: generateWeeklyTimeSeries(26, (SO_REDDIT[c.id] || 500) / 26, 0.4, 0.35),
+            sentiment: Math.round(55 + Math.random() * 30),
+            topSubreddits: ['r/IndianProducts', 'r/india', 'r/IndianSkincareAddicts'],
         },
         instagram: {
-            mentions: Math.round(igBase * 4),
-            mentionsTrend: generateWeeklyTimeSeries(12, igBase, 0.4, 0.25),
-            sentiment: Math.round(62 + Math.random() * 25),
-            engagementRate: parseFloat((2.5 + Math.random() * 5).toFixed(1)),
+            mentions: generateWeeklyTimeSeries(26, (SO_INSTA[c.id] || 8000) / 26, 0.5, 0.3),
+            sentiment: Math.round(60 + Math.random() * 25),
+            engagement: parseFloat((1.5 + Math.random() * 4).toFixed(1)),
         },
         linkedin: {
-            mentions: Math.round(liBase * 2),
-            mentionsTrend: generateWeeklyTimeSeries(12, liBase, 0.35, 0.3),
-            sentiment: Math.round(65 + Math.random() * 25),
-            engagementRate: parseFloat((1.5 + Math.random() * 3).toFixed(1)),
+            mentions: generateWeeklyTimeSeries(26, (SO_LINKEDIN[c.id] || 2000) / 26, 0.35, 0.3),
+            sentiment: Math.round(62 + Math.random() * 25),
+            engagement: parseFloat((2.0 + Math.random() * 3.5).toFixed(1)),
         },
-        viralScore: Math.round(25 + Math.random() * 75),
-        socialSummary: SOCIAL_SUMMARIES[c.id] || {
-            reddit: {
-                summary: 'Limited Reddit presence. Brand is in early discovery phase with occasional mentions in relevant subreddits.',
-                topLikes: ['Growing community interest', 'Product quality praised by early adopters'],
-                topDislikes: ['Low brand awareness', 'Limited discussion volume'],
-            },
-            instagram: {
-                summary: 'Building Instagram presence through content and influencer partnerships. Engagement is growing steadily.',
-                topLikes: ['Visual content resonates', 'Growing follower base'],
-                topDislikes: ['Need more user-generated content', 'Posting frequency could increase'],
-            },
-            linkedin: {
-                summary: 'Minimal LinkedIn presence. Occasional mentions in industry discussions.',
-                topLikes: ['D2C narrative resonates with business audience'],
-                topDislikes: ['Very limited direct brand activity'],
-            },
-        },
-        moodTimeline: MOOD_TIMELINE[c.id] || getDefaultMoodTimeline(c.id),
+        commentarySummary: SOCIAL_SUMMARIES[c.id] || DEFAULT_SOCIAL_SUMMARY,
+        moodTimeline: MOOD_TIMELINE[c.id] || DEFAULT_MOOD_TIMELINE,
     };
 });
 
-// --- Social Feed Posts (sample) ---
+// --- Social Feed Posts ---
 const SOCIAL_POSTS = [
-    {
-        source: 'reddit',
-        subreddit: 'r/IndianFashionAddicts',
-        date: '2026-02-16',
-        content: 'The Pant Project custom chinos review — I\'m blown away. Measured myself using their website guide, pants arrived in 12 days. Fit is PERFECT. At ~Rs 2000 for custom fit, this is insane value. Already ordered 3 more.',
-        upvotes: 892,
-        comments: 234,
-        company: 'thepantproject',
-    },
-    {
-        source: 'instagram',
-        date: '2026-02-15',
-        content: 'LittleBox haul alert! Got 4 co-ord sets for under 5K total. Each one looks like it could be from Zara. The lavender ribbed set is absolutely gorgeous. This brand is seriously underrated. @littleboxindia',
-        likes: 5210,
-        comments: 387,
-        company: 'littlebox',
-    },
-    {
-        source: 'reddit',
-        subreddit: 'r/india',
-        date: '2026-02-14',
-        content: 'Anveshan A2 cow ghee is the real deal. Bought it skeptically after seeing it on Shark Tank. The taste and aroma are identical to what my grandmother makes in the village. QR code shows exactly which farm it came from. Premium price but worth every rupee.',
-        upvotes: 1243,
-        comments: 312,
-        company: 'anveshan',
-    },
-    {
-        source: 'reddit',
-        subreddit: 'r/IndianSkincareAddicts',
-        date: '2026-02-13',
-        content: 'Perfora probiotic mouthwash + their electric toothbrush combo has completely transformed my oral care routine. 2 months in and my dentist actually commented on the improvement. Why is nobody talking about this brand more?',
-        upvotes: 678,
-        comments: 189,
-        company: 'perfora',
-    },
-    {
-        source: 'instagram',
-        date: '2026-02-15',
-        content: 'Snitch printed shirt collection just dropped and I already bought 5 pieces. The fit, the fabric, the designs — all for under Rs 800 each. H&M and Zara are shaking. This brand is going to be HUGE. @snaborern_official',
-        likes: 8934,
-        comments: 621,
-        company: 'snitch',
-    },
-    {
-        source: 'reddit',
-        subreddit: 'r/IndianSkincareAddicts',
-        date: '2026-02-12',
-        content: 'Be Minimalist 10% Niacinamide + 1% Zinc serum review after 6 months: dark spots faded by 70%, texture improved dramatically. At Rs 349, this is genuinely comparable to The Ordinary at 1/5th the price. Indian skincare has grown up.',
-        upvotes: 1567,
-        comments: 423,
-        company: 'beminimalist',
-    },
-    {
-        source: 'instagram',
-        date: '2026-02-14',
-        content: 'Slurrp Farm ragi cookies are my 3-year-old\'s favourite snack and I don\'t feel guilty about it at all. No maida, no refined sugar, just pure ragi goodness. Every parent needs to know about this brand! @slurrpfarm',
-        likes: 3421,
-        comments: 267,
-        company: 'slurrp',
-    },
-    {
-        source: 'reddit',
-        subreddit: 'r/indiashopping',
-        date: '2026-02-11',
-        content: 'Blue Tokai\'s Attikan Estate single-origin pour-over is the best coffee I\'ve had at home. Yes it\'s expensive, but if you spend Rs 200/day at Starbucks, this works out cheaper and tastes infinitely better.',
-        upvotes: 789,
-        comments: 201,
-        company: 'bluekaktus',
-    },
-    {
-        source: 'instagram',
-        date: '2026-02-13',
-        content: 'Let\'s Dress Up sangeet outfit for 2.5K?! I paid 25K for something similar from a boutique for my last wedding. This brand is disrupting ethnic wear for young Indians. @letsdressup.in',
-        likes: 6712,
-        comments: 489,
-        company: 'letsdressup',
-    },
-    {
-        source: 'reddit',
-        subreddit: 'r/india',
-        date: '2026-02-10',
-        content: 'Kapiva Shilajit resin — 1 month update. Energy levels are noticeably higher, gym recovery is better. The taste is... acquired. But it works. Ayurveda is having a genuine renaissance in India and brands like Kapiva are leading it.',
-        upvotes: 534,
-        comments: 167,
-        company: 'kapiva',
-    },
-    {
-        source: 'linkedin',
-        date: '2026-02-16',
-        content: 'Fascinating D2C case study: Snitch went from 0 to 100+ Cr revenue in men\'s fashion by doing one thing right — designing for the Indian male body type. While international brands use Western sizing, Snitch reverse-engineered fit for the Indian market. The result? 70% repeat purchase rate. This is what product-market fit looks like.',
-        likes: 4280,
-        comments: 312,
-        company: 'snitch',
-        author: 'D2C Observer',
-        authorRole: 'Partner, Consumer Fund',
-    },
-    {
-        source: 'linkedin',
-        date: '2026-02-15',
-        content: 'Be Minimalist just crossed a milestone that took The Ordinary 5 years to achieve in Western markets. They\'ve essentially democratized active skincare for the Indian consumer. At Rs 349 for a serum, they\'ve made science-backed skincare accessible to millions. Watch this space — they\'re building the Deciem of India.',
-        likes: 3890,
-        comments: 256,
-        company: 'beminimalist',
-        author: 'Beauty Tech Analyst',
-        authorRole: 'VP, Venture Capital',
-    },
-    {
-        source: 'linkedin',
-        date: '2026-02-14',
-        content: 'Had coffee at the new Blue Tokai cafe in Indiranagar today. The fact that India — one of the world\'s largest coffee producers — is finally developing a specialty coffee culture is remarkable. Blue Tokai is leading this shift from commodity to craft. Their farm-to-cup model is not just a brand story, it\'s a supply chain revolution.',
-        likes: 2150,
-        comments: 189,
-        company: 'bluekaktus',
-        author: 'Food & Bev Investor',
-        authorRole: 'Director, Growth Equity',
-    },
-    {
-        source: 'linkedin',
-        date: '2026-02-13',
-        content: 'FableStreet is solving a problem that\'s been ignored for decades: Indian women\'s workwear. International brands don\'t fit Indian body types, and local options lack professional polish. FableStreet has engineered fits specifically for Indian proportions. This is a massive underserved TAM.',
-        likes: 1780,
-        comments: 145,
-        company: 'fablestreet',
-        author: 'Consumer Brand Builder',
-        authorRole: 'Managing Director, PE Fund',
-    },
-    {
-        source: 'linkedin',
-        date: '2026-02-12',
-        content: 'The Anveshan story continues to impress. From Shark Tank to building genuine farm-to-fork supply chain with QR traceability — they\'re not just selling ghee, they\'re building trust infrastructure for the premium food market in India. Impact + commerce at its best.',
-        likes: 2420,
-        comments: 198,
-        company: 'anveshan',
-        author: 'Impact Investor',
-        authorRole: 'Founding Partner, Agri-Tech VC',
-    },
+    { platform: 'reddit', subreddit: 'r/IndianFood', title: 'Made jackfruit biryani with Wakao — mind blown!', upvotes: 847, comments: 134, time: '4h ago', sentiment: 'positive', brand: 'wakao' },
+    { platform: 'reddit', subreddit: 'r/IndianProducts', title: 'Phool incense sticks from temple flowers — what a beautiful concept', upvotes: 1250, comments: 198, time: '6h ago', sentiment: 'positive', brand: 'phool' },
+    { platform: 'instagram', handle: '@foodiesinhyderabad', title: 'Day 365 of Sid\'s Farm milk subscription — never going back to packaged milk', likes: 3420, comments: 287, time: '2h ago', sentiment: 'positive', brand: 'sidsfarm' },
+    { platform: 'reddit', subreddit: 'r/IndianSkincareAddicts', title: 'Gynoveda 90-day PCOD update — my experience and results', upvotes: 2100, comments: 456, time: '8h ago', sentiment: 'positive', brand: 'gynoveda' },
+    { platform: 'instagram', handle: '@bangalorefoodie', title: 'Samosa Party cheese-corn samosas at our house party — everyone asking where to order!', likes: 5600, comments: 342, time: '3h ago', sentiment: 'positive', brand: 'samosaparty' },
+    { platform: 'reddit', subreddit: 'r/IndianFashionAddicts', title: 'Bummer micro-modal underwear review — is it worth the premium?', upvotes: 680, comments: 156, time: '12h ago', sentiment: 'positive', brand: 'bummer' },
+    { platform: 'linkedin', handle: 'Sustainability Today', title: 'How Phool.co is turning temple waste into vegan leather — a circular economy masterclass', likes: 4200, comments: 189, time: '5h ago', sentiment: 'positive', brand: 'phool' },
+    { platform: 'instagram', handle: '@sustainablefashion.in', title: 'Flatheads bamboo sneakers — 3 month review. Comfort level: 10/10', likes: 1890, comments: 145, time: '7h ago', sentiment: 'positive', brand: 'flatheads' },
+    { platform: 'reddit', subreddit: 'r/organicfarming', title: 'Two Brothers Organic Farms A2 ghee — expensive but is it worth it? My honest take', upvotes: 920, comments: 234, time: '10h ago', sentiment: 'mixed', brand: 'tbof' },
+    { platform: 'linkedin', handle: 'Kishore Indukuri', title: 'From IT consulting to dairy farming — 8 years of building Sid\'s Farm. Here\'s what I learned about D2C dairy.', likes: 8500, comments: 567, time: '1d ago', sentiment: 'positive', brand: 'sidsfarm' },
+    { platform: 'instagram', handle: '@wellnessblogger', title: 'Cosmix Sleep Blend 30-day challenge — here\'s what happened to my insomnia', likes: 2340, comments: 198, time: '9h ago', sentiment: 'positive', brand: 'cosmix' },
+    { platform: 'reddit', subreddit: 'r/bangalore', title: 'Just tried Samosa Party for the first time. Rs 50 for a samosa seemed crazy but wow.', upvotes: 1560, comments: 312, time: '14h ago', sentiment: 'positive', brand: 'samosaparty' },
+    { platform: 'linkedin', handle: 'D2C Insider', title: 'Gynoveda built a Rs 100Cr brand by talking about periods — the power of community-first commerce', likes: 3800, comments: 234, time: '1d ago', sentiment: 'positive', brand: 'gynoveda' },
+    { platform: 'instagram', handle: '@mumbaimunchies', title: 'Bombay Sweet Shop Diwali box unboxing — artisanal mithai at its finest', likes: 4100, comments: 267, time: '5h ago', sentiment: 'positive', brand: 'bombaysweets' },
 ];
 
-// --- Composite / Breakout Score ---
-function calculateCompositeScore(companyId) {
-    const gt = GOOGLE_TRENDS_DATA[companyId];
-    const ec = ECOMMERCE_DATA[companyId];
-    const tr = TRAFFIC_DATA[companyId];
-    const so = SOCIAL_DATA[companyId];
+// --- Employee Reviews Data (AmbitionBox + Glassdoor) ---
+const EMPLOYEE_REVIEWS = {
+    wakao: {
+        ambitionbox: { rating: 3.8, totalReviews: 24, recommend: 72, ceoApproval: 78, workLife: 3.9, salary: 3.2, security: 3.4, culture: 4.1, growth: 3.5,
+            likes: ['Mission-driven culture motivates the team', 'Startup energy — every voice matters', 'Innovative product space is exciting to work in'],
+            dislikes: ['Early-stage salary constraints', 'Small team means wearing many hats', 'Limited HR processes and structure'],
+            summary: 'Wakao employees appreciate the mission-driven culture and innovative product space. Typical early-stage challenges around compensation and structure.'
+        },
+        glassdoor: { rating: 3.6, totalReviews: 18, recommend: 68, ceoApproval: 75, workLife: 3.7, salary: 3.0, security: 3.2, culture: 3.9, growth: 3.4,
+            likes: ['Purpose-driven work in plant-based food', 'Flat hierarchy — direct access to founders', 'Fast learning environment'],
+            dislikes: ['Compensation below market for food-tech', 'Work-life balance can be tough in peak seasons', 'Benefits package is basic'],
+            summary: 'Glassdoor reviews mirror AmbitionBox — strong culture but compensation gaps typical of early-stage food startups.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'energetic', score: 62, theme: 'Team excited post Shark Tank. Hiring ramp-up. Culture is strong but processes lacking.' },
+            { quarter: 'Q2 2025', mood: 'growing pains', score: 58, theme: 'Rapid hiring creating culture dilution concerns. Salary benchmarking issues surfacing.' },
+            { quarter: 'Q3 2025', mood: 'stabilizing', score: 65, theme: 'HR processes introduced. Team settling into roles. Product success boosting morale.' },
+            { quarter: 'Q1 2026', mood: 'positive', score: 72, theme: 'Funding round improved salaries. Clear growth paths emerging. Mission continues to drive retention.' },
+        ],
+    },
+    bummer: {
+        ambitionbox: { rating: 4.0, totalReviews: 32, recommend: 78, ceoApproval: 82, workLife: 4.1, salary: 3.5, security: 3.6, culture: 4.3, growth: 3.7,
+            likes: ['Fun, creative work environment matches the brand', 'Young team with great energy', 'Good creative freedom in marketing roles'],
+            dislikes: ['D2C fashion margins mean conservative salaries', 'Fast-paced can mean chaotic sometimes', 'Limited senior leadership depth'],
+            summary: 'Bummer\'s workplace mirrors its brand — fun, energetic, creative. Good for early-career professionals who value culture over structure.'
+        },
+        glassdoor: { rating: 3.8, totalReviews: 26, recommend: 74, ceoApproval: 80, workLife: 3.9, salary: 3.3, security: 3.5, culture: 4.1, growth: 3.6,
+            likes: ['Brand personality extends to workplace culture', 'Marketing team has real creative autonomy', 'Collaborative environment'],
+            dislikes: ['Need better compensation benchmarking', 'High expectations with lean team', 'Career path not clearly defined'],
+            summary: 'Creative culture is the standout. Typical D2C challenges around compensation and scaling team structure.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'fun', score: 68, theme: 'Creative culture strong. Team enjoys brand building. Compensation could be better.' },
+            { quarter: 'Q2 2025', mood: 'busy', score: 64, theme: 'Growth phase means heavy workload. New hires joining. Some process gaps.' },
+            { quarter: 'Q3 2025', mood: 'positive', score: 72, theme: 'New collections success boosts morale. Team bonding events introduced. Salaries revised.' },
+            { quarter: 'Q1 2026', mood: 'strong', score: 76, theme: 'Brand recognition growing, team pride increasing. Better HR practices. Growth visible.' },
+        ],
+    },
+    flatheads: {
+        ambitionbox: { rating: 3.6, totalReviews: 18, recommend: 65, ceoApproval: 70, workLife: 3.5, salary: 3.1, security: 3.0, culture: 3.8, growth: 3.3,
+            likes: ['Working on sustainable products feels meaningful', 'Small team with direct founder interaction', 'Innovative material science work'],
+            dislikes: ['Very early stage — limited resources', 'Job security concerns in slow growth phase', 'Compensation is below market'],
+            summary: 'Flatheads employees value the sustainability mission but face typical early-stage resource constraints. Best for those passionate about sustainable fashion.'
+        },
+        glassdoor: { rating: 3.4, totalReviews: 14, recommend: 60, ceoApproval: 66, workLife: 3.4, salary: 2.9, security: 2.8, culture: 3.6, growth: 3.1,
+            likes: ['Unique product — exciting to tell friends about', 'Founder is genuinely passionate and hands-on', 'Learning opportunity in sustainable materials'],
+            dislikes: ['Very small team — heavy workload', 'Growth has been slower than expected', 'Limited career advancement'],
+            summary: 'Passion-driven workplace with honest acknowledgment of growth challenges. Suits mission-driven individuals.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'steady', score: 55, theme: 'Small team working hard. Passion for product keeps morale up. Growth concerns exist.' },
+            { quarter: 'Q2 2025', mood: 'challenging', score: 50, theme: 'Market competition intensifying. Team stretched thin. Some attrition.' },
+            { quarter: 'Q3 2025', mood: 'improving', score: 58, theme: 'New retail partnerships boost confidence. Product innovation continues.' },
+            { quarter: 'Q1 2026', mood: 'hopeful', score: 63, theme: 'Online sales picking up. New materials generating buzz. Team cautiously optimistic.' },
+        ],
+    },
+    phool: {
+        ambitionbox: { rating: 4.3, totalReviews: 56, recommend: 88, ceoApproval: 92, workLife: 4.0, salary: 3.4, security: 3.8, culture: 4.6, growth: 4.0,
+            likes: ['Deeply meaningful work — creating real social impact', 'Working with women artisans is fulfilling', 'International recognition boosts pride', 'Founder Ankit Agarwal is inspiring and accessible'],
+            dislikes: ['Kanpur location limits talent pool', 'Salaries modest compared to metro startups', 'Manufacturing-heavy work can be demanding'],
+            summary: 'Phool stands out as a purpose-driven workplace. Employees are genuinely proud of the social and environmental impact. The Kanpur base and startup salaries are trade-offs gladly accepted.'
+        },
+        glassdoor: { rating: 4.1, totalReviews: 42, recommend: 85, ceoApproval: 90, workLife: 3.8, salary: 3.2, security: 3.7, culture: 4.5, growth: 3.8,
+            likes: ['Social enterprise that actually makes profit', 'Circular economy work is globally relevant', 'Media coverage and awards boost team morale'],
+            dislikes: ['Location in Kanpur is a constraint', 'Scale-up phase brings operational challenges', 'Need more structured learning programs'],
+            summary: 'Exceptional culture scores driven by genuine impact. Operational challenges of scaling a manufacturing-heavy social enterprise are the main friction points.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'proud', score: 75, theme: 'International media coverage boosting team pride. Fleather innovation exciting everyone.' },
+            { quarter: 'Q2 2025', mood: 'ambitious', score: 78, theme: 'ITC partnership validates the model. Team energized by growth prospects.' },
+            { quarter: 'Q3 2025', mood: 'thriving', score: 82, theme: 'Awards and recognition. Team expansion. Manufacturing scale-up challenging but rewarding.' },
+            { quarter: 'Q1 2026', mood: 'excellent', score: 88, theme: 'Global recognition. Strong retention. Employees are the brand\'s biggest advocates.' },
+        ],
+    },
+    sidsfarm: {
+        ambitionbox: { rating: 4.1, totalReviews: 85, recommend: 82, ceoApproval: 88, workLife: 3.8, salary: 3.5, security: 3.9, culture: 4.2, growth: 3.8,
+            likes: ['Founder-led culture is inspiring', 'Working in dairy is unique and grounding', 'Strong local brand — community respects the work', 'Clear operational growth visible'],
+            dislikes: ['Early morning operations can be exhausting', 'Hyderabad-only limits career mobility', 'Manufacturing roles are physically demanding'],
+            summary: 'Sid\'s Farm employees feel connected to a genuine mission. The hands-on dairy operations attract those who want meaningful work. Geographic limitation is accepted by most.'
+        },
+        glassdoor: { rating: 3.9, totalReviews: 68, recommend: 78, ceoApproval: 86, workLife: 3.6, salary: 3.3, security: 3.8, culture: 4.0, growth: 3.6,
+            likes: ['Founder\'s vision for clean dairy is compelling', 'Operational excellence is a real focus', 'Good for people who want to build from scratch'],
+            dislikes: ['Dairy operations mean early hours and weekend work', 'Compensation could be more competitive', 'Limited tech/digital roles'],
+            summary: 'A unique workplace in the D2C dairy space. Operational intensity is balanced by strong mission alignment and founder-led culture.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'steady', score: 70, theme: 'Operations running smoothly. Team proud of customer loyalty. Expansion discussions energize.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 74, theme: 'New product launches (curd, paneer) create excitement. Hiring increasing.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 78, theme: 'Brand recognition growing. Employees feel part of something special. Processes maturing.' },
+            { quarter: 'Q1 2026', mood: 'exciting', score: 84, theme: 'Bangalore expansion creates career opportunities. Investment round boosts confidence and salaries.' },
+        ],
+    },
+    koparo: {
+        ambitionbox: { rating: 3.7, totalReviews: 20, recommend: 70, ceoApproval: 74, workLife: 3.8, salary: 3.2, security: 3.3, culture: 3.9, growth: 3.4,
+            likes: ['Clean products mission is personally meaningful', 'Good work-life balance for a startup', 'Founders are approachable'],
+            dislikes: ['Small company — limited growth paths', 'Marketing budget constraints', 'Competing against FMCG giants is daunting'],
+            summary: 'Koparo offers a balanced startup experience with genuine mission alignment. Growth path limitations are the main concern.'
+        },
+        glassdoor: { rating: 3.5, totalReviews: 15, recommend: 66, ceoApproval: 70, workLife: 3.7, salary: 3.0, security: 3.1, culture: 3.7, growth: 3.2,
+            likes: ['Meaningful work in non-toxic cleaning', 'Flat structure — ideas are heard', 'Good learning for early career'],
+            dislikes: ['Salaries below market', 'Small team wears many hats', 'Category education is exhausting'],
+            summary: 'Good for mission-driven individuals comfortable with early-stage constraints. The non-toxic cleaning space is genuinely motivating.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'steady', score: 58, theme: 'Small team working hard. Category education challenge is real.' },
+            { quarter: 'Q2 2025', mood: 'improving', score: 62, theme: 'Customer growth boosting team confidence. New hires bringing energy.' },
+            { quarter: 'Q3 2025', mood: 'positive', score: 66, theme: 'Brand partnerships materializing. Team morale improving.' },
+            { quarter: 'Q1 2026', mood: 'good', score: 70, theme: 'Market for non-toxic cleaning growing. Team sees opportunity clearly.' },
+        ],
+    },
+    gynoveda: {
+        ambitionbox: { rating: 4.2, totalReviews: 72, recommend: 85, ceoApproval: 88, workLife: 3.9, salary: 3.4, security: 3.7, culture: 4.4, growth: 3.9,
+            likes: ['Working on women\'s health is deeply fulfilling', 'Community of users creates motivation', 'Ayurveda + tech combination is unique', 'Shark Tank success boosted team pride'],
+            dislikes: ['Ayurveda space faces regulatory complexities', 'Customer education is time-intensive', 'Need better internal communication tools'],
+            summary: 'Gynoveda employees are driven by the women\'s health mission. The community-first model creates unique workplace energy. Regulatory navigation in Ayurveda is the key challenge.'
+        },
+        glassdoor: { rating: 4.0, totalReviews: 58, recommend: 82, ceoApproval: 86, workLife: 3.7, salary: 3.2, security: 3.6, culture: 4.2, growth: 3.7,
+            likes: ['Breaking taboos in women\'s health is rewarding', 'Direct customer testimonials are motivating', 'Strong founder vision'],
+            dislikes: ['Scaling Ayurvedic products is complex', 'Compensation could be more competitive', 'Fast growth means occasional chaos'],
+            summary: 'Mission-driven workplace with genuine community impact. Ayurveda space complexities and typical startup scaling challenges.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'motivated', score: 72, theme: 'Shark Tank success energizes team. Community growth drives purpose.' },
+            { quarter: 'Q2 2025', mood: 'busy', score: 68, theme: 'Scaling rapidly. Some growing pains. Customer impact keeps team going.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 76, theme: 'Processes maturing. Team proud of community size. Regulatory navigation improving.' },
+            { quarter: 'Q1 2026', mood: 'thriving', score: 82, theme: 'Brand becoming a women\'s health movement. Employee advocacy very high.' },
+        ],
+    },
+    bareanatomy: {
+        ambitionbox: { rating: 3.9, totalReviews: 36, recommend: 75, ceoApproval: 78, workLife: 3.8, salary: 3.3, security: 3.5, culture: 4.0, growth: 3.6,
+            likes: ['Tech-driven beauty company — interesting work', 'Good exposure to D2C marketing', 'Personalization tech is genuinely innovative'],
+            dislikes: ['Competitive beauty market creates pressure', 'Need more structured career paths', 'Marketing spend can feel stretched'],
+            summary: 'Bare Anatomy offers a unique tech-meets-beauty work experience. Good for D2C marketing professionals seeking creative+analytical roles.'
+        },
+        glassdoor: { rating: 3.7, totalReviews: 28, recommend: 72, ceoApproval: 76, workLife: 3.6, salary: 3.1, security: 3.4, culture: 3.8, growth: 3.5,
+            likes: ['Personalization technology is exciting to work on', 'Data-driven culture', 'Good learning opportunity'],
+            dislikes: ['Market competition means constant hustle', 'Compensation is average', 'Benefits could be better'],
+            summary: 'Tech-forward beauty startup with good learning opportunities. Competitive market pressures are the main stress factor.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'steady', score: 62, theme: 'Team focused on growth. Personalization tech improving.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 66, theme: 'New product launches energize team. D2C beauty space heating up.' },
+            { quarter: 'Q3 2025', mood: 'positive', score: 70, theme: 'Customer reviews improving. Team seeing impact of their work.' },
+            { quarter: 'Q1 2026', mood: 'confident', score: 74, theme: 'Brand awareness growing. Team retention improving. Clear path forward.' },
+        ],
+    },
+    tbof: {
+        ambitionbox: { rating: 4.0, totalReviews: 45, recommend: 80, ceoApproval: 84, workLife: 3.7, salary: 3.3, security: 3.6, culture: 4.2, growth: 3.7,
+            likes: ['Working on organic farm is unique and refreshing', 'Founders\' passion for organic farming is infectious', 'Products are genuinely premium — team is proud'],
+            dislikes: ['Rural location limits talent and social life', 'Farming operations are weather-dependent and stressful', 'Startup salaries in agriculture sector'],
+            summary: 'Two Brothers offers a unique agri-D2C work experience. The rural setting is both a perk and a challenge. Mission-driven culture is strong.'
+        },
+        glassdoor: { rating: 3.8, totalReviews: 35, recommend: 76, ceoApproval: 82, workLife: 3.5, salary: 3.1, security: 3.5, culture: 4.0, growth: 3.5,
+            likes: ['Organic farming mission is genuine', 'Direct farm-to-consumer model is innovative', 'Good for those tired of corporate life'],
+            dislikes: ['Rural location in Maharashtra is limiting', 'Physical work can be demanding', 'Need better tech infrastructure'],
+            summary: 'Authentic farm-to-table work experience. Rural location is the biggest trade-off for the mission-driven culture.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'grounded', score: 65, theme: 'Farm operations steady. Team proud of product quality. Growth exciting.' },
+            { quarter: 'Q2 2025', mood: 'busy', score: 62, theme: 'Harvest season intensity. Online orders growing. Team stretched.' },
+            { quarter: 'Q3 2025', mood: 'proud', score: 70, theme: 'Brand recognition growing nationally. Media features boost morale.' },
+            { quarter: 'Q1 2026', mood: 'strong', score: 76, theme: 'Premium positioning paying off. Better compensation. Team retention solid.' },
+        ],
+    },
+    ellementry: {
+        ambitionbox: { rating: 3.8, totalReviews: 28, recommend: 72, ceoApproval: 76, workLife: 3.9, salary: 3.2, security: 3.4, culture: 4.1, growth: 3.5,
+            likes: ['Beautiful products — proud to show friends', 'Creative work environment', 'Sustainability mission is genuine'],
+            dislikes: ['Retail hours can be long', 'Limited online growth means retail-heavy model', 'Compensation could be better'],
+            summary: 'Ellementry offers a creative, design-focused work environment. Good for those passionate about sustainable homeware and craft.'
+        },
+        glassdoor: { rating: 3.6, totalReviews: 22, recommend: 68, ceoApproval: 72, workLife: 3.7, salary: 3.0, security: 3.2, culture: 3.9, growth: 3.3,
+            likes: ['Design-led brand — creative satisfaction', 'Good work culture', 'Products you can be proud of'],
+            dislikes: ['Growth slower than typical D2C', 'Retail model has inherent challenges', 'Need more digital focus'],
+            summary: 'Creative workplace with genuine design passion. Growth pace and compensation are areas for improvement.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'creative', score: 60, theme: 'Design team thriving. Retail operations steady. Growth slow but stable.' },
+            { quarter: 'Q2 2025', mood: 'steady', score: 62, theme: 'New collections well-received. Online channel growing slowly.' },
+            { quarter: 'Q3 2025', mood: 'improving', score: 66, theme: 'Festive season boosts retail. Team morale up with good sales.' },
+            { quarter: 'Q1 2026', mood: 'positive', score: 70, theme: 'Online growth accelerating. New store openings creating opportunities.' },
+        ],
+    },
+    cosmix: {
+        ambitionbox: { rating: 3.9, totalReviews: 30, recommend: 76, ceoApproval: 80, workLife: 4.0, salary: 3.3, security: 3.4, culture: 4.1, growth: 3.6,
+            likes: ['Wellness industry is exciting and growing', 'Team genuinely uses and believes in the products', 'Good work-life balance'],
+            dislikes: ['Adaptogens market still needs education', 'Limited brand awareness means harder sales', 'Small team, many responsibilities'],
+            summary: 'Cosmix employees are genuine product advocates. The wellness space is motivating. Market education remains the biggest challenge.'
+        },
+        glassdoor: { rating: 3.7, totalReviews: 24, recommend: 72, ceoApproval: 76, workLife: 3.8, salary: 3.1, security: 3.3, culture: 3.9, growth: 3.4,
+            likes: ['Health-focused workplace', 'Founder is knowledgeable and passionate', 'Products you believe in'],
+            dislikes: ['Category creation is slow and expensive', 'Compensation below D2C averages', 'Need more structured processes'],
+            summary: 'Wellness-focused culture with genuine product belief. Category creation challenges mirror business growth challenges.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'passionate', score: 62, theme: 'Team believes in adaptogens mission. Market education ongoing.' },
+            { quarter: 'Q2 2025', mood: 'steady', score: 64, theme: 'Sales growing. Content marketing driving awareness. Team stable.' },
+            { quarter: 'Q3 2025', mood: 'growing', score: 68, theme: 'Hero products gaining traction. Team confidence building.' },
+            { quarter: 'Q1 2026', mood: 'positive', score: 74, theme: 'Superfood trend accelerating. Brand recognition improving. Team optimistic.' },
+        ],
+    },
+    neemli: {
+        ambitionbox: { rating: 3.6, totalReviews: 22, recommend: 68, ceoApproval: 72, workLife: 3.7, salary: 3.0, security: 3.1, culture: 3.8, growth: 3.3,
+            likes: ['Clean beauty space is growing and exciting', 'Good formulations team', 'Founders care about product quality'],
+            dislikes: ['Very small team — burnout risk', 'Brand awareness too low for the product quality', 'Need more marketing investment'],
+            summary: 'Neemli offers good product work in clean beauty but struggles with the same awareness challenges the brand faces externally.'
+        },
+        glassdoor: { rating: 3.4, totalReviews: 16, recommend: 64, ceoApproval: 68, workLife: 3.5, salary: 2.8, security: 2.9, culture: 3.6, growth: 3.1,
+            likes: ['Product quality is genuinely good', 'Clean beauty mission', 'Learning opportunity in formulation'],
+            dislikes: ['Compensation is below market', 'Small team stretched very thin', 'Growth is slow compared to funded competitors'],
+            summary: 'Product-quality focused workplace. Resource constraints and competitive pressure are ongoing challenges.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'determined', score: 54, theme: 'Small team working hard. Good products but limited reach.' },
+            { quarter: 'Q2 2025', mood: 'hopeful', score: 58, theme: 'Some traction on Amazon. Clean beauty trend helping.' },
+            { quarter: 'Q3 2025', mood: 'improving', score: 62, theme: 'Customer reviews building. Word-of-mouth starting.' },
+            { quarter: 'Q1 2026', mood: 'cautiously positive', score: 66, theme: 'Growth visible. Team cautiously optimistic. Need funding for next leap.' },
+        ],
+    },
+    samosaparty: {
+        ambitionbox: { rating: 4.1, totalReviews: 65, recommend: 82, ceoApproval: 86, workLife: 3.8, salary: 3.4, security: 3.7, culture: 4.2, growth: 3.8,
+            likes: ['Food industry is fun and rewarding', 'Product customers love creates job satisfaction', 'Growth trajectory is exciting', 'Good operational learning'],
+            dislikes: ['Food manufacturing can be physically demanding', 'Scaling logistics is challenging', 'Weekend and festival season work'],
+            summary: 'Samosa Party employees enjoy the fast-growing food brand energy. Customer love for the product drives team pride. Operations roles are demanding but rewarding.'
+        },
+        glassdoor: { rating: 3.9, totalReviews: 52, recommend: 78, ceoApproval: 84, workLife: 3.6, salary: 3.2, security: 3.6, culture: 4.0, growth: 3.7,
+            likes: ['Being part of a beloved food brand', 'Rapid growth creates opportunities', 'Team culture is warm and food-centric'],
+            dislikes: ['Food production hours are early and long', 'Cold chain logistics is stressful', 'Need better work-life during festivals'],
+            summary: 'High-energy food startup with strong product-market fit driving team morale. Operational intensity is the trade-off.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'energetic', score: 70, theme: 'Brand growing fast. Team excited by customer love.' },
+            { quarter: 'Q2 2025', mood: 'intense', score: 66, theme: 'Scaling operations. New cities mean new challenges. Hiring rapidly.' },
+            { quarter: 'Q3 2025', mood: 'proud', score: 76, theme: 'Multi-city expansion successful. Festival season sales record. Team rewarded.' },
+            { quarter: 'Q1 2026', mood: 'thriving', score: 82, theme: 'Established brand. Good retention. Career paths clearer. Operations stabilized.' },
+        ],
+    },
+    earthrhythm: {
+        ambitionbox: { rating: 3.8, totalReviews: 34, recommend: 74, ceoApproval: 78, workLife: 3.9, salary: 3.2, security: 3.4, culture: 4.0, growth: 3.5,
+            likes: ['Sustainability mission is real, not just marketing', 'Refillable model is innovative', 'Good creative work in product design'],
+            dislikes: ['Consumer education about sustainable beauty is slow', 'Margins are tight in sustainable products', 'Need more D2C digital expertise'],
+            summary: 'Earth Rhythm attracts sustainability-passionate employees. The refillable beauty model is innovative but market education pace is the challenge.'
+        },
+        glassdoor: { rating: 3.6, totalReviews: 28, recommend: 70, ceoApproval: 74, workLife: 3.7, salary: 3.0, security: 3.2, culture: 3.8, growth: 3.3,
+            likes: ['Working in sustainable beauty feels impactful', 'Good formulations and product R&D', 'Brand values are genuinely practiced'],
+            dislikes: ['Sustainability premium limits market size', 'Compensation is modest', 'Growth slower than mainstream beauty brands'],
+            summary: 'Mission-aligned workplace with genuine sustainability practices. Market adoption pace and compensation are key concerns.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'committed', score: 60, theme: 'Team committed to sustainable beauty. Market adoption slow but steady.' },
+            { quarter: 'Q2 2025', mood: 'hopeful', score: 64, theme: 'Shampoo bars gaining traction. Consumer sustainability awareness growing.' },
+            { quarter: 'Q3 2025', mood: 'positive', score: 68, theme: 'Refillable model attracting attention. Media coverage boosting morale.' },
+            { quarter: 'Q1 2026', mood: 'growing', score: 72, theme: 'Sustainable beauty trend accelerating. Brand well-positioned. Team optimistic.' },
+        ],
+    },
+    bombaysweets: {
+        ambitionbox: { rating: 4.0, totalReviews: 40, recommend: 78, ceoApproval: 82, workLife: 3.7, salary: 3.3, security: 3.5, culture: 4.1, growth: 3.6,
+            likes: ['Working with artisan mithai makers is unique', 'Brand is beloved by customers — pride in the product', 'Creative food innovation encouraged'],
+            dislikes: ['Festival season workload is extreme', 'Perishable products mean tight timelines', 'Mumbai cost of living vs startup salary'],
+            summary: 'Bombay Sweet Shop combines artisanal food craft with modern D2C branding. Employees love the product and customer reactions. Festival season intensity is the trade-off.'
+        },
+        glassdoor: { rating: 3.8, totalReviews: 32, recommend: 75, ceoApproval: 80, workLife: 3.5, salary: 3.1, security: 3.4, culture: 3.9, growth: 3.5,
+            likes: ['Artisanal food space is fulfilling', 'Customer delight is directly visible', 'Creative experimentation encouraged'],
+            dislikes: ['Mumbai rent + startup salary is challenging', 'Perishable product logistics are stressful', 'Seasonal demand creates uneven workload'],
+            summary: 'A food artisan\'s dream workplace with genuine creative freedom. Mumbai economics and seasonal intensity are challenges.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'creative', score: 65, theme: 'Post-Diwali recovery. New product development season. Team re-energized.' },
+            { quarter: 'Q2 2025', mood: 'steady', score: 68, theme: 'Summer range launches. Subscription model testing. Stable team.' },
+            { quarter: 'Q3 2025', mood: 'intense', score: 72, theme: 'Festival season prep. All hands on deck. Revenue targets in sight.' },
+            { quarter: 'Q1 2026', mood: 'proud', score: 78, theme: 'Record Diwali sales. Team rewarded. Brand expanding to new cities.' },
+        ],
+    },
+    staccato: {
+        ambitionbox: { rating: 3.7, totalReviews: 12, recommend: 70, ceoApproval: 76, workLife: 3.8, salary: 3.0, security: 3.1, culture: 4.0, growth: 3.3,
+            likes: ['Passion for coffee makes work enjoyable', 'Founder is a genuine coffee expert', 'Small team with close bonds'],
+            dislikes: ['Very small operation — limited growth', 'Below market compensation', 'Niche market limits scale potential'],
+            summary: 'Staccato is a passion project for coffee lovers. Small team, artisanal approach. Best for those prioritizing passion over scale.'
+        },
+        glassdoor: { rating: 3.5, totalReviews: 8, recommend: 65, ceoApproval: 72, workLife: 3.6, salary: 2.8, security: 2.9, culture: 3.8, growth: 3.0,
+            likes: ['Learning about specialty coffee is rewarding', 'Artisanal work environment', 'Close-knit team'],
+            dislikes: ['Very limited scale and resources', 'Salary is below market', 'Career path is unclear'],
+            summary: 'Micro-roaster culture. Great for coffee enthusiasts but limited career growth potential.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'passionate', score: 58, theme: 'Small team roasting great coffee. Resources limited but passion high.' },
+            { quarter: 'Q2 2025', mood: 'steady', score: 60, theme: 'Online orders growing slowly. Quality recognition increasing.' },
+            { quarter: 'Q3 2025', mood: 'hopeful', score: 64, theme: 'Specialty coffee market growing. Brand building momentum.' },
+            { quarter: 'Q1 2026', mood: 'cautious optimism', score: 68, theme: 'Market recognition improving. Seeking funding for expansion. Team hopeful.' },
+        ],
+    },
+};
 
-    const googleScore = Math.min(100, gt.currentIndex);
-    const reviewScore = Math.min(100, (ec.amazon.sentiment + ec.myntra.sentiment) / 2);
-    const trafficScore = Math.min(100, Math.max(0, 50 + tr.momGrowth));
-    const socialScore = Math.min(100, so.viralScore);
+// Default employee reviews for any brand not explicitly listed
+const DEFAULT_EMPLOYEE_REVIEWS = {
+    ambitionbox: { rating: 3.5, totalReviews: 15, recommend: 65, ceoApproval: 70, workLife: 3.5, salary: 3.0, security: 3.2, culture: 3.7, growth: 3.3,
+        likes: ['Innovative product space', 'Startup energy and learning', 'Founders are accessible'],
+        dislikes: ['Early-stage compensation constraints', 'Wearing many hats', 'Limited HR structure'],
+        summary: 'Typical early-stage D2C startup. Mission-driven culture with growth-stage challenges.'
+    },
+    glassdoor: { rating: 3.3, totalReviews: 10, recommend: 60, ceoApproval: 66, workLife: 3.3, salary: 2.8, security: 3.0, culture: 3.5, growth: 3.1,
+        likes: ['Learning opportunity', 'Direct impact visible', 'Flat hierarchy'],
+        dislikes: ['Below market compensation', 'Resource constraints', 'Job security concerns'],
+        summary: 'Early-stage startup with standard growing pains. Suits self-starters.'
+    },
+    moodTimeline: [
+        { quarter: 'Q1 2025', mood: 'building', score: 55, theme: 'Early team building culture. Resources tight but energy high.' },
+        { quarter: 'Q2 2025', mood: 'steady', score: 58, theme: 'Team finding its rhythm. Processes starting to form.' },
+        { quarter: 'Q3 2025', mood: 'improving', score: 62, theme: 'Product traction improving team morale. Hiring continues.' },
+        { quarter: 'Q1 2026', mood: 'positive', score: 66, theme: 'Growth visible. Team gaining confidence. Culture solidifying.' },
+    ],
+};
 
-    const composite = Math.round(
-        googleScore * 0.25 +
-        reviewScore * 0.20 +
-        trafficScore * 0.30 +
-        socialScore * 0.25
-    );
+// --- Composite Scoring ---
+function computeCompositeScores() {
+    return COMPANIES.map(c => {
+        const gt = GOOGLE_TRENDS_DATA[c.id];
+        const ec = ECOMMERCE_DATA[c.id];
+        const tr = TRAFFIC_DATA[c.id];
+        const so = SOCIAL_DATA[c.id];
 
-    return {
-        composite,
-        google: Math.round(googleScore),
-        reviews: Math.round(reviewScore),
-        traffic: Math.round(trafficScore),
-        social: Math.round(socialScore),
-    };
+        const googleScore = Math.min(100, (gt.change90d > 0 ? gt.change90d * 0.5 : 0) + (gt.currentIndex / gt.peak12m) * 50);
+        const reviewScore = (ec.amazon.sentiment + ec.myntra.sentiment) / 2;
+        const trafficScore = Math.min(100, tr.momGrowth * 2 + 50);
+        const socialScore = (so.reddit.sentiment + so.instagram.sentiment + so.linkedin.sentiment) / 3;
+
+        const composite = Math.round(
+            googleScore * 0.25 + reviewScore * 0.20 + trafficScore * 0.30 + socialScore * 0.25
+        );
+
+        let signal = 'watch';
+        if (composite >= 78) signal = 'breakout';
+        else if (composite >= 65) signal = 'trending';
+        else if (composite < 40) signal = 'declining';
+
+        return {
+            ...c,
+            scores: { google: Math.round(googleScore), reviews: Math.round(reviewScore), traffic: Math.round(trafficScore), social: Math.round(socialScore), composite },
+            signal,
+        };
+    }).sort((a, b) => b.scores.composite - a.scores.composite);
 }
 
-const COMPOSITE_SCORES = {};
-COMPANIES.forEach(c => {
-    COMPOSITE_SCORES[c.id] = calculateCompositeScore(c.id);
-});
-
-// Determine signals
-function getSignal(companyId) {
-    const score = COMPOSITE_SCORES[companyId];
-    const gt = GOOGLE_TRENDS_DATA[companyId];
-    const tr = TRAFFIC_DATA[companyId];
-
-    const strongSignals = [
-        gt.change30d > 20,
-        score.reviews > 70,
-        tr.momGrowth > 25,
-        score.social > 60,
-    ].filter(Boolean).length;
-
-    if (strongSignals >= 3) return 'breakout';
-    if (strongSignals >= 2 || score.composite > 65) return 'trending';
-    if (score.composite > 45) return 'watch';
-    return 'declining';
-}
-
-const COMPANY_SIGNALS = {};
-COMPANIES.forEach(c => {
-    COMPANY_SIGNALS[c.id] = getSignal(c.id);
-});
+const COMPOSITE_SCORES = computeCompositeScores();

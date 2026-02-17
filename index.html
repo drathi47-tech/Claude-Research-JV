@@ -37,6 +37,9 @@
                 <button class="nav-item" data-panel="social" onclick="switchPanel('social')">
                     <span class="nav-icon">&#9788;</span> Social Media
                 </button>
+                <button class="nav-item" data-panel="employee" onclick="switchPanel('employee')">
+                    <span class="nav-icon">&#9881;</span> Employee Reviews
+                </button>
 
                 <div class="nav-section-label" style="margin-top: 24px;">Analysis</div>
                 <button class="nav-item" data-panel="breakout" onclick="switchPanel('breakout')">
@@ -509,6 +512,77 @@
                                     </tr>
                                 </thead>
                                 <tbody id="socialTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Reviews Panel -->
+                <div class="panel" id="panel-employee">
+                    <div class="panel-header">
+                        <h1>Employee Reviews</h1>
+                        <p class="panel-description">AmbitionBox & Glassdoor employee sentiment — culture, work-life balance, leadership, and growth signals</p>
+                    </div>
+
+                    <div class="platform-toggle">
+                        <button class="platform-btn active" onclick="switchEmployeePlatform('ambitionbox', this)">AmbitionBox</button>
+                        <button class="platform-btn" onclick="switchEmployeePlatform('glassdoor', this)">Glassdoor</button>
+                        <button class="platform-btn" onclick="switchEmployeePlatform('both', this)">Both</button>
+                    </div>
+
+                    <!-- Employee Review Summary (per-company) -->
+                    <div class="chart-card" id="employeeSummaryCard">
+                        <div class="chart-header">
+                            <h3>Employee Sentiment Summary</h3>
+                            <select class="mini-select" id="employeeSummaryCompanySelect" onchange="renderEmployeeSummary()">
+                            </select>
+                        </div>
+                        <div id="employeeSummaryContent"></div>
+                    </div>
+
+                    <!-- Employee Mood Timeline -->
+                    <div class="chart-card" id="employeeMoodTimelineCard">
+                        <div class="chart-header">
+                            <h3>Employee Sentiment Evolution (12 Months)</h3>
+                            <select class="mini-select" id="employeeMoodCompanySelect" onchange="renderEmployeeMoodTimeline()">
+                            </select>
+                        </div>
+                        <div id="employeeMoodTimelineContent"></div>
+                    </div>
+
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Employee Rating Comparison</h3>
+                            </div>
+                            <canvas id="employeeRatingChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Recommend to Friend %</h3>
+                            </div>
+                            <canvas id="employeeRecommendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Employee Review Leaderboard</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Est. Valuation</th>
+                                        <th>AmbitionBox</th>
+                                        <th>Glassdoor</th>
+                                        <th>Total Reviews</th>
+                                        <th>Recommend %</th>
+                                        <th>Signal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeTableBody"></tbody>
                             </table>
                         </div>
                     </div>

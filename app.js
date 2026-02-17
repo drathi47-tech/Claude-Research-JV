@@ -37,6 +37,7 @@ function initPanel(panelId) {
         case 'ecommerce': initEcommerce(); break;
         case 'traffic': initTraffic(); break;
         case 'social': initSocial(); break;
+        case 'employee': initEmployee(); break;
         case 'breakout': initBreakout(); break;
         case 'watchlist': initWatchlist(); break;
         case 'brand-lookup': /* no-op, stays as-is */ break;
@@ -1015,6 +1016,223 @@ function renderSocialTable() {
             <td>${d.instagram.engagementRate}%</td>
             <td><span class="${avgSentiment > 60 ? 'trend-up' : 'trend-down'}">${avgSentiment}%</span></td>
             <td>${d.viralScore}/100</td>
+            <td>${signalBadge(COMPANY_SIGNALS[c.id])}</td>
+        </tr>`;
+    }).join('');
+}
+
+// --- Employee Reviews Panel ---
+function initEmployee() {
+    populateCompanySelect('employeeSummaryCompanySelect');
+    populateCompanySelect('employeeMoodCompanySelect');
+    renderEmployeeSummary();
+    renderEmployeeMoodTimeline();
+    renderEmployeeRatingChart();
+    renderEmployeeRecommendChart();
+    renderEmployeeTable();
+}
+
+function switchEmployeePlatform(platform, btn) {
+    document.querySelectorAll('#panel-employee .platform-toggle .platform-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderEmployeeSummary();
+}
+
+function renderEmployeeSummary() {
+    const companyId = document.getElementById('employeeSummaryCompanySelect').value || COMPANIES[0].id;
+    const company = COMPANIES.find(c => c.id === companyId);
+    const empData = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[companyId] : null;
+    const container = document.getElementById('employeeSummaryContent');
+
+    if (!empData) {
+        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No employee review data available for this company.</div>';
+        return;
+    }
+
+    const activeBtn = document.querySelector('#panel-employee .platform-toggle .platform-btn.active');
+    const activePlatform = activeBtn ? activeBtn.textContent.toLowerCase().trim() : 'ambitionbox';
+
+    let platformsToShow = [];
+    if (activePlatform === 'both') {
+        platformsToShow = ['ambitionbox', 'glassdoor'];
+    } else if (activePlatform === 'glassdoor') {
+        platformsToShow = ['glassdoor'];
+    } else {
+        platformsToShow = ['ambitionbox'];
+    }
+
+    const platformConfig = {
+        ambitionbox: { label: 'AmbitionBox', color: '#0066ff' },
+        glassdoor: { label: 'Glassdoor', color: '#0caa41' },
+    };
+
+    let html = '<div class="review-summary-grid">';
+
+    platformsToShow.forEach(platform => {
+        const pData = empData[platform];
+        if (!pData) return;
+        const cfg = platformConfig[platform];
+
+        html += `
+        <div class="review-summary-platform">
+            <div class="review-summary-platform-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="review-platform-badge" style="background: ${cfg.color}20; color: ${cfg.color};">${cfg.label}</span>
+                <div style="display:flex; gap:16px; align-items:center;">
+                    <span style="font-size:20px; font-weight:700; color:${cfg.color};">${pData.rating}/5.0</span>
+                    <span style="font-size:11px; color:var(--text-muted);">${pData.totalReviews} reviews</span>
+                    <span style="font-size:11px; color:var(--accent-green);">${pData.recommendToFriend} recommend</span>
+                </div>
+            </div>
+            <div class="review-summary-body">
+                <p class="review-summary-text">${pData.summary}</p>
+                <div class="review-likes-dislikes">
+                    <div class="review-column">
+                        <div class="review-column-header likes-header">What employees love</div>
+                        <ul class="review-list likes-list">
+                            ${pData.likes.map(l => `<li>${l}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="review-column">
+                        <div class="review-column-header dislikes-header">What employees dislike</div>
+                        <ul class="review-list dislikes-list">
+                            ${pData.dislikes.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function renderEmployeeMoodTimeline() {
+    const companyId = document.getElementById('employeeMoodCompanySelect').value || COMPANIES[0].id;
+    const company = COMPANIES.find(c => c.id === companyId);
+    const empData = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[companyId] : null;
+    const moodData = empData?.ambitionbox?.moodTimeline;
+    const container = document.getElementById('employeeMoodTimelineContent');
+
+    if (!moodData || moodData.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No employee mood timeline data available.</div>';
+        return;
+    }
+
+    container.innerHTML = buildMoodTimeline(moodData, company.color);
+}
+
+function renderEmployeeRatingChart() {
+    destroyChart('employeeRating');
+    const companies = getFilteredCompanies().slice(0, 10);
+    const ctx = document.getElementById('employeeRatingChart').getContext('2d');
+
+    const ambitionData = companies.map(c => {
+        const d = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[c.id] : null;
+        return d?.ambitionbox?.rating || 0;
+    });
+    const glassdoorData = companies.map(c => {
+        const d = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[c.id] : null;
+        return d?.glassdoor?.rating || 0;
+    });
+
+    charts.employeeRating = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: companies.map(c => c.name),
+            datasets: [
+                {
+                    label: 'AmbitionBox',
+                    data: ambitionData,
+                    backgroundColor: 'rgba(0, 102, 255, 0.5)',
+                    borderRadius: 4,
+                },
+                {
+                    label: 'Glassdoor',
+                    data: glassdoorData,
+                    backgroundColor: 'rgba(12, 170, 65, 0.5)',
+                    borderRadius: 4,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.6,
+            scales: {
+                x: { grid: { display: false } },
+                y: { beginAtZero: true, max: 5, grid: { color: 'rgba(42, 45, 62, 0.4)' } },
+            },
+            plugins: { legend: { position: 'bottom' } },
+        },
+    });
+}
+
+function renderEmployeeRecommendChart() {
+    destroyChart('employeeRecommend');
+    const companies = getFilteredCompanies().slice(0, 10);
+    const ctx = document.getElementById('employeeRecommendChart').getContext('2d');
+
+    const data = companies.map(c => {
+        const d = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[c.id] : null;
+        return parseInt(d?.ambitionbox?.recommendToFriend) || 0;
+    });
+
+    charts.employeeRecommend = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: companies.map(c => c.name),
+            datasets: [{
+                label: 'Recommend to Friend %',
+                data,
+                backgroundColor: companies.map(c => c.color + '70'),
+                borderColor: companies.map(c => c.color),
+                borderWidth: 1,
+                borderRadius: 4,
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.6,
+            indexAxis: 'y',
+            scales: {
+                x: { beginAtZero: true, max: 100, grid: { color: 'rgba(42, 45, 62, 0.4)' } },
+                y: { grid: { display: false } },
+            },
+            plugins: { legend: { display: false } },
+        },
+    });
+}
+
+function renderEmployeeTable() {
+    const companies = getFilteredCompanies();
+    const tbody = document.getElementById('employeeTableBody');
+
+    const sorted = [...companies].sort((a, b) => {
+        const aD = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[a.id] : null;
+        const bD = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[b.id] : null;
+        return (bD?.ambitionbox?.rating || 0) - (aD?.ambitionbox?.rating || 0);
+    });
+
+    tbody.innerHTML = sorted.map(c => {
+        const d = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[c.id] : null;
+        if (!d) return '';
+        const ab = d.ambitionbox;
+        const gd = d.glassdoor;
+        const totalReviews = (ab?.totalReviews || 0) + (gd?.totalReviews || 0);
+        const avgRecommend = ab?.recommendToFriend || 'N/A';
+        const abRating = ab?.rating || '-';
+        const gdRating = gd?.rating || '-';
+        const ratingColor = (val) => val >= 4.0 ? 'var(--accent-green)' : val >= 3.5 ? 'var(--accent-yellow)' : 'var(--accent-red)';
+
+        return `<tr>
+            <td><strong style="color:${c.color}">${c.name}</strong></td>
+            <td>${valuationBadge(c.estValuation)}</td>
+            <td><span style="color:${ratingColor(abRating)};font-weight:600;">${abRating}/5.0</span></td>
+            <td><span style="color:${ratingColor(gdRating)};font-weight:600;">${gdRating}/5.0</span></td>
+            <td>${totalReviews}</td>
+            <td><span class="${parseInt(avgRecommend) > 65 ? 'trend-up' : 'trend-down'}">${avgRecommend}</span></td>
             <td>${signalBadge(COMPANY_SIGNALS[c.id])}</td>
         </tr>`;
     }).join('');
