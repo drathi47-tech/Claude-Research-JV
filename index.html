@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumer Trend Radar | Jungle Ventures</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">JV</div>
+                <div>
+                    <div class="logo-title">Jungle Ventures</div>
+                    <div class="logo-subtitle">Consumer Trend Radar</div>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-section-label">Platforms</div>
+                <button class="nav-item active" data-panel="overview" onclick="switchPanel('overview')">
+                    <span class="nav-icon">&#9673;</span> Overview
+                </button>
+                <button class="nav-item" data-panel="google-trends" onclick="switchPanel('google-trends')">
+                    <span class="nav-icon">G</span> Google Trends
+                </button>
+                <button class="nav-item" data-panel="ecommerce" onclick="switchPanel('ecommerce')">
+                    <span class="nav-icon">&#9733;</span> Amazon / Myntra
+                </button>
+                <button class="nav-item" data-panel="traffic" onclick="switchPanel('traffic')">
+                    <span class="nav-icon">&#8599;</span> Website Traffic
+                </button>
+                <button class="nav-item" data-panel="social" onclick="switchPanel('social')">
+                    <span class="nav-icon">&#9788;</span> Reddit / Instagram
+                </button>
+
+                <div class="nav-section-label" style="margin-top: 24px;">Analysis</div>
+                <button class="nav-item" data-panel="breakout" onclick="switchPanel('breakout')">
+                    <span class="nav-icon">&#9889;</span> Breakout Detector
+                </button>
+                <button class="nav-item" data-panel="watchlist" onclick="switchPanel('watchlist')">
+                    <span class="nav-icon">&#9734;</span> Watchlist
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="nav-section-label">Tracked Companies</div>
+                <div class="company-count" id="companyCount">12 companies</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search companies, brands, categories..." id="searchInput" oninput="handleSearch(this.value)">
+                </div>
+                <div class="top-bar-actions">
+                    <select class="time-range-select" id="timeRange" onchange="updateTimeRange(this.value)">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d" selected>Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                        <option value="6m">Last 6 months</option>
+                        <option value="1y">Last 1 year</option>
+                    </select>
+                    <select class="time-range-select" id="sectorFilter" onchange="updateSectorFilter(this.value)">
+                        <option value="all">All Sectors</option>
+                        <option value="beauty">Beauty & Personal Care</option>
+                        <option value="food">Food & Beverage</option>
+                        <option value="fashion">Fashion & Apparel</option>
+                        <option value="health">Health & Wellness</option>
+                        <option value="home">Home & Living</option>
+                        <option value="electronics">Consumer Electronics</option>
+                    </select>
+                    <button class="btn-add-company" onclick="openAddCompanyModal()">+ Add Company</button>
+                </div>
+            </header>
+
+            <!-- Panels -->
+            <div class="panel-container">
+
+                <!-- Overview Panel -->
+                <div class="panel active" id="panel-overview">
+                    <div class="panel-header">
+                        <h1>Trend Overview</h1>
+                        <p class="panel-description">Cross-platform signal aggregation for tracked consumer companies</p>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Trending Up</div>
+                            <div class="kpi-value trending-up" id="kpiTrendingUp">7</div>
+                            <div class="kpi-delta positive">+3 vs last period</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Breakout Signals</div>
+                            <div class="kpi-value" id="kpiBreakout" style="color: #f59e0b;">3</div>
+                            <div class="kpi-delta positive">2 new this week</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg Sentiment</div>
+                            <div class="kpi-value" id="kpiSentiment" style="color: #8b5cf6;">78%</div>
+                            <div class="kpi-delta positive">+5% vs last period</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Review Volume</div>
+                            <div class="kpi-value" id="kpiReviews" style="color: #06b6d4;">14.2K</div>
+                            <div class="kpi-delta positive">+22% vs last period</div>
+                        </div>
+                    </div>
+
+                    <!-- Overview Charts -->
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Multi-Signal Trend Heatmap</h3>
+                            </div>
+                            <div class="heatmap-container" id="overviewHeatmap"></div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Composite Score Trend</h3>
+                            </div>
+                            <canvas id="compositeScoreChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Top Movers Table -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Top Movers This Period</h3>
+                            <div class="chart-actions">
+                                <button class="chip active" onclick="filterMovers('all', this)">All</button>
+                                <button class="chip" onclick="filterMovers('up', this)">Trending Up</button>
+                                <button class="chip" onclick="filterMovers('breakout', this)">Breakout</button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="topMoversTable">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Sector</th>
+                                        <th>Google Trend</th>
+                                        <th>Reviews</th>
+                                        <th>Traffic</th>
+                                        <th>Social Buzz</th>
+                                        <th>Composite Score</th>
+                                        <th>Signal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topMoversBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Trends Panel -->
+                <div class="panel" id="panel-google-trends">
+                    <div class="panel-header">
+                        <h1>Google Trends</h1>
+                        <p class="panel-description">Search interest over time for tracked consumer brands</p>
+                    </div>
+
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Search Interest Over Time</h3>
+                                <div class="chart-actions">
+                                    <select class="mini-select" id="gtCompanySelect" onchange="updateGoogleTrendsChart()">
+                                    </select>
+                                </div>
+                            </div>
+                            <canvas id="googleTrendsLineChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Comparative Brand Interest</h3>
+                            </div>
+                            <canvas id="googleTrendsCompareChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Interest by Region</h3>
+                            </div>
+                            <canvas id="googleTrendsRegionChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Related Rising Queries</h3>
+                            </div>
+                            <div class="rising-queries" id="risingQueries"></div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Google Trends Leaderboard</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Current Index</th>
+                                        <th>30d Change</th>
+                                        <th>90d Change</th>
+                                        <th>Peak (12m)</th>
+                                        <th>Volatility</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="googleTrendsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Reviews Panel -->
+                <div class="panel" id="panel-ecommerce">
+                    <div class="panel-header">
+                        <h1>Amazon / Myntra Reviews</h1>
+                        <p class="panel-description">Review volume, ratings, and sentiment analysis across e-commerce platforms</p>
+                    </div>
+
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg Rating (Amazon)</div>
+                            <div class="kpi-value" style="color: #ff9900;">4.2</div>
+                            <div class="kpi-delta positive">+0.3 vs last period</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg Rating (Myntra)</div>
+                            <div class="kpi-value" style="color: #ff3f6c;">4.0</div>
+                            <div class="kpi-delta positive">+0.2 vs last period</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">New Reviews (7d)</div>
+                            <div class="kpi-value" style="color: #06b6d4;">2,847</div>
+                            <div class="kpi-delta positive">+18% vs last week</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Positive Sentiment</div>
+                            <div class="kpi-value" style="color: #10b981;">72%</div>
+                            <div class="kpi-delta positive">+4% vs last period</div>
+                        </div>
+                    </div>
+
+                    <div class="platform-toggle">
+                        <button class="platform-btn active" onclick="switchEcommPlatform('amazon', this)">Amazon</button>
+                        <button class="platform-btn" onclick="switchEcommPlatform('myntra', this)">Myntra</button>
+                        <button class="platform-btn" onclick="switchEcommPlatform('both', this)">Both</button>
+                    </div>
+
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Review Volume Over Time</h3>
+                            </div>
+                            <canvas id="reviewVolumeChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Average Rating Trend</h3>
+                            </div>
+                            <canvas id="ratingTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Sentiment Distribution</h3>
+                            </div>
+                            <canvas id="sentimentDonutChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Top Review Keywords</h3>
+                            </div>
+                            <div class="keyword-cloud" id="reviewKeywords"></div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Company Review Metrics</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Platform</th>
+                                        <th>Total Reviews</th>
+                                        <th>Avg Rating</th>
+                                        <th>Rating Change</th>
+                                        <th>Review Velocity</th>
+                                        <th>Sentiment</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ecommerceTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Website Traffic Panel -->
+                <div class="panel" id="panel-traffic">
+                    <div class="panel-header">
+                        <h1>Website Traffic</h1>
+                        <p class="panel-description">Estimated web traffic and engagement metrics (SimilarWeb / proxy data)</p>
+                    </div>
+
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Total Est. Visits</div>
+                            <div class="kpi-value" style="color: #3b82f6;">8.4M</div>
+                            <div class="kpi-delta positive">+31% vs last month</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg Time on Site</div>
+                            <div class="kpi-value" style="color: #8b5cf6;">3:42</div>
+                            <div class="kpi-delta positive">+0:18 vs last month</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg Bounce Rate</div>
+                            <div class="kpi-value" style="color: #f59e0b;">38%</div>
+                            <div class="kpi-delta positive">-4% vs last month</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Fastest Growing</div>
+                            <div class="kpi-value" style="color: #10b981; font-size: 20px;" id="fastestGrowing">Wakefit</div>
+                            <div class="kpi-delta positive">+62% traffic growth</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Monthly Traffic Estimates</h3>
+                                <select class="mini-select" id="trafficCompanySelect" onchange="updateTrafficChart()">
+                                </select>
+                            </div>
+                            <canvas id="trafficLineChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Traffic Source Breakdown</h3>
+                            </div>
+                            <canvas id="trafficSourceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Traffic Leaderboard</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Est. Monthly Visits</th>
+                                        <th>MoM Growth</th>
+                                        <th>Bounce Rate</th>
+                                        <th>Avg Duration</th>
+                                        <th>Pages/Visit</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="trafficTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Panel -->
+                <div class="panel" id="panel-social">
+                    <div class="panel-header">
+                        <h1>Reddit / Instagram</h1>
+                        <p class="panel-description">Social buzz, mentions, and community sentiment tracking</p>
+                    </div>
+
+                    <div class="platform-toggle">
+                        <button class="platform-btn active" onclick="switchSocialPlatform('reddit', this)">Reddit</button>
+                        <button class="platform-btn" onclick="switchSocialPlatform('instagram', this)">Instagram</button>
+                        <button class="platform-btn" onclick="switchSocialPlatform('both', this)">Both</button>
+                    </div>
+
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Reddit Mentions</div>
+                            <div class="kpi-value" style="color: #ff4500;">1,247</div>
+                            <div class="kpi-delta positive">+34% vs last period</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">IG Mentions</div>
+                            <div class="kpi-value" style="color: #e1306c;">8,932</div>
+                            <div class="kpi-delta positive">+19% vs last period</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg Engagement</div>
+                            <div class="kpi-value" style="color: #8b5cf6;">4.7%</div>
+                            <div class="kpi-delta positive">+0.8% vs last period</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Viral Posts</div>
+                            <div class="kpi-value" style="color: #f59e0b;">12</div>
+                            <div class="kpi-delta positive">+5 vs last period</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Mention Volume Over Time</h3>
+                            </div>
+                            <canvas id="socialMentionsChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Sentiment Breakdown</h3>
+                            </div>
+                            <canvas id="socialSentimentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Trending Posts & Threads</h3>
+                        </div>
+                        <div class="social-feed" id="socialFeed"></div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Social Signal Leaderboard</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Reddit Mentions</th>
+                                        <th>IG Mentions</th>
+                                        <th>Engagement Rate</th>
+                                        <th>Sentiment</th>
+                                        <th>Viral Score</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="socialTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breakout Detector Panel -->
+                <div class="panel" id="panel-breakout">
+                    <div class="panel-header">
+                        <h1>Breakout Detector</h1>
+                        <p class="panel-description">Companies showing simultaneous signals across multiple platforms</p>
+                    </div>
+
+                    <div class="alert-banner" id="breakoutAlert">
+                        <span class="alert-icon">&#9889;</span>
+                        <span><strong>3 companies</strong> are showing breakout signals across 3+ platforms this period</span>
+                    </div>
+
+                    <div class="breakout-cards" id="breakoutCards"></div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Breakout Score Over Time</h3>
+                        </div>
+                        <canvas id="breakoutScoreChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Signal Correlation Matrix</h3>
+                        </div>
+                        <div class="heatmap-container" id="correlationMatrix"></div>
+                    </div>
+                </div>
+
+                <!-- Watchlist Panel -->
+                <div class="panel" id="panel-watchlist">
+                    <div class="panel-header">
+                        <h1>Watchlist</h1>
+                        <p class="panel-description">Your curated list of companies to monitor for investment opportunities</p>
+                    </div>
+
+                    <div class="watchlist-controls">
+                        <button class="btn-add-company" onclick="openAddCompanyModal()">+ Add to Watchlist</button>
+                        <select class="time-range-select" id="watchlistSort" onchange="sortWatchlist(this.value)">
+                            <option value="score">Sort by Composite Score</option>
+                            <option value="momentum">Sort by Momentum</option>
+                            <option value="name">Sort by Name</option>
+                            <option value="sector">Sort by Sector</option>
+                        </select>
+                    </div>
+
+                    <div class="watchlist-grid" id="watchlistGrid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Company Modal -->
+    <div class="modal-overlay" id="addCompanyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Company to Track</h2>
+                <button class="modal-close" onclick="closeAddCompanyModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" class="form-input" placeholder="e.g., Boat, Mamaearth" id="newCompanyName">
+                </div>
+                <div class="form-group">
+                    <label>Sector</label>
+                    <select class="form-input" id="newCompanySector">
+                        <option value="beauty">Beauty & Personal Care</option>
+                        <option value="food">Food & Beverage</option>
+                        <option value="fashion">Fashion & Apparel</option>
+                        <option value="health">Health & Wellness</option>
+                        <option value="home">Home & Living</option>
+                        <option value="electronics">Consumer Electronics</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Website URL</label>
+                    <input type="text" class="form-input" placeholder="https://..." id="newCompanyUrl">
+                </div>
+                <div class="form-group">
+                    <label>Platforms to Track</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label"><input type="checkbox" checked> Google Trends</label>
+                        <label class="checkbox-label"><input type="checkbox" checked> Amazon</label>
+                        <label class="checkbox-label"><input type="checkbox" checked> Myntra</label>
+                        <label class="checkbox-label"><input type="checkbox" checked> Reddit</label>
+                        <label class="checkbox-label"><input type="checkbox" checked> Instagram</label>
+                        <label class="checkbox-label"><input type="checkbox" checked> Website Traffic</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeAddCompanyModal()">Cancel</button>
+                <button class="btn-primary" onclick="addCompany()">Add Company</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
