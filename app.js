@@ -371,7 +371,9 @@ function renderGoogleTrendsTable() {
 // --- E-commerce Panel ---
 function initEcommerce() {
     populateCompanySelect('reviewSummaryCompanySelect');
+    populateCompanySelect('ecommMoodCompanySelect');
     renderReviewSummary();
+    renderEcommMoodTimeline();
     renderReviewVolumeChart('amazon');
     renderRatingTrendChart('amazon');
     renderSentimentDonut();
@@ -446,6 +448,47 @@ function renderReviewSummary() {
 
     html += '</div>';
     container.innerHTML = html;
+}
+
+// --- E-commerce Mood Timeline ---
+function renderEcommMoodTimeline() {
+    const companyId = document.getElementById('ecommMoodCompanySelect').value || COMPANIES[0].id;
+    const company = COMPANIES.find(c => c.id === companyId);
+    const moodData = SOCIAL_DATA[companyId]?.moodTimeline?.ecommerce;
+    const container = document.getElementById('ecommMoodTimelineContent');
+
+    if (!moodData || moodData.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No mood timeline data available.</div>';
+        return;
+    }
+
+    container.innerHTML = buildMoodTimeline(moodData, company.color);
+}
+
+function buildMoodTimeline(entries, color) {
+    return `<div class="mood-timeline">
+        ${entries.map((entry, i) => {
+            const moodColor = entry.score >= 75 ? 'var(--accent-green)' :
+                              entry.score >= 60 ? 'var(--accent-blue)' :
+                              entry.score >= 45 ? 'var(--accent-yellow)' :
+                              'var(--accent-red)';
+            const isLast = i === entries.length - 1;
+            return `<div class="mood-timeline-entry ${isLast ? 'mood-current' : ''}">
+                <div class="mood-timeline-marker">
+                    <div class="mood-dot" style="background:${moodColor};"></div>
+                    ${!isLast ? '<div class="mood-line"></div>' : ''}
+                </div>
+                <div class="mood-timeline-content">
+                    <div class="mood-timeline-header">
+                        <span class="mood-quarter">${entry.quarter}</span>
+                        <span class="mood-badge" style="background:${moodColor}20; color:${moodColor};">${entry.mood}</span>
+                        <span class="mood-score" style="color:${moodColor};">${entry.score}/100</span>
+                    </div>
+                    <p class="mood-description">${entry.theme}</p>
+                </div>
+            </div>`;
+        }).join('')}
+    </div>`;
 }
 
 function renderReviewVolumeChart(platform) {
@@ -705,6 +748,10 @@ function renderTrafficTable() {
 
 // --- Social Panel ---
 function initSocial() {
+    populateCompanySelect('socialSummaryCompanySelect');
+    populateCompanySelect('socialMoodCompanySelect');
+    renderSocialCommentarySummary();
+    renderSocialMoodTimeline();
     renderSocialMentionsChart('reddit');
     renderSocialSentimentChart();
     renderSocialFeed();
@@ -715,6 +762,92 @@ function switchSocialPlatform(platform, btn) {
     document.querySelectorAll('#panel-social .platform-toggle .platform-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderSocialMentionsChart(platform);
+    renderSocialCommentarySummary();
+    renderSocialFeed();
+}
+
+// --- Social Commentary Summary (per-company, like e-commerce review summaries) ---
+function renderSocialCommentarySummary() {
+    const companyId = document.getElementById('socialSummaryCompanySelect').value || COMPANIES[0].id;
+    const company = COMPANIES.find(c => c.id === companyId);
+    const summaryData = SOCIAL_DATA[companyId]?.socialSummary;
+    const container = document.getElementById('socialSummaryContent');
+
+    if (!summaryData) {
+        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No social commentary data available.</div>';
+        return;
+    }
+
+    // Determine active platform
+    const activeBtn = document.querySelector('#panel-social .platform-toggle .platform-btn.active');
+    const activePlatform = activeBtn ? activeBtn.textContent.toLowerCase().trim() : 'reddit';
+
+    let platformsToShow = [];
+    if (activePlatform === 'all') {
+        platformsToShow = ['reddit', 'instagram', 'linkedin'];
+    } else if (activePlatform === 'instagram') {
+        platformsToShow = ['instagram'];
+    } else if (activePlatform === 'linkedin') {
+        platformsToShow = ['linkedin'];
+    } else {
+        platformsToShow = ['reddit'];
+    }
+
+    const platformConfig = {
+        reddit: { label: 'Reddit', color: '#ff4500' },
+        instagram: { label: 'Instagram', color: '#e1306c' },
+        linkedin: { label: 'LinkedIn', color: '#0a66c2' },
+    };
+
+    let html = `<div class="review-summary-grid ${platformsToShow.length === 3 ? 'three-col' : ''}">`;
+
+    platformsToShow.forEach(platform => {
+        const pData = summaryData[platform];
+        if (!pData) return;
+        const cfg = platformConfig[platform];
+
+        html += `
+        <div class="review-summary-platform">
+            <div class="review-summary-platform-header">
+                <span class="review-platform-badge" style="background: ${cfg.color}20; color: ${cfg.color};">${cfg.label}</span>
+            </div>
+            <div class="review-summary-body">
+                <p class="review-summary-text">${pData.summary}</p>
+                <div class="review-likes-dislikes">
+                    <div class="review-column">
+                        <div class="review-column-header likes-header">What people are saying positively</div>
+                        <ul class="review-list likes-list">
+                            ${pData.topLikes.map(l => `<li>${l}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="review-column">
+                        <div class="review-column-header dislikes-header">Concerns & criticisms</div>
+                        <ul class="review-list dislikes-list">
+                            ${pData.topDislikes.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+// --- Social Mood Timeline ---
+function renderSocialMoodTimeline() {
+    const companyId = document.getElementById('socialMoodCompanySelect').value || COMPANIES[0].id;
+    const company = COMPANIES.find(c => c.id === companyId);
+    const moodData = SOCIAL_DATA[companyId]?.moodTimeline?.social;
+    const container = document.getElementById('socialMoodTimelineContent');
+
+    if (!moodData || moodData.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No mood timeline data available.</div>';
+        return;
+    }
+
+    container.innerHTML = buildMoodTimeline(moodData, company.color);
 }
 
 function renderSocialMentionsChart(platform) {
@@ -724,30 +857,41 @@ function renderSocialMentionsChart(platform) {
 
     const datasets = [];
     companies.forEach(c => {
-        if (platform === 'both' || platform === 'reddit') {
+        if (platform === 'all' || platform === 'reddit') {
             const ts = SOCIAL_DATA[c.id].reddit.mentionsTrend;
             datasets.push({
-                label: c.name + (platform === 'both' ? ' (Reddit)' : ''),
+                label: c.name + (platform === 'all' ? ' (Reddit)' : ''),
                 data: ts.map(d => d.value),
                 borderColor: c.color,
                 borderWidth: 2,
                 fill: false,
             });
         }
-        if (platform === 'both' || platform === 'instagram') {
+        if (platform === 'all' || platform === 'instagram') {
             const ts = SOCIAL_DATA[c.id].instagram.mentionsTrend;
             datasets.push({
-                label: c.name + (platform === 'both' ? ' (IG)' : ''),
+                label: c.name + (platform === 'all' ? ' (IG)' : ''),
                 data: ts.map(d => d.value),
                 borderColor: c.color,
-                borderDash: platform === 'both' ? [5, 5] : [],
+                borderDash: platform === 'all' ? [5, 5] : [],
+                borderWidth: 2,
+                fill: false,
+            });
+        }
+        if (platform === 'all' || platform === 'linkedin') {
+            const ts = SOCIAL_DATA[c.id].linkedin.mentionsTrend;
+            datasets.push({
+                label: c.name + (platform === 'all' ? ' (LI)' : ''),
+                data: ts.map(d => d.value),
+                borderColor: c.color,
+                borderDash: platform === 'all' ? [2, 2] : [],
                 borderWidth: 2,
                 fill: false,
             });
         }
     });
 
-    const key = platform === 'instagram' ? 'instagram' : 'reddit';
+    const key = platform === 'instagram' ? 'instagram' : platform === 'linkedin' ? 'linkedin' : 'reddit';
     const labels = SOCIAL_DATA[companies[0].id][key].mentionsTrend.map(d => d.date);
 
     charts.socialMentions = new Chart(ctx, {
@@ -778,15 +922,21 @@ function renderSocialSentimentChart() {
             labels: companies.map(c => c.name),
             datasets: [
                 {
-                    label: 'Reddit Sentiment',
+                    label: 'Reddit',
                     data: companies.map(c => SOCIAL_DATA[c.id].reddit.sentiment),
                     backgroundColor: 'rgba(255, 69, 0, 0.5)',
                     borderRadius: 4,
                 },
                 {
-                    label: 'Instagram Sentiment',
+                    label: 'Instagram',
                     data: companies.map(c => SOCIAL_DATA[c.id].instagram.sentiment),
                     backgroundColor: 'rgba(225, 48, 108, 0.5)',
+                    borderRadius: 4,
+                },
+                {
+                    label: 'LinkedIn',
+                    data: companies.map(c => SOCIAL_DATA[c.id].linkedin.sentiment),
+                    backgroundColor: 'rgba(10, 102, 194, 0.5)',
                     borderRadius: 4,
                 },
             ],
@@ -806,21 +956,43 @@ function renderSocialSentimentChart() {
 
 function renderSocialFeed() {
     const container = document.getElementById('socialFeed');
-    container.innerHTML = SOCIAL_POSTS.map(post => {
-        const isReddit = post.source === 'reddit';
+    // Filter posts based on active platform
+    const activeBtn = document.querySelector('#panel-social .platform-toggle .platform-btn.active');
+    const activePlatform = activeBtn ? activeBtn.textContent.toLowerCase().trim() : 'reddit';
+
+    let filteredPosts = SOCIAL_POSTS;
+    if (activePlatform !== 'all') {
+        filteredPosts = SOCIAL_POSTS.filter(p => p.source === activePlatform);
+    }
+
+    container.innerHTML = filteredPosts.map(post => {
+        const sourceClass = post.source === 'reddit' ? 'source-reddit' :
+                           post.source === 'linkedin' ? 'source-linkedin' : 'source-instagram';
+        const sourceLabel = post.source === 'reddit' ? post.subreddit :
+                           post.source === 'linkedin' ? 'LinkedIn' : 'Instagram';
+
+        let metricsHtml = '';
+        if (post.source === 'reddit') {
+            metricsHtml = `<span>${post.upvotes} upvotes</span><span>${post.comments} comments</span>`;
+        } else if (post.source === 'linkedin') {
+            metricsHtml = `<span>${formatNumber(post.likes)} likes</span><span>${post.comments} comments</span>`;
+            if (post.author) {
+                metricsHtml += `<span style="color: #0a66c2;">${post.author} &middot; ${post.authorRole}</span>`;
+            }
+        } else {
+            metricsHtml = `<span>${formatNumber(post.likes)} likes</span><span>${post.comments} comments</span>`;
+        }
+
         return `<div class="social-post">
             <div class="social-post-header">
-                <span class="social-post-source ${isReddit ? 'source-reddit' : 'source-instagram'}">
-                    ${isReddit ? post.subreddit : 'Instagram'}
+                <span class="social-post-source ${sourceClass}">
+                    ${sourceLabel}
                 </span>
                 <span class="social-post-date">${post.date}</span>
             </div>
             <div class="social-post-content">${post.content}</div>
             <div class="social-post-metrics">
-                ${isReddit
-                    ? `<span>${post.upvotes} upvotes</span><span>${post.comments} comments</span>`
-                    : `<span>${formatNumber(post.likes)} likes</span><span>${post.comments} comments</span>`
-                }
+                ${metricsHtml}
                 <span style="color: var(--accent-green);">Company: ${COMPANIES.find(c => c.id === post.company)?.name || post.company}</span>
             </div>
         </div>`;
@@ -834,12 +1006,14 @@ function renderSocialTable() {
     const tbody = document.getElementById('socialTableBody');
     tbody.innerHTML = sorted.map(c => {
         const d = SOCIAL_DATA[c.id];
+        const avgSentiment = Math.round((d.reddit.sentiment + d.instagram.sentiment + d.linkedin.sentiment) / 3);
         return `<tr>
             <td><strong style="color:${c.color}">${c.name}</strong></td>
             <td>${formatNumber(d.reddit.mentions)}</td>
             <td>${formatNumber(d.instagram.mentions)}</td>
+            <td>${formatNumber(d.linkedin.mentions)}</td>
             <td>${d.instagram.engagementRate}%</td>
-            <td><span class="${d.reddit.sentiment > 60 ? 'trend-up' : 'trend-down'}">${d.reddit.sentiment}%</span></td>
+            <td><span class="${avgSentiment > 60 ? 'trend-up' : 'trend-down'}">${avgSentiment}%</span></td>
             <td>${d.viralScore}/100</td>
             <td>${signalBadge(COMPANY_SIGNALS[c.id])}</td>
         </tr>`;

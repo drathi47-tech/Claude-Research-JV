@@ -35,7 +35,7 @@
                     <span class="nav-icon">&#8599;</span> Website Traffic
                 </button>
                 <button class="nav-item" data-panel="social" onclick="switchPanel('social')">
-                    <span class="nav-icon">&#9788;</span> Reddit / Instagram
+                    <span class="nav-icon">&#9788;</span> Social Media
                 </button>
 
                 <div class="nav-section-label" style="margin-top: 24px;">Analysis</div>
@@ -277,6 +277,16 @@
                         <div id="reviewSummaryContent"></div>
                     </div>
 
+                    <!-- E-commerce Mood Timeline -->
+                    <div class="chart-card" id="ecommMoodTimelineCard">
+                        <div class="chart-header">
+                            <h3>Review Sentiment Evolution (12 Months)</h3>
+                            <select class="mini-select" id="ecommMoodCompanySelect" onchange="renderEcommMoodTimeline()">
+                            </select>
+                        </div>
+                        <div id="ecommMoodTimelineContent"></div>
+                    </div>
+
                     <div class="chart-grid-2col">
                         <div class="chart-card">
                             <div class="chart-header">
@@ -404,14 +414,15 @@
                 <!-- Social Media Panel -->
                 <div class="panel" id="panel-social">
                     <div class="panel-header">
-                        <h1>Reddit / Instagram</h1>
-                        <p class="panel-description">Social buzz, mentions, and community sentiment tracking</p>
+                        <h1>Reddit / Instagram / LinkedIn</h1>
+                        <p class="panel-description">Social buzz, mentions, community sentiment, and professional commentary tracking</p>
                     </div>
 
                     <div class="platform-toggle">
                         <button class="platform-btn active" onclick="switchSocialPlatform('reddit', this)">Reddit</button>
                         <button class="platform-btn" onclick="switchSocialPlatform('instagram', this)">Instagram</button>
-                        <button class="platform-btn" onclick="switchSocialPlatform('both', this)">Both</button>
+                        <button class="platform-btn" onclick="switchSocialPlatform('linkedin', this)">LinkedIn</button>
+                        <button class="platform-btn" onclick="switchSocialPlatform('all', this)">All</button>
                     </div>
 
                     <div class="kpi-grid">
@@ -426,15 +437,35 @@
                             <div class="kpi-delta positive">+19% vs last period</div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Avg Engagement</div>
-                            <div class="kpi-value" style="color: #8b5cf6;">4.7%</div>
-                            <div class="kpi-delta positive">+0.8% vs last period</div>
+                            <div class="kpi-label">LinkedIn Mentions</div>
+                            <div class="kpi-value" style="color: #0a66c2;">1,580</div>
+                            <div class="kpi-delta positive">+28% vs last period</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Viral Posts</div>
                             <div class="kpi-value" style="color: #f59e0b;">12</div>
                             <div class="kpi-delta positive">+5 vs last period</div>
                         </div>
+                    </div>
+
+                    <!-- Social Commentary Summary (per-company, like e-commerce review summaries) -->
+                    <div class="chart-card" id="socialSummaryCard">
+                        <div class="chart-header">
+                            <h3>Social Commentary Summary</h3>
+                            <select class="mini-select" id="socialSummaryCompanySelect" onchange="renderSocialCommentarySummary()">
+                            </select>
+                        </div>
+                        <div id="socialSummaryContent"></div>
+                    </div>
+
+                    <!-- Social Mood Timeline -->
+                    <div class="chart-card" id="socialMoodTimelineCard">
+                        <div class="chart-header">
+                            <h3>Social Sentiment Evolution (12 Months)</h3>
+                            <select class="mini-select" id="socialMoodCompanySelect" onchange="renderSocialMoodTimeline()">
+                            </select>
+                        </div>
+                        <div id="socialMoodTimelineContent"></div>
                     </div>
 
                     <div class="chart-grid-2col">
@@ -468,9 +499,10 @@
                                 <thead>
                                     <tr>
                                         <th>Company</th>
-                                        <th>Reddit Mentions</th>
-                                        <th>IG Mentions</th>
-                                        <th>Engagement Rate</th>
+                                        <th>Reddit</th>
+                                        <th>Instagram</th>
+                                        <th>LinkedIn</th>
+                                        <th>Engagement</th>
                                         <th>Sentiment</th>
                                         <th>Viral Score</th>
                                         <th>Trend</th>
@@ -615,6 +647,7 @@
                         <label class="checkbox-label"><input type="checkbox" checked> Myntra</label>
                         <label class="checkbox-label"><input type="checkbox" checked> Reddit</label>
                         <label class="checkbox-label"><input type="checkbox" checked> Instagram</label>
+                        <label class="checkbox-label"><input type="checkbox" checked> LinkedIn</label>
                         <label class="checkbox-label"><input type="checkbox" checked> Website Traffic</label>
                     </div>
                 </div>

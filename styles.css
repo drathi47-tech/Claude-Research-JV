@@ -597,6 +597,11 @@ body {
     color: #e1306c;
 }
 
+.source-linkedin {
+    background: rgba(10, 102, 194, 0.15);
+    color: #0a66c2;
+}
+
 .social-post-date {
     font-size: 11px;
     color: var(--text-muted);
@@ -1279,8 +1284,115 @@ body {
     font-style: italic;
 }
 
+/* Three-column review summary grid */
+.review-summary-grid.three-col {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* ========================
+   Mood Timeline
+   ======================== */
+.mood-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0;
+}
+
+.mood-timeline-entry {
+    display: flex;
+    gap: 16px;
+    position: relative;
+}
+
+.mood-timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 20px;
+}
+
+.mood-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    z-index: 1;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.mood-current .mood-dot {
+    width: 16px;
+    height: 16px;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+.mood-line {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    min-height: 20px;
+}
+
+.mood-timeline-content {
+    flex: 1;
+    padding-bottom: 20px;
+}
+
+.mood-current .mood-timeline-content {
+    padding-bottom: 0;
+}
+
+.mood-timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.mood-quarter {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.mood-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.mood-score {
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.mood-description {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    border-left: 3px solid var(--border);
+}
+
+.mood-current .mood-description {
+    border-left-color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.04);
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
+    .review-summary-grid.three-col {
+        grid-template-columns: 1fr;
+    }
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
     }
