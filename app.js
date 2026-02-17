@@ -39,6 +39,7 @@ function initPanel(panelId) {
         case 'social': initSocial(); break;
         case 'breakout': initBreakout(); break;
         case 'watchlist': initWatchlist(); break;
+        case 'brand-lookup': /* no-op, stays as-is */ break;
     }
 }
 
@@ -63,6 +64,11 @@ function signalBadge(signal) {
         declining: 'Declining',
     };
     return `<span class="signal-badge signal-${signal}">${labels[signal]}</span>`;
+}
+
+function valuationBadge(val) {
+    if (!val) return '';
+    return `<span class="valuation-badge">${val}</span>`;
 }
 
 function getHeatmapColor(value) {
@@ -178,6 +184,7 @@ function renderTopMovers(filter) {
         return `<tr>
             <td><strong style="color:${c.color}">${c.name}</strong></td>
             <td>${c.sectorLabel}</td>
+            <td>${valuationBadge(c.estValuation)}</td>
             <td>${trendArrow(gt.change30d)}</td>
             <td>${ec.amazon.avgRating} / ${ec.myntra.avgRating}</td>
             <td>${trendArrow(tr.momGrowth)}</td>
@@ -350,6 +357,7 @@ function renderGoogleTrendsTable() {
         const d = GOOGLE_TRENDS_DATA[c.id];
         return `<tr>
             <td><strong style="color:${c.color}">${c.name}</strong></td>
+            <td>${valuationBadge(c.estValuation)}</td>
             <td>${d.currentIndex}</td>
             <td>${trendArrow(d.change30d)}</td>
             <td>${trendArrow(d.change90d)}</td>
@@ -362,6 +370,8 @@ function renderGoogleTrendsTable() {
 
 // --- E-commerce Panel ---
 function initEcommerce() {
+    populateCompanySelect('reviewSummaryCompanySelect');
+    renderReviewSummary();
     renderReviewVolumeChart('amazon');
     renderRatingTrendChart('amazon');
     renderSentimentDonut();
@@ -370,10 +380,72 @@ function initEcommerce() {
 }
 
 function switchEcommPlatform(platform, btn) {
-    document.querySelectorAll('.platform-toggle .platform-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#panel-ecommerce .platform-toggle .platform-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderReviewVolumeChart(platform);
     renderRatingTrendChart(platform);
+    renderReviewSummary();
+}
+
+// --- Review Summary Rendering ---
+function renderReviewSummary() {
+    const companyId = document.getElementById('reviewSummaryCompanySelect').value || COMPANIES[0].id;
+    const company = COMPANIES.find(c => c.id === companyId);
+    const reviewData = ECOMMERCE_DATA[companyId].reviewSummary;
+    const container = document.getElementById('reviewSummaryContent');
+
+    if (!reviewData) {
+        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No review summary available for this company.</div>';
+        return;
+    }
+
+    // Determine active platform
+    const activeBtn = document.querySelector('#panel-ecommerce .platform-toggle .platform-btn.active');
+    const activePlatform = activeBtn ? activeBtn.textContent.toLowerCase().trim() : 'amazon';
+
+    let platformsToShow = [];
+    if (activePlatform === 'both') {
+        platformsToShow = ['amazon', 'myntra'];
+    } else if (activePlatform === 'myntra') {
+        platformsToShow = ['myntra'];
+    } else {
+        platformsToShow = ['amazon'];
+    }
+
+    let html = '<div class="review-summary-grid">';
+
+    platformsToShow.forEach(platform => {
+        const pData = reviewData[platform];
+        const platformLabel = platform === 'amazon' ? 'Amazon' : 'Myntra';
+        const platformColor = platform === 'amazon' ? '#ff9900' : '#ff3f6c';
+
+        html += `
+        <div class="review-summary-platform">
+            <div class="review-summary-platform-header">
+                <span class="review-platform-badge" style="background: ${platformColor}20; color: ${platformColor};">${platformLabel}</span>
+            </div>
+            <div class="review-summary-body">
+                <p class="review-summary-text">${pData.summary}</p>
+                <div class="review-likes-dislikes">
+                    <div class="review-column">
+                        <div class="review-column-header likes-header">What consumers love</div>
+                        <ul class="review-list likes-list">
+                            ${pData.topLikes.map(l => `<li>${l}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="review-column">
+                        <div class="review-column-header dislikes-header">What consumers dislike</div>
+                        <ul class="review-list dislikes-list">
+                            ${pData.topDislikes.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
 }
 
 function renderReviewVolumeChart(platform) {
@@ -620,6 +692,7 @@ function renderTrafficTable() {
         const latestVisits = d.monthlyVisits[d.monthlyVisits.length - 1].value;
         return `<tr>
             <td><strong style="color:${c.color}">${c.name}</strong></td>
+            <td>${valuationBadge(c.estValuation)}</td>
             <td>${formatNumber(latestVisits)}</td>
             <td>${trendArrow(d.momGrowth)}</td>
             <td>${d.bounceRate}%</td>
@@ -800,7 +873,7 @@ function renderBreakoutCards() {
                 <span class="breakout-company-name" style="color:${c.color}">${c.name}</span>
                 <span class="breakout-score">${scores.composite}/100</span>
             </div>
-            <div class="breakout-sector">${c.sectorLabel}</div>
+            <div class="breakout-sector">${c.sectorLabel} &middot; ${c.estValuation || 'N/A'}</div>
             <div class="breakout-signals">
                 <div class="breakout-signal-item">
                     <span class="breakout-signal-label">Google Trend (30d)</span>
@@ -861,7 +934,6 @@ function renderBreakoutScoreChart() {
 
 function renderCorrelationMatrix() {
     const signals = ['Google Trend', 'Amazon Rating', 'Myntra Rating', 'Web Traffic', 'Reddit Buzz', 'IG Buzz'];
-    // Simulated correlation values
     const correlations = [
         [1.00, 0.42, 0.38, 0.72, 0.55, 0.61],
         [0.42, 1.00, 0.78, 0.35, 0.29, 0.31],
@@ -916,7 +988,7 @@ function renderWatchlist() {
                 <span class="watchlist-company" style="color:${c.color}">${c.name}</span>
                 ${signalBadge(signal)}
             </div>
-            <div class="watchlist-sector">${c.sectorLabel}</div>
+            <div class="watchlist-sector">${c.sectorLabel} &middot; ${valuationBadge(c.estValuation)}</div>
             <div class="watchlist-metrics">
                 <div class="watchlist-metric">
                     <span class="watchlist-metric-label">Composite</span>
@@ -940,8 +1012,196 @@ function renderWatchlist() {
 }
 
 function sortWatchlist(sortBy) {
-    // Re-render with different sort
     renderWatchlist();
+}
+
+// --- Brand Lookup ---
+function quickLookup(brandName) {
+    document.getElementById('brandLookupInput').value = brandName;
+    performBrandLookup();
+}
+
+function performBrandLookup() {
+    const input = document.getElementById('brandLookupInput').value.trim();
+    if (!input) return;
+
+    const btn = document.getElementById('brandLookupBtn');
+    btn.textContent = 'Generating...';
+    btn.disabled = true;
+
+    // Simulate a loading delay
+    setTimeout(() => {
+        btn.textContent = 'Generate Signals';
+        btn.disabled = false;
+        renderBrandLookupResults(input);
+    }, 1200);
+}
+
+function renderBrandLookupResults(brandName) {
+    const resultsDiv = document.getElementById('brandLookupResults');
+    const emptyDiv = document.getElementById('brandLookupEmpty');
+
+    emptyDiv.style.display = 'none';
+    resultsDiv.style.display = 'block';
+
+    // Check if already tracked
+    const existing = COMPANIES.find(c =>
+        c.name.toLowerCase() === brandName.toLowerCase() ||
+        c.website.toLowerCase().includes(brandName.toLowerCase().replace(/\s+/g, ''))
+    );
+
+    if (existing) {
+        const scores = COMPOSITE_SCORES[existing.id];
+        const gt = GOOGLE_TRENDS_DATA[existing.id];
+        const tr = TRAFFIC_DATA[existing.id];
+        const so = SOCIAL_DATA[existing.id];
+        const ec = ECOMMERCE_DATA[existing.id];
+        const signal = COMPANY_SIGNALS[existing.id];
+
+        resultsDiv.innerHTML = `
+            <div class="lookup-already-tracked">Already in your watchlist</div>
+            ${buildBrandCard(existing.name, existing.color, existing.sectorLabel, existing.estValuation, scores, gt, tr, so, ec, signal)}
+        `;
+        return;
+    }
+
+    // Generate simulated data for any new brand
+    const color = '#' + Math.floor(Math.random() * 0xCCCCCC + 0x333333).toString(16);
+    const sectorGuess = guessSector(brandName);
+
+    const simScores = {
+        composite: Math.round(35 + Math.random() * 45),
+        google: Math.round(15 + Math.random() * 60),
+        reviews: Math.round(50 + Math.random() * 35),
+        traffic: Math.round(30 + Math.random() * 50),
+        social: Math.round(20 + Math.random() * 60),
+    };
+    const simGt = {
+        currentIndex: simScores.google,
+        change30d: Math.round(-5 + Math.random() * 40),
+        change90d: Math.round(-10 + Math.random() * 60),
+    };
+    const simTr = {
+        momGrowth: Math.round(-5 + Math.random() * 45),
+        estVisits: formatNumber(Math.round(50000 + Math.random() * 800000)),
+    };
+    const simSo = {
+        viralScore: simScores.social,
+        redditMentions: Math.round(20 + Math.random() * 300),
+        igMentions: Math.round(100 + Math.random() * 2000),
+    };
+    const simEc = {
+        amazon: {
+            avgRating: parseFloat((3.5 + Math.random() * 1.2).toFixed(1)),
+            totalReviews: Math.round(200 + Math.random() * 5000),
+            sentiment: simScores.reviews,
+        },
+        myntra: {
+            avgRating: parseFloat((3.3 + Math.random() * 1.3).toFixed(1)),
+            totalReviews: Math.round(50 + Math.random() * 2000),
+            sentiment: Math.round(50 + Math.random() * 35),
+        },
+    };
+
+    const strongSignals = [
+        simGt.change30d > 20,
+        simScores.reviews > 70,
+        simTr.momGrowth > 25,
+        simScores.social > 60,
+    ].filter(Boolean).length;
+    const signal = strongSignals >= 3 ? 'breakout' : strongSignals >= 2 ? 'trending' : simScores.composite > 45 ? 'watch' : 'declining';
+
+    resultsDiv.innerHTML = `
+        <div class="lookup-generated-label">Estimated signals for <strong>${brandName}</strong></div>
+        ${buildBrandCard(brandName, color, sectorGuess, '$10-50M (Est.)', simScores, simGt, simTr, simSo, simEc, signal)}
+        <div class="lookup-actions">
+            <button class="btn-primary" onclick="addLookupToWatchlist('${brandName.replace(/'/g, "\\'")}', '${sectorGuess}', '${color}')">+ Add to Watchlist & Track</button>
+            <span class="lookup-disclaimer">Signals are estimated based on available proxy data. Add to watchlist for ongoing tracking.</span>
+        </div>
+    `;
+}
+
+function buildBrandCard(name, color, sector, valuation, scores, gt, tr, so, ec, signal) {
+    return `
+    <div class="lookup-result-card">
+        <div class="lookup-result-header">
+            <div>
+                <span class="lookup-brand-name" style="color:${color}">${name}</span>
+                <span class="lookup-sector">${sector}</span>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+                ${valuationBadge(valuation)}
+                ${signalBadge(signal)}
+            </div>
+        </div>
+
+        <div class="lookup-scores-grid">
+            <div class="lookup-score-card">
+                <div class="lookup-score-label">Composite Score</div>
+                <div class="lookup-score-value" style="color:${scores.composite > 60 ? 'var(--accent-green)' : scores.composite > 40 ? 'var(--accent-yellow)' : 'var(--accent-red)'};">${scores.composite}/100</div>
+            </div>
+            <div class="lookup-score-card">
+                <div class="lookup-score-label">Google Trend (30d)</div>
+                <div class="lookup-score-value">${trendArrow(gt.change30d)}</div>
+            </div>
+            <div class="lookup-score-card">
+                <div class="lookup-score-label">Traffic Growth (MoM)</div>
+                <div class="lookup-score-value">${trendArrow(tr.momGrowth)}</div>
+            </div>
+            <div class="lookup-score-card">
+                <div class="lookup-score-label">Social Viral Score</div>
+                <div class="lookup-score-value" style="color:var(--accent-purple);">${so.viralScore}/100</div>
+            </div>
+        </div>
+
+        <div class="lookup-details-grid">
+            <div class="lookup-detail-section">
+                <h4>Amazon</h4>
+                <div class="lookup-detail-row"><span>Rating:</span><span>${ec.amazon.avgRating}/5.0</span></div>
+                <div class="lookup-detail-row"><span>Total Reviews:</span><span>${formatNumber(ec.amazon.totalReviews)}</span></div>
+                <div class="lookup-detail-row"><span>Sentiment:</span><span class="${ec.amazon.sentiment > 60 ? 'trend-up' : 'trend-down'}">${ec.amazon.sentiment}%</span></div>
+            </div>
+            <div class="lookup-detail-section">
+                <h4>Myntra</h4>
+                <div class="lookup-detail-row"><span>Rating:</span><span>${ec.myntra.avgRating}/5.0</span></div>
+                <div class="lookup-detail-row"><span>Total Reviews:</span><span>${formatNumber(ec.myntra.totalReviews)}</span></div>
+                <div class="lookup-detail-row"><span>Sentiment:</span><span class="${ec.myntra.sentiment > 60 ? 'trend-up' : 'trend-down'}">${ec.myntra.sentiment}%</span></div>
+            </div>
+            <div class="lookup-detail-section">
+                <h4>Social</h4>
+                <div class="lookup-detail-row"><span>Reddit Mentions:</span><span>${formatNumber(so.redditMentions || so.reddit?.mentions || 0)}</span></div>
+                <div class="lookup-detail-row"><span>IG Mentions:</span><span>${formatNumber(so.igMentions || so.instagram?.mentions || 0)}</span></div>
+                <div class="lookup-detail-row"><span>Viral Score:</span><span>${so.viralScore}/100</span></div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function guessSector(name) {
+    const lower = name.toLowerCase();
+    if (/coffee|tea|food|farm|fresh|milk|delight|snack|chocolate/.test(lower)) return 'Food & Beverage';
+    if (/skin|beauty|cosmetic|hair|shav|caffeine|wow|serum/.test(lower)) return 'Beauty & Personal Care';
+    if (/health|ayur|vita|herb|well|fit/.test(lower)) return 'Health & Wellness';
+    if (/wear|fashion|cloth|dress|shoe|bag/.test(lower)) return 'Fashion & Apparel';
+    if (/home|sleep|mattress|furniture|decor/.test(lower)) return 'Home & Living';
+    if (/tech|gadget|watch|phone|audio/.test(lower)) return 'Consumer Electronics';
+    return 'Fashion & Apparel';
+}
+
+function addLookupToWatchlist(name, sectorLabel, color) {
+    document.getElementById('newCompanyName').value = name;
+    // Map sectorLabel to sector key
+    const sectorMap = {
+        'Food & Beverage': 'food',
+        'Beauty & Personal Care': 'beauty',
+        'Health & Wellness': 'health',
+        'Fashion & Apparel': 'fashion',
+        'Home & Living': 'home',
+        'Consumer Electronics': 'electronics',
+    };
+    const sectorKey = sectorMap[sectorLabel] || 'fashion';
+    document.getElementById('newCompanySector').value = sectorKey;
+    openAddCompanyModal();
 }
 
 // --- Global Controls ---
@@ -957,7 +1217,6 @@ function updateSectorFilter(sector) {
 }
 
 function handleSearch(query) {
-    // Simple search filter — highlight matching in current panel
     const lower = query.toLowerCase();
     document.querySelectorAll('.data-table tbody tr').forEach(row => {
         const text = row.textContent.toLowerCase();
@@ -979,6 +1238,7 @@ function addCompany() {
 
     const sector = document.getElementById('newCompanySector').value;
     const url = document.getElementById('newCompanyUrl').value.trim();
+    const valuation = document.getElementById('newCompanyValuation').value;
     const id = name.toLowerCase().replace(/\s+/g, '');
 
     const sectorLabels = {
@@ -1000,6 +1260,7 @@ function addCompany() {
         sectorLabel: sectorLabels[sector],
         website: url || `${id}.com`,
         color,
+        estValuation: valuation,
     };
 
     COMPANIES.push(newCompany);
@@ -1041,6 +1302,18 @@ function addCompany() {
             ratingTimeSeries: generateWeeklyTimeSeries(26, 3.6, 0.04, 0.03).map(d => ({
                 ...d, value: parseFloat(Math.min(5, Math.max(3, d.value / 10 + 3)).toFixed(1))
             })),
+        },
+        reviewSummary: {
+            amazon: {
+                topLikes: ['Good product quality', 'Growing brand presence', 'Value for money'],
+                topDislikes: ['Limited reviews so far', 'Availability can be spotty'],
+                summary: `${name} is a newly tracked brand. Review data will be enriched as more customer feedback is collected.`,
+            },
+            myntra: {
+                topLikes: ['Newly added to tracking'],
+                topDislikes: ['Insufficient data yet'],
+                summary: `${name} review tracking on Myntra has just started. Summary will update as data is collected.`,
+            },
         },
     };
 

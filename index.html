@@ -45,11 +45,15 @@
                 <button class="nav-item" data-panel="watchlist" onclick="switchPanel('watchlist')">
                     <span class="nav-icon">&#9734;</span> Watchlist
                 </button>
+                <button class="nav-item" data-panel="brand-lookup" onclick="switchPanel('brand-lookup')">
+                    <span class="nav-icon">&#128269;</span> Brand Lookup
+                </button>
             </nav>
 
             <div class="sidebar-footer">
                 <div class="nav-section-label">Tracked Companies</div>
-                <div class="company-count" id="companyCount">12 companies</div>
+                <div class="company-count" id="companyCount">16 companies</div>
+                <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">Focus: Sub-$250M valuations</div>
             </div>
         </aside>
 
@@ -88,7 +92,7 @@
                 <div class="panel active" id="panel-overview">
                     <div class="panel-header">
                         <h1>Trend Overview</h1>
-                        <p class="panel-description">Cross-platform signal aggregation for tracked consumer companies</p>
+                        <p class="panel-description">Cross-platform signal aggregation for sub-$250M emerging consumer companies</p>
                     </div>
 
                     <!-- KPI Cards -->
@@ -147,6 +151,7 @@
                                     <tr>
                                         <th>Company</th>
                                         <th>Sector</th>
+                                        <th>Est. Valuation</th>
                                         <th>Google Trend</th>
                                         <th>Reviews</th>
                                         <th>Traffic</th>
@@ -211,6 +216,7 @@
                                 <thead>
                                     <tr>
                                         <th>Company</th>
+                                        <th>Est. Valuation</th>
                                         <th>Current Index</th>
                                         <th>30d Change</th>
                                         <th>90d Change</th>
@@ -229,7 +235,7 @@
                 <div class="panel" id="panel-ecommerce">
                     <div class="panel-header">
                         <h1>Amazon / Myntra Reviews</h1>
-                        <p class="panel-description">Review volume, ratings, and sentiment analysis across e-commerce platforms</p>
+                        <p class="panel-description">Review volume, ratings, sentiment analysis, and consumer feedback across e-commerce platforms</p>
                     </div>
 
                     <div class="kpi-grid">
@@ -259,6 +265,16 @@
                         <button class="platform-btn active" onclick="switchEcommPlatform('amazon', this)">Amazon</button>
                         <button class="platform-btn" onclick="switchEcommPlatform('myntra', this)">Myntra</button>
                         <button class="platform-btn" onclick="switchEcommPlatform('both', this)">Both</button>
+                    </div>
+
+                    <!-- Review Summary Section -->
+                    <div class="chart-card" id="reviewSummaryCard">
+                        <div class="chart-header">
+                            <h3>Consumer Review Summary</h3>
+                            <select class="mini-select" id="reviewSummaryCompanySelect" onchange="renderReviewSummary()">
+                            </select>
+                        </div>
+                        <div id="reviewSummaryContent"></div>
                     </div>
 
                     <div class="chart-grid-2col">
@@ -339,7 +355,7 @@
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Fastest Growing</div>
-                            <div class="kpi-value" style="color: #10b981; font-size: 20px;" id="fastestGrowing">Wakefit</div>
+                            <div class="kpi-value" style="color: #10b981; font-size: 20px;" id="fastestGrowing">Snitch</div>
                             <div class="kpi-delta positive">+62% traffic growth</div>
                         </div>
                     </div>
@@ -370,6 +386,7 @@
                                 <thead>
                                     <tr>
                                         <th>Company</th>
+                                        <th>Est. Valuation</th>
                                         <th>Est. Monthly Visits</th>
                                         <th>MoM Growth</th>
                                         <th>Bounce Rate</th>
@@ -498,7 +515,7 @@
                 <div class="panel" id="panel-watchlist">
                     <div class="panel-header">
                         <h1>Watchlist</h1>
-                        <p class="panel-description">Your curated list of companies to monitor for investment opportunities</p>
+                        <p class="panel-description">Your curated list of sub-$250M companies to monitor for investment opportunities</p>
                     </div>
 
                     <div class="watchlist-controls">
@@ -512,6 +529,42 @@
                     </div>
 
                     <div class="watchlist-grid" id="watchlistGrid"></div>
+                </div>
+
+                <!-- Brand Lookup Panel -->
+                <div class="panel" id="panel-brand-lookup">
+                    <div class="panel-header">
+                        <h1>Brand Lookup</h1>
+                        <p class="panel-description">Enter any brand name or website to generate signals and indicators</p>
+                    </div>
+
+                    <div class="brand-lookup-container">
+                        <div class="brand-lookup-input-group">
+                            <input type="text" class="brand-lookup-input" id="brandLookupInput" placeholder="Enter brand name or website (e.g., 'Bombay Shaving Company' or 'bombayshavingcompany.com')">
+                            <button class="btn-lookup" id="brandLookupBtn" onclick="performBrandLookup()">Generate Signals</button>
+                        </div>
+                        <div class="brand-lookup-hint">Try: Bombay Shaving Company, Vahdam Teas, Licious, Country Delight, mCaffeine, Wow Skin Science...</div>
+                    </div>
+
+                    <div id="brandLookupResults" style="display: none;">
+                        <!-- Results populated dynamically -->
+                    </div>
+
+                    <div id="brandLookupEmpty" class="brand-lookup-empty">
+                        <div class="lookup-empty-icon">&#128269;</div>
+                        <h3>Look up any brand</h3>
+                        <p>Enter a brand name or website URL above to auto-generate trend signals, review summaries, social buzz indicators, and traffic estimates.</p>
+                        <div class="lookup-suggestions">
+                            <span class="lookup-suggestion" onclick="quickLookup('Bombay Shaving Company')">Bombay Shaving Company</span>
+                            <span class="lookup-suggestion" onclick="quickLookup('Vahdam Teas')">Vahdam Teas</span>
+                            <span class="lookup-suggestion" onclick="quickLookup('Licious')">Licious</span>
+                            <span class="lookup-suggestion" onclick="quickLookup('Country Delight')">Country Delight</span>
+                            <span class="lookup-suggestion" onclick="quickLookup('mCaffeine')">mCaffeine</span>
+                            <span class="lookup-suggestion" onclick="quickLookup('Wow Skin Science')">Wow Skin Science</span>
+                            <span class="lookup-suggestion" onclick="quickLookup('Plum Goodness')">Plum Goodness</span>
+                            <span class="lookup-suggestion" onclick="quickLookup('Rage Coffee')">Rage Coffee</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -527,7 +580,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Company Name</label>
-                    <input type="text" class="form-input" placeholder="e.g., Boat, Mamaearth" id="newCompanyName">
+                    <input type="text" class="form-input" placeholder="e.g., Bombay Shaving Company, mCaffeine" id="newCompanyName">
                 </div>
                 <div class="form-group">
                     <label>Sector</label>
@@ -543,6 +596,16 @@
                 <div class="form-group">
                     <label>Website URL</label>
                     <input type="text" class="form-input" placeholder="https://..." id="newCompanyUrl">
+                </div>
+                <div class="form-group">
+                    <label>Estimated Valuation</label>
+                    <select class="form-input" id="newCompanyValuation">
+                        <option value="$1-5M">$1-5M (Seed)</option>
+                        <option value="$5-15M">$5-15M (Pre-Series A)</option>
+                        <option value="$15-50M" selected>$15-50M (Series A)</option>
+                        <option value="$50-100M">$50-100M (Series B)</option>
+                        <option value="$100-250M">$100-250M (Series C)</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Platforms to Track</label>

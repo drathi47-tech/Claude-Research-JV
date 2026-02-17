@@ -925,6 +925,360 @@ body {
     background: var(--text-muted);
 }
 
+/* Valuation Badge */
+.valuation-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(139, 92, 246, 0.12);
+    color: var(--accent-purple);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+/* ========================
+   Review Summary Section
+   ======================== */
+.review-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.review-summary-platform {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.review-summary-platform-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.review-platform-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.review-summary-body {
+    padding: 16px;
+}
+
+.review-summary-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(42, 45, 62, 0.5);
+    font-style: italic;
+}
+
+.review-likes-dislikes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.review-column-header {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid transparent;
+}
+
+.likes-header {
+    color: var(--accent-green);
+    border-bottom-color: var(--accent-green);
+}
+
+.dislikes-header {
+    color: var(--accent-red);
+    border-bottom-color: var(--accent-red);
+}
+
+.review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.review-list li {
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 6px 10px;
+    border-radius: 4px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.review-list li::before {
+    position: absolute;
+    left: 6px;
+    top: 8px;
+}
+
+.likes-list li {
+    background: rgba(16, 185, 129, 0.06);
+    color: var(--text-secondary);
+}
+
+.likes-list li::before {
+    content: '+';
+    color: var(--accent-green);
+    font-weight: 700;
+}
+
+.dislikes-list li {
+    background: rgba(239, 68, 68, 0.06);
+    color: var(--text-secondary);
+}
+
+.dislikes-list li::before {
+    content: '-';
+    color: var(--accent-red);
+    font-weight: 700;
+}
+
+/* ========================
+   Brand Lookup
+   ======================== */
+.brand-lookup-container {
+    margin-bottom: 24px;
+}
+
+.brand-lookup-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.brand-lookup-input {
+    flex: 1;
+    padding: 12px 18px;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.brand-lookup-input:focus {
+    border-color: var(--accent-green);
+}
+
+.brand-lookup-input::placeholder {
+    color: var(--text-muted);
+}
+
+.btn-lookup {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--accent-green), #059669);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+}
+
+.btn-lookup:hover {
+    opacity: 0.9;
+}
+
+.btn-lookup:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.brand-lookup-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.brand-lookup-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.lookup-empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.brand-lookup-empty h3 {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.brand-lookup-empty p {
+    font-size: 13px;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+}
+
+.lookup-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.lookup-suggestion {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text-secondary);
+}
+
+.lookup-suggestion:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.lookup-already-tracked {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--accent-green);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.lookup-generated-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.lookup-result-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+.lookup-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.lookup-brand-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-right: 12px;
+}
+
+.lookup-sector {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.lookup-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.lookup-score-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.lookup-score-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.lookup-score-value {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.lookup-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.lookup-detail-section {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.lookup-detail-section h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.lookup-detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 4px 0;
+    color: var(--text-secondary);
+}
+
+.lookup-detail-row span:last-child {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.lookup-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.lookup-disclaimer {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
     .kpi-grid {
