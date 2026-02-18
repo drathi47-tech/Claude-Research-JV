@@ -859,7 +859,7 @@ function renderSocialMentionsChart(platform) {
     const datasets = [];
     companies.forEach(c => {
         if (platform === 'all' || platform === 'reddit') {
-            const ts = SOCIAL_DATA[c.id].reddit.mentionsTrend;
+            const ts = SOCIAL_DATA[c.id].reddit.mentions;
             datasets.push({
                 label: c.name + (platform === 'all' ? ' (Reddit)' : ''),
                 data: ts.map(d => d.value),
@@ -869,7 +869,7 @@ function renderSocialMentionsChart(platform) {
             });
         }
         if (platform === 'all' || platform === 'instagram') {
-            const ts = SOCIAL_DATA[c.id].instagram.mentionsTrend;
+            const ts = SOCIAL_DATA[c.id].instagram.mentions;
             datasets.push({
                 label: c.name + (platform === 'all' ? ' (IG)' : ''),
                 data: ts.map(d => d.value),
@@ -880,7 +880,7 @@ function renderSocialMentionsChart(platform) {
             });
         }
         if (platform === 'all' || platform === 'linkedin') {
-            const ts = SOCIAL_DATA[c.id].linkedin.mentionsTrend;
+            const ts = SOCIAL_DATA[c.id].linkedin.mentions;
             datasets.push({
                 label: c.name + (platform === 'all' ? ' (LI)' : ''),
                 data: ts.map(d => d.value),
@@ -893,7 +893,7 @@ function renderSocialMentionsChart(platform) {
     });
 
     const key = platform === 'instagram' ? 'instagram' : platform === 'linkedin' ? 'linkedin' : 'reddit';
-    const labels = SOCIAL_DATA[companies[0].id][key].mentionsTrend.map(d => d.date);
+    const labels = SOCIAL_DATA[companies[0].id][key].mentions.map(d => d.date);
 
     charts.socialMentions = new Chart(ctx, {
         type: 'line',
@@ -963,23 +963,20 @@ function renderSocialFeed() {
 
     let filteredPosts = SOCIAL_POSTS;
     if (activePlatform !== 'all') {
-        filteredPosts = SOCIAL_POSTS.filter(p => p.source === activePlatform);
+        filteredPosts = SOCIAL_POSTS.filter(p => p.platform === activePlatform);
     }
 
     container.innerHTML = filteredPosts.map(post => {
-        const sourceClass = post.source === 'reddit' ? 'source-reddit' :
-                           post.source === 'linkedin' ? 'source-linkedin' : 'source-instagram';
-        const sourceLabel = post.source === 'reddit' ? post.subreddit :
-                           post.source === 'linkedin' ? 'LinkedIn' : 'Instagram';
+        const sourceClass = post.platform === 'reddit' ? 'source-reddit' :
+                           post.platform === 'linkedin' ? 'source-linkedin' : 'source-instagram';
+        const sourceLabel = post.platform === 'reddit' ? (post.subreddit || 'Reddit') :
+                           post.platform === 'linkedin' ? (post.handle || 'LinkedIn') : (post.handle || 'Instagram');
 
         let metricsHtml = '';
-        if (post.source === 'reddit') {
+        if (post.platform === 'reddit') {
             metricsHtml = `<span>${post.upvotes} upvotes</span><span>${post.comments} comments</span>`;
-        } else if (post.source === 'linkedin') {
+        } else if (post.platform === 'linkedin') {
             metricsHtml = `<span>${formatNumber(post.likes)} likes</span><span>${post.comments} comments</span>`;
-            if (post.author) {
-                metricsHtml += `<span style="color: #0a66c2;">${post.author} &middot; ${post.authorRole}</span>`;
-            }
         } else {
             metricsHtml = `<span>${formatNumber(post.likes)} likes</span><span>${post.comments} comments</span>`;
         }
@@ -989,12 +986,12 @@ function renderSocialFeed() {
                 <span class="social-post-source ${sourceClass}">
                     ${sourceLabel}
                 </span>
-                <span class="social-post-date">${post.date}</span>
+                <span class="social-post-date">${post.time}</span>
             </div>
-            <div class="social-post-content">${post.content}</div>
+            <div class="social-post-content">${post.title}</div>
             <div class="social-post-metrics">
                 ${metricsHtml}
-                <span style="color: var(--accent-green);">Company: ${COMPANIES.find(c => c.id === post.company)?.name || post.company}</span>
+                <span style="color: var(--accent-green);">Company: ${COMPANIES.find(c => c.id === post.brand)?.name || post.brand}</span>
             </div>
         </div>`;
     }).join('');
@@ -1008,12 +1005,15 @@ function renderSocialTable() {
     tbody.innerHTML = sorted.map(c => {
         const d = SOCIAL_DATA[c.id];
         const avgSentiment = Math.round((d.reddit.sentiment + d.instagram.sentiment + d.linkedin.sentiment) / 3);
+        const redditTotal = d.reddit.mentions.reduce((sum, m) => sum + m.value, 0);
+        const instaTotal = d.instagram.mentions.reduce((sum, m) => sum + m.value, 0);
+        const linkedinTotal = d.linkedin.mentions.reduce((sum, m) => sum + m.value, 0);
         return `<tr>
             <td><strong style="color:${c.color}">${c.name}</strong></td>
-            <td>${formatNumber(d.reddit.mentions)}</td>
-            <td>${formatNumber(d.instagram.mentions)}</td>
-            <td>${formatNumber(d.linkedin.mentions)}</td>
-            <td>${d.instagram.engagementRate}%</td>
+            <td>${formatNumber(redditTotal)}</td>
+            <td>${formatNumber(instaTotal)}</td>
+            <td>${formatNumber(linkedinTotal)}</td>
+            <td>${d.instagram.engagement}%</td>
             <td><span class="${avgSentiment > 60 ? 'trend-up' : 'trend-down'}">${avgSentiment}%</span></td>
             <td>${d.viralScore}/100</td>
             <td>${signalBadge(COMPANY_SIGNALS[c.id])}</td>
@@ -1080,7 +1080,7 @@ function renderEmployeeSummary() {
                 <div style="display:flex; gap:16px; align-items:center;">
                     <span style="font-size:20px; font-weight:700; color:${cfg.color};">${pData.rating}/5.0</span>
                     <span style="font-size:11px; color:var(--text-muted);">${pData.totalReviews} reviews</span>
-                    <span style="font-size:11px; color:var(--accent-green);">${pData.recommendToFriend} recommend</span>
+                    <span style="font-size:11px; color:var(--accent-green);">${pData.recommend}% recommend</span>
                 </div>
             </div>
             <div class="review-summary-body">
@@ -1111,7 +1111,7 @@ function renderEmployeeMoodTimeline() {
     const companyId = document.getElementById('employeeMoodCompanySelect').value || COMPANIES[0].id;
     const company = COMPANIES.find(c => c.id === companyId);
     const empData = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[companyId] : null;
-    const moodData = empData?.ambitionbox?.moodTimeline;
+    const moodData = empData?.moodTimeline;
     const container = document.getElementById('employeeMoodTimelineContent');
 
     if (!moodData || moodData.length === 0) {
@@ -1175,7 +1175,7 @@ function renderEmployeeRecommendChart() {
 
     const data = companies.map(c => {
         const d = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[c.id] : null;
-        return parseInt(d?.ambitionbox?.recommendToFriend) || 0;
+        return parseInt(d?.ambitionbox?.recommend) || 0;
     });
 
     charts.employeeRecommend = new Chart(ctx, {
@@ -1221,7 +1221,7 @@ function renderEmployeeTable() {
         const ab = d.ambitionbox;
         const gd = d.glassdoor;
         const totalReviews = (ab?.totalReviews || 0) + (gd?.totalReviews || 0);
-        const avgRecommend = ab?.recommendToFriend || 'N/A';
+        const avgRecommend = ab?.recommend ? ab.recommend + '%' : 'N/A';
         const abRating = ab?.rating || '-';
         const gdRating = gd?.rating || '-';
         const ratingColor = (val) => val >= 4.0 ? 'var(--accent-green)' : val >= 3.5 ? 'var(--accent-yellow)' : 'var(--accent-red)';
@@ -1720,22 +1720,38 @@ function addCompany() {
 
     SOCIAL_DATA[id] = {
         reddit: {
-            mentions: Math.round(50 + Math.random() * 200),
-            mentionsTrend: generateWeeklyTimeSeries(12, 20, 0.4, 0.3),
+            mentions: generateWeeklyTimeSeries(26, 20, 0.4, 0.3),
             sentiment: Math.round(55 + Math.random() * 30),
             topSubreddits: ['r/india', 'r/indiashopping'],
         },
         instagram: {
-            mentions: Math.round(200 + Math.random() * 1000),
-            mentionsTrend: generateWeeklyTimeSeries(12, 100, 0.35, 0.25),
+            mentions: generateWeeklyTimeSeries(26, 100, 0.35, 0.25),
             sentiment: Math.round(60 + Math.random() * 25),
-            engagementRate: parseFloat((2 + Math.random() * 4).toFixed(1)),
+            engagement: parseFloat((2 + Math.random() * 4).toFixed(1)),
         },
+        linkedin: {
+            mentions: generateWeeklyTimeSeries(26, 50, 0.3, 0.3),
+            sentiment: Math.round(62 + Math.random() * 25),
+            engagement: parseFloat((2 + Math.random() * 3.5).toFixed(1)),
+        },
+        commentarySummary: DEFAULT_SOCIAL_SUMMARY,
+        socialSummary: DEFAULT_SOCIAL_SUMMARY,
+        moodTimeline: DEFAULT_MOOD_TIMELINE,
         viralScore: Math.round(20 + Math.random() * 60),
     };
 
-    COMPOSITE_SCORES[id] = calculateCompositeScore(id);
-    COMPANY_SIGNALS[id] = getSignal(id);
+    // Recompute composite scores for the new company
+    const gt = GOOGLE_TRENDS_DATA[id];
+    const ec = ECOMMERCE_DATA[id];
+    const tr = TRAFFIC_DATA[id];
+    const so = SOCIAL_DATA[id];
+    const googleScore = Math.min(100, (gt.change90d > 0 ? gt.change90d * 0.5 : 0) + (gt.currentIndex / gt.peak12m) * 50);
+    const reviewScore = (ec.amazon.sentiment + ec.myntra.sentiment) / 2;
+    const trafficScore = Math.min(100, tr.momGrowth * 2 + 50);
+    const socialScore = (so.reddit.sentiment + so.instagram.sentiment + so.linkedin.sentiment) / 3;
+    const composite = Math.round(googleScore * 0.25 + reviewScore * 0.20 + trafficScore * 0.30 + socialScore * 0.25);
+    COMPOSITE_SCORES[id] = { google: Math.round(googleScore), reviews: Math.round(reviewScore), traffic: Math.round(trafficScore), social: Math.round(socialScore), composite };
+    COMPANY_SIGNALS[id] = composite >= 78 ? 'breakout' : composite >= 65 ? 'trending' : composite < 40 ? 'declining' : 'watch';
 
     document.getElementById('companyCount').textContent = COMPANIES.length + ' companies';
     closeAddCompanyModal();

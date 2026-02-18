@@ -21,6 +21,17 @@ const COMPANIES = [
     { id: 'earthrhythm', name: 'Earth Rhythm', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'earthrhythm.com', color: '#0ea5e9', estValuation: '$8-15M' },
     { id: 'bombaysweets', name: 'Bombay Sweet Shop', sector: 'food', sectorLabel: 'Food & Beverage', website: 'bombaysweetshop.com', color: '#eab308', estValuation: '$3-8M' },
     { id: 'staccato', name: 'Staccato Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'staccato.co.in', color: '#6366f1', estValuation: '$2-5M' },
+    { id: 'snitch', name: 'Snitch', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'snitch.co.in', color: '#f43f5e', estValuation: '$100-150M', estRevenue: 'INR 500Cr+/yr' },
+    { id: 'mokobara', name: 'Mokobara', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'mokobara.com', color: '#0d9488', estValuation: '$80-120M', estRevenue: 'INR 200Cr+/yr' },
+    { id: 'noise', name: 'Noise', sector: 'electronics', sectorLabel: 'Consumer Electronics', website: 'gonoise.com', color: '#dc2626', estValuation: '$400-500M', estRevenue: 'INR 1200Cr+/yr' },
+    { id: 'atomberg', name: 'Atomberg', sector: 'electronics', sectorLabel: 'Consumer Electronics', website: 'atomberg.com', color: '#1d4ed8', estValuation: '$250-350M', estRevenue: 'INR 800Cr+/yr' },
+    { id: 'countrydelight', name: 'Country Delight', sector: 'food', sectorLabel: 'Food & Beverage', website: 'countrydelight.in', color: '#16a34a', estValuation: '$600-800M', estRevenue: 'INR 1500Cr+/yr' },
+    { id: 'licious', name: 'Licious', sector: 'food', sectorLabel: 'Food & Beverage', website: 'licious.in', color: '#b91c1c', estValuation: '$700-900M', estRevenue: 'INR 1000Cr+/yr' },
+    { id: 'mcaffeine', name: 'mCaffeine', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mcaffeine.com', color: '#78350f', estValuation: '$100-150M', estRevenue: 'INR 300Cr+/yr' },
+    { id: 'vahdamteas', name: 'Vahdam Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'vahdamindia.com', color: '#059669', estValuation: '$50-80M', estRevenue: 'INR 200Cr+/yr' },
+    { id: 'plumgoodness', name: 'Plum Goodness', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'plumgoodness.com', color: '#7c3aed', estValuation: '$150-200M', estRevenue: 'INR 500Cr+/yr' },
+    { id: 'bsc', name: 'Bombay Shaving Company', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'bombayshavingcompany.com', color: '#0369a1', estValuation: '$100-150M', estRevenue: 'INR 300Cr+/yr' },
+    { id: 'ragecoffee', name: 'Rage Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'ragecoffee.com', color: '#ea580c', estValuation: '$30-50M', estRevenue: 'INR 100Cr+/yr' },
 ];
 
 // --- Helper: generate time-series data ---
@@ -54,8 +65,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { wakao: 0.85, bummer: 0.78, flatheads: 0.55, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48 };
-const GT_BASE = { wakao: 12, bummer: 22, flatheads: 15, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10 };
+const GT_GROWTH = { wakao: 0.85, bummer: 0.78, flatheads: 0.55, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48, snitch: 1.20, mokobara: 1.10, noise: 0.65, atomberg: 0.72, countrydelight: 0.88, licious: 0.55, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78 };
+const GT_BASE = { wakao: 12, bummer: 22, flatheads: 15, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10, snitch: 55, mokobara: 38, noise: 72, atomberg: 45, countrydelight: 60, licious: 50, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -187,6 +198,72 @@ const RISING_QUERIES = {
         { text: 'micro roaster coffee india', growth: '+450%' },
         { text: 'staccato single origin', growth: '+350%' },
         { text: 'specialty coffee subscription', growth: '+280%' },
+    ],
+    snitch: [
+        { text: 'snitch clothing review', growth: '+2400%' },
+        { text: 'snitch fashion men india', growth: '+1800%' },
+        { text: 'snitch co-ord sets', growth: '+1500%' },
+        { text: 'affordable trendy menswear india', growth: '+1100%' },
+    ],
+    mokobara: [
+        { text: 'mokobara luggage review', growth: '+1600%' },
+        { text: 'mokobara vs american tourister', growth: '+1200%' },
+        { text: 'best cabin luggage india', growth: '+900%' },
+        { text: 'mokobara backpack', growth: '+750%' },
+    ],
+    noise: [
+        { text: 'noise smartwatch review', growth: '+850%' },
+        { text: 'noise colorfit pro 5', growth: '+720%' },
+        { text: 'best budget smartwatch india', growth: '+580%' },
+        { text: 'noise vs fire boltt', growth: '+450%' },
+    ],
+    atomberg: [
+        { text: 'atomberg ceiling fan review', growth: '+980%' },
+        { text: 'bldc fan india best', growth: '+780%' },
+        { text: 'atomberg vs havells fan', growth: '+620%' },
+        { text: 'energy efficient fan india', growth: '+480%' },
+    ],
+    countrydelight: [
+        { text: 'country delight milk review', growth: '+1100%' },
+        { text: 'country delight vs amul', growth: '+880%' },
+        { text: 'farm fresh milk delivery', growth: '+720%' },
+        { text: 'country delight subscription', growth: '+580%' },
+    ],
+    licious: [
+        { text: 'licious meat delivery review', growth: '+650%' },
+        { text: 'licious chicken quality', growth: '+520%' },
+        { text: 'fresh meat delivery app', growth: '+420%' },
+        { text: 'licious seafood bangalore', growth: '+350%' },
+    ],
+    mcaffeine: [
+        { text: 'mcaffeine coffee body scrub', growth: '+920%' },
+        { text: 'mcaffeine face wash review', growth: '+750%' },
+        { text: 'coffee skincare india', growth: '+580%' },
+        { text: 'mcaffeine vs mamaearth', growth: '+450%' },
+    ],
+    vahdamteas: [
+        { text: 'vahdam tea review', growth: '+680%' },
+        { text: 'best indian tea brand', growth: '+520%' },
+        { text: 'vahdam matcha review', growth: '+420%' },
+        { text: 'premium darjeeling tea online', growth: '+350%' },
+    ],
+    plumgoodness: [
+        { text: 'plum green tea face wash', growth: '+780%' },
+        { text: 'plum goodness review', growth: '+620%' },
+        { text: 'vegan skincare india', growth: '+480%' },
+        { text: 'plum vitamin c serum', growth: '+380%' },
+    ],
+    bsc: [
+        { text: 'bombay shaving company review', growth: '+580%' },
+        { text: 'bsc trimmer review', growth: '+480%' },
+        { text: 'men grooming kit india', growth: '+380%' },
+        { text: 'bombay shaving vs gillette', growth: '+320%' },
+    ],
+    ragecoffee: [
+        { text: 'rage coffee review', growth: '+750%' },
+        { text: 'instant coffee with vitamins', growth: '+580%' },
+        { text: 'rage coffee shark tank', growth: '+480%' },
+        { text: 'best instant coffee india', growth: '+380%' },
     ],
 };
 Object.keys(RISING_QUERIES).forEach(k => {
@@ -390,9 +467,141 @@ const REVIEW_SUMMARIES = {
             summary: 'Staccato is a specialty coffee brand. Not on Myntra.',
         },
     },
+    snitch: {
+        amazon: {
+            topLikes: ['Extremely trendy designs at affordable prices', 'Co-ord sets are unbeatable for the price', 'Fast fashion that looks premium', 'Wide variety updated weekly'],
+            topDislikes: ['Fabric quality inconsistent across orders', 'Sizing runs small for some items', 'Return process can be slow', 'Durability after 10-15 washes is questionable'],
+            summary: 'Snitch has become the go-to for Gen-Z and young millennial men seeking trendy affordable fashion. Instagram-first brand with explosive growth. Quality consistency is the key challenge as they scale.',
+        },
+        myntra: {
+            topLikes: ['Best affordable menswear brand on Myntra', 'Designs are always current with trends', 'Good packaging and presentation', 'Co-ord sets are a massive hit'],
+            topDislikes: ['Quality variance between products', 'Fast fashion raises sustainability concerns', 'Fit inconsistency across categories'],
+            summary: 'One of Myntra\'s fastest-growing menswear brands. Trend-first positioning with aggressive pricing drives massive volume. FY25 revenue crossed INR 500Cr.',
+        },
+    },
+    mokobara: {
+        amazon: {
+            topLikes: ['Premium luggage at half the price of Tumi/Samsonite', 'Design aesthetic is stunning — gets compliments', 'Cabin luggage is perfectly sized and durable', 'Backpacks have smart laptop compartments'],
+            topDislikes: ['Wheels could be more robust for rough handling', 'Limited service centers for repairs', 'Some color options sell out too fast', 'Zippers feel lighter than premium brands'],
+            summary: 'Mokobara has cracked the aspirational luggage segment. Beautiful design, great pricing, strong social presence. Building from Bangalore with offline retail expansion.',
+        },
+        myntra: {
+            topLikes: ['Best looking luggage brand on Myntra', 'Great for gifting — premium packaging', 'Backpacks are excellent for office use'],
+            topDislikes: ['Premium pricing for online luggage', 'Want more color/pattern options'],
+            summary: 'Strong Myntra presence. The aspirational design-first luggage positioning works well for the platform\'s audience.',
+        },
+    },
+    noise: {
+        amazon: {
+            topLikes: ['Incredible value for money — features at half the price', 'Smartwatch quality rivals brands 3x the price', 'Regular OTA updates improve functionality', 'Wide range of watch faces and styles'],
+            topDislikes: ['Battery life degrades after 6 months', 'App can be buggy and slow', 'Sensor accuracy questionable for health metrics', 'Build quality not as premium as flagship brands'],
+            summary: 'Noise dominates the budget smartwatch segment in India. Volume leader with aggressive pricing and constant launches. Moving upmarket with the NoiseFit brand. Review volume is massive.',
+        },
+        myntra: {
+            topLikes: ['Good fashion accessory options', 'Smartwatches that look like real watches'],
+            topDislikes: ['Electronics support should be better', 'Limited color options on Myntra'],
+            summary: 'Growing Myntra presence as watches overlap with fashion accessories.',
+        },
+    },
+    atomberg: {
+        amazon: {
+            topLikes: ['BLDC motor saves 65% electricity — visible in bills', 'Silent operation is a game-changer', 'Smart features with app/remote control', 'Build quality feels premium'],
+            topDislikes: ['Premium pricing vs regular fans', 'Installation support varies by city', 'App connectivity issues reported', 'Limited service network in tier-2 cities'],
+            summary: 'Atomberg is disrupting India\'s massive ceiling fan market with BLDC technology. Energy savings are real and measurable. Premium positioning justified by electricity bill savings.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — electronics brand'],
+            topDislikes: ['Not applicable — electronics brand'],
+            summary: 'Atomberg is a consumer electronics brand. Not on Myntra.',
+        },
+    },
+    countrydelight: {
+        amazon: {
+            topLikes: ['Milk freshness is noticeably different from packets', 'Wide product range — milk, curd, paneer, fruits', 'Subscription model is super convenient', 'Traceability — know which farm your milk comes from'],
+            topDislikes: ['Premium pricing — 2x regular dairy', 'Delivery timing can be inconsistent', 'App needs UX improvement', 'Limited to metro cities only'],
+            summary: 'Country Delight has scaled the farm-to-doorstep dairy model to 15+ cities. Strong subscription loyalty. FY25 revenue crossed INR 1500Cr with improving unit economics.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — dairy/grocery brand'],
+            topDislikes: ['Not applicable — dairy/grocery brand'],
+            summary: 'Country Delight is a dairy delivery brand. Not on Myntra.',
+        },
+    },
+    licious: {
+        amazon: {
+            topLikes: ['Meat freshness is consistently high', 'Packaging keeps products cold during delivery', 'Wide range — chicken, mutton, seafood, ready-to-cook', 'Marinated products save cooking time'],
+            topDislikes: ['Prices have increased significantly', 'Delivery slots fill up on weekends', 'Portion sizes feel smaller recently', 'Customer service response is slow'],
+            summary: 'Licious pioneered the fresh meat delivery category in India. Strong brand but facing unit economics pressure. Ready-to-cook and marinated segments driving growth.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — meat delivery brand'],
+            topDislikes: ['Not applicable — meat delivery brand'],
+            summary: 'Licious is a fresh meat delivery brand. Not on Myntra.',
+        },
+    },
+    mcaffeine: {
+        amazon: {
+            topLikes: ['Coffee body scrub is genuinely effective — visible results', 'Face wash leaves skin clean without drying', 'Addictive coffee fragrance in all products', 'Good for gifting — attractive packaging'],
+            topDislikes: ['Some products can be too harsh for sensitive skin', 'Premium pricing for personal care', 'Caffeine claims feel overhyped for some products', 'Products run out fast for daily use'],
+            summary: 'mCaffeine created the coffee-based personal care category in India. Hero products (body scrub, face wash) have massive repeat rates. FY25 revenue around INR 300Cr with profitability in sight.',
+        },
+        myntra: {
+            topLikes: ['One of the top personal care brands on Myntra', 'Coffee body scrub is a bestseller', 'Good for gifting with combo packs'],
+            topDislikes: ['Some products dry out skin', 'Need more variants for different skin types'],
+            summary: 'Strong Myntra presence. Coffee personal care niche is well-established. The scrub range dominates the category.',
+        },
+    },
+    vahdamteas: {
+        amazon: {
+            topLikes: ['Premium Darjeeling tea quality is outstanding', 'Beautiful packaging — perfect for gifting', 'Matcha quality rivals Japanese imports at better price', 'Wide variety — black, green, herbal, matcha'],
+            topDislikes: ['Very premium pricing for Indian tea', 'Some blends are too mild for chai drinkers', 'Loose leaf tea not convenient for everyday', 'Smaller quantities than traditional brands'],
+            summary: 'Vahdam Teas positioned Indian tea as a global premium brand. Strong US/international sales. Gift sets are the hero category. Moving into wellness teas and matcha.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — tea brand'],
+            topDislikes: ['Not applicable — tea brand'],
+            summary: 'Vahdam Teas is a premium tea brand. Not on Myntra.',
+        },
+    },
+    plumgoodness: {
+        amazon: {
+            topLikes: ['Green tea face wash is a cult favorite', 'Vegan and cruelty-free genuinely', 'Vitamin C serum shows visible brightening', 'Good range across skincare and makeup'],
+            topDislikes: ['Pricing creep — products getting expensive', 'Some new launches feel rushed', 'Availability issues during sales', 'Lip products need better shade range'],
+            summary: 'Plum built one of India\'s largest vegan beauty brands. FY25 revenue crossed INR 500Cr. Green Tea range is iconic. Expanding into makeup and premium skincare.',
+        },
+        myntra: {
+            topLikes: ['One of Myntra\'s top beauty brands', 'Green Tea range is a must-have', 'Good sales and combo offers'],
+            topDislikes: ['Some products available cheaper on own website', 'Need better shade matching for complexion products'],
+            summary: 'Dominant Myntra beauty brand. Vegan positioning resonates strongly with the platform\'s audience.',
+        },
+    },
+    bsc: {
+        amazon: {
+            topLikes: ['Shaving cream quality is genuinely premium', 'Trimmer is excellent value for money', 'Beard care range is comprehensive', 'Packaging and brand aesthetic are premium'],
+            topDislikes: ['Razor blades expensive on subscription', 'Trimmer durability concerns after 1 year', 'Face wash range is average', 'Body care products feel like line extensions'],
+            summary: 'BSC built the men\'s grooming D2C category in India. Strong in shaving and beard care. Expanding to full men\'s personal care but diluting the core positioning. FY25 revenue ~INR 300Cr.',
+        },
+        myntra: {
+            topLikes: ['Good men\'s grooming range', 'Beard care products are popular'],
+            topDislikes: ['Premium pricing on Myntra', 'Limited grooming tools availability'],
+            summary: 'Steady Myntra presence in men\'s grooming. Competing with more brands entering the space.',
+        },
+    },
+    ragecoffee: {
+        amazon: {
+            topLikes: ['Instant coffee with added vitamins is unique', 'Actually tastes good for instant coffee', 'Convenient for office — no brewing needed', 'Shark Tank appearance added credibility'],
+            topDislikes: ['Expensive for instant coffee category', 'Vitamin benefits hard to verify', 'Flavored variants are hit or miss', 'Packaging could be more premium'],
+            summary: 'Rage Coffee differentiated with vitamins-infused instant coffee. Strong Shark Tank boost. Growing distribution. FY25 revenue ~INR 100Cr. The vitamin-coffee positioning is unique.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — coffee brand'],
+            topDislikes: ['Not applicable — coffee brand'],
+            summary: 'Rage Coffee is a food/beverage brand. Not on Myntra.',
+        },
+    },
 };
 
-const EC_AMAZON_BASE = { wakao: 280, bummer: 650, flatheads: 320, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, ellementry: 350, cosmix: 420, neemli: 280, samosaparty: 900, earthrhythm: 380, bombaysweets: 450, staccato: 180 };
+const EC_AMAZON_BASE = { wakao: 280, bummer: 650, flatheads: 320, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, ellementry: 350, cosmix: 420, neemli: 280, samosaparty: 900, earthrhythm: 380, bombaysweets: 450, staccato: 180, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950 };
 COMPANIES.forEach(c => {
     const amazonBase = EC_AMAZON_BASE[c.id] || 250;
     const myntraBase = c.sector === 'fashion' ? 300 + Math.random() * 800 :
@@ -464,8 +673,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { wakao: 45000, bummer: 180000, flatheads: 85000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000 };
-const TR_GROWTH = { wakao: 0.90, bummer: 0.75, flatheads: 0.50, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42 };
+const TR_BASE = { wakao: 45000, bummer: 180000, flatheads: 85000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000, snitch: 2800000, mokobara: 850000, noise: 5500000, atomberg: 1800000, countrydelight: 1200000, licious: 2200000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000 };
+const TR_GROWTH = { wakao: 0.90, bummer: 0.75, flatheads: 0.50, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42, snitch: 1.15, mokobara: 0.95, noise: 0.45, atomberg: 0.68, countrydelight: 0.82, licious: 0.40, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -629,6 +838,36 @@ const SOCIAL_SUMMARIES = {
             topDislikes: ['Very limited brand presence on LinkedIn', 'Need more business metrics'],
         },
     },
+    snitch: {
+        reddit: { summary: 'Snitch dominates r/IndianFashionAdvice and menswear threads. Users love the trend-first designs at accessible prices. Quality debates exist but value-for-money consensus is strong.', topLikes: ['Best affordable trendy menswear in India', 'Co-ord sets are unbeatable', 'New drops every week keep it fresh', 'Instagram reels drive viral discovery'], topDislikes: ['Quality inconsistency across orders', 'Fast fashion sustainability concerns', 'Sizing runs small', 'Durability after multiple washes'] },
+        instagram: { summary: 'Instagram is Snitch\'s primary channel with 1M+ followers. Reel-first strategy with trending audio and fashion transitions drives massive engagement. Influencer army creates constant content.', topLikes: ['Reel content is incredibly engaging', 'Influencer collaborations are spot-on', 'New collection drops create FOMO', 'Styling content is highly shareable'], topDislikes: ['Content can feel repetitive', 'Over-reliance on influencer marketing', 'Need more size-inclusive content'] },
+        linkedin: { summary: 'Snitch founder Siddharth Dungarwal shares growth metrics openly on LinkedIn. FY25 INR 500Cr+ revenue story generates massive engagement. The bootstrapped-to-scale narrative inspires.', topLikes: ['Bootstrapped to INR 500Cr revenue story', 'Founder transparency on metrics', 'D2C menswear growth case study'], topDislikes: ['Sustainability strategy questions', 'Fast fashion model scrutiny'] },
+    },
+    mokobara: {
+        reddit: { summary: 'Mokobara is the darling of r/IndianProducts and travel communities. Users compare favorably to Tumi/Away at fraction of the price. Unboxing posts generate excitement.', topLikes: ['Premium design at Indian pricing', 'Cabin luggage is perfectly sized', 'Gets compliments everywhere', 'Backpacks are excellent for work'], topDislikes: ['Wheel durability concerns', 'Limited service centers', 'Some color options always sold out'] },
+        instagram: { summary: 'Visual-first brand with stunning product photography. Travel influencer collaborations drive discovery. The aesthetic consistency across content is exceptional.', topLikes: ['Visual brand identity is world-class', 'Travel content is aspirational', 'Product photography is stunning', 'Influencer partnerships are authentic'], topDislikes: ['Content is too aspirational — needs relatability', 'Limited user-generated content', 'Need more product detail content'] },
+        linkedin: { summary: 'Co-founders Sangeet and Navin are active on LinkedIn. The "building a luggage brand from scratch" journey content gets strong engagement. Raising series B discussions.', topLikes: ['Founder journey is inspiring', 'Brand building insights are valuable', 'Design-first D2C approach discussed'], topDislikes: ['Limited operational insights', 'Need more financial transparency'] },
+    },
+    countrydelight: {
+        reddit: { summary: 'Country Delight is heavily discussed in city-specific subreddits. The milk quality vs price debate is a constant thread. Subscribers are loyal advocates who actively defend the premium.', topLikes: ['Milk freshness is incomparable to packets', 'Subscription convenience is excellent', 'Product range expanding — curd, paneer, fruits', 'Farm traceability builds trust'], topDislikes: ['2x pricing vs regular dairy', 'Delivery timing inconsistency', 'App UX needs improvement', 'Limited to metro cities'] },
+        instagram: { summary: 'Content focuses on farm sourcing, freshness testing, and family health. Mom-focused content performs exceptionally well. User testimonials drive organic growth.', topLikes: ['Farm-to-home story is powerful', 'Mom and family health content resonates', 'User testimonials are authentic', 'Product freshness content is convincing'], topDislikes: ['Content variety is limited', 'Need more recipe/usage content', 'Urban-only narrative limits appeal'] },
+        linkedin: { summary: 'CEO Chakradhar Gade\'s LinkedIn posts about disrupting dairy supply chain get massive engagement. FY25 INR 1500Cr+ revenue and path to profitability are discussed extensively.', topLikes: ['Dairy supply chain disruption narrative', 'Revenue growth metrics are impressive', 'Unit economics improvement story', 'City expansion strategy insights'], topDislikes: ['Profitability timeline questions', 'Competition from Sid\'s Farm etc.'] },
+    },
+    mcaffeine: {
+        reddit: { summary: 'mCaffeine dominates the coffee personal care niche on social media. The body scrub has become a viral sensation with user transformation content. Strong presence across all platforms.', topLikes: ['Coffee body scrub results are visible', 'Brand has created an entirely new category', 'Packaging is Instagram-worthy', 'Good for gifting'], topDislikes: ['Some products too harsh for sensitive skin', 'Caffeine skincare claims need more backing', 'Products run out fast'] },
+        instagram: { summary: 'Instagram is the brand\'s strongest channel with massive engagement on transformation content. User-generated scrub routines go viral regularly.', topLikes: ['Transformation content drives engagement', 'Coffee aesthetic is unique and consistent', 'User-generated content is abundant'], topDislikes: ['Content focused too heavily on scrub range', 'Need more diverse product content'] },
+        linkedin: { summary: 'mCaffeine founder shares D2C beauty brand building insights. The journey from niche to scale is a popular case study.', topLikes: ['Category creation in personal care', 'Scale without heavy discounting'], topDislikes: ['Limited thought leadership beyond brand'] },
+    },
+    noise: {
+        reddit: { summary: 'Noise is the most discussed budget smartwatch on Indian Reddit. Comparison posts with Fire-Boltt and boAt are constant. Value-for-money consensus is strong but upgrade complaints exist.', topLikes: ['Incredible features at budget price', 'Regular software updates', 'Wide range of styles and faces'], topDislikes: ['Battery degradation over time', 'App is buggy', 'Health metrics accuracy questionable', 'Build quality concerns'] },
+        instagram: { summary: 'Massive Instagram presence with 2M+ followers. Product launch reels and lifestyle content drive engagement. Celebrity endorsements amplify reach.', topLikes: ['Product launch content is exciting', 'Celebrity collaborations add prestige', 'Lifestyle positioning beyond just tech'], topDislikes: ['Too many launches feel confusing', 'Need more real-user content'] },
+        linkedin: { summary: 'Co-founders Amit and Gaurav share wearables market insights on LinkedIn. The journey from accessories to smart wearables is discussed in tech circles.', topLikes: ['Wearables market insight sharing', 'India-first smart device narrative'], topDislikes: ['Valuation concerns in competitive market'] },
+    },
+    atomberg: {
+        reddit: { summary: 'Atomberg is the go-to recommendation in r/IndianProducts fan discussions. BLDC technology and energy savings are consistently praised. Comparison posts with Havells/Orient are common.', topLikes: ['65% electricity savings are real and measurable', 'Silent operation is transformative', 'Smart features with app control', 'Premium build quality'], topDislikes: ['Premium pricing vs regular fans', 'Service network limited in small cities', 'App connectivity issues'] },
+        instagram: { summary: 'Content focuses on energy savings, smart home, and premium design. The "switch and save" narrative drives engagement. Home influencer collaborations work well.', topLikes: ['Energy saving content is practical', 'Smart home integration content', 'Before/after electricity bill content'], topDislikes: ['Content is too functional — needs emotion', 'Limited lifestyle integration'] },
+        linkedin: { summary: 'Atomberg founders share deeply technical content about BLDC motors and energy efficiency. The hardware startup journey resonates with tech-savvy LinkedIn audience.', topLikes: ['Deep tech + consumer brand narrative', 'Energy efficiency mission', 'Hardware startup insights'], topDislikes: ['Content can be too technical', 'Market size questions'] },
+    },
 };
 
 // Default social summary for brands without detailed entries
@@ -743,9 +982,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { wakao: 800, bummer: 1500, flatheads: 600, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400 };
-const SO_INSTA = { wakao: 12000, bummer: 35000, flatheads: 8000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000 };
-const SO_LINKEDIN = { wakao: 3000, bummer: 4500, flatheads: 2000, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500 };
+const SO_REDDIT = { wakao: 800, bummer: 1500, flatheads: 600, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400, snitch: 8500, mokobara: 4200, noise: 12000, atomberg: 5500, countrydelight: 4800, licious: 6200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200 };
+const SO_INSTA = { wakao: 12000, bummer: 35000, flatheads: 8000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000, snitch: 450000, mokobara: 120000, noise: 850000, atomberg: 95000, countrydelight: 180000, licious: 250000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000 };
+const SO_LINKEDIN = { wakao: 3000, bummer: 4500, flatheads: 2000, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500, snitch: 25000, mokobara: 15000, noise: 45000, atomberg: 28000, countrydelight: 22000, licious: 35000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
@@ -786,6 +1025,17 @@ const SOCIAL_POSTS = [
     { platform: 'reddit', subreddit: 'r/bangalore', title: 'Just tried Samosa Party for the first time. Rs 50 for a samosa seemed crazy but wow.', upvotes: 1560, comments: 312, time: '14h ago', sentiment: 'positive', brand: 'samosaparty' },
     { platform: 'linkedin', handle: 'D2C Insider', title: 'Gynoveda built a Rs 100Cr brand by talking about periods — the power of community-first commerce', likes: 3800, comments: 234, time: '1d ago', sentiment: 'positive', brand: 'gynoveda' },
     { platform: 'instagram', handle: '@mumbaimunchies', title: 'Bombay Sweet Shop Diwali box unboxing — artisanal mithai at its finest', likes: 4100, comments: 267, time: '5h ago', sentiment: 'positive', brand: 'bombaysweets' },
+    { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Snitch haul review — 8 items for Rs 4000. Here\'s what\'s worth it and what\'s not.', upvotes: 3200, comments: 478, time: '3h ago', sentiment: 'positive', brand: 'snitch' },
+    { platform: 'instagram', handle: '@travelwithstyle', title: 'Mokobara cabin bag survived 15 flights — still looks brand new. My honest review.', likes: 8900, comments: 567, time: '6h ago', sentiment: 'positive', brand: 'mokobara' },
+    { platform: 'linkedin', handle: 'Siddharth Dungarwal', title: 'From Rs 0 to Rs 500Cr revenue — bootstrapped. No VC money. Here\'s the Snitch story.', likes: 12000, comments: 890, time: '8h ago', sentiment: 'positive', brand: 'snitch' },
+    { platform: 'reddit', subreddit: 'r/IndianProducts', title: 'Atomberg fan saved Rs 400/month on my electricity bill. Here\'s the math.', upvotes: 2800, comments: 345, time: '5h ago', sentiment: 'positive', brand: 'atomberg' },
+    { platform: 'instagram', handle: '@skincarejunkie', title: 'mCaffeine coffee body scrub — 30 day before/after. My skin has never been this smooth.', likes: 15000, comments: 1200, time: '2h ago', sentiment: 'positive', brand: 'mcaffeine' },
+    { platform: 'linkedin', handle: 'Chakradhar Gade', title: 'Country Delight crossed INR 1500Cr revenue. From milk to a full fresh grocery platform. The journey.', likes: 9500, comments: 678, time: '1d ago', sentiment: 'positive', brand: 'countrydelight' },
+    { platform: 'reddit', subreddit: 'r/IndianGaming', title: 'Noise ColorFit Pro 5 vs Fire-Boltt Phoenix — which budget smartwatch wins? My comparison.', upvotes: 1800, comments: 290, time: '10h ago', sentiment: 'mixed', brand: 'noise' },
+    { platform: 'instagram', handle: '@beautyfinds', title: 'Plum Vitamin C serum 60-day review — visible brightening results. Before and after photos.', likes: 7200, comments: 445, time: '4h ago', sentiment: 'positive', brand: 'plumgoodness' },
+    { platform: 'linkedin', handle: 'D2C Insider', title: 'Mokobara raised $12M Series B. The luggage D2C play is working. Here\'s why investors are excited.', likes: 5600, comments: 345, time: '12h ago', sentiment: 'positive', brand: 'mokobara' },
+    { platform: 'reddit', subreddit: 'r/india', title: 'Country Delight vs Sid\'s Farm — comparing premium milk delivery services. Which is better?', upvotes: 2100, comments: 380, time: '7h ago', sentiment: 'mixed', brand: 'countrydelight' },
+    { platform: 'instagram', handle: '@ragecoffeeofficial', title: 'New Irish Hazelnut Rage Coffee. Instant coffee that doesn\'t taste instant. Available now.', likes: 3400, comments: 210, time: '9h ago', sentiment: 'positive', brand: 'ragecoffee' },
 ];
 
 // --- Employee Reviews Data (AmbitionBox + Glassdoor) ---
@@ -1078,6 +1328,204 @@ const EMPLOYEE_REVIEWS = {
             { quarter: 'Q1 2026', mood: 'cautious optimism', score: 68, theme: 'Market recognition improving. Seeking funding for expansion. Team hopeful.' },
         ],
     },
+    snitch: {
+        ambitionbox: { rating: 3.9, totalReviews: 120, recommend: 76, ceoApproval: 82, workLife: 3.6, salary: 3.4, security: 3.5, culture: 4.0, growth: 3.8,
+            likes: ['Explosive growth — exciting to be part of', 'Young dynamic team energy', 'Great learning in fast fashion D2C', 'Founder is hands-on and inspiring'],
+            dislikes: ['Fast pace means constant pressure', 'Work-life balance can suffer during launches', 'Processes still evolving at scale', 'Compensation benchmarking needed'],
+            summary: 'Snitch employees are energized by the rapid growth. The fast fashion pace demands hustle. Great for young professionals seeking D2C experience.'
+        },
+        glassdoor: { rating: 3.7, totalReviews: 95, recommend: 72, ceoApproval: 78, workLife: 3.4, salary: 3.2, security: 3.4, culture: 3.8, growth: 3.6,
+            likes: ['Rapid growth creates opportunities', 'Creative freedom in design team', 'Bootstrapped success story inspires'],
+            dislikes: ['Work pressure is intense', 'Need better HR processes', 'Compensation could be more competitive'],
+            summary: 'High-growth environment with fast fashion intensity. Best for those who thrive in fast-paced environments.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'exciting', score: 70, theme: 'Revenue milestones being hit. Team expanding rapidly. Energy is high.' },
+            { quarter: 'Q2 2025', mood: 'intense', score: 68, theme: 'Scaling operations. New categories launching. Team stretched but motivated.' },
+            { quarter: 'Q3 2025', mood: 'proud', score: 76, theme: 'INR 500Cr milestone celebrated. Media coverage boosts pride. Better compensation.' },
+            { quarter: 'Q1 2026', mood: 'ambitious', score: 80, theme: 'IPO discussions energize team. Offline expansion creating new roles. Culture maturing.' },
+        ],
+    },
+    mokobara: {
+        ambitionbox: { rating: 4.1, totalReviews: 55, recommend: 80, ceoApproval: 86, workLife: 3.9, salary: 3.5, security: 3.6, culture: 4.3, growth: 3.8,
+            likes: ['Beautiful brand to work for — design-first culture', 'Co-founders are genuine and accessible', 'Creative work environment', 'Product you can be proud of showing friends'],
+            dislikes: ['Travel/luggage is niche — learning curve', 'Bangalore-centric — limits talent pool somewhat', 'Need more structured career ladders'],
+            summary: 'Mokobara attracts design and brand enthusiasts. The product quality and brand aesthetic create genuine employee pride. Strong culture in Bangalore HQ.'
+        },
+        glassdoor: { rating: 3.9, totalReviews: 42, recommend: 78, ceoApproval: 84, workLife: 3.7, salary: 3.3, security: 3.5, culture: 4.1, growth: 3.6,
+            likes: ['Design-led culture is inspiring', 'Strong brand identity makes marketing fun', 'Good work environment'],
+            dislikes: ['Category is seasonal — demand fluctuates', 'Need more scale in operations', 'Compensation could match metro standards better'],
+            summary: 'Design-forward workplace with strong brand pride. Good for creative professionals in D2C.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'creative', score: 72, theme: 'New product lines launching. Team excited about retail stores.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 76, theme: 'Series B discussions. Offline expansion creating new opportunities.' },
+            { quarter: 'Q3 2025', mood: 'proud', score: 80, theme: 'Brand recognition growing nationally. Celebrity sightings with Mokobara. Team pride high.' },
+            { quarter: 'Q1 2026', mood: 'strong', score: 84, theme: 'Revenue growing 3x YoY. Team expansion. Culture maintained despite growth.' },
+        ],
+    },
+    noise: {
+        ambitionbox: { rating: 3.8, totalReviews: 280, recommend: 72, ceoApproval: 76, workLife: 3.5, salary: 3.4, security: 3.6, culture: 3.7, growth: 3.5,
+            likes: ['Market leader in wearables — exciting space', 'Good brand visibility and recognition', 'Competitive salaries for the sector', 'Launch pace keeps work exciting'],
+            dislikes: ['Constant product launches create burnout', 'Competition from boAt/Fire-Boltt is intense', 'Processes need maturity', 'Decision-making can be slow'],
+            summary: 'Noise offers a fast-paced wearables environment. Market leadership creates pride but competitive pressure is constant. Best for tech-consumer enthusiasts.'
+        },
+        glassdoor: { rating: 3.6, totalReviews: 220, recommend: 68, ceoApproval: 72, workLife: 3.3, salary: 3.2, security: 3.4, culture: 3.5, growth: 3.3,
+            likes: ['Brand recognition is strong', 'Good for consumer electronics career', 'Regular product innovations'],
+            dislikes: ['Intense competition means constant pressure', 'Need better work-life balance', 'Career paths need clarity'],
+            summary: 'Fast-paced wearables company. Good exposure to consumer electronics but demanding work environment.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'competitive', score: 62, theme: 'Market share battles intensifying. Team focused on differentiation.' },
+            { quarter: 'Q2 2025', mood: 'improving', score: 66, theme: 'NoiseFit brand launch. Premium positioning creating excitement.' },
+            { quarter: 'Q3 2025', mood: 'steady', score: 70, theme: 'Market consolidation happening. Noise holding strong. Team confidence building.' },
+            { quarter: 'Q1 2026', mood: 'positive', score: 74, theme: 'Smart wearables growing. Revenue targets being met. Team retention improving.' },
+        ],
+    },
+    atomberg: {
+        ambitionbox: { rating: 4.2, totalReviews: 180, recommend: 84, ceoApproval: 88, workLife: 3.8, salary: 3.6, security: 3.8, culture: 4.2, growth: 4.0,
+            likes: ['Deep tech solving real problems — energy efficiency', 'Strong engineering culture', 'Founder-led with clear vision', 'Good compensation for hardware startup'],
+            dislikes: ['Hardware scaling is complex and stressful', 'Pune location limits some talent', 'Fast growth creating org structure challenges'],
+            summary: 'Atomberg is a rare deep-tech consumer brand. Engineers love the BLDC motor innovation. Strong culture with technical founder leadership. One of the best-rated hardware startups.'
+        },
+        glassdoor: { rating: 4.0, totalReviews: 145, recommend: 80, ceoApproval: 86, workLife: 3.6, salary: 3.4, security: 3.7, culture: 4.0, growth: 3.8,
+            likes: ['Genuinely innovative technology', 'Making a real impact on energy efficiency', 'IIT founders bring strong tech culture'],
+            dislikes: ['Hardware supply chain is challenging', 'Growth demands more than team can sometimes handle', 'Need more non-engineering senior hires'],
+            summary: 'Excellent engineering culture with genuine innovation. One of India\'s best hardware startup workplaces.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'innovative', score: 76, theme: 'New product categories launching. BLDC technology gaining wider adoption.' },
+            { quarter: 'Q2 2025', mood: 'ambitious', score: 78, theme: 'Series C funding discussions. Revenue milestones hit. Team energized.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 82, theme: 'INR 800Cr+ revenue. Offline retail expanding. Team proud of brand recognition.' },
+            { quarter: 'Q1 2026', mood: 'excellent', score: 86, theme: 'Market leadership in energy-efficient fans. IPO discussions beginning. Employee wealth creation.' },
+        ],
+    },
+    countrydelight: {
+        ambitionbox: { rating: 3.9, totalReviews: 350, recommend: 74, ceoApproval: 80, workLife: 3.4, salary: 3.3, security: 3.5, culture: 3.8, growth: 3.6,
+            likes: ['Impactful work — changing how India consumes dairy', 'Rapid growth creates career opportunities', 'Technology-driven operations are interesting', 'Strong brand with customer love'],
+            dislikes: ['Operations are 24/7 — dairy never sleeps', 'Early morning logistics can be exhausting', 'High expectations with lean teams', 'City launches mean relocation pressure'],
+            summary: 'Country Delight offers a unique dairy-tech work experience. The 24/7 operations nature is demanding. Strong mission alignment with customer impact visible daily.'
+        },
+        glassdoor: { rating: 3.7, totalReviews: 280, recommend: 70, ceoApproval: 76, workLife: 3.2, salary: 3.1, security: 3.4, culture: 3.6, growth: 3.5,
+            likes: ['Building a category-defining brand', 'Technology integration in dairy is exciting', 'Rapid scaling provides learning'],
+            dislikes: ['Work-life balance is tough in operations', 'Compensation could be more competitive', 'Attrition in operations roles is high'],
+            summary: 'High-growth dairy-tech company. Demanding operations but meaningful work. Strong for those who can handle the pace.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'scaling', score: 66, theme: 'Rapid city expansion. Operations under pressure. Revenue growing well.' },
+            { quarter: 'Q2 2025', mood: 'improving', score: 70, theme: 'Processes maturing. Technology investments paying off. Better HR practices.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 75, theme: 'INR 1500Cr+ revenue. Unit economics improving. Team seeing the path to profitability.' },
+            { quarter: 'Q1 2026', mood: 'confident', score: 80, theme: 'Market leadership in premium dairy delivery. Better retention. Career paths clearer.' },
+        ],
+    },
+    licious: {
+        ambitionbox: { rating: 3.6, totalReviews: 420, recommend: 66, ceoApproval: 70, workLife: 3.2, salary: 3.3, security: 3.2, culture: 3.5, growth: 3.3,
+            likes: ['Pioneer in fresh meat delivery — category creator', 'Brand is well-known and respected', 'Good operational learning opportunity', 'Technology team is strong'],
+            dislikes: ['Layoffs in 2023-24 affected morale', 'Profitability pressure means cost cutting', 'Cold chain operations are demanding', 'Work-life balance suffers in peak times'],
+            summary: 'Licious is navigating the post-hypergrowth phase. Layoffs affected trust. The pivot to profitability is creating operational pressure but the brand remains strong.'
+        },
+        glassdoor: { rating: 3.4, totalReviews: 350, recommend: 62, ceoApproval: 66, workLife: 3.0, salary: 3.1, security: 3.0, culture: 3.3, growth: 3.1,
+            likes: ['Category leadership in meat delivery', 'Technology and supply chain learning', 'Well-funded company'],
+            dislikes: ['Restructuring affected team morale', 'Profitability pressure is constant', 'Cold chain operations are stressful', 'Need clearer communication from leadership'],
+            summary: 'Category pioneer facing growth-to-profitability transition. Employee morale recovering from restructuring period.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'recovering', score: 55, theme: 'Post-restructuring. Team rebuilding confidence. New strategy focused on profitability.' },
+            { quarter: 'Q2 2025', mood: 'stabilizing', score: 60, theme: 'Operations stabilizing. Ready-to-cook segment growing. Team morale improving.' },
+            { quarter: 'Q3 2025', mood: 'improving', score: 65, theme: 'Unit economics improving. New product launches energize team. Better communication.' },
+            { quarter: 'Q1 2026', mood: 'steady', score: 70, theme: 'Profitability path clearer. Team retention improving. Brand strength remains high.' },
+        ],
+    },
+    plumgoodness: {
+        ambitionbox: { rating: 4.0, totalReviews: 160, recommend: 78, ceoApproval: 82, workLife: 3.7, salary: 3.4, security: 3.6, culture: 4.0, growth: 3.7,
+            likes: ['Leading vegan beauty brand — proud to work here', 'Good creative culture in marketing', 'Strong brand with loyal customer base', 'Founder Shankar Prasad\'s vision is clear'],
+            dislikes: ['Beauty market competition is intense', 'Need more innovation in new categories', 'Scaling operations creates challenges'],
+            summary: 'Plum Goodness employees enjoy working for a values-driven beauty brand. The vegan positioning creates genuine pride. Competitive beauty market keeps everyone on their toes.'
+        },
+        glassdoor: { rating: 3.8, totalReviews: 130, recommend: 75, ceoApproval: 80, workLife: 3.5, salary: 3.2, security: 3.5, culture: 3.8, growth: 3.5,
+            likes: ['Vegan beauty mission resonates', 'Good D2C learning opportunity', 'Customer loyalty creates motivation'],
+            dislikes: ['Margins pressure in beauty', 'Competition from new entrants', 'Need better internal tools'],
+            summary: 'Strong beauty brand workplace. Vegan values drive culture. Competition keeps the pace demanding.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'confident', score: 72, theme: 'INR 500Cr revenue milestone. Brand well-positioned. Team proud.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 75, theme: 'Makeup category expansion. New talent joining. Processes maturing.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 78, theme: 'Market share growing in vegan beauty. Team retention high. Good culture scores.' },
+            { quarter: 'Q1 2026', mood: 'thriving', score: 82, theme: 'Category leadership in vegan beauty. Better compensation. IPO conversations starting.' },
+        ],
+    },
+    mcaffeine: {
+        ambitionbox: { rating: 3.8, totalReviews: 95, recommend: 74, ceoApproval: 78, workLife: 3.6, salary: 3.3, security: 3.5, culture: 3.9, growth: 3.6,
+            likes: ['Created a new category — exciting to build', 'Coffee-themed culture is fun', 'Marketing team has great creative freedom', 'Products are genuinely loved by customers'],
+            dislikes: ['Scaling personal care is operationally complex', 'Need more senior leadership depth', 'Compensation could be more competitive'],
+            summary: 'mCaffeine employees enjoy the category-creator narrative. Coffee culture extends to workplace. Creative marketing roles are the highlight.'
+        },
+        glassdoor: { rating: 3.6, totalReviews: 75, recommend: 70, ceoApproval: 74, workLife: 3.4, salary: 3.1, security: 3.3, culture: 3.7, growth: 3.4,
+            likes: ['Unique product positioning', 'Good for personal care marketing career', 'Growing brand recognition'],
+            dislikes: ['Competition in personal care intensifying', 'Need better processes', 'Salaries below beauty industry average'],
+            summary: 'Category-creating beauty startup. Good learning but competitive pressures and compensation are areas of concern.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'growing', score: 66, theme: 'Revenue growing steadily. New product launches energize team.' },
+            { quarter: 'Q2 2025', mood: 'positive', score: 70, theme: 'INR 300Cr target in sight. Marketing innovation driving growth.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 74, theme: 'Brand recognition at peak. Team proud of category leadership.' },
+            { quarter: 'Q1 2026', mood: 'confident', score: 78, theme: 'Profitability improving. Better compensation. Team retention strong.' },
+        ],
+    },
+    bsc: {
+        ambitionbox: { rating: 3.7, totalReviews: 140, recommend: 70, ceoApproval: 74, workLife: 3.5, salary: 3.3, security: 3.3, culture: 3.7, growth: 3.4,
+            likes: ['Pioneer in men\'s grooming D2C', 'Brand recognition is strong', 'Good marketing learning opportunity', 'Diverse product range keeps work interesting'],
+            dislikes: ['Competition from new brands is intense', 'Growth has slowed from early days', 'Need clearer strategic direction', 'Margins pressure affects team resources'],
+            summary: 'BSC pioneered D2C men\'s grooming in India. The brand is well-established but growth moderation and competition create challenges. Good for grooming/beauty career development.'
+        },
+        glassdoor: { rating: 3.5, totalReviews: 110, recommend: 66, ceoApproval: 70, workLife: 3.3, salary: 3.1, security: 3.2, culture: 3.5, growth: 3.2,
+            likes: ['Strong brand to have on resume', 'Men\'s grooming expertise', 'Diverse team'],
+            dislikes: ['Growth has moderated', 'Competition eating market share', 'Need more innovation'],
+            summary: 'Established men\'s grooming brand. Stable but facing growth challenges from competition.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'steady', score: 62, theme: 'Brand remains strong. Competition intensifying. Team focused on differentiation.' },
+            { quarter: 'Q2 2025', mood: 'evolving', score: 64, theme: 'Category expansion into body care. New product launches. Team adapting.' },
+            { quarter: 'Q3 2025', mood: 'improving', score: 68, theme: 'Revenue growing in new categories. Team morale improving with results.' },
+            { quarter: 'Q1 2026', mood: 'positive', score: 72, theme: 'Multi-category strategy gaining traction. Better market positioning. Team more confident.' },
+        ],
+    },
+    vahdamteas: {
+        ambitionbox: { rating: 3.9, totalReviews: 85, recommend: 76, ceoApproval: 82, workLife: 3.7, salary: 3.3, security: 3.5, culture: 4.0, growth: 3.6,
+            likes: ['Working for a globally recognized Indian tea brand', 'Strong founder vision for premium Indian tea', 'Good for international marketing exposure', 'Products are genuinely world-class'],
+            dislikes: ['Delhi NCR location for some roles', 'Export-focused business has currency risks', 'Need more structured growth paths'],
+            summary: 'Vahdam Teas employees take pride in building a global Indian brand. The premium positioning and international success create genuine workplace pride.'
+        },
+        glassdoor: { rating: 3.7, totalReviews: 65, recommend: 72, ceoApproval: 78, workLife: 3.5, salary: 3.1, security: 3.4, culture: 3.8, growth: 3.4,
+            likes: ['Global brand exposure', 'Premium product positioning', 'Strong founder leadership'],
+            dislikes: ['Compensation moderate for consumer goods', 'High expectations from small team', 'International time zones can be demanding'],
+            summary: 'Unique opportunity to work for a global Indian consumer brand. Export-focused business creates interesting challenges.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'global', score: 66, theme: 'International expansion continuing. Team proud of global recognition.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 70, theme: 'New product categories launching. Matcha line doing well.' },
+            { quarter: 'Q3 2025', mood: 'steady', score: 72, theme: 'Revenue growth in US market. Team gaining confidence.' },
+            { quarter: 'Q1 2026', mood: 'positive', score: 76, theme: 'INR 200Cr+ revenue. India domestic market growing. Better compensation.' },
+        ],
+    },
+    ragecoffee: {
+        ambitionbox: { rating: 3.7, totalReviews: 48, recommend: 70, ceoApproval: 76, workLife: 3.5, salary: 3.2, security: 3.3, culture: 3.8, growth: 3.5,
+            likes: ['Unique product — vitamin-infused coffee is exciting', 'Shark Tank visibility boosts brand', 'Young energetic team', 'Good D2C marketing learning'],
+            dislikes: ['Competitive instant coffee market', 'Need more senior leadership', 'Compensation could be better'],
+            summary: 'Rage Coffee offers a unique product innovation story. The vitamin-infused coffee category is exciting. Typical scaling challenges for a D2C food brand.'
+        },
+        glassdoor: { rating: 3.5, totalReviews: 35, recommend: 66, ceoApproval: 72, workLife: 3.3, salary: 3.0, security: 3.1, culture: 3.6, growth: 3.3,
+            likes: ['Innovative product positioning', 'Shark Tank brand recognition', 'Fast-paced learning environment'],
+            dislikes: ['Coffee market is intensely competitive', 'Resources stretched in scaling phase', 'Need better processes'],
+            summary: 'Innovation-driven coffee startup with Shark Tank credibility. Scaling challenges and competition are the main concerns.'
+        },
+        moodTimeline: [
+            { quarter: 'Q1 2025', mood: 'energetic', score: 62, theme: 'Post Shark Tank growth. Team expanding. Product innovation continuing.' },
+            { quarter: 'Q2 2025', mood: 'hustling', score: 64, theme: 'Distribution expanding. New flavors launching. Team stretched but motivated.' },
+            { quarter: 'Q3 2025', mood: 'growing', score: 68, theme: 'INR 100Cr revenue target. Offline retail growing. Morale improving.' },
+            { quarter: 'Q1 2026', mood: 'positive', score: 72, theme: 'Revenue milestones hit. Category awareness improving. Team retention better.' },
+        ],
+    },
 };
 
 // Default employee reviews for any brand not explicitly listed
@@ -1102,7 +1550,9 @@ const DEFAULT_EMPLOYEE_REVIEWS = {
 
 // --- Composite Scoring ---
 function computeCompositeScores() {
-    return COMPANIES.map(c => {
+    const scores = {};
+    const signals = {};
+    COMPANIES.forEach(c => {
         const gt = GOOGLE_TRENDS_DATA[c.id];
         const ec = ECOMMERCE_DATA[c.id];
         const tr = TRAFFIC_DATA[c.id];
@@ -1118,16 +1568,16 @@ function computeCompositeScores() {
         );
 
         let signal = 'watch';
-        if (composite >= 78) signal = 'breakout';
-        else if (composite >= 65) signal = 'trending';
+        if (composite >= 75) signal = 'breakout';
+        else if (composite >= 62) signal = 'trending';
         else if (composite < 40) signal = 'declining';
 
-        return {
-            ...c,
-            scores: { google: Math.round(googleScore), reviews: Math.round(reviewScore), traffic: Math.round(trafficScore), social: Math.round(socialScore), composite },
-            signal,
-        };
-    }).sort((a, b) => b.scores.composite - a.scores.composite);
+        scores[c.id] = { google: Math.round(googleScore), reviews: Math.round(reviewScore), traffic: Math.round(trafficScore), social: Math.round(socialScore), composite };
+        signals[c.id] = signal;
+    });
+    return { scores, signals };
 }
 
-const COMPOSITE_SCORES = computeCompositeScores();
+const _computed = computeCompositeScores();
+const COMPOSITE_SCORES = _computed.scores;
+const COMPANY_SIGNALS = _computed.signals;
