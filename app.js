@@ -114,9 +114,23 @@ function showNotification(message) {
 
 // --- Overview Panel ---
 function initOverview() {
+    renderOverviewKpis();
     renderOverviewHeatmap();
     renderCompositeScoreChart();
     renderTopMovers('all');
+}
+
+function renderOverviewKpis() {
+    const companies = getFilteredCompanies();
+    const trendingUp = companies.filter(c => COMPANY_SIGNALS[c.id] === 'trending' || COMPANY_SIGNALS[c.id] === 'breakout').length;
+    const breakout = companies.filter(c => COMPANY_SIGNALS[c.id] === 'breakout').length;
+    const avgSentiment = companies.length > 0 ? Math.round(companies.reduce((s, c) => s + COMPOSITE_SCORES[c.id].reviews, 0) / companies.length) : 0;
+    const totalReviews = companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].amazon.totalReviews + ECOMMERCE_DATA[c.id].myntra.totalReviews, 0);
+
+    document.getElementById('kpiTrendingUp').textContent = trendingUp;
+    document.getElementById('kpiBreakout').textContent = breakout;
+    document.getElementById('kpiSentiment').textContent = avgSentiment + '%';
+    document.getElementById('kpiReviews').textContent = formatNumber(totalReviews);
 }
 
 function renderOverviewHeatmap() {
@@ -412,6 +426,7 @@ function initEcommerce() {
     populateCompanySelect('ecommMoodCompanySelect');
     // Reset platform toggle to default (Amazon)
     resetPlatformToggle('#panel-ecommerce', 0);
+    renderEcommerceKpis();
     renderReviewSummary();
     renderEcommMoodTimeline();
     renderReviewVolumeChart('amazon');
@@ -419,6 +434,24 @@ function initEcommerce() {
     renderSentimentDonut();
     renderReviewKeywords();
     renderEcommerceTable();
+}
+
+function renderEcommerceKpis() {
+    const companies = getFilteredCompanies();
+    if (companies.length === 0) return;
+    const avgAmazon = (companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].amazon.avgRating, 0) / companies.length).toFixed(1);
+    const avgMyntra = (companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].myntra.avgRating, 0) / companies.length).toFixed(1);
+    const totalReviews = companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].amazon.totalReviews + ECOMMERCE_DATA[c.id].myntra.totalReviews, 0);
+    const avgSentiment = Math.round(companies.reduce((s, c) => s + (ECOMMERCE_DATA[c.id].amazon.sentiment + ECOMMERCE_DATA[c.id].myntra.sentiment) / 2, 0) / companies.length);
+
+    document.getElementById('kpiAmazonRating').textContent = avgAmazon;
+    document.getElementById('kpiAmazonRatingDelta').textContent = `avg across ${companies.length} companies`;
+    document.getElementById('kpiMyntraRating').textContent = avgMyntra;
+    document.getElementById('kpiMyntraRatingDelta').textContent = `avg across ${companies.length} companies`;
+    document.getElementById('kpiTotalReviews').textContent = formatNumber(totalReviews);
+    document.getElementById('kpiTotalReviewsDelta').textContent = `Amazon + Myntra combined`;
+    document.getElementById('kpiEcommSentiment').textContent = avgSentiment + '%';
+    document.getElementById('kpiEcommSentimentDelta').textContent = `avg across platforms`;
 }
 
 function switchEcommPlatform(platform, btn) {
@@ -678,9 +711,36 @@ function renderEcommerceTable() {
 // --- Traffic Panel ---
 function initTraffic() {
     populateCompanySelect('trafficCompanySelect');
+    renderTrafficKpis();
     renderTrafficLineChart();
     renderTrafficSourceChart();
     renderTrafficTable();
+}
+
+function renderTrafficKpis() {
+    const companies = getFilteredCompanies();
+    if (companies.length === 0) return;
+    const totalVisits = companies.reduce((s, c) => {
+        const visits = TRAFFIC_DATA[c.id].monthlyVisits;
+        return s + visits[visits.length - 1].value;
+    }, 0);
+    const avgDurations = companies.map(c => {
+        const parts = TRAFFIC_DATA[c.id].avgDuration.split(':');
+        return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    });
+    const avgDurSec = Math.round(avgDurations.reduce((a, b) => a + b, 0) / avgDurations.length);
+    const avgDurStr = `${Math.floor(avgDurSec / 60)}:${String(avgDurSec % 60).padStart(2, '0')}`;
+    const avgBounce = Math.round(companies.reduce((s, c) => s + TRAFFIC_DATA[c.id].bounceRate, 0) / companies.length);
+    const fastest = [...companies].sort((a, b) => TRAFFIC_DATA[b.id].momGrowth - TRAFFIC_DATA[a.id].momGrowth)[0];
+
+    document.getElementById('kpiTotalVisits').textContent = formatNumber(totalVisits);
+    document.getElementById('kpiTotalVisitsDelta').textContent = `latest month, ${companies.length} companies`;
+    document.getElementById('kpiAvgDuration').textContent = avgDurStr;
+    document.getElementById('kpiAvgDurationDelta').textContent = `avg across ${companies.length} companies`;
+    document.getElementById('kpiBounceRate').textContent = avgBounce + '%';
+    document.getElementById('kpiBounceRateDelta').textContent = `avg across ${companies.length} companies`;
+    document.getElementById('kpiFastestGrowing').textContent = fastest.name;
+    document.getElementById('kpiFastestGrowingDelta').textContent = `+${TRAFFIC_DATA[fastest.id].momGrowth}% MoM traffic growth`;
 }
 
 function updateTrafficChart() {
@@ -792,12 +852,31 @@ function initSocial() {
     populateCompanySelect('socialMoodCompanySelect');
     // Reset platform toggle to default (Reddit)
     resetPlatformToggle('#panel-social', 0);
+    renderSocialKpis();
     renderSocialCommentarySummary();
     renderSocialMoodTimeline();
     renderSocialMentionsChart('reddit');
     renderSocialSentimentChart();
     renderSocialFeed();
     renderSocialTable();
+}
+
+function renderSocialKpis() {
+    const companies = getFilteredCompanies();
+    if (companies.length === 0) return;
+    const totalReddit = companies.reduce((s, c) => s + SOCIAL_DATA[c.id].reddit.mentions.reduce((a, m) => a + m.value, 0), 0);
+    const totalInsta = companies.reduce((s, c) => s + SOCIAL_DATA[c.id].instagram.mentions.reduce((a, m) => a + m.value, 0), 0);
+    const totalLinkedin = companies.reduce((s, c) => s + SOCIAL_DATA[c.id].linkedin.mentions.reduce((a, m) => a + m.value, 0), 0);
+    const avgViral = Math.round(companies.reduce((s, c) => s + SOCIAL_DATA[c.id].viralScore, 0) / companies.length);
+
+    document.getElementById('kpiRedditMentions').textContent = formatNumber(totalReddit);
+    document.getElementById('kpiRedditMentionsDelta').textContent = `total across ${companies.length} companies`;
+    document.getElementById('kpiIgMentions').textContent = formatNumber(totalInsta);
+    document.getElementById('kpiIgMentionsDelta').textContent = `total across ${companies.length} companies`;
+    document.getElementById('kpiLinkedinMentions').textContent = formatNumber(totalLinkedin);
+    document.getElementById('kpiLinkedinMentionsDelta').textContent = `total across ${companies.length} companies`;
+    document.getElementById('kpiAvgViralScore').textContent = avgViral + '/100';
+    document.getElementById('kpiAvgViralScoreDelta').textContent = `avg across ${companies.length} companies`;
 }
 
 function switchSocialPlatform(platform, btn) {

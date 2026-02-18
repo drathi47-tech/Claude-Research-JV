@@ -241,26 +241,26 @@
                         <p class="panel-description">Review volume, ratings, sentiment analysis, and consumer feedback across e-commerce platforms</p>
                     </div>
 
-                    <div class="kpi-grid">
+                    <div class="kpi-grid" id="ecommerceKpis">
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Rating (Amazon)</div>
-                            <div class="kpi-value" style="color: #ff9900;">4.2</div>
-                            <div class="kpi-delta positive">+0.3 vs last period</div>
+                            <div class="kpi-value" style="color: #ff9900;" id="kpiAmazonRating">4.2</div>
+                            <div class="kpi-delta positive" id="kpiAmazonRatingDelta">+0.3 vs last period</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Rating (Myntra)</div>
-                            <div class="kpi-value" style="color: #ff3f6c;">4.0</div>
-                            <div class="kpi-delta positive">+0.2 vs last period</div>
+                            <div class="kpi-value" style="color: #ff3f6c;" id="kpiMyntraRating">4.0</div>
+                            <div class="kpi-delta positive" id="kpiMyntraRatingDelta">+0.2 vs last period</div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">New Reviews (7d)</div>
-                            <div class="kpi-value" style="color: #06b6d4;">2,847</div>
-                            <div class="kpi-delta positive">+18% vs last week</div>
+                            <div class="kpi-label">Total Reviews</div>
+                            <div class="kpi-value" style="color: #06b6d4;" id="kpiTotalReviews">2,847</div>
+                            <div class="kpi-delta positive" id="kpiTotalReviewsDelta">across filtered companies</div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Positive Sentiment</div>
-                            <div class="kpi-value" style="color: #10b981;">72%</div>
-                            <div class="kpi-delta positive">+4% vs last period</div>
+                            <div class="kpi-label">Avg Sentiment</div>
+                            <div class="kpi-value" style="color: #10b981;" id="kpiEcommSentiment">72%</div>
+                            <div class="kpi-delta positive" id="kpiEcommSentimentDelta">across platforms</div>
                         </div>
                     </div>
 
@@ -350,26 +350,26 @@
                         <p class="panel-description">Estimated web traffic and engagement metrics (SimilarWeb / proxy data)</p>
                     </div>
 
-                    <div class="kpi-grid">
+                    <div class="kpi-grid" id="trafficKpis">
                         <div class="kpi-card">
                             <div class="kpi-label">Total Est. Visits</div>
-                            <div class="kpi-value" style="color: #3b82f6;">8.4M</div>
-                            <div class="kpi-delta positive">+31% vs last month</div>
+                            <div class="kpi-value" style="color: #3b82f6;" id="kpiTotalVisits">8.4M</div>
+                            <div class="kpi-delta positive" id="kpiTotalVisitsDelta">across filtered companies</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Time on Site</div>
-                            <div class="kpi-value" style="color: #8b5cf6;">3:42</div>
-                            <div class="kpi-delta positive">+0:18 vs last month</div>
+                            <div class="kpi-value" style="color: #8b5cf6;" id="kpiAvgDuration">3:42</div>
+                            <div class="kpi-delta positive" id="kpiAvgDurationDelta">across filtered companies</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Bounce Rate</div>
-                            <div class="kpi-value" style="color: #f59e0b;">38%</div>
-                            <div class="kpi-delta positive">-4% vs last month</div>
+                            <div class="kpi-value" style="color: #f59e0b;" id="kpiBounceRate">38%</div>
+                            <div class="kpi-delta positive" id="kpiBounceRateDelta">across filtered companies</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Fastest Growing</div>
-                            <div class="kpi-value" style="color: #10b981; font-size: 20px;" id="fastestGrowing">Snitch</div>
-                            <div class="kpi-delta positive">+62% traffic growth</div>
+                            <div class="kpi-value" style="color: #10b981; font-size: 20px;" id="kpiFastestGrowing">Snitch</div>
+                            <div class="kpi-delta positive" id="kpiFastestGrowingDelta">+62% traffic growth</div>
                         </div>
                     </div>
 
@@ -428,26 +428,26 @@
                         <button class="platform-btn" onclick="switchSocialPlatform('all', this)">All</button>
                     </div>
 
-                    <div class="kpi-grid">
+                    <div class="kpi-grid" id="socialKpis">
                         <div class="kpi-card">
                             <div class="kpi-label">Reddit Mentions</div>
-                            <div class="kpi-value" style="color: #ff4500;">1,247</div>
-                            <div class="kpi-delta positive">+34% vs last period</div>
+                            <div class="kpi-value" style="color: #ff4500;" id="kpiRedditMentions">1,247</div>
+                            <div class="kpi-delta positive" id="kpiRedditMentionsDelta">across filtered companies</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">IG Mentions</div>
-                            <div class="kpi-value" style="color: #e1306c;">8,932</div>
-                            <div class="kpi-delta positive">+19% vs last period</div>
+                            <div class="kpi-value" style="color: #e1306c;" id="kpiIgMentions">8,932</div>
+                            <div class="kpi-delta positive" id="kpiIgMentionsDelta">across filtered companies</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">LinkedIn Mentions</div>
-                            <div class="kpi-value" style="color: #0a66c2;">1,580</div>
-                            <div class="kpi-delta positive">+28% vs last period</div>
+                            <div class="kpi-value" style="color: #0a66c2;" id="kpiLinkedinMentions">1,580</div>
+                            <div class="kpi-delta positive" id="kpiLinkedinMentionsDelta">across filtered companies</div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Viral Posts</div>
-                            <div class="kpi-value" style="color: #f59e0b;">12</div>
-                            <div class="kpi-delta positive">+5 vs last period</div>
+                            <div class="kpi-label">Avg Viral Score</div>
+                            <div class="kpi-value" style="color: #f59e0b;" id="kpiAvgViralScore">12</div>
+                            <div class="kpi-delta positive" id="kpiAvgViralScoreDelta">across filtered companies</div>
                         </div>
                     </div>
 
