@@ -1,10 +1,12 @@
 // =====================================================
 // Consumer Trend Radar - Sample Data
-// Sub-$250M emerging D2C / consumer brands in India
-// Focused on early-stage breakout investment opportunities
+// Sub-$400M emerging D2C / consumer brands in India
+// 40 brands: FAST42-ranked + scaled D2C + early-stage
+// Focused on breakout investment opportunities
 // =====================================================
 
 const COMPANIES = [
+    // --- Original Dashboard Brands ---
     { id: 'wakao', name: 'Wakao Foods', sector: 'food', sectorLabel: 'Food & Beverage', website: 'wakaofoods.com', color: '#f59e0b', estValuation: '~INR 3.6Cr', estRevenue: 'INR 1-1.5Cr/yr' },
     { id: 'bummer', name: 'Bummer', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'byvbummer.com', color: '#ec4899', estValuation: 'INR 45Cr', estRevenue: 'INR 10.7Cr/yr' },
     { id: 'flatheads', name: 'Flatheads', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'flatheads.in', color: '#3b82f6', estValuation: 'INR 27Cr', estRevenue: 'Acquired by Styched' },
@@ -21,17 +23,32 @@ const COMPANIES = [
     { id: 'earthrhythm', name: 'Earth Rhythm', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'earthrhythm.com', color: '#0ea5e9', estValuation: 'Acquired (Nykaa)', estRevenue: 'INR 26.7Cr/yr' },
     { id: 'bombaysweets', name: 'Bombay Sweet Shop', sector: 'food', sectorLabel: 'Food & Beverage', website: 'bombaysweetshop.com', color: '#eab308', estValuation: 'INR 200Cr+ (grp)', estRevenue: 'INR 65Cr/yr' },
     { id: 'staccato', name: 'Staccato Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'staccato.co.in', color: '#6366f1', estValuation: 'Pre-seed', estRevenue: 'Early stage' },
+    // --- Scaled D2C Brands (sub-$400M valuation) ---
     { id: 'snitch', name: 'Snitch', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'snitch.co.in', color: '#f43f5e', estValuation: 'INR 2500Cr', estRevenue: 'INR 520Cr/yr' },
     { id: 'mokobara', name: 'Mokobara', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'mokobara.com', color: '#0d9488', estValuation: '~$80M', estRevenue: 'INR 230Cr/yr' },
-    { id: 'noise', name: 'Noise', sector: 'electronics', sectorLabel: 'Consumer Electronics', website: 'gonoise.com', color: '#dc2626', estValuation: '$420-450M', estRevenue: 'INR 1070Cr/yr' },
-    { id: 'atomberg', name: 'Atomberg', sector: 'electronics', sectorLabel: 'Consumer Electronics', website: 'atomberg.com', color: '#1d4ed8', estValuation: '>$500M', estRevenue: 'INR 1000Cr+/yr' },
-    { id: 'countrydelight', name: 'Country Delight', sector: 'food', sectorLabel: 'Food & Beverage', website: 'countrydelight.in', color: '#16a34a', estValuation: '$820M', estRevenue: 'INR 1380Cr/yr' },
-    { id: 'licious', name: 'Licious', sector: 'food', sectorLabel: 'Food & Beverage', website: 'licious.in', color: '#b91c1c', estValuation: '$1.5B', estRevenue: 'INR 845Cr/yr' },
     { id: 'mcaffeine', name: 'mCaffeine', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mcaffeine.com', color: '#78350f', estValuation: 'INR 1000Cr', estRevenue: 'INR 239Cr/yr' },
     { id: 'vahdamteas', name: 'Vahdam Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'vahdamindia.com', color: '#059669', estValuation: '$114M', estRevenue: 'INR 268Cr/yr' },
     { id: 'plumgoodness', name: 'Plum Goodness', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'plumgoodness.com', color: '#7c3aed', estValuation: '$250M', estRevenue: 'INR 419Cr/yr' },
     { id: 'bsc', name: 'Bombay Shaving Company', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'bombayshavingcompany.com', color: '#0369a1', estValuation: 'INR 824Cr+', estRevenue: 'INR 550Cr/yr (RR)' },
     { id: 'ragecoffee', name: 'Rage Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'ragecoffee.com', color: '#ea580c', estValuation: 'INR 186Cr', estRevenue: 'INR 25Cr/yr' },
+    // --- FAST42 / Emerging D2C Brands ---
+    { id: 'pantproject', name: 'The Pant Project', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'thepantproject.com', color: '#334155', estValuation: 'INR 161Cr', estRevenue: 'INR 40.7Cr/yr' },
+    { id: 'houseofem5', name: 'House of EM5', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'houseofem5.in', color: '#a16207', estValuation: 'INR 10Cr', estRevenue: 'INR 20Cr/yr' },
+    { id: 'whatsupwellness', name: "What's Up Wellness", sector: 'health', sectorLabel: 'Health & Wellness', website: 'whatsupwellness.in', color: '#e879f9', estValuation: 'INR 64Cr', estRevenue: 'INR 25Cr/yr' },
+    { id: 'masterchow', name: 'MasterChow', sector: 'food', sectorLabel: 'Food & Beverage', website: 'masterchow.in', color: '#dc2626', estValuation: 'INR 236Cr', estRevenue: 'INR 40Cr/yr' },
+    { id: 'nathabit', name: 'Nat Habit', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'nathabit.in', color: '#65a30d', estValuation: 'INR 343Cr', estRevenue: 'INR 72Cr/yr' },
+    { id: 'anveshan', name: 'Anveshan', sector: 'food', sectorLabel: 'Food & Beverage', website: 'anveshan.farm', color: '#ca8a04', estValuation: 'INR 150Cr', estRevenue: 'INR 45Cr/yr' },
+    { id: 'eggoz', name: 'Eggoz', sector: 'food', sectorLabel: 'Food & Beverage', website: 'eggoz.in', color: '#ea580c', estValuation: 'INR 250Cr', estRevenue: 'INR 75Cr/yr' },
+    { id: 'foxtale', name: 'Foxtale', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'foxtale.in', color: '#c026d3', estValuation: 'INR 500Cr', estRevenue: 'INR 100Cr/yr' },
+    { id: 'pilgrim', name: 'Pilgrim', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'discoverpilgrim.com', color: '#0891b2', estValuation: 'INR 600Cr', estRevenue: 'INR 120Cr/yr' },
+    { id: 'neemans', name: 'Neemans', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'neemans.com', color: '#16a34a', estValuation: 'INR 200Cr', estRevenue: 'INR 50Cr/yr' },
+    { id: 'perfora', name: 'Perfora', sector: 'health', sectorLabel: 'Health & Wellness', website: 'perfora.in', color: '#2563eb', estValuation: 'INR 80Cr', estRevenue: 'INR 20Cr/yr' },
+    { id: 'boldfit', name: 'Boldfit', sector: 'health', sectorLabel: 'Health & Wellness', website: 'boldfit.in', color: '#b91c1c', estValuation: 'INR 250Cr', estRevenue: 'INR 90Cr/yr' },
+    { id: 'sweetkaramcoffee', name: 'Sweet Karam Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'sweetkaramcoffee.in', color: '#92400e', estValuation: 'INR 50Cr', estRevenue: 'INR 18Cr/yr' },
+    { id: 'drinkprime', name: 'DrinkPrime', sector: 'home', sectorLabel: 'Home & Living', website: 'drinkprime.in', color: '#0284c7', estValuation: 'INR 400Cr', estRevenue: 'INR 70Cr/yr' },
+    { id: 'flomattress', name: 'Flo Mattress', sector: 'home', sectorLabel: 'Home & Living', website: 'flomattress.com', color: '#4f46e5', estValuation: 'INR 100Cr', estRevenue: 'INR 30Cr/yr' },
+    { id: 'mymuse', name: 'MyMuse', sector: 'health', sectorLabel: 'Health & Wellness', website: 'mymuse.in', color: '#be185d', estValuation: 'INR 80Cr', estRevenue: 'INR 15Cr/yr' },
+    { id: 'dorjeteas', name: 'Dorje Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'dorjeteas.com', color: '#047857', estValuation: 'INR 30Cr', estRevenue: 'INR 10Cr/yr' },
 ];
 
 // --- Helper: generate time-series data ---
@@ -65,8 +82,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { wakao: 0.85, bummer: 0.78, flatheads: 0.55, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48, snitch: 1.20, mokobara: 1.10, noise: 0.65, atomberg: 0.72, countrydelight: 0.88, licious: 0.55, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78 };
-const GT_BASE = { wakao: 12, bummer: 22, flatheads: 15, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10, snitch: 55, mokobara: 38, noise: 72, atomberg: 45, countrydelight: 60, licious: 50, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28 };
+const GT_GROWTH = { wakao: 0.85, bummer: 0.78, flatheads: 0.55, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, pantproject: 0.95, houseofem5: 1.40, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
+const GT_BASE = { wakao: 12, bummer: 22, flatheads: 15, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, pantproject: 20, houseofem5: 10, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -211,29 +228,47 @@ const RISING_QUERIES = {
         { text: 'best cabin luggage india', growth: '+900%' },
         { text: 'mokobara backpack', growth: '+750%' },
     ],
-    noise: [
-        { text: 'noise smartwatch review', growth: '+850%' },
-        { text: 'noise colorfit pro 5', growth: '+720%' },
-        { text: 'best budget smartwatch india', growth: '+580%' },
-        { text: 'noise vs fire boltt', growth: '+450%' },
+    pantproject: [
+        { text: 'pant project custom pants review', growth: '+1200%' },
+        { text: 'best chinos india made to order', growth: '+850%' },
+        { text: 'pant project sizing', growth: '+680%' },
+        { text: 'custom bottom wear brand india', growth: '+520%' },
     ],
-    atomberg: [
-        { text: 'atomberg ceiling fan review', growth: '+980%' },
-        { text: 'bldc fan india best', growth: '+780%' },
-        { text: 'atomberg vs havells fan', growth: '+620%' },
-        { text: 'energy efficient fan india', growth: '+480%' },
+    nathabit: [
+        { text: 'nat habit ubtan review', growth: '+1800%' },
+        { text: 'nat habit hair oil ayurvedic', growth: '+1400%' },
+        { text: 'fresh beauty products india', growth: '+980%' },
+        { text: 'nat habit vs forest essentials', growth: '+720%' },
     ],
-    countrydelight: [
-        { text: 'country delight milk review', growth: '+1100%' },
-        { text: 'country delight vs amul', growth: '+880%' },
-        { text: 'farm fresh milk delivery', growth: '+720%' },
-        { text: 'country delight subscription', growth: '+580%' },
+    masterchow: [
+        { text: 'masterchow chilli oil review', growth: '+1500%' },
+        { text: 'best asian sauces india', growth: '+1100%' },
+        { text: 'masterchow noodles taste', growth: '+780%' },
+        { text: 'ready to cook chinese sauces', growth: '+580%' },
     ],
-    licious: [
-        { text: 'licious meat delivery review', growth: '+650%' },
-        { text: 'licious chicken quality', growth: '+520%' },
-        { text: 'fresh meat delivery app', growth: '+420%' },
-        { text: 'licious seafood bangalore', growth: '+350%' },
+    foxtale: [
+        { text: 'foxtale vitamin c serum review', growth: '+2200%' },
+        { text: 'foxtale sunscreen spf', growth: '+1600%' },
+        { text: 'foxtale vs minimalist skincare', growth: '+1200%' },
+        { text: 'best indian skincare brand 2025', growth: '+880%' },
+    ],
+    pilgrim: [
+        { text: 'pilgrim retinol serum review', growth: '+1400%' },
+        { text: 'pilgrim hair care range', growth: '+1050%' },
+        { text: 'pilgrim vs mamaearth', growth: '+820%' },
+        { text: 'vegan beauty products india', growth: '+620%' },
+    ],
+    boldfit: [
+        { text: 'boldfit protein shaker review', growth: '+1100%' },
+        { text: 'boldfit gym accessories india', growth: '+850%' },
+        { text: 'best fitness accessories amazon', growth: '+680%' },
+        { text: 'boldfit resistance bands', growth: '+520%' },
+    ],
+    drinkprime: [
+        { text: 'drinkprime water purifier review', growth: '+1600%' },
+        { text: 'drinkprime subscription cost', growth: '+1200%' },
+        { text: 'water purifier rental india', growth: '+900%' },
+        { text: 'drinkprime vs livpure', growth: '+650%' },
     ],
     mcaffeine: [
         { text: 'mcaffeine coffee body scrub', growth: '+920%' },
@@ -491,52 +526,52 @@ const REVIEW_SUMMARIES = {
             summary: 'Strong Myntra presence. The aspirational design-first luggage positioning works well for the platform\'s audience.',
         },
     },
-    noise: {
+    pantproject: {
         amazon: {
-            topLikes: ['Incredible value for money — features at half the price', 'Smartwatch quality rivals brands 3x the price', 'Regular OTA updates improve functionality', 'Wide range of watch faces and styles'],
-            topDislikes: ['Battery life degrades after 6 months', 'App can be buggy and slow', 'Sensor accuracy questionable for health metrics', 'Build quality not as premium as flagship brands'],
-            summary: 'Noise dominates the budget smartwatch segment in India. Volume leader with aggressive pricing and constant launches. Moving upmarket with the NoiseFit brand. Review volume is massive.',
+            topLikes: ['Custom fit is genuinely different — pants fit perfectly', 'Fabric quality is excellent for the price point', 'Wide range of styles from formals to cargos', 'Easy online measurement system'],
+            topDislikes: ['Delivery takes 7-10 days for custom orders', 'Return process for custom items is tricky', 'Limited awareness outside metros', 'Size guide could be more intuitive'],
+            summary: 'The Pant Project has cracked the custom bottom-wear segment with a digital-first approach. The "250+ styles" range and custom sizing drive high customer satisfaction and repeat rates.',
         },
         myntra: {
-            topLikes: ['Good fashion accessory options', 'Smartwatches that look like real watches'],
-            topDislikes: ['Electronics support should be better', 'Limited color options on Myntra'],
-            summary: 'Growing Myntra presence as watches overlap with fashion accessories.',
+            topLikes: ['Good quality chinos at reasonable price', 'Ready-to-wear options growing', 'Comfortable stretch fabrics'],
+            topDislikes: ['Custom option not available on Myntra', 'Limited visibility vs bigger brands'],
+            summary: 'Growing Myntra presence with ready-to-wear range. The custom pant proposition is stronger on their own site.',
         },
     },
-    atomberg: {
+    nathabit: {
         amazon: {
-            topLikes: ['BLDC motor saves 65% electricity — visible in bills', 'Silent operation is a game-changer', 'Smart features with app/remote control', 'Build quality feels premium'],
-            topDislikes: ['Premium pricing vs regular fans', 'Installation support varies by city', 'App connectivity issues reported', 'Limited service network in tier-2 cities'],
-            summary: 'Atomberg is disrupting India\'s massive ceiling fan market with BLDC technology. Energy savings are real and measurable. Premium positioning justified by electricity bill savings.',
+            topLikes: ['Ubtan face pack shows visible results in 2 weeks', 'Products are genuinely fresh — short expiry proves it', 'Hair oils are incredibly effective for growth', 'No preservatives gives peace of mind'],
+            topDislikes: ['Short shelf life means need to use fast', 'Some products arrive damaged due to natural packaging', 'Premium pricing for ayurvedic category', 'Limited availability in Tier-2 cities'],
+            summary: 'Nat Habit has built a cult following around fresh, preservative-free ayurvedic beauty. The "made fresh to order" model is a genuine differentiator. 52% repeat rate speaks volumes.',
         },
         myntra: {
-            topLikes: ['Not applicable — electronics brand'],
-            topDislikes: ['Not applicable — electronics brand'],
-            summary: 'Atomberg is a consumer electronics brand. Not on Myntra.',
+            topLikes: ['Growing ayurvedic beauty section on Myntra', 'Product quality matches the hype', 'Unique packaging stands out'],
+            topDislikes: ['Freshness guarantee harder on marketplace', 'Need more SKU availability'],
+            summary: 'Rapidly growing Myntra presence. The ayurvedic positioning aligns with Myntra\'s clean beauty push.',
         },
     },
-    countrydelight: {
+    foxtale: {
         amazon: {
-            topLikes: ['Milk freshness is noticeably different from packets', 'Wide product range — milk, curd, paneer, fruits', 'Subscription model is super convenient', 'Traceability — know which farm your milk comes from'],
-            topDislikes: ['Premium pricing — 2x regular dairy', 'Delivery timing can be inconsistent', 'App needs UX improvement', 'Limited to metro cities only'],
-            summary: 'Country Delight has scaled the farm-to-doorstep dairy model to 15+ cities. Strong subscription loyalty. FY25 revenue crossed INR 1500Cr with improving unit economics.',
+            topLikes: ['Vitamin C serum shows visible brightening in 3 weeks', 'Sunscreen is non-greasy and works under makeup', 'Products designed for Indian skin types specifically', 'Dermat-backed formulations build trust'],
+            topDislikes: ['Limited product range currently', 'Pricing is premium vs drugstore brands', 'Packaging could be more travel-friendly', 'Some products pill under makeup'],
+            summary: 'Foxtale has rapidly captured the dermat-backed skincare segment. 350+ skin type micro-segmentation drives personalized recommendations. Strong D2C growth with expanding marketplace presence.',
         },
         myntra: {
-            topLikes: ['Not applicable — dairy/grocery brand'],
-            topDislikes: ['Not applicable — dairy/grocery brand'],
-            summary: 'Country Delight is a dairy delivery brand. Not on Myntra.',
+            topLikes: ['Clean effective skincare on Myntra', 'Good alternative to imports', 'Sunscreen range is excellent'],
+            topDislikes: ['Newer brand needs more reviews', 'Limited shade range'],
+            summary: 'Fast-growing Myntra beauty brand. Dermat-backed positioning drives trust.',
         },
     },
-    licious: {
+    masterchow: {
         amazon: {
-            topLikes: ['Meat freshness is consistently high', 'Packaging keeps products cold during delivery', 'Wide range — chicken, mutton, seafood, ready-to-cook', 'Marinated products save cooking time'],
-            topDislikes: ['Prices have increased significantly', 'Delivery slots fill up on weekends', 'Portion sizes feel smaller recently', 'Customer service response is slow'],
-            summary: 'Licious pioneered the fresh meat delivery category in India. Strong brand but facing unit economics pressure. Ready-to-cook and marinated segments driving growth.',
+            topLikes: ['Chilli oil is addictive — restaurant quality at home', 'Sauces make authentic Asian cooking effortless', 'No MSG or artificial additives', 'Noodles have great texture — not like Maggi'],
+            topDislikes: ['Expensive for condiments category', 'Sauces run out fast with regular use', 'Some varieties too spicy for mild palates', 'Availability inconsistent on Amazon'],
+            summary: 'MasterChow has created the premium Asian condiments category in India. The chilli oil is a viral hero product. 90% online sales with growing offline retail presence.',
         },
         myntra: {
-            topLikes: ['Not applicable — meat delivery brand'],
-            topDislikes: ['Not applicable — meat delivery brand'],
-            summary: 'Licious is a fresh meat delivery brand. Not on Myntra.',
+            topLikes: ['Not applicable — food brand'],
+            topDislikes: ['Not applicable — food brand'],
+            summary: 'MasterChow is a food brand. Not on Myntra.',
         },
     },
     mcaffeine: {
@@ -673,8 +708,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { wakao: 45000, bummer: 180000, flatheads: 85000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000, snitch: 2800000, mokobara: 850000, noise: 5500000, atomberg: 1800000, countrydelight: 1200000, licious: 2200000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000 };
-const TR_GROWTH = { wakao: 0.90, bummer: 0.75, flatheads: 0.50, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42, snitch: 1.15, mokobara: 0.95, noise: 0.45, atomberg: 0.68, countrydelight: 0.82, licious: 0.40, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70 };
+const TR_BASE = { wakao: 45000, bummer: 180000, flatheads: 85000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, houseofem5: 65000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 180000, eggoz: 250000, foxtale: 520000, pilgrim: 680000, neemans: 190000, perfora: 85000, boldfit: 380000, sweetkaramcoffee: 55000, drinkprime: 220000, flomattress: 160000, mymuse: 75000, dorjeteas: 40000 };
+const TR_GROWTH = { wakao: 0.90, bummer: 0.75, flatheads: 0.50, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, houseofem5: 1.30, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -848,25 +883,25 @@ const SOCIAL_SUMMARIES = {
         instagram: { summary: 'Visual-first brand with stunning product photography. Travel influencer collaborations drive discovery. The aesthetic consistency across content is exceptional.', topLikes: ['Visual brand identity is world-class', 'Travel content is aspirational', 'Product photography is stunning', 'Influencer partnerships are authentic'], topDislikes: ['Content is too aspirational — needs relatability', 'Limited user-generated content', 'Need more product detail content'] },
         linkedin: { summary: 'Co-founders Sangeet and Navin are active on LinkedIn. The "building a luggage brand from scratch" journey content gets strong engagement. Raising series B discussions.', topLikes: ['Founder journey is inspiring', 'Brand building insights are valuable', 'Design-first D2C approach discussed'], topDislikes: ['Limited operational insights', 'Need more financial transparency'] },
     },
-    countrydelight: {
-        reddit: { summary: 'Country Delight is heavily discussed in city-specific subreddits. The milk quality vs price debate is a constant thread. Subscribers are loyal advocates who actively defend the premium.', topLikes: ['Milk freshness is incomparable to packets', 'Subscription convenience is excellent', 'Product range expanding — curd, paneer, fruits', 'Farm traceability builds trust'], topDislikes: ['2x pricing vs regular dairy', 'Delivery timing inconsistency', 'App UX needs improvement', 'Limited to metro cities'] },
-        instagram: { summary: 'Content focuses on farm sourcing, freshness testing, and family health. Mom-focused content performs exceptionally well. User testimonials drive organic growth.', topLikes: ['Farm-to-home story is powerful', 'Mom and family health content resonates', 'User testimonials are authentic', 'Product freshness content is convincing'], topDislikes: ['Content variety is limited', 'Need more recipe/usage content', 'Urban-only narrative limits appeal'] },
-        linkedin: { summary: 'CEO Chakradhar Gade\'s LinkedIn posts about disrupting dairy supply chain get massive engagement. FY25 INR 1500Cr+ revenue and path to profitability are discussed extensively.', topLikes: ['Dairy supply chain disruption narrative', 'Revenue growth metrics are impressive', 'Unit economics improvement story', 'City expansion strategy insights'], topDislikes: ['Profitability timeline questions', 'Competition from Sid\'s Farm etc.'] },
+    nathabit: {
+        reddit: { summary: 'Nat Habit is a Reddit darling on r/IndianSkincareAddicts and r/IndianProducts. The ubtan and hair oil reviews are overwhelmingly positive. Users share before/after photos regularly.', topLikes: ['Ubtan results are visible and fast', 'Fresh products with no preservatives', 'Hair oils genuinely effective', 'Ayurvedic approach feels safer'], topDislikes: ['Short shelf life is inconvenient', 'Premium pricing for naturals', 'Product packaging could be better'] },
+        instagram: { summary: 'Nat Habit\'s Instagram features fresh ingredient content and real customer transformations. The "made fresh" narrative drives strong engagement.', topLikes: ['Fresh ingredient showcase content', 'Real transformation results', 'Ayurvedic education content'], topDislikes: ['Content can feel repetitive', 'Need more diverse product showcases'] },
+        linkedin: { summary: 'Founders share D2C brand-building insights. The preservative-free beauty model is discussed as category innovation.', topLikes: ['Fresh-to-order beauty model is novel', 'Growth metrics are impressive'], topDislikes: ['Limited business model transparency'] },
     },
     mcaffeine: {
         reddit: { summary: 'mCaffeine dominates the coffee personal care niche on social media. The body scrub has become a viral sensation with user transformation content. Strong presence across all platforms.', topLikes: ['Coffee body scrub results are visible', 'Brand has created an entirely new category', 'Packaging is Instagram-worthy', 'Good for gifting'], topDislikes: ['Some products too harsh for sensitive skin', 'Caffeine skincare claims need more backing', 'Products run out fast'] },
         instagram: { summary: 'Instagram is the brand\'s strongest channel with massive engagement on transformation content. User-generated scrub routines go viral regularly.', topLikes: ['Transformation content drives engagement', 'Coffee aesthetic is unique and consistent', 'User-generated content is abundant'], topDislikes: ['Content focused too heavily on scrub range', 'Need more diverse product content'] },
         linkedin: { summary: 'mCaffeine founder shares D2C beauty brand building insights. The journey from niche to scale is a popular case study.', topLikes: ['Category creation in personal care', 'Scale without heavy discounting'], topDislikes: ['Limited thought leadership beyond brand'] },
     },
-    noise: {
-        reddit: { summary: 'Noise is the most discussed budget smartwatch on Indian Reddit. Comparison posts with Fire-Boltt and boAt are constant. Value-for-money consensus is strong but upgrade complaints exist.', topLikes: ['Incredible features at budget price', 'Regular software updates', 'Wide range of styles and faces'], topDislikes: ['Battery degradation over time', 'App is buggy', 'Health metrics accuracy questionable', 'Build quality concerns'] },
-        instagram: { summary: 'Massive Instagram presence with 2M+ followers. Product launch reels and lifestyle content drive engagement. Celebrity endorsements amplify reach.', topLikes: ['Product launch content is exciting', 'Celebrity collaborations add prestige', 'Lifestyle positioning beyond just tech'], topDislikes: ['Too many launches feel confusing', 'Need more real-user content'] },
-        linkedin: { summary: 'Co-founders Amit and Gaurav share wearables market insights on LinkedIn. The journey from accessories to smart wearables is discussed in tech circles.', topLikes: ['Wearables market insight sharing', 'India-first smart device narrative'], topDislikes: ['Valuation concerns in competitive market'] },
+    foxtale: {
+        reddit: { summary: 'Foxtale is rapidly gaining traction on r/IndianSkincareAddicts. Vitamin C serum and sunscreen are most discussed. Users appreciate the dermat-backed formulations designed for Indian skin.', topLikes: ['Vitamin C serum shows real results', 'Sunscreen works great under makeup', 'Formulated specifically for Indian skin', 'Dermatologist backing builds trust'], topDislikes: ['Limited product range currently', 'Premium pricing vs pharmacy brands', 'Newer brand — needs more long-term reviews'] },
+        instagram: { summary: 'Foxtale Instagram features dermat content creators and before/after skin results. The clean, clinical aesthetic differentiates from cluttered beauty feeds.', topLikes: ['Dermat collaborations add credibility', 'Before/after content is compelling', 'Clean clinical aesthetic'], topDislikes: ['Need more diverse skin type representation', 'Content can feel too clinical'] },
+        linkedin: { summary: 'Founder Romita shares beauty brand building insights. The data-driven approach to skincare formulation is discussed in D2C circles.', topLikes: ['Science-backed beauty narrative', 'D2C growth metrics are impressive'], topDislikes: ['Limited behind-the-scenes content'] },
     },
-    atomberg: {
-        reddit: { summary: 'Atomberg is the go-to recommendation in r/IndianProducts fan discussions. BLDC technology and energy savings are consistently praised. Comparison posts with Havells/Orient are common.', topLikes: ['65% electricity savings are real and measurable', 'Silent operation is transformative', 'Smart features with app control', 'Premium build quality'], topDislikes: ['Premium pricing vs regular fans', 'Service network limited in small cities', 'App connectivity issues'] },
-        instagram: { summary: 'Content focuses on energy savings, smart home, and premium design. The "switch and save" narrative drives engagement. Home influencer collaborations work well.', topLikes: ['Energy saving content is practical', 'Smart home integration content', 'Before/after electricity bill content'], topDislikes: ['Content is too functional — needs emotion', 'Limited lifestyle integration'] },
-        linkedin: { summary: 'Atomberg founders share deeply technical content about BLDC motors and energy efficiency. The hardware startup journey resonates with tech-savvy LinkedIn audience.', topLikes: ['Deep tech + consumer brand narrative', 'Energy efficiency mission', 'Hardware startup insights'], topDislikes: ['Content can be too technical', 'Market size questions'] },
+    masterchow: {
+        reddit: { summary: 'MasterChow chilli oil has become a viral sensation on r/IndianFood and r/IndianProducts. Users share recipes and rate sauces. The "restaurant quality at home" narrative drives recommendations.', topLikes: ['Chilli oil is genuinely addictive', 'Sauces make Asian cooking easy', 'Clean ingredients — no MSG', 'Noodle quality is excellent'], topDislikes: ['Expensive for condiments', 'Sauces run out too fast', 'Some varieties too spicy'] },
+        instagram: { summary: 'Recipe content featuring MasterChow products performs exceptionally well. Food blogger collaborations drive discovery. Chilli oil unboxing/reviews are popular.', topLikes: ['Recipe content is shareable', 'Chilli oil reviews go viral', 'Food blogger partnerships are authentic'], topDislikes: ['Need more everyday cooking content', 'Limited vegetarian recipe focus'] },
+        linkedin: { summary: 'Founders share the ready-to-cook market opportunity in India. Asian food category creation discussed in FMCG investor circles.', topLikes: ['Category creation narrative', 'Fund-raising journey insights'], topDislikes: ['Limited operational transparency'] },
     },
 };
 
@@ -982,9 +1017,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { wakao: 800, bummer: 1500, flatheads: 600, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400, snitch: 8500, mokobara: 4200, noise: 12000, atomberg: 5500, countrydelight: 4800, licious: 6200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200 };
-const SO_INSTA = { wakao: 12000, bummer: 35000, flatheads: 8000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000, snitch: 450000, mokobara: 120000, noise: 850000, atomberg: 95000, countrydelight: 180000, licious: 250000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000 };
-const SO_LINKEDIN = { wakao: 3000, bummer: 4500, flatheads: 2000, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500, snitch: 25000, mokobara: 15000, noise: 45000, atomberg: 28000, countrydelight: 22000, licious: 35000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000 };
+const SO_REDDIT = { wakao: 800, bummer: 1500, flatheads: 600, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, houseofem5: 600, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 3800, pilgrim: 4500, neemans: 1200, perfora: 800, boldfit: 2200, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
+const SO_INSTA = { wakao: 12000, bummer: 35000, flatheads: 8000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, houseofem5: 18000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 220000, pilgrim: 280000, neemans: 40000, perfora: 28000, boldfit: 95000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
+const SO_LINKEDIN = { wakao: 3000, bummer: 4500, flatheads: 2000, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, houseofem5: 2000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 14000, pilgrim: 16000, neemans: 5500, perfora: 3000, boldfit: 7000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
@@ -1028,13 +1063,18 @@ const SOCIAL_POSTS = [
     { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Snitch haul review — 8 items for Rs 4000. Here\'s what\'s worth it and what\'s not.', upvotes: 3200, comments: 478, time: '3h ago', sentiment: 'positive', brand: 'snitch' },
     { platform: 'instagram', handle: '@travelwithstyle', title: 'Mokobara cabin bag survived 15 flights — still looks brand new. My honest review.', likes: 8900, comments: 567, time: '6h ago', sentiment: 'positive', brand: 'mokobara' },
     { platform: 'linkedin', handle: 'Siddharth Dungarwal', title: 'From Rs 0 to Rs 500Cr revenue — bootstrapped. No VC money. Here\'s the Snitch story.', likes: 12000, comments: 890, time: '8h ago', sentiment: 'positive', brand: 'snitch' },
-    { platform: 'reddit', subreddit: 'r/IndianProducts', title: 'Atomberg fan saved Rs 400/month on my electricity bill. Here\'s the math.', upvotes: 2800, comments: 345, time: '5h ago', sentiment: 'positive', brand: 'atomberg' },
+    { platform: 'reddit', subreddit: 'r/IndianSkincareAddicts', title: 'Foxtale Vitamin C serum 45-day results. Indian skin, real results.', upvotes: 2800, comments: 345, time: '5h ago', sentiment: 'positive', brand: 'foxtale' },
     { platform: 'instagram', handle: '@skincarejunkie', title: 'mCaffeine coffee body scrub — 30 day before/after. My skin has never been this smooth.', likes: 15000, comments: 1200, time: '2h ago', sentiment: 'positive', brand: 'mcaffeine' },
-    { platform: 'linkedin', handle: 'Chakradhar Gade', title: 'Country Delight crossed INR 1500Cr revenue. From milk to a full fresh grocery platform. The journey.', likes: 9500, comments: 678, time: '1d ago', sentiment: 'positive', brand: 'countrydelight' },
-    { platform: 'reddit', subreddit: 'r/IndianGaming', title: 'Noise ColorFit Pro 5 vs Fire-Boltt Phoenix — which budget smartwatch wins? My comparison.', upvotes: 1800, comments: 290, time: '10h ago', sentiment: 'mixed', brand: 'noise' },
+    { platform: 'linkedin', handle: 'Dhruv Toshniwal', title: 'From textile family legacy to D2C disruption. How The Pant Project hit INR 40Cr revenue in 4 years.', likes: 6500, comments: 478, time: '1d ago', sentiment: 'positive', brand: 'pantproject' },
+    { platform: 'reddit', subreddit: 'r/IndianFood', title: 'MasterChow chilli oil has ruined all other chilli oils for me. Review inside.', upvotes: 1800, comments: 290, time: '10h ago', sentiment: 'positive', brand: 'masterchow' },
     { platform: 'instagram', handle: '@beautyfinds', title: 'Plum Vitamin C serum 60-day review — visible brightening results. Before and after photos.', likes: 7200, comments: 445, time: '4h ago', sentiment: 'positive', brand: 'plumgoodness' },
     { platform: 'linkedin', handle: 'D2C Insider', title: 'Mokobara raised $12M Series B. The luggage D2C play is working. Here\'s why investors are excited.', likes: 5600, comments: 345, time: '12h ago', sentiment: 'positive', brand: 'mokobara' },
-    { platform: 'reddit', subreddit: 'r/india', title: 'Country Delight vs Sid\'s Farm — comparing premium milk delivery services. Which is better?', upvotes: 2100, comments: 380, time: '7h ago', sentiment: 'mixed', brand: 'countrydelight' },
+    { platform: 'reddit', subreddit: 'r/IndianSkincareAddicts', title: 'Nat Habit ubtan changed my skin in 2 weeks — no preservatives, fresh delivery. Review.', upvotes: 2100, comments: 380, time: '7h ago', sentiment: 'positive', brand: 'nathabit' },
+    { platform: 'instagram', handle: '@wellnessdiaries', title: 'What\'s Up Wellness Sleep Gummies — finally sleeping 7+ hours. 30-day honest review.', likes: 4200, comments: 310, time: '4h ago', sentiment: 'positive', brand: 'whatsupwellness' },
+    { platform: 'linkedin', handle: 'FAST42 by Inc42', title: 'House of EM5 from INR 69L to INR 20Cr in 2 years. The bootstrapped luxury fragrance story.', likes: 5800, comments: 402, time: '6h ago', sentiment: 'positive', brand: 'houseofem5' },
+    { platform: 'reddit', subreddit: 'r/IndianProducts', title: 'DrinkPrime water purifier subscription vs buying — 6 month cost comparison. Worth it?', upvotes: 1600, comments: 240, time: '8h ago', sentiment: 'positive', brand: 'drinkprime' },
+    { platform: 'instagram', handle: '@fitnessjunkie.in', title: 'Boldfit gym accessories haul — resistance bands, shaker, yoga mat. All under Rs 2000!', likes: 3800, comments: 245, time: '5h ago', sentiment: 'positive', brand: 'boldfit' },
+    { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Neemans wool sneakers 6-month review. Sustainable footwear that actually lasts?', upvotes: 1400, comments: 190, time: '11h ago', sentiment: 'positive', brand: 'neemans' },
     { platform: 'instagram', handle: '@ragecoffeeofficial', title: 'New Irish Hazelnut Rage Coffee. Instant coffee that doesn\'t taste instant. Available now.', likes: 3400, comments: 210, time: '9h ago', sentiment: 'positive', brand: 'ragecoffee' },
 ];
 
@@ -1364,76 +1404,40 @@ const EMPLOYEE_REVIEWS = {
             { quarter: 'Q1 2026', mood: 'strong', score: 84, theme: 'Revenue growing 3x YoY. Team expansion. Culture maintained despite growth.' },
         ],
     },
-    noise: {
-        ambitionbox: { rating: 3.8, totalReviews: 280, recommend: 72, ceoApproval: 76, workLife: 3.5, salary: 3.4, security: 3.6, culture: 3.7, growth: 3.5,
-            likes: ['Market leader in wearables — exciting space', 'Good brand visibility and recognition', 'Competitive salaries for the sector', 'Launch pace keeps work exciting'],
-            dislikes: ['Constant product launches create burnout', 'Competition from boAt/Fire-Boltt is intense', 'Processes need maturity', 'Decision-making can be slow'],
-            summary: 'Noise offers a fast-paced wearables environment. Market leadership creates pride but competitive pressure is constant. Best for tech-consumer enthusiasts.'
+    pantproject: {
+        ambitionbox: { rating: 4.1, totalReviews: 35, recommend: 80, ceoApproval: 85, workLife: 4.0, salary: 3.5, security: 3.6, culture: 4.2, growth: 3.8,
+            likes: ['Textile heritage family brings deep industry knowledge', 'Fast-growing D2C brand with clear vision', 'Strong brand-building culture', 'Wharton + SAIC founder duo is inspiring'],
+            dislikes: ['Small team means wearing many hats', 'Scaling custom operations is complex', 'Need more structured processes'],
+            summary: 'The Pant Project combines textile family legacy with D2C innovation. Employees appreciate the clear vision and heritage expertise. Typical early-stage scaling challenges.'
         },
-        glassdoor: { rating: 3.6, totalReviews: 220, recommend: 68, ceoApproval: 72, workLife: 3.3, salary: 3.2, security: 3.4, culture: 3.5, growth: 3.3,
-            likes: ['Brand recognition is strong', 'Good for consumer electronics career', 'Regular product innovations'],
-            dislikes: ['Intense competition means constant pressure', 'Need better work-life balance', 'Career paths need clarity'],
-            summary: 'Fast-paced wearables company. Good exposure to consumer electronics but demanding work environment.'
+        glassdoor: { rating: 3.9, totalReviews: 28, recommend: 76, ceoApproval: 82, workLife: 3.8, salary: 3.3, security: 3.5, culture: 4.0, growth: 3.6,
+            likes: ['Exciting D2C fashion brand to work for', 'Founders bring textile industry credibility', 'Omnichannel strategy is well thought out'],
+            dislikes: ['Series A stage — limited resources', 'Need more senior hires', 'Work-life can blur during launches'],
+            summary: 'Good D2C fashion workplace with strong founders. Series A stage means growth opportunities but limited resources.'
         },
         moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'competitive', score: 62, theme: 'Market share battles intensifying. Team focused on differentiation.' },
-            { quarter: 'Q2 2025', mood: 'improving', score: 66, theme: 'NoiseFit brand launch. Premium positioning creating excitement.' },
-            { quarter: 'Q3 2025', mood: 'steady', score: 70, theme: 'Market consolidation happening. Noise holding strong. Team confidence building.' },
-            { quarter: 'Q1 2026', mood: 'positive', score: 74, theme: 'Smart wearables growing. Revenue targets being met. Team retention improving.' },
+            { quarter: 'Q1 2025', mood: 'energetic', score: 68, theme: 'Post Series A. Team expanding. Retail store launches exciting the team.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 72, theme: 'Revenue hitting targets. Omnichannel strategy working. Culture solidifying.' },
+            { quarter: 'Q3 2025', mood: 'confident', score: 76, theme: 'INR 40Cr revenue. FAST42 recognition boosting morale. Clear growth trajectory.' },
+            { quarter: 'Q1 2026', mood: 'ambitious', score: 80, theme: 'Targeting INR 100Cr. Team confident in the brand. Retail expansion accelerating.' },
         ],
     },
-    atomberg: {
-        ambitionbox: { rating: 4.2, totalReviews: 180, recommend: 84, ceoApproval: 88, workLife: 3.8, salary: 3.6, security: 3.8, culture: 4.2, growth: 4.0,
-            likes: ['Deep tech solving real problems — energy efficiency', 'Strong engineering culture', 'Founder-led with clear vision', 'Good compensation for hardware startup'],
-            dislikes: ['Hardware scaling is complex and stressful', 'Pune location limits some talent', 'Fast growth creating org structure challenges'],
-            summary: 'Atomberg is a rare deep-tech consumer brand. Engineers love the BLDC motor innovation. Strong culture with technical founder leadership. One of the best-rated hardware startups.'
+    nathabit: {
+        ambitionbox: { rating: 4.0, totalReviews: 65, recommend: 78, ceoApproval: 82, workLife: 3.8, salary: 3.4, security: 3.6, culture: 4.1, growth: 3.7,
+            likes: ['Mission-driven brand in ayurvedic beauty', 'Fast growth creates career opportunities', 'Fresh product model is genuinely innovative', 'Strong customer love motivates team'],
+            dislikes: ['Fresh-to-order operations are complex', 'Rapid scaling creating process gaps', 'Compensation below BPC industry standard'],
+            summary: 'Nat Habit employees are proud of building a genuinely differentiated brand. The fresh-to-order model is challenging operationally but rewarding. Series B growth phase.'
         },
-        glassdoor: { rating: 4.0, totalReviews: 145, recommend: 80, ceoApproval: 86, workLife: 3.6, salary: 3.4, security: 3.7, culture: 4.0, growth: 3.8,
-            likes: ['Genuinely innovative technology', 'Making a real impact on energy efficiency', 'IIT founders bring strong tech culture'],
-            dislikes: ['Hardware supply chain is challenging', 'Growth demands more than team can sometimes handle', 'Need more non-engineering senior hires'],
-            summary: 'Excellent engineering culture with genuine innovation. One of India\'s best hardware startup workplaces.'
-        },
-        moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'innovative', score: 76, theme: 'New product categories launching. BLDC technology gaining wider adoption.' },
-            { quarter: 'Q2 2025', mood: 'ambitious', score: 78, theme: 'Series C funding discussions. Revenue milestones hit. Team energized.' },
-            { quarter: 'Q3 2025', mood: 'strong', score: 82, theme: 'INR 800Cr+ revenue. Offline retail expanding. Team proud of brand recognition.' },
-            { quarter: 'Q1 2026', mood: 'excellent', score: 86, theme: 'Market leadership in energy-efficient fans. IPO discussions beginning. Employee wealth creation.' },
-        ],
-    },
-    countrydelight: {
-        ambitionbox: { rating: 3.9, totalReviews: 350, recommend: 74, ceoApproval: 80, workLife: 3.4, salary: 3.3, security: 3.5, culture: 3.8, growth: 3.6,
-            likes: ['Impactful work — changing how India consumes dairy', 'Rapid growth creates career opportunities', 'Technology-driven operations are interesting', 'Strong brand with customer love'],
-            dislikes: ['Operations are 24/7 — dairy never sleeps', 'Early morning logistics can be exhausting', 'High expectations with lean teams', 'City launches mean relocation pressure'],
-            summary: 'Country Delight offers a unique dairy-tech work experience. The 24/7 operations nature is demanding. Strong mission alignment with customer impact visible daily.'
-        },
-        glassdoor: { rating: 3.7, totalReviews: 280, recommend: 70, ceoApproval: 76, workLife: 3.2, salary: 3.1, security: 3.4, culture: 3.6, growth: 3.5,
-            likes: ['Building a category-defining brand', 'Technology integration in dairy is exciting', 'Rapid scaling provides learning'],
-            dislikes: ['Work-life balance is tough in operations', 'Compensation could be more competitive', 'Attrition in operations roles is high'],
-            summary: 'High-growth dairy-tech company. Demanding operations but meaningful work. Strong for those who can handle the pace.'
+        glassdoor: { rating: 3.8, totalReviews: 52, recommend: 74, ceoApproval: 80, workLife: 3.6, salary: 3.2, security: 3.5, culture: 3.9, growth: 3.5,
+            likes: ['Innovative preservative-free beauty model', 'Strong brand with 52% repeat rate', 'Good learning in D2C operations'],
+            dislikes: ['Operations complexity is high', 'Need better compensation benchmarking', 'Rapid hiring affecting culture'],
+            summary: 'Rewarding workplace for beauty-tech enthusiasts. Operational complexity of fresh products is both a challenge and differentiator.'
         },
         moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'scaling', score: 66, theme: 'Rapid city expansion. Operations under pressure. Revenue growing well.' },
-            { quarter: 'Q2 2025', mood: 'improving', score: 70, theme: 'Processes maturing. Technology investments paying off. Better HR practices.' },
-            { quarter: 'Q3 2025', mood: 'strong', score: 75, theme: 'INR 1500Cr+ revenue. Unit economics improving. Team seeing the path to profitability.' },
-            { quarter: 'Q1 2026', mood: 'confident', score: 80, theme: 'Market leadership in premium dairy delivery. Better retention. Career paths clearer.' },
-        ],
-    },
-    licious: {
-        ambitionbox: { rating: 3.6, totalReviews: 420, recommend: 66, ceoApproval: 70, workLife: 3.2, salary: 3.3, security: 3.2, culture: 3.5, growth: 3.3,
-            likes: ['Pioneer in fresh meat delivery — category creator', 'Brand is well-known and respected', 'Good operational learning opportunity', 'Technology team is strong'],
-            dislikes: ['Layoffs in 2023-24 affected morale', 'Profitability pressure means cost cutting', 'Cold chain operations are demanding', 'Work-life balance suffers in peak times'],
-            summary: 'Licious is navigating the post-hypergrowth phase. Layoffs affected trust. The pivot to profitability is creating operational pressure but the brand remains strong.'
-        },
-        glassdoor: { rating: 3.4, totalReviews: 350, recommend: 62, ceoApproval: 66, workLife: 3.0, salary: 3.1, security: 3.0, culture: 3.3, growth: 3.1,
-            likes: ['Category leadership in meat delivery', 'Technology and supply chain learning', 'Well-funded company'],
-            dislikes: ['Restructuring affected team morale', 'Profitability pressure is constant', 'Cold chain operations are stressful', 'Need clearer communication from leadership'],
-            summary: 'Category pioneer facing growth-to-profitability transition. Employee morale recovering from restructuring period.'
-        },
-        moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'recovering', score: 55, theme: 'Post-restructuring. Team rebuilding confidence. New strategy focused on profitability.' },
-            { quarter: 'Q2 2025', mood: 'stabilizing', score: 60, theme: 'Operations stabilizing. Ready-to-cook segment growing. Team morale improving.' },
-            { quarter: 'Q3 2025', mood: 'improving', score: 65, theme: 'Unit economics improving. New product launches energize team. Better communication.' },
-            { quarter: 'Q1 2026', mood: 'steady', score: 70, theme: 'Profitability path clearer. Team retention improving. Brand strength remains high.' },
+            { quarter: 'Q1 2025', mood: 'ambitious', score: 70, theme: 'Series B funded. Team expanding. INR 100Cr ARR target in sight.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 74, theme: 'Retail expansion beginning. New product lines launching. Team energized.' },
+            { quarter: 'Q3 2025', mood: 'strong', score: 78, theme: 'Revenue growth on track. Brand becoming household name. Employee pride high.' },
+            { quarter: 'Q1 2026', mood: 'excellent', score: 82, theme: 'FAST42 recognition. Targeting INR 350Cr. Clear path to EBITDA profitability.' },
         ],
     },
     plumgoodness: {
