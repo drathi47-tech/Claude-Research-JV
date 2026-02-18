@@ -214,13 +214,19 @@ function initGoogleTrends() {
 
 function populateCompanySelect(selectId) {
     const select = document.getElementById(selectId);
-    if (select.options.length > 0) return;
-    getFilteredCompanies().forEach(c => {
+    const currentValue = select.value;
+    select.innerHTML = '';
+    const filtered = getFilteredCompanies();
+    filtered.forEach(c => {
         const opt = document.createElement('option');
         opt.value = c.id;
         opt.textContent = c.name;
         select.appendChild(opt);
     });
+    // Preserve selection if the company is still in the filtered list
+    if (filtered.some(c => c.id === currentValue)) {
+        select.value = currentValue;
+    }
 }
 
 function renderGoogleTrendsLineChart() {
