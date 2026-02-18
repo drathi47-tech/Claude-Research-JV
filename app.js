@@ -92,6 +92,26 @@ function getFilteredCompanies() {
     return COMPANIES.filter(c => c.sector === currentSector);
 }
 
+function resetPlatformToggle(panelSelector, defaultIndex) {
+    const btns = document.querySelectorAll(`${panelSelector} .platform-toggle .platform-btn`);
+    btns.forEach(b => b.classList.remove('active'));
+    if (btns[defaultIndex]) btns[defaultIndex].classList.add('active');
+}
+
+function showNotification(message) {
+    const existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
+
 // --- Overview Panel ---
 function initOverview() {
     renderOverviewHeatmap();
@@ -101,10 +121,21 @@ function initOverview() {
 
 function renderOverviewHeatmap() {
     const companies = getFilteredCompanies();
-    const platforms = ['Google Trend', 'Amazon Reviews', 'Myntra Reviews', 'Web Traffic', 'Reddit', 'Instagram', 'Composite'];
+    const signalInfo = {
+        'Google Trend': 'Combines 90-day search trend momentum (50%) with current search index relative to 12-month peak (50%). Scale: 0-100.',
+        'Amazon Reviews': 'Sentiment score derived from Amazon customer review analysis — ratio of positive to negative reviews weighted by recency. Scale: 0-100.',
+        'Myntra Reviews': 'Sentiment score derived from Myntra customer review analysis — ratio of positive to negative reviews weighted by recency. Scale: 0-100.',
+        'Web Traffic': 'Based on month-over-month website traffic growth rate. Formula: (MoM growth % x 2) + 50, capped at 100. Scale: 0-100.',
+        'Reddit': 'Sentiment score from Reddit mentions — calculated from upvote ratios, comment tone analysis, and community engagement. Scale: 0-100.',
+        'Instagram': 'Sentiment score from Instagram mentions — based on comment sentiment, engagement rate, and share velocity. Scale: 0-100.',
+        'Composite': 'Weighted average: Google Trend (25%) + E-commerce Reviews (20%) + Web Traffic (30%) + Social Sentiment (25%). Scale: 0-100.',
+    };
+    const platforms = Object.keys(signalInfo);
 
     let html = `<table class="heatmap-table"><thead><tr><th>Company</th>`;
-    platforms.forEach(p => html += `<th>${p}</th>`);
+    platforms.forEach(p => {
+        html += `<th>${p} <span class="signal-help-icon" data-tooltip="${signalInfo[p]}">?</span></th>`;
+    });
     html += `</tr></thead><tbody>`;
 
     companies.forEach(c => {
@@ -379,6 +410,8 @@ function renderGoogleTrendsTable() {
 function initEcommerce() {
     populateCompanySelect('reviewSummaryCompanySelect');
     populateCompanySelect('ecommMoodCompanySelect');
+    // Reset platform toggle to default (Amazon)
+    resetPlatformToggle('#panel-ecommerce', 0);
     renderReviewSummary();
     renderEcommMoodTimeline();
     renderReviewVolumeChart('amazon');
@@ -757,6 +790,8 @@ function renderTrafficTable() {
 function initSocial() {
     populateCompanySelect('socialSummaryCompanySelect');
     populateCompanySelect('socialMoodCompanySelect');
+    // Reset platform toggle to default (Reddit)
+    resetPlatformToggle('#panel-social', 0);
     renderSocialCommentarySummary();
     renderSocialMoodTimeline();
     renderSocialMentionsChart('reddit');
@@ -1031,6 +1066,8 @@ function renderSocialTable() {
 function initEmployee() {
     populateCompanySelect('employeeSummaryCompanySelect');
     populateCompanySelect('employeeMoodCompanySelect');
+    // Reset platform toggle to default (AmbitionBox)
+    resetPlatformToggle('#panel-employee', 0);
     renderEmployeeSummary();
     renderEmployeeMoodTimeline();
     renderEmployeeRatingChart();
@@ -1632,12 +1669,21 @@ function closeAddCompanyModal() {
 
 function addCompany() {
     const name = document.getElementById('newCompanyName').value.trim();
-    if (!name) return;
+    if (!name) {
+        document.getElementById('newCompanyName').style.borderColor = 'var(--accent-red)';
+        setTimeout(() => { document.getElementById('newCompanyName').style.borderColor = ''; }, 2000);
+        return;
+    }
 
     const sector = document.getElementById('newCompanySector').value;
     const url = document.getElementById('newCompanyUrl').value.trim();
     const valuation = document.getElementById('newCompanyValuation').value;
-    const id = name.toLowerCase().replace(/\s+/g, '');
+    let id = name.toLowerCase().replace(/\s+/g, '');
+
+    // Prevent duplicate IDs
+    if (COMPANIES.some(c => c.id === id)) {
+        id = id + '_' + Date.now().toString(36);
+    }
 
     const sectorLabels = {
         beauty: 'Beauty & Personal Care',
@@ -1671,12 +1717,26 @@ function addCompany() {
             'Maharashtra': Math.round(40 + Math.random() * 40),
             'Karnataka': Math.round(30 + Math.random() * 40),
             'Delhi NCR': Math.round(35 + Math.random() * 40),
+            'Tamil Nadu': Math.round(30 + Math.random() * 35),
+            'Telangana': Math.round(25 + Math.random() * 30),
         },
         risingQueries: [{ text: `${name.toLowerCase()} review`, growth: '+200%' }],
     };
     const ts = GOOGLE_TRENDS_DATA[id].timeSeries;
     GOOGLE_TRENDS_DATA[id].currentIndex = ts[ts.length - 1].value;
     GOOGLE_TRENDS_DATA[id].peak12m = Math.max(...ts.map(d => d.value));
+    // Compute change30d and change90d from time series (matching data.js logic)
+    const vals = ts.map(d => d.value);
+    const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+    GOOGLE_TRENDS_DATA[id].volatility = mean > 0 ? Math.round(
+        Math.sqrt(vals.reduce((s, v) => s + (v - mean) ** 2, 0) / vals.length) / mean * 100
+    ) : 10;
+    if (ts.length >= 5) {
+        GOOGLE_TRENDS_DATA[id].change30d = Math.round(((ts[ts.length - 1].value / ts[ts.length - 5].value) - 1) * 100);
+    }
+    if (ts.length >= 13) {
+        GOOGLE_TRENDS_DATA[id].change90d = Math.round(((ts[ts.length - 1].value / ts[ts.length - 13].value) - 1) * 100);
+    }
 
     ECOMMERCE_DATA[id] = {
         amazon: {
@@ -1751,7 +1811,7 @@ function addCompany() {
     const ec = ECOMMERCE_DATA[id];
     const tr = TRAFFIC_DATA[id];
     const so = SOCIAL_DATA[id];
-    const googleScore = Math.min(100, (gt.change90d > 0 ? gt.change90d * 0.5 : 0) + (gt.currentIndex / gt.peak12m) * 50);
+    const googleScore = Math.min(100, (gt.change90d > 0 ? gt.change90d * 0.5 : 0) + (gt.currentIndex / (gt.peak12m || 1)) * 50);
     const reviewScore = (ec.amazon.sentiment + ec.myntra.sentiment) / 2;
     const trafficScore = Math.min(100, tr.momGrowth * 2 + 50);
     const socialScore = (so.reddit.sentiment + so.instagram.sentiment + so.linkedin.sentiment) / 3;
@@ -1759,11 +1819,24 @@ function addCompany() {
     COMPOSITE_SCORES[id] = { google: Math.round(googleScore), reviews: Math.round(reviewScore), traffic: Math.round(trafficScore), social: Math.round(socialScore), composite };
     COMPANY_SIGNALS[id] = composite >= 78 ? 'breakout' : composite >= 65 ? 'trending' : composite < 40 ? 'declining' : 'watch';
 
-    document.getElementById('companyCount').textContent = COMPANIES.length + ' companies';
+    // Switch sector filter to match the new company's sector so it's visible
+    const sectorSelect = document.getElementById('sectorFilter');
+    if (currentSector !== 'all' && currentSector !== sector) {
+        currentSector = sector;
+        sectorSelect.value = sector;
+    }
+
+    document.getElementById('companyCount').textContent = getFilteredCompanies().length + ' companies';
     closeAddCompanyModal();
+    // Reset all form fields
     document.getElementById('newCompanyName').value = '';
     document.getElementById('newCompanyUrl').value = '';
+    document.getElementById('newCompanySector').selectedIndex = 0;
+    document.getElementById('newCompanyValuation').selectedIndex = 2;
     initPanel(currentPanel);
+
+    // Show success notification
+    showNotification(`${name} added successfully`);
 }
 
 // --- Initialize ---
