@@ -764,7 +764,9 @@ COMPANIES.forEach(c => {
             engagement: parseFloat((2.0 + Math.random() * 3.5).toFixed(1)),
         },
         commentarySummary: SOCIAL_SUMMARIES[c.id] || DEFAULT_SOCIAL_SUMMARY,
+        socialSummary: SOCIAL_SUMMARIES[c.id] || DEFAULT_SOCIAL_SUMMARY,
         moodTimeline: MOOD_TIMELINE[c.id] || DEFAULT_MOOD_TIMELINE,
+        viralScore: Math.round(30 + Math.random() * 55),
     };
 });
 
