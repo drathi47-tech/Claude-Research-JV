@@ -1594,13 +1594,6 @@ const DISCOVERED_BRANDS = [
         strongestSignal: 'Fundraise Announcements', detail: 'Sustainable living marketplace. Shark Tank S2 featured. Seed round from Titan Capital. Active hiring. Revenue: verify via MCA filing.'
     },
     {
-        id: 'happyrationals', name: 'Happy Rationals', city: 'Kochi', state: 'Kerala', tier: 2,
-        sector: 'health', sectorLabel: 'Health & Wellness', estRevenue: 'Verify via MCA',
-        signals: { mca: false, ig_growth: true, bsr: true, regional: true, hiring: false, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true },
-        stage: 'Detected', discoveryScore: 65, igFollowers: '48K', igGrowthRate: 32,
-        strongestSignal: 'IG Follower Growth', detail: 'Kerala-based adaptogen brand. High IG growth velocity. BSR traction in Herbal Supplements. Trending in Kerala + Karnataka. Revenue: not yet disclosed.'
-    },
-    {
         id: 'bewakoof', name: 'Bewakoof', city: 'Mumbai', state: 'Maharashtra', tier: 1,
         sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'Verify via MCA',
         signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
@@ -1672,8 +1665,7 @@ const SIGNAL_FEED = [
     { channel: 'marketplace', brand: 'Ellementry', city: 'Jaipur', date: '2026-02-15', detail: 'Now listed on multiple marketplaces including Nykaa Home, Amazon, and Flipkart. Multi-platform onboarding signal.', strength: 'strong' },
     { channel: 'influencer', brand: 'Aura Crafts', city: 'Jaipur', date: '2026-02-14', detail: 'High micro-influencer mention density detected relative to brand follower count. Organic creator buzz signal.', strength: 'strong' },
     { channel: 'fundraise', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-14', detail: 'Series C round closed. Lead investors include Fireside Ventures. Verify round size via Tracxn/Crunchbase.', strength: 'strong' },
-    { channel: 'ig_growth', brand: 'Happy Rationals', city: 'Kochi', date: '2026-02-13', detail: 'High MoM IG follower growth detected. Adaptogen brand from Kerala gaining traction. Verify via Social Blade.', strength: 'strong' },
-    { channel: 'mca', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-13', detail: 'FY25 MCA filing available. Significant YoY revenue growth detected. Verify exact figures via Tofler/Zauba Corp.', strength: 'strong' },
+{ channel: 'mca', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-13', detail: 'FY25 MCA filing available. Significant YoY revenue growth detected. Verify exact figures via Tofler/Zauba Corp.', strength: 'strong' },
     { channel: 'bsr', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-12', detail: 'Fixderma Shadow SPF 50+ showing strong BSR improvement in Sunscreen category. Track via Jungle Scout.', strength: 'strong' },
     { channel: 'regional', brand: 'Let\'s Dress Up', city: 'Surat', date: '2026-02-12', detail: 'Google Trends showing strong regional signal in Gujarat + Rajasthan with low national index. Pre-national breakout pattern.', strength: 'strong' },
     { channel: 'hiring', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-11', detail: 'Multiple senior open roles detected on LinkedIn: marketing, operations, data. Scaling signal. Verify via LinkedIn.', strength: 'moderate' },
@@ -1696,7 +1688,6 @@ const REGIONAL_HOTSPOTS = [
     { city: 'Ludhiana', state: 'Punjab', tier: 2, brands: ['Lahori Beverages'], signalCount: 8, topCategory: 'Food & Beverage' },
     { city: 'Surat', state: 'Gujarat', tier: 2, brands: ["Let's Dress Up"], signalCount: 6, topCategory: 'Fashion' },
     { city: 'Kolkata', state: 'West Bengal', tier: 2, brands: ['Nestasia'], signalCount: 9, topCategory: 'Home & Living' },
-    { city: 'Kochi', state: 'Kerala', tier: 2, brands: ['Happy Rationals'], signalCount: 5, topCategory: 'Health & Wellness' },
     { city: 'Ahmedabad', state: 'Gujarat', tier: 2, brands: ['Fixderma'], signalCount: 7, topCategory: 'Beauty' },
     { city: 'Lucknow', state: 'Uttar Pradesh', tier: 2, brands: ['CureDose'], signalCount: 4, topCategory: 'Health' },
     { city: 'Indore', state: 'Madhya Pradesh', tier: 2, brands: ['TrueBasics'], signalCount: 5, topCategory: 'Health' },
