@@ -711,6 +711,7 @@ function renderEcommerceTable() {
 // --- Traffic Panel ---
 function initTraffic() {
     populateCompanySelect('trafficCompanySelect');
+    populateCompanySelect('trafficKpiCompanySelect');
     renderTrafficKpis();
     renderTrafficLineChart();
     renderTrafficSourceChart();
@@ -718,34 +719,49 @@ function initTraffic() {
 }
 
 function renderTrafficKpis() {
-    const companies = getFilteredCompanies();
-    if (companies.length === 0) return;
-    const totalVisits = companies.reduce((s, c) => {
-        const visits = TRAFFIC_DATA[c.id].monthlyVisits;
-        return s + visits[visits.length - 1].value;
-    }, 0);
-    const avgDurations = companies.map(c => {
-        const parts = TRAFFIC_DATA[c.id].avgDuration.split(':');
-        return parseInt(parts[0]) * 60 + parseInt(parts[1]);
-    });
-    const avgDurSec = Math.round(avgDurations.reduce((a, b) => a + b, 0) / avgDurations.length);
-    const avgDurStr = `${Math.floor(avgDurSec / 60)}:${String(avgDurSec % 60).padStart(2, '0')}`;
-    const avgBounce = Math.round(companies.reduce((s, c) => s + TRAFFIC_DATA[c.id].bounceRate, 0) / companies.length);
-    const fastest = [...companies].sort((a, b) => TRAFFIC_DATA[b.id].momGrowth - TRAFFIC_DATA[a.id].momGrowth)[0];
+    const companyId = document.getElementById('trafficKpiCompanySelect').value;
+    if (!companyId) return;
+    const company = COMPANIES.find(c => c.id === companyId);
+    const d = TRAFFIC_DATA[companyId];
+    const visits = d.monthlyVisits;
+    const latestVisits = visits[visits.length - 1].value;
+    const prevVisits = visits.length >= 2 ? visits[visits.length - 2].value : latestVisits;
+    const visitGrowth = prevVisits > 0 ? Math.round(((latestVisits / prevVisits) - 1) * 100) : 0;
 
-    document.getElementById('kpiTotalVisits').textContent = formatNumber(totalVisits);
-    document.getElementById('kpiTotalVisitsDelta').textContent = `latest month, ${companies.length} companies`;
-    document.getElementById('kpiAvgDuration').textContent = avgDurStr;
-    document.getElementById('kpiAvgDurationDelta').textContent = `avg across ${companies.length} companies`;
-    document.getElementById('kpiBounceRate').textContent = avgBounce + '%';
-    document.getElementById('kpiBounceRateDelta').textContent = `avg across ${companies.length} companies`;
-    document.getElementById('kpiFastestGrowing').textContent = fastest.name;
-    document.getElementById('kpiFastestGrowingDelta').textContent = `+${TRAFFIC_DATA[fastest.id].momGrowth}% MoM traffic growth`;
+    document.getElementById('kpiTotalVisits').textContent = formatNumber(latestVisits);
+    const visitDelta = document.getElementById('kpiTotalVisitsDelta');
+    visitDelta.textContent = `${visitGrowth >= 0 ? '+' : ''}${visitGrowth}% vs previous month`;
+    visitDelta.className = `kpi-delta ${visitGrowth >= 0 ? 'positive' : 'negative'}`;
+
+    document.getElementById('kpiAvgDuration').textContent = d.avgDuration;
+    document.getElementById('kpiAvgDurationDelta').textContent = `${company.name}`;
+    document.getElementById('kpiAvgDurationDelta').className = 'kpi-delta positive';
+
+    document.getElementById('kpiBounceRate').textContent = d.bounceRate + '%';
+    const bounceDelta = document.getElementById('kpiBounceRateDelta');
+    bounceDelta.textContent = d.bounceRate < 40 ? 'Good' : d.bounceRate < 55 ? 'Average' : 'High';
+    bounceDelta.className = `kpi-delta ${d.bounceRate < 40 ? 'positive' : d.bounceRate < 55 ? '' : 'negative'}`;
+
+    document.getElementById('kpiPagesPerVisit').textContent = d.pagesPerVisit;
+    document.getElementById('kpiPagesPerVisitDelta').textContent = `MoM growth: +${d.momGrowth}%`;
+    document.getElementById('kpiPagesPerVisitDelta').className = 'kpi-delta positive';
+}
+
+function updateTrafficKpiCompany() {
+    renderTrafficKpis();
+    // Sync the chart company select and re-render source chart
+    const companyId = document.getElementById('trafficKpiCompanySelect').value;
+    document.getElementById('trafficCompanySelect').value = companyId;
+    renderTrafficSourceChart();
 }
 
 function updateTrafficChart() {
     renderTrafficLineChart();
     renderTrafficSourceChart();
+    // Sync KPI company select
+    const companyId = document.getElementById('trafficCompanySelect').value;
+    document.getElementById('trafficKpiCompanySelect').value = companyId;
+    renderTrafficKpis();
 }
 
 function renderTrafficLineChart() {

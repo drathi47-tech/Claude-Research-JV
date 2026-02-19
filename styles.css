@@ -352,6 +352,17 @@ body {
     color: var(--accent-green);
 }
 
+.traffic-kpi-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.traffic-kpi-header .mini-select {
+    min-width: 200px;
+}
+
 /* Platform Toggle */
 .platform-toggle {
     display: flex;

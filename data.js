@@ -8,8 +8,8 @@
 const COMPANIES = [
     // --- Original Dashboard Brands ---
     { id: 'wakao', name: 'Wakao Foods', sector: 'food', sectorLabel: 'Food & Beverage', website: 'wakaofoods.com', color: '#f59e0b', estValuation: '~INR 3.6Cr', estRevenue: 'INR 1-1.5Cr/yr' },
-    { id: 'bummer', name: 'Bummer', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'byvbummer.com', color: '#ec4899', estValuation: 'INR 45Cr', estRevenue: 'INR 10.7Cr/yr' },
-    { id: 'flatheads', name: 'Flatheads', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'flatheads.in', color: '#3b82f6', estValuation: 'INR 27Cr', estRevenue: 'Acquired by Styched' },
+    { id: 'aukera', name: 'Aukera Diamonds', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'aukerajewellery.com', color: '#ec4899', estValuation: 'INR 600Cr', estRevenue: 'INR 200Cr/yr (ARR)' },
+    { id: 'aretto', name: 'Aretto', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'wearetto.com', color: '#3b82f6', estValuation: 'INR 60-110Cr', estRevenue: 'INR 10-15Cr/yr' },
     { id: 'phool', name: 'Phool', sector: 'home', sectorLabel: 'Home & Living', website: 'phool.co', color: '#10b981', estValuation: 'INR 175Cr', estRevenue: 'INR 50Cr/yr' },
     { id: 'sidsfarm', name: "Sid's Farm", sector: 'food', sectorLabel: 'Food & Beverage', website: 'sidsfarm.com', color: '#06b6d4', estValuation: 'INR 279Cr', estRevenue: 'INR 168Cr/yr' },
     { id: 'koparo', name: 'Koparo', sector: 'home', sectorLabel: 'Home & Living', website: 'koparoclean.com', color: '#84cc16', estValuation: 'INR 124Cr', estRevenue: 'INR 23.4Cr/yr' },
@@ -82,8 +82,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { wakao: 0.85, bummer: 0.78, flatheads: 0.55, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, pantproject: 0.95, houseofem5: 1.40, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
-const GT_BASE = { wakao: 12, bummer: 22, flatheads: 15, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, pantproject: 20, houseofem5: 10, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
+const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, pantproject: 0.95, houseofem5: 1.40, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
+const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, pantproject: 20, houseofem5: 10, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -126,17 +126,17 @@ const RISING_QUERIES = {
         { text: 'wakao foods shark tank', growth: '+820%' },
         { text: 'jackfruit biryani recipe', growth: '+540%' },
     ],
-    bummer: [
-        { text: 'bummer underwear review', growth: '+1100%' },
-        { text: 'micro modal underwear india', growth: '+780%' },
-        { text: 'bummer innerwear quality', growth: '+620%' },
-        { text: 'fun print boxer shorts', growth: '+450%' },
+    aukera: [
+        { text: 'aukera lab grown diamond review', growth: '+2400%' },
+        { text: 'lab grown diamond jewellery india', growth: '+1800%' },
+        { text: 'aukera diamonds bangalore', growth: '+1500%' },
+        { text: 'aukera vs natural diamond', growth: '+950%' },
     ],
-    flatheads: [
-        { text: 'flatheads shoes review', growth: '+680%' },
-        { text: 'bamboo sneakers india', growth: '+520%' },
-        { text: 'sustainable footwear brands', growth: '+480%' },
-        { text: 'merino wool shoes', growth: '+350%' },
+    aretto: [
+        { text: 'aretto growing shoes review', growth: '+1600%' },
+        { text: 'expandable kids shoes india', growth: '+1200%' },
+        { text: 'aretto shark tank india', growth: '+980%' },
+        { text: 'shoes that grow with kids', growth: '+750%' },
     ],
     phool: [
         { text: 'phool incense sticks', growth: '+1600%' },
@@ -322,28 +322,28 @@ const REVIEW_SUMMARIES = {
             summary: 'Wakao Foods is a food brand, not available on Myntra.',
         },
     },
-    bummer: {
+    aukera: {
         amazon: {
-            topLikes: ['Micro-modal fabric is incredibly soft and breathable', 'Fun quirky prints are a conversation starter', 'No-ride-up design works as advertised', 'Packaging is gift-worthy and fun'],
-            topDislikes: ['Premium pricing for innerwear category', 'Elastic waistband loosens after 15-20 washes', 'Limited size range for larger body types', 'Some prints fade slightly over time'],
-            summary: 'Bummer is disrupting the boring innerwear market with personality-driven designs. Micro-modal fabric quality is consistently praised. Price sensitivity is the main challenge in a category dominated by Rs 99 packs.',
+            topLikes: ['Lab-grown diamonds are visually indistinguishable from mined ones', 'IGI certification adds trust and confidence', 'Buyback guarantee is a strong differentiator', 'Stunning designs — especially the polki collection', 'Ethical and sustainable — no mining involved'],
+            topDislikes: ['Higher price point than fashion jewellery brands', 'Limited online-only options — most designs need store visit', 'Resale value perception vs natural diamonds', 'Delivery timelines for custom pieces are long'],
+            summary: 'Aukera is riding the lab-grown diamond wave in India. Revenue exploded from INR 5Cr to INR 200Cr ARR in 2 years. Peak XV-backed. The IGI certification and buyback guarantee build trust in a category where it matters most.',
         },
         myntra: {
-            topLikes: ['Trendy innerwear finally available on Myntra', 'Soft fabric stands out from regular brands', 'Great gifting option for friends'],
-            topDislikes: ['Expensive compared to Jockey/FCUK alternatives', 'Wish they had more solid color options'],
-            summary: 'Growing presence on Myntra. The fun-print positioning differentiates well. Young buyers love it as a gifting category.',
+            topLikes: ['Premium jewellery brand on Myntra is refreshing', 'Lab-grown diamond awareness growing'],
+            topDislikes: ['Limited selection compared to their own stores', 'Fine jewellery needs try-before-buy'],
+            summary: 'Early Myntra presence focused on entry-level pieces. Most sales happen through their 13 owned stores across Bangalore, Delhi NCR, and Hyderabad.',
         },
     },
-    flatheads: {
+    aretto: {
         amazon: {
-            topLikes: ['Bamboo fiber makes them incredibly lightweight', 'All-day comfort — feels like walking on clouds', 'Sustainable materials appeal to eco-conscious buyers', 'Minimalist design works for office and casual'],
-            topDislikes: ['Sole durability is questionable after 6 months', 'Limited style and color options', 'Price feels steep for an unknown brand', 'Break-in period of 3-4 days'],
-            summary: 'Flatheads has a small but devoted following among sustainable fashion enthusiasts. The bamboo/merino material is genuinely differentiated. Limited style range and brand awareness are growth barriers.',
+            topLikes: ['Shoes actually grow with the child — genius concept', 'Saves money — one pair covers 3 sizes', 'Memory foam insole is very comfortable for kids', 'Patented SuperGrooves technology works as claimed', 'Appeared on Shark Tank India — adds credibility'],
+            topDislikes: ['Price is higher than regular kids shoes (INR 1699-2899)', 'Limited style options — only 9 styles', 'Sizing guidance could be clearer', 'Durability over the full growth cycle needs more data'],
+            summary: 'Aretto has cracked a genuine pain point — kids outgrowing shoes every 3-4 months. The expanding sole technology (up to 18mm / 3 sizes) is patented. Shark Tank India Season 3 boosted visibility. Hardik Pandya is an investor.',
         },
         myntra: {
-            topLikes: ['Unique material story stands out', 'Comfortable for daily wear'],
-            topDislikes: ['Very few reviews — hard to trust', 'Not well-known yet'],
-            summary: 'Early Myntra presence. Needs more reviews and visibility to gain traction.',
+            topLikes: ['Innovative concept stands out in kids footwear', 'Great gifting option for parents'],
+            topDislikes: ['Limited color/style range compared to established kids brands', 'Need more customer reviews to build trust'],
+            summary: 'Growing Myntra presence. Parents discovering through Shark Tank are converting online. The expandable shoe concept sells itself once understood.',
         },
     },
     phool: {
@@ -636,7 +636,7 @@ const REVIEW_SUMMARIES = {
     },
 };
 
-const EC_AMAZON_BASE = { wakao: 280, bummer: 650, flatheads: 320, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, ellementry: 350, cosmix: 420, neemli: 280, samosaparty: 900, earthrhythm: 380, bombaysweets: 450, staccato: 180, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950 };
+const EC_AMAZON_BASE = { wakao: 280, aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, ellementry: 350, cosmix: 420, neemli: 280, samosaparty: 900, earthrhythm: 380, bombaysweets: 450, staccato: 180, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950 };
 COMPANIES.forEach(c => {
     const amazonBase = EC_AMAZON_BASE[c.id] || 250;
     const myntraBase = c.sector === 'fashion' ? 300 + Math.random() * 800 :
@@ -708,8 +708,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { wakao: 45000, bummer: 180000, flatheads: 85000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, houseofem5: 65000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000 };
-const TR_GROWTH = { wakao: 0.90, bummer: 0.75, flatheads: 0.50, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, houseofem5: 1.30, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
+const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, houseofem5: 65000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000 };
+const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, houseofem5: 1.30, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -822,21 +822,38 @@ const SOCIAL_SUMMARIES = {
             topDislikes: ['Limited founder presence on LinkedIn', 'Need more operational insight content'],
         },
     },
-    bummer: {
+    aukera: {
         reddit: {
-            summary: 'Bummer appears in men\'s fashion and innerwear discussions. Users love the fun prints and micro-modal comfort. The brand is recommended in "upgrade your basics" threads. Quality debates are minor — most agree it\'s worth the premium.',
-            topLikes: ['Micro-modal fabric is genuinely superior', 'Fun prints make innerwear exciting', 'No-ride-up design actually works', 'Great packaging for gifting'],
-            topDislikes: ['Premium pricing vs regular innerwear', 'Elastic could last longer', 'Limited size range for larger bodies', 'Need more solid/minimal options'],
+            summary: 'Aukera is a frequent topic in r/india and r/IndianJewellery threads. Lab-grown diamond awareness is surging. Users debate Aukera vs natural diamonds — most agree the value proposition is compelling. The IGI certification and buyback guarantee are cited as trust builders.',
+            topLikes: ['Lab-grown diamonds at fraction of mined diamond cost', 'IGI certification adds genuine trust', 'Buyback guarantee removes purchase anxiety', 'Store experience in Bangalore is premium'],
+            topDislikes: ['Resale value perception vs natural diamonds', 'Limited online-only purchasing options', 'Most designs need in-store visit', 'Still building brand recognition outside metros'],
         },
         instagram: {
-            summary: 'Bummer\'s Instagram is bold, colorful, and cheeky. The fun-print innerwear content stands out in feeds. Unboxing and gifting content performs well. The brand tone is playful, targeting 20-35 year olds.',
-            topLikes: ['Bold visual identity stands out', 'Print design creativity', 'Gifting-focused content works well', 'Playful brand tone resonates with millennials'],
-            topDislikes: ['Content can feel repetitive — always about prints', 'Limited lifestyle context', 'Need more body-positive messaging'],
+            summary: 'Aukera\'s Instagram showcases stunning jewellery photography and lab-grown diamond education. The Queen\'s Reserve Polki Collection went viral. Engagement rates are high — especially among 25-40 year old women planning weddings.',
+            topLikes: ['Jewellery photography is stunning', 'Lab-grown diamond education content', 'Polki collection announcement went viral', 'Wedding jewellery content drives aspirational engagement'],
+            topDislikes: ['Content could show more everyday styling', 'Need more diverse model representation', 'Price-point content is unclear on Instagram'],
         },
         linkedin: {
-            summary: 'Occasional mentions in D2C fashion innovation threads. The innerwear market disruption narrative generates some interest among consumer brand investors.',
-            topLikes: ['Innerwear market disruption angle', 'Brand differentiation through design'],
-            topDislikes: ['Very limited LinkedIn presence', 'Category may seem niche for LinkedIn audience'],
+            summary: 'Aukera is a LinkedIn darling — the Peak XV-backed lab-grown diamond disruption story resonates strongly. Posts about 5Cr to 200Cr ARR growth in 2 years get massive engagement from VCs and D2C founders.',
+            topLikes: ['Explosive growth story inspires founders', 'Peak XV backing validates opportunity', 'Lab-grown diamond market insights', 'Omnichannel strategy discussion'],
+            topDislikes: ['Growth numbers sometimes feel too good to verify', 'Need more unit economics transparency'],
+        },
+    },
+    aretto: {
+        reddit: {
+            summary: 'Aretto appears in parenting threads on r/india and r/IndianParenting. The expanding shoe concept is genuinely novel — parents share their experiences. Shark Tank India appearance drove a spike in discussions. Cost savings vs regular shoes is the key selling point.',
+            topLikes: ['Genius concept — shoes grow with kids', 'Saves money over buying new shoes every 3 months', 'Shark Tank India validation builds trust', 'Memory foam insole comfort for active kids'],
+            topDislikes: ['Higher upfront price than regular kids shoes', 'Limited styles — only 9 options', 'Need more sizing guidance', 'Durability data over full growth cycle is limited'],
+        },
+        instagram: {
+            summary: 'Aretto\'s Instagram uses kid-focused content showing the expanding shoe technology in action. Unboxing videos and side-by-side growth demonstrations perform best. Parent testimonials drive trust. Shark Tank clips are top-performing content.',
+            topLikes: ['Shoe expansion demo videos are fascinating', 'Kid-focused content is adorable and shareable', 'Parent testimonials build trust', 'Shark Tank content drives discovery'],
+            topDislikes: ['Need more style variety to showcase', 'Content can be too product-demo heavy', 'Limited lifestyle/activity context for kids'],
+        },
+        linkedin: {
+            summary: 'Aretto is discussed in sustainability and kid-tech innovation threads. The patented expanding sole technology and Hardik Pandya investment generate interest. Startup founders follow the Shark Tank to growth journey.',
+            topLikes: ['Patented technology is genuinely innovative', 'Sustainability angle — fewer shoes in landfills', 'Hardik Pandya investment adds buzz', 'Shark Tank India success story'],
+            topDislikes: ['Scale questions remain at seed stage', 'International expansion plans seem aggressive for current stage'],
         },
     },
     tbof: {
@@ -984,18 +1001,32 @@ const MOOD_TIMELINE = {
             { quarter: 'Q1 2026', mood: 'cult status', score: 86, theme: 'Cult following established. Social media is the primary discovery channel. LinkedIn food-tech discussions feature the brand.' },
         ],
     },
-    bummer: {
+    aukera: {
         ecommerce: [
-            { quarter: 'Q1 2025', mood: 'novelty', score: 55, theme: 'First-time buyers attracted by fun prints. Micro-modal comfort is a genuine surprise. Gifting use case is strong. Price pushback from value buyers.' },
-            { quarter: 'Q2 2025', mood: 'comfortable', score: 64, theme: 'Repeat purchases driven by fabric comfort. Customers upgrading entire innerwear drawer. Print collections creating seasonal excitement.' },
-            { quarter: 'Q3 2025', mood: 'loyal', score: 72, theme: 'Brand loyalty building. Customers recommend to friends. New collections eagerly awaited. Quality concerns (elastic) addressed.' },
-            { quarter: 'Q1 2026', mood: 'advocating', score: 79, theme: 'Strong repeat customer base. Gifting during occasions drives new customer acquisition. Brand expanding into loungewear.' },
+            { quarter: 'Q1 2025', mood: 'discovery', score: 55, theme: 'Early buyers intrigued by lab-grown diamonds. IGI certification builds confidence. Store experience in Bangalore drives conversions. Online discovery, offline purchase pattern emerging.' },
+            { quarter: 'Q2 2025', mood: 'accelerating', score: 70, theme: 'Peak XV investment announced. Revenue hitting INR 30Cr+ run-rate. Polki collection launch creates buzz. Buyback guarantee removing purchase anxiety.' },
+            { quarter: 'Q3 2025', mood: 'explosive', score: 85, theme: 'Revenue crosses INR 100Cr ARR. 13 stores operational. Wedding season drives massive demand. Lab-grown diamond awareness reaching mainstream.' },
+            { quarter: 'Q1 2026', mood: 'breakout', score: 92, theme: 'INR 200Cr ARR milestone. Brand becoming synonymous with lab-grown diamonds in India. Repeat purchases and referrals driving organic growth. Expansion to new cities.' },
         ],
         social: [
-            { quarter: 'Q1 2025', mood: 'cheeky', score: 50, theme: 'Bold innerwear content stands out on social. Reddit discussions mostly in fashion threads. Instagram unboxing content performing well.' },
-            { quarter: 'Q2 2025', mood: 'fun', score: 60, theme: 'Print reveal content driving engagement. Gifting-focused campaigns gaining traction. Reddit recommendations increasing.' },
-            { quarter: 'Q3 2025', mood: 'trending', score: 70, theme: 'Influencer partnerships expanding reach. Social media becoming primary discovery channel. Brand tone resonating with millennials.' },
-            { quarter: 'Q1 2026', mood: 'established', score: 77, theme: 'Recognized innerwear brand on social media. User-generated content growing. LinkedIn interest from fashion-tech investors.' },
+            { quarter: 'Q1 2025', mood: 'niche', score: 48, theme: 'Lab-grown diamond discussions confined to jewellery forums. Instagram showcasing product but limited reach. LinkedIn founder posts gaining traction.' },
+            { quarter: 'Q2 2025', mood: 'buzzing', score: 65, theme: 'Peak XV funding announcement goes viral on LinkedIn. Instagram jewellery content gaining followers. Reddit debates natural vs lab-grown diamonds heat up.' },
+            { quarter: 'Q3 2025', mood: 'mainstream', score: 80, theme: 'Wedding content drives Instagram virality. LinkedIn growth story shared widely in VC circles. Reddit becoming a recommendation channel for lab-grown diamonds.' },
+            { quarter: 'Q1 2026', mood: 'iconic', score: 90, theme: 'Social media is primary discovery channel. Bridal jewellery content gets millions of views. LinkedIn growth case study for D2C luxury. Community advocacy organic and sustained.' },
+        ],
+    },
+    aretto: {
+        ecommerce: [
+            { quarter: 'Q1 2025', mood: 'curious', score: 50, theme: 'Parents discovering expanding shoe concept. Shark Tank India appearance creates initial trial. Technology claims are tested — most parents pleased with results.' },
+            { quarter: 'Q2 2025', mood: 'convinced', score: 62, theme: 'Repeat buyers emerging as shoes actually grow. Word-of-mouth among parent communities strong. Memory foam comfort praised by kids and parents alike.' },
+            { quarter: 'Q3 2025', mood: 'advocating', score: 72, theme: 'Parent testimonials driving conversions. School-season demand spikes. Gifting use case growing. Limited styles is the main complaint.' },
+            { quarter: 'Q1 2026', mood: 'growing', score: 78, theme: 'Revenue growing 70-80% YoY. New styles launched. International expansion planned. Brand becoming the default answer to "kids outgrow shoes too fast."' },
+        ],
+        social: [
+            { quarter: 'Q1 2025', mood: 'viral demo', score: 55, theme: 'Shark Tank clip goes viral. Shoe expansion demo videos shared widely. Parents tagging friends in comments. Reddit parenting threads discuss.' },
+            { quarter: 'Q2 2025', mood: 'community', score: 65, theme: 'Parent communities on Instagram sharing real-use reviews. Reddit threads recommending for "smart kids shoe" queries. Hardik Pandya investment adds credibility.' },
+            { quarter: 'Q3 2025', mood: 'trusted', score: 73, theme: 'User-generated content growing organically. Back-to-school content driving engagement. LinkedIn featuring as kid-tech innovation.' },
+            { quarter: 'Q1 2026', mood: 'established', score: 80, theme: 'Organic social advocacy from parents. Instagram a key discovery channel. LinkedIn international expansion story gaining attention.' },
         ],
     },
 };
@@ -1017,9 +1048,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { wakao: 800, bummer: 1500, flatheads: 600, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, houseofem5: 600, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
-const SO_INSTA = { wakao: 12000, bummer: 35000, flatheads: 8000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, houseofem5: 18000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
-const SO_LINKEDIN = { wakao: 3000, bummer: 4500, flatheads: 2000, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, houseofem5: 2000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
+const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, houseofem5: 600, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
+const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, houseofem5: 18000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
+const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, houseofem5: 2000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
@@ -1051,9 +1082,9 @@ const SOCIAL_POSTS = [
     { platform: 'instagram', handle: '@foodiesinhyderabad', title: 'Day 365 of Sid\'s Farm milk subscription — never going back to packaged milk', likes: 3420, comments: 287, time: '2h ago', sentiment: 'positive', brand: 'sidsfarm' },
     { platform: 'reddit', subreddit: 'r/IndianSkincareAddicts', title: 'Gynoveda 90-day PCOD update — my experience and results', upvotes: 2100, comments: 456, time: '8h ago', sentiment: 'positive', brand: 'gynoveda' },
     { platform: 'instagram', handle: '@bangalorefoodie', title: 'Samosa Party cheese-corn samosas at our house party — everyone asking where to order!', likes: 5600, comments: 342, time: '3h ago', sentiment: 'positive', brand: 'samosaparty' },
-    { platform: 'reddit', subreddit: 'r/IndianFashionAddicts', title: 'Bummer micro-modal underwear review — is it worth the premium?', upvotes: 680, comments: 156, time: '12h ago', sentiment: 'positive', brand: 'bummer' },
+    { platform: 'reddit', subreddit: 'r/IndianJewellery', title: 'Aukera lab-grown diamond ring review — INR 200Cr ARR brand. Is it worth it vs natural?', upvotes: 1480, comments: 312, time: '12h ago', sentiment: 'positive', brand: 'aukera' },
     { platform: 'linkedin', handle: 'Sustainability Today', title: 'How Phool.co is turning temple waste into vegan leather — a circular economy masterclass', likes: 4200, comments: 189, time: '5h ago', sentiment: 'positive', brand: 'phool' },
-    { platform: 'instagram', handle: '@sustainablefashion.in', title: 'Flatheads bamboo sneakers — 3 month review. Comfort level: 10/10', likes: 1890, comments: 145, time: '7h ago', sentiment: 'positive', brand: 'flatheads' },
+    { platform: 'instagram', handle: '@parentinghacks.in', title: 'Aretto expanding shoes — bought size 11, now fitting size 13! Genius kids shoes from Shark Tank', likes: 3400, comments: 285, time: '7h ago', sentiment: 'positive', brand: 'aretto' },
     { platform: 'reddit', subreddit: 'r/organicfarming', title: 'Two Brothers Organic Farms A2 ghee — expensive but is it worth it? My honest take', upvotes: 920, comments: 234, time: '10h ago', sentiment: 'mixed', brand: 'tbof' },
     { platform: 'linkedin', handle: 'Kishore Indukuri', title: 'From IT consulting to dairy farming — 8 years of building Sid\'s Farm. Here\'s what I learned about D2C dairy.', likes: 8500, comments: 567, time: '1d ago', sentiment: 'positive', brand: 'sidsfarm' },
     { platform: 'instagram', handle: '@wellnessblogger', title: 'Cosmix Sleep Blend 30-day challenge — here\'s what happened to my insomnia', likes: 2340, comments: 198, time: '9h ago', sentiment: 'positive', brand: 'cosmix' },
@@ -1098,40 +1129,40 @@ const EMPLOYEE_REVIEWS = {
             { quarter: 'Q1 2026', mood: 'positive', score: 72, theme: 'Funding round improved salaries. Clear growth paths emerging. Mission continues to drive retention.' },
         ],
     },
-    bummer: {
-        ambitionbox: { rating: 4.0, totalReviews: 32, recommend: 78, ceoApproval: 82, workLife: 4.1, salary: 3.5, security: 3.6, culture: 4.3, growth: 3.7,
-            likes: ['Fun, creative work environment matches the brand', 'Young team with great energy', 'Good creative freedom in marketing roles'],
-            dislikes: ['D2C fashion margins mean conservative salaries', 'Fast-paced can mean chaotic sometimes', 'Limited senior leadership depth'],
-            summary: 'Bummer\'s workplace mirrors its brand — fun, energetic, creative. Good for early-career professionals who value culture over structure.'
+    aukera: {
+        ambitionbox: { rating: 4.4, totalReviews: 48, recommend: 88, ceoApproval: 92, workLife: 4.0, salary: 3.8, security: 4.0, culture: 4.5, growth: 4.4,
+            likes: ['Explosive growth — INR 5Cr to 200Cr ARR in 2 years', 'Peak XV backing signals strong future', 'Premium luxury brand building is exciting', 'Retail + tech hybrid role variety'],
+            dislikes: ['Hypergrowth pace can be exhausting', 'New stores opening constantly — relocation pressure', 'Processes still catching up with growth speed'],
+            summary: 'Aukera is one of the fastest-growing D2C brands. Employees are energized by the explosive growth story. Peak XV backing provides stability. The pace of 13 stores in 2 years means constant change.'
         },
-        glassdoor: { rating: 3.8, totalReviews: 26, recommend: 74, ceoApproval: 80, workLife: 3.9, salary: 3.3, security: 3.5, culture: 4.1, growth: 3.6,
-            likes: ['Brand personality extends to workplace culture', 'Marketing team has real creative autonomy', 'Collaborative environment'],
-            dislikes: ['Need better compensation benchmarking', 'High expectations with lean team', 'Career path not clearly defined'],
-            summary: 'Creative culture is the standout. Typical D2C challenges around compensation and scaling team structure.'
+        glassdoor: { rating: 4.2, totalReviews: 36, recommend: 85, ceoApproval: 90, workLife: 3.8, salary: 3.7, security: 3.9, culture: 4.3, growth: 4.3,
+            likes: ['Working in luxury lab-grown diamonds feels cutting-edge', 'Founder vision for INR 1000Cr brand is motivating', 'Good compensation for D2C startup'],
+            dislikes: ['Store expansion pace strains operations team', 'Weekend work expected in retail roles', 'Need better work-life balance policies'],
+            summary: 'High-growth environment with genuine luxury positioning. Operations team faces the most strain from rapid expansion. Compensation is competitive for D2C sector.'
         },
         moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'fun', score: 68, theme: 'Creative culture strong. Team enjoys brand building. Compensation could be better.' },
-            { quarter: 'Q2 2025', mood: 'busy', score: 64, theme: 'Growth phase means heavy workload. New hires joining. Some process gaps.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 72, theme: 'New collections success boosts morale. Team bonding events introduced. Salaries revised.' },
-            { quarter: 'Q1 2026', mood: 'strong', score: 76, theme: 'Brand recognition growing, team pride increasing. Better HR practices. Growth visible.' },
+            { quarter: 'Q1 2025', mood: 'exciting', score: 72, theme: 'Early team riding the growth wave. Store openings keep energy high. Founder vision inspires.' },
+            { quarter: 'Q2 2025', mood: 'accelerating', score: 80, theme: 'Peak XV funding boosts confidence. New hires joining rapidly. Team proud of brand building.' },
+            { quarter: 'Q3 2025', mood: 'intense', score: 78, theme: 'Hypergrowth brings operational challenges. Processes being built while scaling. Team resilient.' },
+            { quarter: 'Q1 2026', mood: 'thriving', score: 85, theme: 'INR 200Cr ARR achievement celebrated. HR processes maturing. Clear career paths emerging.' },
         ],
     },
-    flatheads: {
-        ambitionbox: { rating: 3.6, totalReviews: 18, recommend: 65, ceoApproval: 70, workLife: 3.5, salary: 3.1, security: 3.0, culture: 3.8, growth: 3.3,
-            likes: ['Working on sustainable products feels meaningful', 'Small team with direct founder interaction', 'Innovative material science work'],
-            dislikes: ['Very early stage — limited resources', 'Job security concerns in slow growth phase', 'Compensation is below market'],
-            summary: 'Flatheads employees value the sustainability mission but face typical early-stage resource constraints. Best for those passionate about sustainable fashion.'
+    aretto: {
+        ambitionbox: { rating: 4.0, totalReviews: 22, recommend: 78, ceoApproval: 82, workLife: 3.8, salary: 3.3, security: 3.5, culture: 4.2, growth: 3.9,
+            likes: ['Working on genuinely innovative patented product', 'Shark Tank India visibility boosted team pride', 'Small team means direct impact on decisions', 'Hardik Pandya investment adds excitement'],
+            dislikes: ['Seed-stage salary constraints', 'Pune location limits some talent access', 'Small team means wearing many hats', 'International expansion plans add uncertainty'],
+            summary: 'Aretto employees are passionate about the patented expanding shoe technology. Shark Tank validation and Hardik Pandya investment boost morale. Typical seed-stage compensation challenges.'
         },
-        glassdoor: { rating: 3.4, totalReviews: 14, recommend: 60, ceoApproval: 66, workLife: 3.4, salary: 2.9, security: 2.8, culture: 3.6, growth: 3.1,
-            likes: ['Unique product — exciting to tell friends about', 'Founder is genuinely passionate and hands-on', 'Learning opportunity in sustainable materials'],
-            dislikes: ['Very small team — heavy workload', 'Growth has been slower than expected', 'Limited career advancement'],
-            summary: 'Passion-driven workplace with honest acknowledgment of growth challenges. Suits mission-driven individuals.'
+        glassdoor: { rating: 3.8, totalReviews: 16, recommend: 75, ceoApproval: 80, workLife: 3.7, salary: 3.1, security: 3.3, culture: 4.0, growth: 3.7,
+            likes: ['Product innovation is genuinely exciting', 'Team of 77 people — growing fast', 'Founders are accessible and hands-on'],
+            dislikes: ['Seed-stage budget constraints', 'Need better HR structure as team grows', 'Work-life balance needs attention during growth phase'],
+            summary: 'Innovation-driven culture. The patented technology gives employees pride in their work. Growing pains at 77-person stage are expected.'
         },
         moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'steady', score: 55, theme: 'Small team working hard. Passion for product keeps morale up. Growth concerns exist.' },
-            { quarter: 'Q2 2025', mood: 'challenging', score: 50, theme: 'Market competition intensifying. Team stretched thin. Some attrition.' },
-            { quarter: 'Q3 2025', mood: 'improving', score: 58, theme: 'New retail partnerships boost confidence. Product innovation continues.' },
-            { quarter: 'Q1 2026', mood: 'hopeful', score: 63, theme: 'Online sales picking up. New materials generating buzz. Team cautiously optimistic.' },
+            { quarter: 'Q1 2025', mood: 'energized', score: 65, theme: 'Shark Tank appearance brings visibility. Team excited about growing orders. Resources still tight.' },
+            { quarter: 'Q2 2025', mood: 'growing', score: 70, theme: 'Revenue growing 70-80% YoY. New hires joining. Hardik Pandya investment boosts team morale.' },
+            { quarter: 'Q3 2025', mood: 'confident', score: 74, theme: 'Product-market fit validated. International expansion discussions begin. Team scaling to 77.' },
+            { quarter: 'Q1 2026', mood: 'ambitious', score: 78, theme: 'UAE/Singapore expansion plans energize team. New styles launched. Brand gaining mainstream recognition.' },
         ],
     },
     phool: {

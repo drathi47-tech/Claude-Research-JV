@@ -350,26 +350,31 @@
                         <p class="panel-description">Estimated web traffic and engagement metrics (SimilarWeb / proxy data)</p>
                     </div>
 
+                    <div class="traffic-kpi-header">
+                        <select class="mini-select" id="trafficKpiCompanySelect" onchange="updateTrafficKpiCompany()">
+                        </select>
+                    </div>
+
                     <div class="kpi-grid" id="trafficKpis">
                         <div class="kpi-card">
-                            <div class="kpi-label">Total Est. Visits</div>
-                            <div class="kpi-value" style="color: #3b82f6;" id="kpiTotalVisits">8.4M</div>
-                            <div class="kpi-delta positive" id="kpiTotalVisitsDelta">across filtered companies</div>
+                            <div class="kpi-label">Est. Monthly Visits</div>
+                            <div class="kpi-value" style="color: #3b82f6;" id="kpiTotalVisits">--</div>
+                            <div class="kpi-delta" id="kpiTotalVisitsDelta"></div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Time on Site</div>
-                            <div class="kpi-value" style="color: #8b5cf6;" id="kpiAvgDuration">3:42</div>
-                            <div class="kpi-delta positive" id="kpiAvgDurationDelta">across filtered companies</div>
+                            <div class="kpi-value" style="color: #8b5cf6;" id="kpiAvgDuration">--</div>
+                            <div class="kpi-delta" id="kpiAvgDurationDelta"></div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Avg Bounce Rate</div>
-                            <div class="kpi-value" style="color: #f59e0b;" id="kpiBounceRate">38%</div>
-                            <div class="kpi-delta positive" id="kpiBounceRateDelta">across filtered companies</div>
+                            <div class="kpi-label">Bounce Rate</div>
+                            <div class="kpi-value" style="color: #f59e0b;" id="kpiBounceRate">--</div>
+                            <div class="kpi-delta" id="kpiBounceRateDelta"></div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Fastest Growing</div>
-                            <div class="kpi-value" style="color: #10b981; font-size: 20px;" id="kpiFastestGrowing">Snitch</div>
-                            <div class="kpi-delta positive" id="kpiFastestGrowingDelta">+62% traffic growth</div>
+                            <div class="kpi-label">Pages / Visit</div>
+                            <div class="kpi-value" style="color: #10b981;" id="kpiPagesPerVisit">--</div>
+                            <div class="kpi-delta" id="kpiPagesPerVisitDelta"></div>
                         </div>
                     </div>
 
