@@ -2046,6 +2046,28 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Hiring - LinkedIn */
+.hiring-linkedin-link {
+    color: #0a66c2;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.15s;
+}
+.hiring-linkedin-link:hover {
+    color: #0d8de8;
+    text-decoration: underline;
+}
+.hiring-role-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(10, 102, 194, 0.12);
+    color: #5b9bd5;
+    white-space: nowrap;
+}
+
 /* Chart subtitle helper */
 .chart-subtitle {
     margin: 0;

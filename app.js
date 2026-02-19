@@ -38,6 +38,7 @@ function initPanel(panelId) {
         case 'traffic': initTraffic(); break;
         case 'social': initSocial(); break;
         case 'employee': initEmployee(); break;
+        case 'hiring-linkedin': initHiringLinkedin(); break;
         case 'early-signals': initEarlySignals(); break;
         case 'breakout': initBreakout(); break;
         case 'watchlist': initWatchlist(); break;
@@ -1404,6 +1405,141 @@ function renderEmployeeTable() {
             <td>${signalBadge(COMPANY_SIGNALS[c.id])}</td>
         </tr>`;
     }).join('');
+}
+
+// --- Hiring - LinkedIn Panel ---
+function initHiringLinkedin() {
+    renderHiringKpis();
+    renderHiringTable();
+    renderHiringSourceChart();
+    renderHiringTimelineChart();
+}
+
+function renderHiringKpis() {
+    if (typeof LINKEDIN_HIRING_DATA === 'undefined') return;
+    const data = LINKEDIN_HIRING_DATA;
+    const totalHires = data.length;
+    const cxoHires = data.filter(h => h.role.startsWith('Chief') || h.role.startsWith('CXO')).length;
+    const avgWorkEx = Math.round(data.reduce((s, h) => s + h.workExYears, 0) / data.length);
+    const uniqueSources = new Set(data.map(h => h.lastCompany)).size;
+
+    document.getElementById('kpiTotalHires').textContent = totalHires;
+    document.getElementById('kpiCxoHires').textContent = cxoHires;
+    document.getElementById('kpiAvgWorkEx').textContent = avgWorkEx + ' yrs';
+    document.getElementById('kpiTopSourceCo').textContent = uniqueSources;
+}
+
+function renderHiringTable() {
+    if (typeof LINKEDIN_HIRING_DATA === 'undefined') return;
+    const tbody = document.getElementById('hiringLinkedinTableBody');
+    const companies = getFilteredCompanies();
+    const companyIds = new Set(companies.map(c => c.id));
+
+    const filtered = LINKEDIN_HIRING_DATA.filter(h => companyIds.has(h.currentCompany));
+    const sorted = [...filtered].sort((a, b) => new Date(b.hireDate) - new Date(a.hireDate));
+
+    tbody.innerHTML = sorted.map(h => {
+        const company = COMPANIES.find(c => c.id === h.currentCompany);
+        const companyName = company ? company.name : h.currentCompany;
+        const companyColor = company ? company.color : 'var(--text-primary)';
+        const dateStr = new Date(h.hireDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'short' });
+
+        return `<tr>
+            <td><a href="${h.linkedinUrl}" target="_blank" rel="noopener noreferrer" class="hiring-linkedin-link">${h.hireName}</a></td>
+            <td><span class="hiring-role-badge">${h.role}</span></td>
+            <td><strong>${h.workExYears} yrs</strong></td>
+            <td>${h.lastCompany}</td>
+            <td><span style="color: var(--text-secondary); font-size: 12px;">${h.lastRole}</span></td>
+            <td><strong style="color:${companyColor}">${companyName}</strong></td>
+            <td>${dateStr}</td>
+        </tr>`;
+    }).join('');
+}
+
+function renderHiringSourceChart() {
+    destroyChart('hiringSource');
+    if (typeof LINKEDIN_HIRING_DATA === 'undefined') return;
+    const ctx = document.getElementById('hiringSourceChart').getContext('2d');
+
+    const sourceCounts = {};
+    LINKEDIN_HIRING_DATA.forEach(h => {
+        sourceCounts[h.lastCompany] = (sourceCounts[h.lastCompany] || 0) + 1;
+    });
+    const sorted = Object.entries(sourceCounts).sort((a, b) => b[1] - a[1]);
+    const labels = sorted.map(s => s[0]);
+    const values = sorted.map(s => s[1]);
+    const colors = ['#0a66c2', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316', '#3b82f6', '#84cc16', '#d946ef', '#22c55e', '#e11d48', '#0d9488', '#6366f1', '#334155'];
+
+    charts.hiringSource = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Hires',
+                data: values,
+                backgroundColor: labels.map((_, i) => colors[i % colors.length] + '70'),
+                borderColor: labels.map((_, i) => colors[i % colors.length]),
+                borderWidth: 1,
+                borderRadius: 4,
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.6,
+            indexAxis: 'y',
+            scales: {
+                x: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: 'rgba(42, 45, 62, 0.4)' } },
+                y: { grid: { display: false } },
+            },
+            plugins: { legend: { display: false } },
+        },
+    });
+}
+
+function renderHiringTimelineChart() {
+    destroyChart('hiringTimeline');
+    if (typeof LINKEDIN_HIRING_DATA === 'undefined') return;
+    const ctx = document.getElementById('hiringTimelineChart').getContext('2d');
+
+    const monthCounts = {};
+    LINKEDIN_HIRING_DATA.forEach(h => {
+        const d = new Date(h.hireDate);
+        const key = d.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' });
+        monthCounts[key] = (monthCounts[key] || 0) + 1;
+    });
+
+    // Sort by date
+    const sortedEntries = Object.entries(monthCounts).sort((a, b) => {
+        return new Date('01 ' + a[0]) - new Date('01 ' + b[0]);
+    });
+    const labels = sortedEntries.map(e => e[0]);
+    const values = sortedEntries.map(e => e[1]);
+
+    charts.hiringTimeline = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Senior Hires',
+                data: values,
+                backgroundColor: 'rgba(10, 102, 194, 0.5)',
+                borderColor: '#0a66c2',
+                borderWidth: 1,
+                borderRadius: 4,
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.6,
+            scales: {
+                x: { grid: { display: false } },
+                y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: 'rgba(42, 45, 62, 0.4)' } },
+            },
+            plugins: { legend: { display: false } },
+        },
+    });
 }
 
 // --- Breakout Detector ---

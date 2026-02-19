@@ -40,6 +40,9 @@
                 <button class="nav-item" data-panel="employee" onclick="switchPanel('employee')">
                     <span class="nav-icon">&#9881;</span> Employee Reviews
                 </button>
+                <button class="nav-item" data-panel="hiring-linkedin" onclick="switchPanel('hiring-linkedin')">
+                    <span class="nav-icon">&#128101;</span> Hiring - LinkedIn
+                </button>
 
                 <div class="nav-section-label" style="margin-top: 24px;">Discovery</div>
                 <button class="nav-item" data-panel="early-signals" onclick="switchPanel('early-signals')">
@@ -607,6 +610,76 @@
                                 </thead>
                                 <tbody id="employeeTableBody"></tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hiring - LinkedIn Panel -->
+                <div class="panel" id="panel-hiring-linkedin">
+                    <div class="panel-header">
+                        <h1>Hiring - LinkedIn</h1>
+                        <p class="panel-description">Senior / CXO hires from Top-500 Indian companies into sub-$300M startups in the last 6 months — a leading signal for scaling intent</p>
+                    </div>
+
+                    <div class="kpi-grid" id="hiringKpis">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Senior Hires Flagged</div>
+                            <div class="kpi-value" style="color: #0a66c2;" id="kpiTotalHires">--</div>
+                            <div class="kpi-delta positive">last 6 months</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">CXO-Level Hires</div>
+                            <div class="kpi-value" style="color: #f59e0b;" id="kpiCxoHires">--</div>
+                            <div class="kpi-delta positive">Chief-level appointments</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Avg Work Experience</div>
+                            <div class="kpi-value" style="color: #10b981;" id="kpiAvgWorkEx">--</div>
+                            <div class="kpi-delta positive">years across hires</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Top Source Companies</div>
+                            <div class="kpi-value" style="color: #8b5cf6;" id="kpiTopSourceCo">--</div>
+                            <div class="kpi-delta positive">unique corporates</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Senior Hiring Tracker</h3>
+                            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0 0;">Click on a name to view their LinkedIn profile</p>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="hiringLinkedinTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Work-Ex</th>
+                                        <th>Last Company</th>
+                                        <th>Last Role</th>
+                                        <th>Hired By</th>
+                                        <th>Hire Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hiringLinkedinTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Source Companies Breakdown -->
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Hires by Source Company</h3>
+                            </div>
+                            <canvas id="hiringSourceChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Hires by Month</h3>
+                            </div>
+                            <canvas id="hiringTimelineChart"></canvas>
                         </div>
                     </div>
                 </div>
