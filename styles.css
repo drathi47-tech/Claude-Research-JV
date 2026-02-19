@@ -1785,6 +1785,272 @@ body {
     line-height: 1.4;
 }
 
+/* ========================================
+   Early Signal Scanner Styles
+   ======================================== */
+
+/* Discovery Funnel */
+.funnel-stages {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.funnel-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.funnel-stage-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.funnel-stage-name {
+    font-weight: 700;
+    font-size: 13px;
+    min-width: 80px;
+}
+
+.funnel-stage-count {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+.funnel-bar-container {
+    width: 100%;
+}
+
+.funnel-bar {
+    padding: 8px 12px;
+    border-radius: 6px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    transition: width 0.4s ease;
+}
+
+.funnel-brands {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.funnel-brand-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.funnel-empty {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.funnel-stage-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    padding-left: 2px;
+}
+
+/* Signal Matrix */
+.signal-channel-header {
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: help;
+}
+
+.signal-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.signal-dot.active {
+    color: white;
+}
+
+.signal-dot.inactive {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.signal-score-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.signal-score-lg {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+/* Regional Radar */
+.regional-radar-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.regional-radar-row {
+    display: grid;
+    grid-template-columns: 180px 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.regional-radar-row:last-child {
+    border-bottom: none;
+}
+
+.regional-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.regional-city {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.regional-state {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.regional-tier-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.regional-bar-wrapper {
+    position: relative;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.regional-bar {
+    height: 100%;
+    border-radius: 4px;
+    min-width: 20px;
+    transition: width 0.4s ease;
+}
+
+.regional-signal-count {
+    position: absolute;
+    right: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding-left: 8px;
+}
+
+.regional-brands {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.regional-brand-chip {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(139, 92, 246, 0.12);
+    color: #a78bfa;
+    white-space: nowrap;
+}
+
+.regional-category {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* Convergence Cards */
+.convergence-detail {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 8px 0 12px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    border-left: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.convergence-signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.signal-channel-chip {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* Signal Feed Items */
+.signal-feed-item {
+    border-left: 3px solid var(--border);
+}
+
+.signal-feed-channel {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.signal-strength-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Chart subtitle helper */
+.chart-subtitle {
+    margin: 0;
+}
+
 @media (max-width: 1200px) {
     .methodology-grid {
         grid-template-columns: 1fr;
@@ -1797,5 +2063,12 @@ body {
     }
     .data-source-item {
         border-right: none;
+    }
+    .regional-radar-row {
+        grid-template-columns: 140px 1fr;
+    }
+    .regional-brands,
+    .regional-category {
+        display: none;
     }
 }

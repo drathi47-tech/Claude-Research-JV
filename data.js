@@ -1509,6 +1509,198 @@ const DEFAULT_EMPLOYEE_REVIEWS = {
     ],
 };
 
+// =====================================================
+// Early Signal Scanner Data — 10-Channel Discovery Engine
+// =====================================================
+
+// Signal channel definitions
+const SIGNAL_CHANNELS = [
+    { id: 'mca', name: 'MCA/ROC Filings', icon: 'M', color: '#10b981', description: 'Ministry of Corporate Affairs revenue filings showing >100% YoY growth' },
+    { id: 'ig_growth', name: 'IG Follower Growth', icon: 'I', color: '#e1306c', description: 'Instagram follower growth velocity >15% MoM with <500K total' },
+    { id: 'bsr', name: 'Amazon BSR', icon: 'A', color: '#ff9900', description: 'Best Seller Rank movement from >500 to <100 within 90 days' },
+    { id: 'regional', name: 'Regional Trends', icon: 'R', color: '#8b5cf6', description: 'Google Trends regional index >40 in Tier 2/3 with national <15' },
+    { id: 'shark_tank', name: 'Shark Tank Alumni', icon: 'S', color: '#dc2626', description: 'Post-episode search spike sustaining >60% of peak after 90 days' },
+    { id: 'hiring', name: 'LinkedIn Hiring', icon: 'L', color: '#0a66c2', description: 'Company growing from <20 to >50 employees in 6 months' },
+    { id: 'trademark', name: 'Trademark Registry', icon: 'T', color: '#f97316', description: 'New IP India filing + website + >1K IG within 6 months' },
+    { id: 'marketplace', name: 'Marketplace Onboarding', icon: 'P', color: '#d946ef', description: 'Brand appearing on 2+ marketplaces (Nykaa, Purplle, etc.) in 3 months' },
+    { id: 'influencer', name: 'Micro-Influencer Density', icon: 'F', color: '#06b6d4', description: '>10 unique creator mentions in 30 days with <100K brand followers' },
+    { id: 'fundraise', name: 'Fundraise Announcements', icon: '$', color: '#22c55e', description: 'First institutional round (Seed/Angel) raised in last 6 months' },
+];
+
+// Discovery pipeline stages
+const PIPELINE_STAGES = ['Detected', 'Verified', 'Tracking', 'Scored'];
+
+// Early signal data for EXISTING tracked companies (signals they exhibited before being tracked)
+const EARLY_SIGNALS_TRACKED = {};
+COMPANIES.forEach(c => {
+    const signalCount = Math.floor(Math.random() * 5) + 2;
+    const allChannels = SIGNAL_CHANNELS.map(ch => ch.id);
+    const shuffled = allChannels.sort(() => Math.random() - 0.5);
+    const activeChannels = shuffled.slice(0, signalCount);
+    EARLY_SIGNALS_TRACKED[c.id] = {
+        signals: {},
+        stage: 'Scored',
+        discoveryScore: COMPANIES.indexOf(c) < 10 ? Math.round(70 + Math.random() * 25) : Math.round(40 + Math.random() * 45),
+    };
+    SIGNAL_CHANNELS.forEach(ch => {
+        EARLY_SIGNALS_TRACKED[c.id].signals[ch.id] = activeChannels.includes(ch.id);
+    });
+});
+
+// NEW brands discovered by the scanner (not yet in COMPANIES — pan-India, Tier 2/3 cities)
+const DISCOVERED_BRANDS = [
+    {
+        id: 'juicy_chemistry', name: 'Juicy Chemistry', city: 'Coimbatore', state: 'Tamil Nadu', tier: 2,
+        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'INR 85Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        stage: 'Tracking', discoveryScore: 88, igFollowers: '320K', igGrowthRate: 18,
+        strongestSignal: 'MCA/ROC Filings', detail: 'Revenue jumped from INR 12Cr to INR 85Cr in 2 years. Organic-certified beauty from Coimbatore, now on Nykaa + Purplle + Amazon.'
+    },
+    {
+        id: 'letsdressup', name: "Let's Dress Up", city: 'Surat', state: 'Gujarat', tier: 2,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'INR 40Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: false, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        stage: 'Tracking', discoveryScore: 82, igFollowers: '180K', igGrowthRate: 22,
+        strongestSignal: 'IG Follower Growth', detail: 'Surat-based ethnic fusion wear. 180K IG with 22% MoM growth. Trending in Gujarat + Rajasthan before national.'
+    },
+    {
+        id: 'slurrpfarm', name: 'Slurrp Farm', city: 'Gurugram', state: 'Haryana', tier: 2,
+        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'INR 110Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: false },
+        stage: 'Verified', discoveryScore: 91, igFollowers: '450K', igGrowthRate: 12,
+        strongestSignal: 'Amazon BSR', detail: 'Kids nutrition brand. Top-10 BSR in Baby Foods. Shark Tank S1 alumni. Revenue 3x in 18 months. 8 open roles on LinkedIn.'
+    },
+    {
+        id: 'theformularx', name: 'The Formula Rx', city: 'Chandigarh', state: 'Punjab', tier: 2,
+        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'INR 8Cr/yr',
+        signals: { mca: false, ig_growth: true, bsr: true, regional: true, hiring: false, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        stage: 'Detected', discoveryScore: 68, igFollowers: '95K', igGrowthRate: 28,
+        strongestSignal: 'IG Follower Growth', detail: 'Chandigarh-based clinical skincare. 95K IG growing at 28% MoM. Regional trend breakout in Punjab + Haryana. Just listed on Nykaa.'
+    },
+    {
+        id: 'auracrafts', name: 'Aura Crafts', city: 'Jaipur', state: 'Rajasthan', tier: 2,
+        sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'INR 15Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: false, regional: true, hiring: false, marketplace: false, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        stage: 'Detected', discoveryScore: 62, igFollowers: '72K', igGrowthRate: 19,
+        strongestSignal: 'Regional Trends', detail: 'Jaipur artisan home decor brand. Trending heavily in Rajasthan + Gujarat on Google Trends. 40+ micro-influencer collabs in 30 days.'
+    },
+    {
+        id: 'brownliving', name: 'Brown Living', city: 'Mumbai', state: 'Maharashtra', tier: 1,
+        sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'INR 25Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: false, regional: false, hiring: true, marketplace: false, influencer: true, fundraise: true, shark_tank: true, trademark: false },
+        stage: 'Tracking', discoveryScore: 79, igFollowers: '210K', igGrowthRate: 14,
+        strongestSignal: 'Fundraise Announcements', detail: 'Sustainable living marketplace. Shark Tank S2. Seed round from Titan Capital. 6 new hires in 3 months. Brown Living model is marketplace + own brand.'
+    },
+    {
+        id: 'happyrationals', name: 'Happy Rationals', city: 'Kochi', state: 'Kerala', tier: 2,
+        sector: 'health', sectorLabel: 'Health & Wellness', estRevenue: 'INR 5Cr/yr',
+        signals: { mca: false, ig_growth: true, bsr: true, regional: true, hiring: false, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        stage: 'Detected', discoveryScore: 65, igFollowers: '48K', igGrowthRate: 32,
+        strongestSignal: 'IG Follower Growth', detail: 'Kerala-based adaptogen brand. 48K IG but growing at 32% MoM. Top-50 BSR in Herbal Supplements. Trending in Kerala + Karnataka.'
+    },
+    {
+        id: 'bewakoof', name: 'Bewakoof', city: 'Mumbai', state: 'Maharashtra', tier: 1,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'INR 350Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        stage: 'Verified', discoveryScore: 85, igFollowers: '1.2M', igGrowthRate: 8,
+        strongestSignal: 'MCA/ROC Filings', detail: 'INR 350Cr revenue. 7M+ app downloads. Strong BSR across multiple categories. 15 open roles. Recent INR 60Cr round from InvestCorp.'
+    },
+    {
+        id: 'ellementry', name: 'Ellementry', city: 'Jaipur', state: 'Rajasthan', tier: 2,
+        sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'INR 20Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: false, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        stage: 'Tracking', discoveryScore: 76, igFollowers: '145K', igGrowthRate: 16,
+        strongestSignal: 'Marketplace Onboarding', detail: 'Jaipur-based sustainable kitchenware. Now on Nykaa + Amazon + Flipkart. 145K IG. Regional trend leader in Rajasthan.'
+    },
+    {
+        id: 'kapiva', name: 'Kapiva', city: 'Bangalore', state: 'Karnataka', tier: 1,
+        sector: 'health', sectorLabel: 'Health & Wellness', estRevenue: 'INR 200Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        stage: 'Verified', discoveryScore: 87, igFollowers: '380K', igGrowthRate: 11,
+        strongestSignal: 'Amazon BSR', detail: 'Modern Ayurveda brand. Top-5 BSR in Ayurvedic Health. INR 200Cr revenue. Series C from Fireside Ventures. 12 new hires.'
+    },
+    {
+        id: 'nestasia', name: 'Nestasia', city: 'Kolkata', state: 'West Bengal', tier: 2,
+        sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'INR 45Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        stage: 'Tracking', discoveryScore: 84, igFollowers: '280K', igGrowthRate: 15,
+        strongestSignal: 'IG Follower Growth', detail: 'Kolkata-based premium home decor. 280K IG. Top-30 BSR in Home Decor. Trending in West Bengal + Odisha. Series A from Stellaris.'
+    },
+    {
+        id: 'fixderma', name: 'Fixderma', city: 'Ahmedabad', state: 'Gujarat', tier: 2,
+        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'INR 60Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: false },
+        stage: 'Tracking', discoveryScore: 81, igFollowers: '200K', igGrowthRate: 17,
+        strongestSignal: 'Regional Trends', detail: 'Ahmedabad-based dermatologist-backed skincare. 200K IG. Top-20 BSR Sunscreen. Breakout in Gujarat + Maharashtra. 8 open roles.'
+    },
+    {
+        id: 'curedose', name: 'CureDose', city: 'Lucknow', state: 'Uttar Pradesh', tier: 2,
+        sector: 'health', sectorLabel: 'Health & Wellness', estRevenue: 'INR 3Cr/yr',
+        signals: { mca: false, ig_growth: true, bsr: false, regional: true, hiring: false, marketplace: false, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        stage: 'Detected', discoveryScore: 52, igFollowers: '22K', igGrowthRate: 35,
+        strongestSignal: 'IG Follower Growth', detail: 'Lucknow-based Ayurvedic wellness brand. 22K IG growing at 35% MoM. Trending in UP + MP. Brand new — trademark filed Dec 2025.'
+    },
+    {
+        id: 'truebasics', name: 'TrueBasics', city: 'Indore', state: 'Madhya Pradesh', tier: 2,
+        sector: 'health', sectorLabel: 'Health & Wellness', estRevenue: 'INR 30Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: false, marketplace: true, influencer: false, fundraise: false, shark_tank: false, trademark: false },
+        stage: 'Verified', discoveryScore: 72, igFollowers: '110K', igGrowthRate: 13,
+        strongestSignal: 'Amazon BSR', detail: 'Indore-based nutraceuticals. Top-15 BSR in Multivitamins. Revenue doubled YoY. Strong in MP + Rajasthan before national.'
+    },
+    {
+        id: 'terracasa', name: 'Terra Casa', city: 'Pondicherry', state: 'Tamil Nadu', tier: 3,
+        sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'INR 2Cr/yr',
+        signals: { mca: false, ig_growth: true, bsr: false, regional: true, hiring: false, marketplace: false, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        stage: 'Detected', discoveryScore: 48, igFollowers: '18K', igGrowthRate: 38,
+        strongestSignal: 'Micro-Influencer Density', detail: 'Pondicherry artisan ceramic brand. 18K IG but 38% MoM growth. 15 creator collabs in 30 days. Trending in TN + Kerala.'
+    },
+];
+
+// Signal feed events (recent detections across all 10 channels)
+const SIGNAL_FEED = [
+    { channel: 'mca', brand: 'Juicy Chemistry', city: 'Coimbatore', date: '2026-02-18', detail: 'MCA filing shows INR 85Cr revenue (FY25), up from INR 32Cr (FY24). 165% YoY growth.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'Terra Casa', city: 'Pondicherry', date: '2026-02-18', detail: 'IG followers jumped from 11K to 18K in 45 days (38% MoM). Handmade ceramics trending.', strength: 'moderate' },
+    { channel: 'bsr', brand: 'Slurrp Farm', city: 'Gurugram', date: '2026-02-17', detail: 'Amazon BSR moved from #82 to #7 in Baby Foods category in 60 days.', strength: 'strong' },
+    { channel: 'regional', brand: 'The Formula Rx', city: 'Chandigarh', date: '2026-02-17', detail: 'Google Trends index 62 in Punjab/Haryana but only 8 nationally. Regional breakout detected.', strength: 'strong' },
+    { channel: 'shark_tank', brand: 'Brown Living', city: 'Mumbai', date: '2026-02-16', detail: 'Post S2 episode search interest at 72% of peak after 90 days. Sustained demand signal.', strength: 'moderate' },
+    { channel: 'hiring', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-16', detail: 'LinkedIn headcount grew from 28 to 65 in 5 months. 8 open roles including Head of D2C.', strength: 'strong' },
+    { channel: 'trademark', brand: 'CureDose', city: 'Lucknow', date: '2026-02-15', detail: 'IP India trademark filed Dec 2025. Website live + 22K IG within 3 months. New entrant.', strength: 'moderate' },
+    { channel: 'marketplace', brand: 'Ellementry', city: 'Jaipur', date: '2026-02-15', detail: 'Now listed on Nykaa Home, Amazon, and Flipkart. 3 marketplace onboardings in 2 months.', strength: 'strong' },
+    { channel: 'influencer', brand: 'Aura Crafts', city: 'Jaipur', date: '2026-02-14', detail: '42 unique micro-influencer mentions in 30 days. Brand has only 72K followers. High creator density.', strength: 'strong' },
+    { channel: 'fundraise', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-14', detail: 'Series C closed at INR 250Cr from Fireside Ventures + Aavishkaar. Ayurveda category leader.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'Happy Rationals', city: 'Kochi', date: '2026-02-13', detail: 'IG followers: 36K → 48K in 30 days (32% MoM). Adaptogen brand from Kerala gaining traction.', strength: 'strong' },
+    { channel: 'mca', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-13', detail: 'FY25 revenue INR 350Cr, up from INR 220Cr. 59% YoY growth. Approaching profitability.', strength: 'strong' },
+    { channel: 'bsr', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-12', detail: 'Fixderma Shadow SPF 50+ moved to #3 in Sunscreen category. From #45 in 90 days.', strength: 'strong' },
+    { channel: 'regional', brand: 'Let\'s Dress Up', city: 'Surat', date: '2026-02-12', detail: 'Google Trends index 55 in Gujarat, 42 in Rajasthan, but only 12 nationally. Pre-national breakout.', strength: 'strong' },
+    { channel: 'hiring', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-11', detail: '15 open roles: Performance Marketing Lead, Warehouse Ops Manager, Senior Data Analyst. Scaling signal.', strength: 'moderate' },
+    { channel: 'ig_growth', brand: 'CureDose', city: 'Lucknow', date: '2026-02-11', detail: 'IG: 0 → 22K in 3 months from scratch. Fastest early-stage growth in health category this quarter.', strength: 'moderate' },
+    { channel: 'marketplace', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-10', detail: 'Added to Purplle and 1mg within same month. Now on 4 marketplaces. Dermatologist-backed positioning.', strength: 'strong' },
+    { channel: 'influencer', brand: 'The Formula Rx', city: 'Chandigarh', date: '2026-02-10', detail: '18 micro-influencer posts in 30 days. Brand at only 95K followers. Organic creator buzz building.', strength: 'moderate' },
+    { channel: 'fundraise', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-09', detail: 'Series A at INR 75Cr from Stellaris Venture Partners. Home decor D2C from Kolkata scaling nationally.', strength: 'strong' },
+    { channel: 'shark_tank', brand: 'Slurrp Farm', city: 'Gurugram', date: '2026-02-09', detail: 'Shark Tank S1 alumni. Search interest still at 68% of peak episode after 2 years. Strong retention.', strength: 'moderate' },
+    { channel: 'regional', brand: 'Aura Crafts', city: 'Jaipur', date: '2026-02-08', detail: 'Google Trends index 48 in Rajasthan, 35 in Gujarat, only 10 nationally. Tier 2 breakout.', strength: 'moderate' },
+    { channel: 'trademark', brand: 'Terra Casa', city: 'Pondicherry', date: '2026-02-08', detail: 'Trademark filed Nov 2025. Website launched Dec 2025. IG account Jan 2026. Full brand build in 3 months.', strength: 'moderate' },
+    { channel: 'mca', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-07', detail: 'FY25 revenue INR 45Cr, up from INR 18Cr. 150% YoY growth. Home decor category outlier.', strength: 'strong' },
+    { channel: 'bsr', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-07', detail: 'Kapiva Dia Free Juice at #2 in Ayurvedic Health. From #35 in 45 days. Seasonal spike + organic demand.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'Let\'s Dress Up', city: 'Surat', date: '2026-02-06', detail: 'IG: 148K → 180K in 30 days (22% MoM). Ethnic fusion from Surat gaining national traction.', strength: 'strong' },
+];
+
+// Regional hotspot data — cities with emerging brand signals
+const REGIONAL_HOTSPOTS = [
+    { city: 'Chandigarh', state: 'Punjab', tier: 2, brands: ['Theater.xyz', 'The Formula Rx'], signalCount: 8, topCategory: 'Fashion & Beauty' },
+    { city: 'Jaipur', state: 'Rajasthan', tier: 2, brands: ['Aura Crafts', 'Ellementry'], signalCount: 12, topCategory: 'Home & Living' },
+    { city: 'Coimbatore', state: 'Tamil Nadu', tier: 2, brands: ['Juicy Chemistry'], signalCount: 7, topCategory: 'Beauty' },
+    { city: 'Surat', state: 'Gujarat', tier: 2, brands: ["Let's Dress Up"], signalCount: 6, topCategory: 'Fashion' },
+    { city: 'Kolkata', state: 'West Bengal', tier: 2, brands: ['Nestasia'], signalCount: 9, topCategory: 'Home & Living' },
+    { city: 'Kochi', state: 'Kerala', tier: 2, brands: ['Happy Rationals'], signalCount: 5, topCategory: 'Health & Wellness' },
+    { city: 'Ahmedabad', state: 'Gujarat', tier: 2, brands: ['Fixderma'], signalCount: 7, topCategory: 'Beauty' },
+    { city: 'Lucknow', state: 'Uttar Pradesh', tier: 2, brands: ['CureDose'], signalCount: 4, topCategory: 'Health' },
+    { city: 'Indore', state: 'Madhya Pradesh', tier: 2, brands: ['TrueBasics'], signalCount: 5, topCategory: 'Health' },
+    { city: 'Pondicherry', state: 'Tamil Nadu', tier: 3, brands: ['Terra Casa'], signalCount: 4, topCategory: 'Home & Living' },
+    { city: 'Hyderabad', state: 'Telangana', tier: 1, brands: ["Sid's Farm"], signalCount: 6, topCategory: 'Food & Beverage' },
+    { city: 'Bangalore', state: 'Karnataka', tier: 1, brands: ['Kapiva', 'Samosa Party'], signalCount: 11, topCategory: 'Health & Food' },
+];
+
 // --- Composite Scoring ---
 function computeCompositeScores() {
     const scores = {};

@@ -38,6 +38,7 @@ function initPanel(panelId) {
         case 'traffic': initTraffic(); break;
         case 'social': initSocial(); break;
         case 'employee': initEmployee(); break;
+        case 'early-signals': initEarlySignals(); break;
         case 'breakout': initBreakout(); break;
         case 'watchlist': initWatchlist(); break;
         case 'brand-lookup': /* no-op, stays as-is */ break;
@@ -1732,6 +1733,344 @@ function addLookupToWatchlist(name, sectorLabel, color) {
     const sectorKey = sectorMap[sectorLabel] || 'fashion';
     document.getElementById('newCompanySector').value = sectorKey;
     openAddCompanyModal();
+}
+
+// =====================================================
+// Early Signal Scanner Panel
+// =====================================================
+
+function initEarlySignals() {
+    renderEarlySignalKpis();
+    renderDiscoveryFunnel();
+    renderSignalMatrix('all');
+    renderRegionalRadar();
+    renderGrowthVelocityChart();
+    renderConvergenceCards();
+    renderSignalFeed('all');
+    renderDiscoveryLeaderboard();
+}
+
+function renderEarlySignalKpis() {
+    const totalSignals = SIGNAL_FEED.length;
+    const convergenceBrands = DISCOVERED_BRANDS.filter(b => {
+        const count = Object.values(b.signals).filter(Boolean).length;
+        return count >= 3;
+    });
+    const tier2Cities = REGIONAL_HOTSPOTS.filter(h => h.tier >= 2);
+    const pipelineBrands = DISCOVERED_BRANDS.length;
+
+    document.getElementById('kpiNewSignals').textContent = totalSignals;
+    document.getElementById('kpiNewSignalsDelta').textContent = `across 10 channels this period`;
+    document.getElementById('kpiConvergence').textContent = convergenceBrands.length;
+    document.getElementById('kpiConvergenceDelta').textContent = `brands in 3+ signal sources`;
+    document.getElementById('kpiRegionalHotspots').textContent = tier2Cities.length;
+    document.getElementById('kpiRegionalDelta').textContent = `Tier 2/3 cities active`;
+    document.getElementById('kpiPipelineBrands').textContent = pipelineBrands;
+    document.getElementById('kpiPipelineDelta').textContent = `in discovery funnel`;
+}
+
+function renderDiscoveryFunnel() {
+    const stages = {
+        'Detected': DISCOVERED_BRANDS.filter(b => b.stage === 'Detected'),
+        'Verified': DISCOVERED_BRANDS.filter(b => b.stage === 'Verified'),
+        'Tracking': DISCOVERED_BRANDS.filter(b => b.stage === 'Tracking'),
+        'Scored': DISCOVERED_BRANDS.filter(b => b.stage === 'Scored'),
+    };
+
+    const stageColors = {
+        'Detected': '#f59e0b',
+        'Verified': '#3b82f6',
+        'Tracking': '#8b5cf6',
+        'Scored': '#10b981',
+    };
+
+    const stageDescriptions = {
+        'Detected': 'Initial signal detected in 1-2 channels. Under investigation.',
+        'Verified': 'Signal confirmed across 3+ channels. Data collection started.',
+        'Tracking': 'Active monitoring. Data enrichment in progress.',
+        'Scored': 'Fully scored and integrated into main dashboard.',
+    };
+
+    const maxCount = Math.max(...Object.values(stages).map(s => s.length), 1);
+    const container = document.getElementById('discoveryFunnel');
+
+    let html = '<div class="funnel-stages">';
+    PIPELINE_STAGES.forEach((stage, i) => {
+        const brands = stages[stage];
+        const widthPct = Math.max(30, (brands.length / maxCount) * 100);
+        const color = stageColors[stage];
+
+        html += `
+        <div class="funnel-stage">
+            <div class="funnel-stage-header">
+                <span class="funnel-stage-name" style="color:${color};">${stage}</span>
+                <span class="funnel-stage-count" style="background:${color}20; color:${color};">${brands.length} brands</span>
+            </div>
+            <div class="funnel-bar-container">
+                <div class="funnel-bar" style="width:${widthPct}%; background: linear-gradient(90deg, ${color}40, ${color}15);border-left:3px solid ${color};">
+                    <div class="funnel-brands">
+                        ${brands.map(b => `<span class="funnel-brand-tag">${b.name}</span>`).join('')}
+                        ${brands.length === 0 ? `<span class="funnel-empty">No brands at this stage</span>` : ''}
+                    </div>
+                </div>
+            </div>
+            <div class="funnel-stage-desc">${stageDescriptions[stage]}</div>
+        </div>`;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function renderSignalMatrix(filter) {
+    let brands = [...DISCOVERED_BRANDS];
+
+    if (filter === 'convergence') {
+        brands = brands.filter(b => Object.values(b.signals).filter(Boolean).length >= 3);
+    } else if (filter === 'new') {
+        brands = brands.filter(b => b.stage === 'Detected');
+    }
+
+    brands.sort((a, b) => b.discoveryScore - a.discoveryScore);
+
+    let html = `<table class="heatmap-table"><thead><tr><th>Brand</th><th>City</th>`;
+    SIGNAL_CHANNELS.forEach(ch => {
+        html += `<th><span class="signal-channel-header" style="color:${ch.color};" data-tooltip="${ch.description}">${ch.name.split(' ')[0]}<br><span style="font-size:9px;font-weight:400;">${ch.name.split(' ').slice(1).join(' ')}</span></span></th>`;
+    });
+    html += `<th>Count</th><th>Score</th></tr></thead><tbody>`;
+
+    brands.forEach(b => {
+        const signalCount = Object.values(b.signals).filter(Boolean).length;
+        const stageColor = b.stage === 'Detected' ? '#f59e0b' : b.stage === 'Verified' ? '#3b82f6' : b.stage === 'Tracking' ? '#8b5cf6' : '#10b981';
+
+        html += `<tr><td><strong>${b.name}</strong><br><span style="font-size:10px;color:var(--text-muted);">${b.sectorLabel}</span></td>`;
+        html += `<td><span style="font-size:11px;">${b.city}</span><br><span style="font-size:10px;color:var(--text-muted);">${b.state}</span></td>`;
+
+        SIGNAL_CHANNELS.forEach(ch => {
+            const active = b.signals[ch.id];
+            if (active) {
+                html += `<td><span class="signal-dot active" style="background:${ch.color};" title="${ch.name}: Active">&#10003;</span></td>`;
+            } else {
+                html += `<td><span class="signal-dot inactive">-</span></td>`;
+            }
+        });
+
+        html += `<td><strong>${signalCount}</strong>/10</td>`;
+        html += `<td><span class="signal-score-badge" style="background:${getDiscoveryScoreColor(b.discoveryScore)}20;color:${getDiscoveryScoreColor(b.discoveryScore)};">${b.discoveryScore}</span></td>`;
+        html += `</tr>`;
+    });
+
+    html += `</tbody></table>`;
+    document.getElementById('signalMatrix').innerHTML = html;
+}
+
+function filterSignalMatrix(filter, btn) {
+    document.querySelectorAll('#panel-early-signals .chart-actions .chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    renderSignalMatrix(filter);
+}
+
+function getDiscoveryScoreColor(score) {
+    if (score >= 80) return '#10b981';
+    if (score >= 65) return '#3b82f6';
+    if (score >= 50) return '#f59e0b';
+    return '#ef4444';
+}
+
+function renderRegionalRadar() {
+    const container = document.getElementById('regionalRadar');
+    const sorted = [...REGIONAL_HOTSPOTS].sort((a, b) => b.signalCount - a.signalCount);
+
+    let html = '<div class="regional-radar-grid">';
+    sorted.forEach(h => {
+        const tierColor = h.tier === 3 ? '#f59e0b' : h.tier === 2 ? '#8b5cf6' : '#3b82f6';
+        const tierLabel = `Tier ${h.tier}`;
+        const barWidth = Math.max(20, (h.signalCount / 12) * 100);
+
+        html += `
+        <div class="regional-radar-row">
+            <div class="regional-info">
+                <span class="regional-city">${h.city}</span>
+                <span class="regional-state">${h.state}</span>
+                <span class="regional-tier-badge" style="background:${tierColor}20;color:${tierColor};">${tierLabel}</span>
+            </div>
+            <div class="regional-bar-wrapper">
+                <div class="regional-bar" style="width:${barWidth}%; background: linear-gradient(90deg, ${tierColor}50, ${tierColor}20);"></div>
+                <span class="regional-signal-count">${h.signalCount} signals</span>
+            </div>
+            <div class="regional-brands">
+                ${h.brands.map(b => `<span class="regional-brand-chip">${b}</span>`).join('')}
+            </div>
+            <div class="regional-category">${h.topCategory}</div>
+        </div>`;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function renderGrowthVelocityChart() {
+    destroyChart('growthVelocity');
+    const brands = [...DISCOVERED_BRANDS]
+        .filter(b => b.igGrowthRate > 0)
+        .sort((a, b) => b.igGrowthRate - a.igGrowthRate)
+        .slice(0, 10);
+
+    const ctx = document.getElementById('growthVelocityChart').getContext('2d');
+
+    charts.growthVelocity = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: brands.map(b => b.name),
+            datasets: [{
+                label: 'IG Growth Rate (% MoM)',
+                data: brands.map(b => b.igGrowthRate),
+                backgroundColor: brands.map(b => {
+                    if (b.igGrowthRate >= 25) return 'rgba(16, 185, 129, 0.5)';
+                    if (b.igGrowthRate >= 15) return 'rgba(59, 130, 246, 0.5)';
+                    return 'rgba(245, 158, 11, 0.4)';
+                }),
+                borderColor: brands.map(b => {
+                    if (b.igGrowthRate >= 25) return '#10b981';
+                    if (b.igGrowthRate >= 15) return '#3b82f6';
+                    return '#f59e0b';
+                }),
+                borderWidth: 1,
+                borderRadius: 4,
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.6,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(42, 45, 62, 0.4)' },
+                    title: { display: true, text: 'Monthly Growth %', color: '#9aa0b0', font: { size: 11 } },
+                },
+                y: { grid: { display: false } },
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function(context) {
+                            const brand = brands[context.dataIndex];
+                            return `Followers: ${brand.igFollowers}\nCity: ${brand.city}`;
+                        },
+                    },
+                },
+            },
+        },
+    });
+}
+
+function renderConvergenceCards() {
+    const convergenceBrands = DISCOVERED_BRANDS
+        .filter(b => Object.values(b.signals).filter(Boolean).length >= 3)
+        .sort((a, b) => b.discoveryScore - a.discoveryScore)
+        .slice(0, 6);
+
+    const container = document.getElementById('convergenceCards');
+
+    if (convergenceBrands.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:40px;">No convergence alerts at this time.</div>';
+        return;
+    }
+
+    container.innerHTML = convergenceBrands.map(b => {
+        const signalCount = Object.values(b.signals).filter(Boolean).length;
+        const activeSignals = SIGNAL_CHANNELS.filter(ch => b.signals[ch.id]);
+        const scoreColor = getDiscoveryScoreColor(b.discoveryScore);
+        const stageColor = b.stage === 'Detected' ? '#f59e0b' : b.stage === 'Verified' ? '#3b82f6' : b.stage === 'Tracking' ? '#8b5cf6' : '#10b981';
+
+        return `
+        <div class="breakout-card">
+            <div class="breakout-card-header">
+                <div>
+                    <h4>${b.name}</h4>
+                    <span style="font-size:11px; color:var(--text-muted);">${b.city}, ${b.state} &middot; ${b.sectorLabel}</span>
+                </div>
+                <span class="signal-score-lg" style="color:${scoreColor};">${b.discoveryScore}</span>
+            </div>
+            <div class="convergence-detail">${b.detail}</div>
+            <div class="breakout-metrics">
+                <div class="breakout-metric">
+                    <span class="breakout-metric-label">Signals</span>
+                    <span class="breakout-metric-value" style="color:#f59e0b;">${signalCount}/10</span>
+                </div>
+                <div class="breakout-metric">
+                    <span class="breakout-metric-label">IG Growth</span>
+                    <span class="breakout-metric-value" style="color:#e1306c;">+${b.igGrowthRate}% MoM</span>
+                </div>
+                <div class="breakout-metric">
+                    <span class="breakout-metric-label">Revenue</span>
+                    <span class="breakout-metric-value" style="color:#06b6d4;">${b.estRevenue}</span>
+                </div>
+                <div class="breakout-metric">
+                    <span class="breakout-metric-label">Stage</span>
+                    <span class="breakout-metric-value" style="color:${stageColor};">${b.stage}</span>
+                </div>
+            </div>
+            <div class="convergence-signals">
+                ${activeSignals.map(ch => `<span class="signal-channel-chip" style="background:${ch.color}20;color:${ch.color};border:1px solid ${ch.color}30;">${ch.icon} ${ch.name}</span>`).join('')}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderSignalFeed(channelFilter) {
+    let events = [...SIGNAL_FEED];
+    if (channelFilter !== 'all') {
+        events = events.filter(e => e.channel === channelFilter);
+    }
+
+    const container = document.getElementById('signalFeed');
+    const channelMap = {};
+    SIGNAL_CHANNELS.forEach(ch => { channelMap[ch.id] = ch; });
+
+    container.innerHTML = events.map(e => {
+        const ch = channelMap[e.channel];
+        const strengthColor = e.strength === 'strong' ? '#10b981' : '#f59e0b';
+
+        return `
+        <div class="social-post signal-feed-item">
+            <div class="post-header">
+                <span class="signal-feed-channel" style="background:${ch.color}20;color:${ch.color};">${ch.icon} ${ch.name}</span>
+                <span class="post-date">${e.date}</span>
+                <span class="signal-strength-badge" style="background:${strengthColor}20;color:${strengthColor};">${e.strength}</span>
+            </div>
+            <div class="post-title"><strong>${e.brand}</strong> &middot; ${e.city}</div>
+            <div class="post-body">${e.detail}</div>
+        </div>`;
+    }).join('');
+}
+
+function filterSignalFeed(channel) {
+    renderSignalFeed(channel);
+}
+
+function renderDiscoveryLeaderboard() {
+    const brands = [...DISCOVERED_BRANDS].sort((a, b) => b.discoveryScore - a.discoveryScore);
+    const tbody = document.getElementById('discoveryLeaderboardBody');
+
+    tbody.innerHTML = brands.map(b => {
+        const signalCount = Object.values(b.signals).filter(Boolean).length;
+        const scoreColor = getDiscoveryScoreColor(b.discoveryScore);
+        const stageColor = b.stage === 'Detected' ? '#f59e0b' : b.stage === 'Verified' ? '#3b82f6' : b.stage === 'Tracking' ? '#8b5cf6' : '#10b981';
+
+        return `<tr>
+            <td><strong>${b.name}</strong></td>
+            <td>${b.city}, ${b.state}</td>
+            <td>${b.sectorLabel}</td>
+            <td><strong>${signalCount}</strong>/10</td>
+            <td><span style="font-size:11px;">${b.strongestSignal}</span></td>
+            <td>${trendArrow(b.igGrowthRate)} <span style="font-size:10px;color:var(--text-muted);">(${b.igFollowers})</span></td>
+            <td>${b.estRevenue}</td>
+            <td><span class="signal-badge" style="background:${stageColor}15;color:${stageColor};border:1px solid ${stageColor}30;">${b.stage}</span></td>
+            <td><span class="signal-score-badge" style="background:${scoreColor}20;color:${scoreColor};font-weight:700;">${b.discoveryScore}</span></td>
+        </tr>`;
+    }).join('');
 }
 
 // --- Global Controls ---

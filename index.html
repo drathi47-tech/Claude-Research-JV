@@ -41,6 +41,11 @@
                     <span class="nav-icon">&#9881;</span> Employee Reviews
                 </button>
 
+                <div class="nav-section-label" style="margin-top: 24px;">Discovery</div>
+                <button class="nav-item" data-panel="early-signals" onclick="switchPanel('early-signals')">
+                    <span class="nav-icon">&#9879;</span> Early Signal Scanner
+                </button>
+
                 <div class="nav-section-label" style="margin-top: 24px;">Analysis</div>
                 <button class="nav-item" data-panel="breakout" onclick="switchPanel('breakout')">
                     <span class="nav-icon">&#9889;</span> Breakout Detector
@@ -591,6 +596,134 @@
                                     </tr>
                                 </thead>
                                 <tbody id="employeeTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Early Signal Scanner Panel -->
+                <div class="panel" id="panel-early-signals">
+                    <div class="panel-header">
+                        <h1>Early Signal Scanner</h1>
+                        <p class="panel-description">10-channel discovery engine to catch fast-growing D2C brands before they appear on FAST42 or mainstream trackers — pan-India coverage</p>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">New Signals Detected</div>
+                            <div class="kpi-value" style="color: #10b981;" id="kpiNewSignals">--</div>
+                            <div class="kpi-delta positive" id="kpiNewSignalsDelta">across 10 channels</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Signal Convergence Alerts</div>
+                            <div class="kpi-value" style="color: #f59e0b;" id="kpiConvergence">--</div>
+                            <div class="kpi-delta positive" id="kpiConvergenceDelta">brands in 3+ sources</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Tier 2/3 Hotspots</div>
+                            <div class="kpi-value" style="color: #8b5cf6;" id="kpiRegionalHotspots">--</div>
+                            <div class="kpi-delta positive" id="kpiRegionalDelta">cities with breakout signals</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Pipeline Brands</div>
+                            <div class="kpi-value" style="color: #06b6d4;" id="kpiPipelineBrands">--</div>
+                            <div class="kpi-delta positive" id="kpiPipelineDelta">in discovery funnel</div>
+                        </div>
+                    </div>
+
+                    <!-- Discovery Pipeline Funnel -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Discovery Pipeline</h3>
+                            <p class="chart-subtitle" style="font-size:11px; color:var(--text-muted);">Brand sourcing funnel — from initial signal detection to full tracking</p>
+                        </div>
+                        <div class="discovery-funnel" id="discoveryFunnel"></div>
+                    </div>
+
+                    <!-- Signal Source Matrix -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>10-Channel Signal Matrix</h3>
+                            <div class="chart-actions">
+                                <button class="chip active" onclick="filterSignalMatrix('all', this)">All Brands</button>
+                                <button class="chip" onclick="filterSignalMatrix('convergence', this)">3+ Signals Only</button>
+                                <button class="chip" onclick="filterSignalMatrix('new', this)">Newly Detected</button>
+                            </div>
+                        </div>
+                        <div class="heatmap-container" id="signalMatrix"></div>
+                    </div>
+
+                    <!-- Regional Trend Radar + Growth Velocity side-by-side -->
+                    <div class="chart-grid-2col">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Regional Trend Radar</h3>
+                                <p class="chart-subtitle" style="font-size:11px; color:var(--text-muted);">Brands trending in Tier 2/3 cities before going national</p>
+                            </div>
+                            <div id="regionalRadar"></div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Growth Velocity Screener</h3>
+                            </div>
+                            <canvas id="growthVelocityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Signal Convergence Alert Cards -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Signal Convergence Alerts</h3>
+                            <p class="chart-subtitle" style="font-size:11px; color:var(--text-muted);">Brands appearing in 3+ signal sources simultaneously — highest conviction discoveries</p>
+                        </div>
+                        <div class="breakout-cards" id="convergenceCards"></div>
+                    </div>
+
+                    <!-- Source-wise Signal Feed -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Recent Signal Feed</h3>
+                            <div class="chart-actions">
+                                <select class="mini-select" id="signalFeedFilter" onchange="filterSignalFeed(this.value)">
+                                    <option value="all">All Channels</option>
+                                    <option value="mca">MCA/ROC Filings</option>
+                                    <option value="ig_growth">IG Follower Growth</option>
+                                    <option value="bsr">Amazon BSR Climbers</option>
+                                    <option value="regional">Regional Trends</option>
+                                    <option value="shark_tank">Shark Tank Alumni</option>
+                                    <option value="hiring">LinkedIn Hiring</option>
+                                    <option value="trademark">Trademark Filings</option>
+                                    <option value="marketplace">Marketplace Onboarding</option>
+                                    <option value="influencer">Micro-Influencer Density</option>
+                                    <option value="fundraise">Fundraise Announcements</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="social-feed" id="signalFeed"></div>
+                    </div>
+
+                    <!-- Full Discovery Leaderboard -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Discovery Leaderboard</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Brand</th>
+                                        <th>City</th>
+                                        <th>Sector</th>
+                                        <th>Signal Count</th>
+                                        <th>Strongest Signal</th>
+                                        <th>IG Growth</th>
+                                        <th>Est. Revenue</th>
+                                        <th>Stage</th>
+                                        <th>Discovery Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="discoveryLeaderboardBody"></tbody>
                             </table>
                         </div>
                     </div>
