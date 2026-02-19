@@ -249,26 +249,32 @@
                         <p class="panel-description">Review volume, ratings, sentiment analysis, and consumer feedback across e-commerce platforms</p>
                     </div>
 
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                        <span style="font-size:12px;color:var(--text-muted);">Show KPIs for:</span>
+                        <select class="mini-select" id="ecommKpiCompanySelect" onchange="renderEcommerceKpis()">
+                            <option value="all">All Companies (avg)</option>
+                        </select>
+                    </div>
                     <div class="kpi-grid" id="ecommerceKpis">
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Rating (Amazon)</div>
-                            <div class="kpi-value" style="color: #ff9900;" id="kpiAmazonRating">4.2</div>
-                            <div class="kpi-delta positive" id="kpiAmazonRatingDelta">+0.3 vs last period</div>
+                            <div class="kpi-value" style="color: #ff9900;" id="kpiAmazonRating">--</div>
+                            <div class="kpi-delta positive" id="kpiAmazonRatingDelta"></div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Rating (Myntra)</div>
-                            <div class="kpi-value" style="color: #ff3f6c;" id="kpiMyntraRating">4.0</div>
-                            <div class="kpi-delta positive" id="kpiMyntraRatingDelta">+0.2 vs last period</div>
+                            <div class="kpi-value" style="color: #ff3f6c;" id="kpiMyntraRating">--</div>
+                            <div class="kpi-delta positive" id="kpiMyntraRatingDelta"></div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Total Reviews</div>
-                            <div class="kpi-value" style="color: #06b6d4;" id="kpiTotalReviews">2,847</div>
-                            <div class="kpi-delta positive" id="kpiTotalReviewsDelta">across filtered companies</div>
+                            <div class="kpi-value" style="color: #06b6d4;" id="kpiTotalReviews">--</div>
+                            <div class="kpi-delta positive" id="kpiTotalReviewsDelta"></div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Avg Sentiment</div>
-                            <div class="kpi-value" style="color: #10b981;" id="kpiEcommSentiment">72%</div>
-                            <div class="kpi-delta positive" id="kpiEcommSentimentDelta">across platforms</div>
+                            <div class="kpi-value" style="color: #10b981;" id="kpiEcommSentiment">--</div>
+                            <div class="kpi-delta positive" id="kpiEcommSentimentDelta"></div>
                         </div>
                     </div>
 
@@ -355,7 +361,11 @@
                 <div class="panel" id="panel-traffic">
                     <div class="panel-header">
                         <h1>Website Traffic</h1>
-                        <p class="panel-description">Estimated web traffic and engagement metrics (SimilarWeb / proxy data)</p>
+                        <p class="panel-description">Simulated web traffic trends for directional comparison only — not sourced from SimilarWeb. Verify actual numbers on <a href="https://www.similarweb.com" target="_blank" style="color:var(--accent-blue);">SimilarWeb</a> before use.</p>
+                    </div>
+
+                    <div style="background:rgba(234,179,8,0.1); border:1px solid rgba(234,179,8,0.3); border-radius:8px; padding:8px 14px; margin:0 0 12px; font-size:11px; color:#eab308;">
+                        Data below is simulated for trend visualization. Cross-check with SimilarWeb for actual monthly visits, bounce rate, and session duration.
                     </div>
 
                     <div class="traffic-kpi-header">
@@ -365,22 +375,22 @@
 
                     <div class="kpi-grid" id="trafficKpis">
                         <div class="kpi-card">
-                            <div class="kpi-label">Est. Monthly Visits</div>
+                            <div class="kpi-label">Est. Monthly Visits <span style="font-size:9px;color:var(--text-muted);">(simulated)</span></div>
                             <div class="kpi-value" style="color: #3b82f6;" id="kpiTotalVisits">--</div>
                             <div class="kpi-delta" id="kpiTotalVisitsDelta"></div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Avg Time on Site</div>
+                            <div class="kpi-label">Avg Time on Site <span style="font-size:9px;color:var(--text-muted);">(simulated)</span></div>
                             <div class="kpi-value" style="color: #8b5cf6;" id="kpiAvgDuration">--</div>
                             <div class="kpi-delta" id="kpiAvgDurationDelta"></div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Bounce Rate</div>
+                            <div class="kpi-label">Bounce Rate <span style="font-size:9px;color:var(--text-muted);">(simulated)</span></div>
                             <div class="kpi-value" style="color: #f59e0b;" id="kpiBounceRate">--</div>
                             <div class="kpi-delta" id="kpiBounceRateDelta"></div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-label">Pages / Visit</div>
+                            <div class="kpi-label">Pages / Visit <span style="font-size:9px;color:var(--text-muted);">(simulated)</span></div>
                             <div class="kpi-value" style="color: #10b981;" id="kpiPagesPerVisit">--</div>
                             <div class="kpi-delta" id="kpiPagesPerVisitDelta"></div>
                         </div>

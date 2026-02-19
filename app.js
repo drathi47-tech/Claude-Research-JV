@@ -425,6 +425,7 @@ function renderGoogleTrendsTable() {
 function initEcommerce() {
     populateCompanySelect('reviewSummaryCompanySelect');
     populateCompanySelect('ecommMoodCompanySelect');
+    populateEcommKpiCompanySelect();
     // Reset platform toggle to default (Amazon)
     resetPlatformToggle('#panel-ecommerce', 0);
     renderEcommerceKpis();
@@ -437,22 +438,50 @@ function initEcommerce() {
     renderEcommerceTable();
 }
 
-function renderEcommerceKpis() {
+function populateEcommKpiCompanySelect() {
+    const select = document.getElementById('ecommKpiCompanySelect');
+    if (!select) return;
     const companies = getFilteredCompanies();
-    if (companies.length === 0) return;
-    const avgAmazon = (companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].amazon.avgRating, 0) / companies.length).toFixed(1);
-    const avgMyntra = (companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].myntra.avgRating, 0) / companies.length).toFixed(1);
-    const totalReviews = companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].amazon.totalReviews + ECOMMERCE_DATA[c.id].myntra.totalReviews, 0);
-    const avgSentiment = Math.round(companies.reduce((s, c) => s + (ECOMMERCE_DATA[c.id].amazon.sentiment + ECOMMERCE_DATA[c.id].myntra.sentiment) / 2, 0) / companies.length);
+    select.innerHTML = '<option value="all">All Companies (avg)</option>' +
+        companies.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+}
 
-    document.getElementById('kpiAmazonRating').textContent = avgAmazon;
-    document.getElementById('kpiAmazonRatingDelta').textContent = `avg across ${companies.length} companies`;
-    document.getElementById('kpiMyntraRating').textContent = avgMyntra;
-    document.getElementById('kpiMyntraRatingDelta').textContent = `avg across ${companies.length} companies`;
-    document.getElementById('kpiTotalReviews').textContent = formatNumber(totalReviews);
-    document.getElementById('kpiTotalReviewsDelta').textContent = `Amazon + Myntra combined`;
-    document.getElementById('kpiEcommSentiment').textContent = avgSentiment + '%';
-    document.getElementById('kpiEcommSentimentDelta').textContent = `avg across platforms`;
+function renderEcommerceKpis() {
+    const selectedId = document.getElementById('ecommKpiCompanySelect')?.value || 'all';
+
+    if (selectedId !== 'all' && ECOMMERCE_DATA[selectedId]) {
+        // Single brand view
+        const ec = ECOMMERCE_DATA[selectedId];
+        const company = COMPANIES.find(c => c.id === selectedId);
+        const brandName = company ? company.name : selectedId;
+
+        document.getElementById('kpiAmazonRating').textContent = ec.amazon.avgRating;
+        document.getElementById('kpiAmazonRatingDelta').textContent = brandName;
+        document.getElementById('kpiMyntraRating').textContent = ec.myntra.avgRating;
+        document.getElementById('kpiMyntraRatingDelta').textContent = brandName;
+        document.getElementById('kpiTotalReviews').textContent = formatNumber(ec.amazon.totalReviews + ec.myntra.totalReviews);
+        document.getElementById('kpiTotalReviewsDelta').textContent = `${brandName} — Amazon + Myntra`;
+        const sentiment = Math.round((ec.amazon.sentiment + ec.myntra.sentiment) / 2);
+        document.getElementById('kpiEcommSentiment').textContent = sentiment + '%';
+        document.getElementById('kpiEcommSentimentDelta').textContent = brandName;
+    } else {
+        // Aggregate view
+        const companies = getFilteredCompanies();
+        if (companies.length === 0) return;
+        const avgAmazon = (companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].amazon.avgRating, 0) / companies.length).toFixed(1);
+        const avgMyntra = (companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].myntra.avgRating, 0) / companies.length).toFixed(1);
+        const totalReviews = companies.reduce((s, c) => s + ECOMMERCE_DATA[c.id].amazon.totalReviews + ECOMMERCE_DATA[c.id].myntra.totalReviews, 0);
+        const avgSentiment = Math.round(companies.reduce((s, c) => s + (ECOMMERCE_DATA[c.id].amazon.sentiment + ECOMMERCE_DATA[c.id].myntra.sentiment) / 2, 0) / companies.length);
+
+        document.getElementById('kpiAmazonRating').textContent = avgAmazon;
+        document.getElementById('kpiAmazonRatingDelta').textContent = `avg across ${companies.length} companies`;
+        document.getElementById('kpiMyntraRating').textContent = avgMyntra;
+        document.getElementById('kpiMyntraRatingDelta').textContent = `avg across ${companies.length} companies`;
+        document.getElementById('kpiTotalReviews').textContent = formatNumber(totalReviews);
+        document.getElementById('kpiTotalReviewsDelta').textContent = `Amazon + Myntra combined`;
+        document.getElementById('kpiEcommSentiment').textContent = avgSentiment + '%';
+        document.getElementById('kpiEcommSentimentDelta').textContent = `avg across platforms`;
+    }
 }
 
 function switchEcommPlatform(platform, btn) {

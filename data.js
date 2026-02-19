@@ -45,7 +45,6 @@ const COMPANIES = [
     // --- FAST42 / Emerging D2C Brands ---
     { id: 'theater', name: 'Theater.xyz', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'theater.xyz', color: '#6366f1', estValuation: 'INR 50-100Cr', estRevenue: 'INR 14.1Cr/yr (14x YoY)' },
     { id: 'pantproject', name: 'The Pant Project', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'thepantproject.com', color: '#334155', estValuation: 'INR 161Cr', estRevenue: 'INR 40.7Cr/yr' },
-    { id: 'houseofem5', name: 'House of EM5', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'houseofem5.in', color: '#a16207', estValuation: 'INR 10Cr', estRevenue: 'INR 20Cr/yr' },
     { id: 'whatsupwellness', name: "What's Up Wellness", sector: 'health', sectorLabel: 'Health & Wellness', website: 'whatsupwellness.in', color: '#e879f9', estValuation: 'INR 64Cr', estRevenue: 'INR 25Cr/yr' },
     { id: 'masterchow', name: 'MasterChow', sector: 'food', sectorLabel: 'Food & Beverage', website: 'masterchow.in', color: '#dc2626', estValuation: 'INR 236Cr', estRevenue: 'INR 40Cr/yr' },
     { id: 'nathabit', name: 'Nat Habit', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'nathabit.in', color: '#65a30d', estValuation: 'INR 343Cr', estRevenue: 'INR 72Cr/yr' },
@@ -94,8 +93,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, houseofem5: 1.40, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
-const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, houseofem5: 10, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
+const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
+const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -666,8 +665,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, houseofem5: 65000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000 };
-const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, houseofem5: 1.30, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
+const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000 };
+const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -1025,9 +1024,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, houseofem5: 600, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
-const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, houseofem5: 18000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
-const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, houseofem5: 2000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
+const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
+const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
+const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
@@ -1079,8 +1078,7 @@ const SOCIAL_POSTS = [
     { platform: 'linkedin', handle: 'D2C Insider', title: 'Mokobara raised $12M Series B. The luggage D2C play is working. Here\'s why investors are excited.', likes: 5600, comments: 345, time: '12h ago', sentiment: 'positive', brand: 'mokobara' },
     { platform: 'reddit', subreddit: 'r/IndianSkincareAddicts', title: 'Nat Habit ubtan changed my skin in 2 weeks — no preservatives, fresh delivery. Review.', upvotes: 2100, comments: 380, time: '7h ago', sentiment: 'positive', brand: 'nathabit' },
     { platform: 'instagram', handle: '@wellnessdiaries', title: 'What\'s Up Wellness Sleep Gummies — finally sleeping 7+ hours. 30-day honest review.', likes: 4200, comments: 310, time: '4h ago', sentiment: 'positive', brand: 'whatsupwellness' },
-    { platform: 'linkedin', handle: 'FAST42 by Inc42', title: 'House of EM5 from INR 69L to INR 20Cr in 2 years. The bootstrapped luxury fragrance story.', likes: 5800, comments: 402, time: '6h ago', sentiment: 'positive', brand: 'houseofem5' },
-    { platform: 'reddit', subreddit: 'r/IndianProducts', title: 'DrinkPrime water purifier subscription vs buying — 6 month cost comparison. Worth it?', upvotes: 1600, comments: 240, time: '8h ago', sentiment: 'positive', brand: 'drinkprime' },
+{ platform: 'reddit', subreddit: 'r/IndianProducts', title: 'DrinkPrime water purifier subscription vs buying — 6 month cost comparison. Worth it?', upvotes: 1600, comments: 240, time: '8h ago', sentiment: 'positive', brand: 'drinkprime' },
     { platform: 'instagram', handle: '@fitnessjunkie.in', title: 'Boldfit gym accessories haul — resistance bands, shaker, yoga mat. All under Rs 2000!', likes: 3800, comments: 245, time: '5h ago', sentiment: 'positive', brand: 'boldfit' },
     { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Neemans wool sneakers 6-month review. Sustainable footwear that actually lasts?', upvotes: 1400, comments: 190, time: '11h ago', sentiment: 'positive', brand: 'neemans' },
     { platform: 'instagram', handle: '@ragecoffeeofficial', title: 'New Irish Hazelnut Rage Coffee. Instant coffee that doesn\'t taste instant. Available now.', likes: 3400, comments: 210, time: '9h ago', sentiment: 'positive', brand: 'ragecoffee' },
@@ -1637,6 +1635,48 @@ const DISCOVERED_BRANDS = [
         stage: 'Tracking', discoveryScore: 83, igFollowers: '44K', igGrowthRate: 22,
         strongestSignal: 'Regional Trends', detail: 'Jaipur-based QSR coffee chain. 100+ outlets across 39 cities. Pre-Series A from Prath Ventures ($2.3M). 70%+ revenue growth FY25. Expanding aggressively in Tier 2/3 cities. International presence (Portugal). Revenue: verify via MCA filing.'
     },
+    {
+        id: 'snitch', name: 'Snitch', city: 'Bengaluru', state: 'Karnataka', tier: 1,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: true, qcommerce: true, gst: true },
+        stage: 'Verified', discoveryScore: 95, igFollowers: '450K+', igGrowthRate: 15,
+        strongestSignal: 'MCA/ROC Filings', detail: 'Fast-fashion menswear with 15-20 day design-to-shelf cycle. Shark Tank S2 (all 5 sharks). Series B: $40M from 360 ONE (Jun 2025). 72 stores across 36 cities. Reportedly Rs 500Cr+ revenue FY25 — verify via MCA.'
+    },
+    {
+        id: 'foxtale_d', name: 'Foxtale', city: 'Mumbai', state: 'Maharashtra', tier: 1,
+        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: true, gst: true },
+        stage: 'Verified', discoveryScore: 92, igFollowers: '450K', igGrowthRate: 18,
+        strongestSignal: 'Fundraise Announcements', detail: 'Science-backed skincare for Indian skin. Series C: $30M from KOSE Corporation Japan (Jan 2025). On Nykaa, Blinkit, Amazon. 50% repeat purchase rate. Revenue reportedly doubled YoY — verify via MCA.'
+    },
+    {
+        id: 'zofffoods', name: 'Zoff Foods', city: 'Raipur', state: 'Chhattisgarh', tier: 2,
+        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: false, fundraise: true, shark_tank: true, trademark: true, qcommerce: false, gst: true },
+        stage: 'Tracking', discoveryScore: 86, igFollowers: '27K', igGrowthRate: 15,
+        strongestSignal: 'Shark Tank Alumni', detail: 'Raipur-based spice brand ("The Spice Brothers"). Shark Tank S2 (Aman Gupta) + returned S4. Series A: Rs 40Cr from JM Financial PE (Aug 2024). 10K+ retail outlets. True Tier 2 breakout from Chhattisgarh. Revenue: verify via MCA.'
+    },
+    {
+        id: 'farmley', name: 'Farmley', city: 'Jaipur', state: 'Rajasthan', tier: 2,
+        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: true, gst: true },
+        stage: 'Verified', discoveryScore: 90, igFollowers: '154K', igGrowthRate: 12,
+        strongestSignal: 'Fundraise Announcements', detail: 'Jaipur-based dry fruits and healthy snacks. Series C: $40M from L Catterton (2025). EBITDA positive in FY25. Rahul Dravid as brand ambassador. 10K+ retail outlets. International expansion (US, UAE). Revenue: verify via MCA.'
+    },
+    {
+        id: 'adilqadri', name: 'Adil Qadri', city: 'Bilimora', state: 'Gujarat', tier: 3,
+        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: true, trademark: true, qcommerce: true, gst: true },
+        stage: 'Verified', discoveryScore: 88, igFollowers: '955K', igGrowthRate: 20,
+        strongestSignal: 'IG Follower Growth', detail: 'Bilimora (Tier 3, Gujarat) attar & perfume brand. Shark Tank S3 (Vineeta Singh). School dropout founder. 4,500 orders/day. 27+ stores incl. Dubai. 95% online. Bootstrapped + profitable. True Tier 3 breakout. Revenue: verify via MCA.'
+    },
+    {
+        id: 'beyondsnack', name: 'Beyond Snack', city: 'Kerala', state: 'Kerala', tier: 2,
+        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: true, qcommerce: true, gst: true },
+        stage: 'Tracking', discoveryScore: 85, igFollowers: '50K+', igGrowthRate: 16,
+        strongestSignal: 'Amazon BSR', detail: 'Kerala banana chips brand. Shark Tank S1 (Ashneer + Aman). Series A: $8.3M from 12 Flags (Dec 2024). 10K+ retail outlets. On Blinkit, Zepto, Instamart. Present in 18 cities, 12 countries. Revenue: verify via MCA.'
+    },
 ];
 
 // Signal feed events (recent detections across all 12 channels)
@@ -1672,18 +1712,33 @@ const SIGNAL_FEED = [
     { channel: 'mca', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-07', detail: 'FY25 MCA filing available. Significant YoY revenue growth detected. Home decor category. Verify via Tofler/Zauba Corp.', strength: 'strong' },
     { channel: 'bsr', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-07', detail: 'Kapiva products showing strong BSR improvement in Ayurvedic Health. Track rank movement via Jungle Scout/Helium10.', strength: 'strong' },
     { channel: 'trademark', brand: 'Aretto', city: 'Pune', date: '2026-02-06', detail: 'Patented expanding-shoe technology (SuperGrooves, Aretto Squishy Foam, INFI-KNIT). Strong IP moat. Verify via IP India.', strength: 'strong' },
+    { channel: 'fundraise', brand: 'Snitch', city: 'Bengaluru', date: '2026-02-06', detail: 'Series B: $40M from 360 ONE Asset Management (Jun 2025). Shark Tank S2 alumni — all 5 sharks invested. 72 stores. Verify via Inc42/Tracxn.', strength: 'strong' },
+    { channel: 'shark_tank', brand: 'Snitch', city: 'Bengaluru', date: '2026-02-05', detail: 'Shark Tank S2 — all 5 sharks invested Rs 1.5Cr at Rs 300Cr valuation. Scaled to Rs 500Cr+ revenue since. Verify via MCA.', strength: 'strong' },
+    { channel: 'fundraise', brand: 'Foxtale', city: 'Mumbai', date: '2026-02-05', detail: 'Series C: $30M led by KOSE Corporation Japan (Jan 2025). KOSE took 10% strategic stake. Verify via Inc42/YourStory.', strength: 'strong' },
+    { channel: 'qcommerce', brand: 'Foxtale', city: 'Mumbai', date: '2026-02-04', detail: 'Available on Blinkit, Nykaa, Amazon, Flipkart. Quick commerce scaling for skincare category. Verify listings.', strength: 'strong' },
+    { channel: 'shark_tank', brand: 'Zoff Foods', city: 'Raipur', date: '2026-02-04', detail: 'Shark Tank S2 + returned S4. Rs 1Cr from Aman Gupta. Series A: Rs 40Cr from JM Financial PE. Tier 2 breakout from Raipur. Verify via Entrackr.', strength: 'strong' },
+    { channel: 'regional', brand: 'Zoff Foods', city: 'Raipur', date: '2026-02-04', detail: 'Chhattisgarh-based spice brand now in 10K+ retail outlets nationally. True Tier 2 city breakout. Verify via company reports.', strength: 'strong' },
+    { channel: 'fundraise', brand: 'Farmley', city: 'Jaipur', date: '2026-02-03', detail: 'Series C: $40M from L Catterton (2025). EBITDA positive. Rahul Dravid as brand ambassador. Verify via Inc42.', strength: 'strong' },
+    { channel: 'gst', brand: 'Farmley', city: 'Jaipur', date: '2026-02-03', detail: 'Revenue reported at Rs 370Cr FY25. EBITDA positive. Targeting Rs 1000Cr. Verify exact figures via Tofler/MCA.', strength: 'strong' },
+    { channel: 'shark_tank', brand: 'Adil Qadri', city: 'Bilimora', date: '2026-02-02', detail: 'Shark Tank S3 (Vineeta Singh). School dropout founder from Tier 3 Gujarat. 4,500 orders/day. 27+ stores incl. Dubai. Verify via SharkTankIndiaClub.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'Adil Qadri', city: 'Bilimora', date: '2026-02-02', detail: '~955K IG followers. 95% online sales. Bootstrapped and profitable. Largest perfume/attar D2C IG presence in India. Verify via Social Blade.', strength: 'strong' },
+    { channel: 'shark_tank', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-01', detail: 'Shark Tank S1 (Ashneer + Aman). Series A: $8.3M from 12 Flags (Dec 2024). Now in 18 cities, 12 countries. Verify via Inc42.', strength: 'strong' },
+    { channel: 'qcommerce', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-01', detail: 'Present on Blinkit, Zepto, Instamart + 10K retail outlets (DMart, Reliance). Quick commerce as growth lever. Verify listings.', strength: 'strong' },
 ];
 
 // Regional hotspot data — cities with emerging brand signals
 const REGIONAL_HOTSPOTS = [
     { city: 'Chandigarh', state: 'Punjab', tier: 2, brands: ['Theater.xyz'], signalCount: 8, topCategory: 'Fashion & Beauty' },
-    { city: 'Jaipur', state: 'Rajasthan', tier: 2, brands: ['Ellementry', 'Nothing Before Coffee'], signalCount: 14, topCategory: 'Home & F&B' },
+    { city: 'Jaipur', state: 'Rajasthan', tier: 2, brands: ['Ellementry', 'Nothing Before Coffee', 'Farmley'], signalCount: 18, topCategory: 'Home & F&B' },
     { city: 'Pune', state: 'Maharashtra', tier: 1, brands: ['Aretto'], signalCount: 7, topCategory: 'Fashion & Footwear' },
+    { city: 'Raipur', state: 'Chhattisgarh', tier: 2, brands: ['Zoff Foods'], signalCount: 9, topCategory: 'Food & Beverage' },
+    { city: 'Bilimora', state: 'Gujarat', tier: 3, brands: ['Adil Qadri'], signalCount: 10, topCategory: 'Beauty & Fragrances' },
     { city: 'Ludhiana', state: 'Punjab', tier: 2, brands: ['Lahori Beverages'], signalCount: 8, topCategory: 'Food & Beverage' },
     { city: 'Kolkata', state: 'West Bengal', tier: 2, brands: ['Nestasia'], signalCount: 9, topCategory: 'Home & Living' },
     { city: 'Ahmedabad', state: 'Gujarat', tier: 2, brands: ['Fixderma'], signalCount: 7, topCategory: 'Beauty' },
     { city: 'Hyderabad', state: 'Telangana', tier: 1, brands: ["Sid's Farm"], signalCount: 6, topCategory: 'Food & Beverage' },
-    { city: 'Bangalore', state: 'Karnataka', tier: 1, brands: ['Kapiva', 'Samosa Party'], signalCount: 11, topCategory: 'Health & Food' },
+    { city: 'Bangalore', state: 'Karnataka', tier: 1, brands: ['Kapiva', 'Samosa Party', 'Snitch'], signalCount: 14, topCategory: 'Health & Fashion' },
+    { city: 'Kerala', state: 'Kerala', tier: 2, brands: ['Beyond Snack'], signalCount: 8, topCategory: 'Food & Beverage' },
 ];
 
 // --- Composite Scoring ---
