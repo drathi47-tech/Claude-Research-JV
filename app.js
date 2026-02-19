@@ -2005,7 +2005,7 @@ function renderConvergenceCards() {
                 </div>
                 <div class="breakout-metric">
                     <span class="breakout-metric-label">Revenue</span>
-                    <span class="breakout-metric-value" style="color:#06b6d4;">${b.estRevenue}</span>
+                    <span class="breakout-metric-value" style="color:${b.estRevenue.startsWith('Verify') || b.estRevenue.startsWith('Pre-') ? 'var(--text-muted)' : '#06b6d4'}; font-size:${b.estRevenue.startsWith('Verify') ? '10px' : '13px'};">${b.estRevenue}</span>
                 </div>
                 <div class="breakout-metric">
                     <span class="breakout-metric-label">Stage</span>
@@ -2066,7 +2066,7 @@ function renderDiscoveryLeaderboard() {
             <td><strong>${signalCount}</strong>/10</td>
             <td><span style="font-size:11px;">${b.strongestSignal}</span></td>
             <td>${trendArrow(b.igGrowthRate)} <span style="font-size:10px;color:var(--text-muted);">(${b.igFollowers})</span></td>
-            <td>${b.estRevenue}</td>
+            <td style="${b.estRevenue.startsWith('Verify') || b.estRevenue.startsWith('Pre-') ? 'color:var(--text-muted);font-size:11px;font-style:italic;' : ''}">${b.estRevenue}</td>
             <td><span class="signal-badge" style="background:${stageColor}15;color:${stageColor};border:1px solid ${stageColor}30;">${b.stage}</span></td>
             <td><span class="signal-score-badge" style="background:${scoreColor}20;color:${scoreColor};font-weight:700;">${b.discoveryScore}</span></td>
         </tr>`;
