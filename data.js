@@ -1550,11 +1550,11 @@ COMPANIES.forEach(c => {
 // NEW brands discovered by the scanner (not yet in COMPANIES — pan-India, Tier 2/3 cities)
 const DISCOVERED_BRANDS = [
     {
-        id: 'juicy_chemistry', name: 'Juicy Chemistry', city: 'Coimbatore', state: 'Tamil Nadu', tier: 2,
-        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'INR 85Cr/yr',
+        id: 'lahori', name: 'Lahori Beverages', city: 'Ludhiana', state: 'Punjab', tier: 2,
+        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'INR 120Cr/yr',
         signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
-        stage: 'Tracking', discoveryScore: 88, igFollowers: '320K', igGrowthRate: 18,
-        strongestSignal: 'MCA/ROC Filings', detail: 'Revenue jumped from INR 12Cr to INR 85Cr in 2 years. Organic-certified beauty from Coimbatore, now on Nykaa + Purplle + Amazon.'
+        stage: 'Tracking', discoveryScore: 89, igFollowers: '290K', igGrowthRate: 20,
+        strongestSignal: 'MCA/ROC Filings', detail: 'Traditional Indian beverages (Shikanji, Zeera Soda) from Ludhiana. Revenue 4x in 2 years to INR 120Cr. Now in 50K+ retail outlets. Series B from Verlinvest.'
     },
     {
         id: 'letsdressup', name: "Let's Dress Up", city: 'Surat', state: 'Gujarat', tier: 2,
@@ -1658,7 +1658,7 @@ const DISCOVERED_BRANDS = [
 
 // Signal feed events (recent detections across all 10 channels)
 const SIGNAL_FEED = [
-    { channel: 'mca', brand: 'Juicy Chemistry', city: 'Coimbatore', date: '2026-02-18', detail: 'MCA filing shows INR 85Cr revenue (FY25), up from INR 32Cr (FY24). 165% YoY growth.', strength: 'strong' },
+    { channel: 'mca', brand: 'Lahori Beverages', city: 'Ludhiana', date: '2026-02-18', detail: 'MCA filing shows INR 120Cr revenue (FY25), up from INR 30Cr (FY23). 4x growth in 2 years. Traditional Indian beverage category leader.', strength: 'strong' },
     { channel: 'ig_growth', brand: 'Terra Casa', city: 'Pondicherry', date: '2026-02-18', detail: 'IG followers jumped from 11K to 18K in 45 days (38% MoM). Handmade ceramics trending.', strength: 'moderate' },
     { channel: 'bsr', brand: 'Slurrp Farm', city: 'Gurugram', date: '2026-02-17', detail: 'Amazon BSR moved from #82 to #7 in Baby Foods category in 60 days.', strength: 'strong' },
     { channel: 'regional', brand: 'The Formula Rx', city: 'Chandigarh', date: '2026-02-17', detail: 'Google Trends index 62 in Punjab/Haryana but only 8 nationally. Regional breakout detected.', strength: 'strong' },
@@ -1689,7 +1689,7 @@ const SIGNAL_FEED = [
 const REGIONAL_HOTSPOTS = [
     { city: 'Chandigarh', state: 'Punjab', tier: 2, brands: ['Theater.xyz', 'The Formula Rx'], signalCount: 8, topCategory: 'Fashion & Beauty' },
     { city: 'Jaipur', state: 'Rajasthan', tier: 2, brands: ['Aura Crafts', 'Ellementry'], signalCount: 12, topCategory: 'Home & Living' },
-    { city: 'Coimbatore', state: 'Tamil Nadu', tier: 2, brands: ['Juicy Chemistry'], signalCount: 7, topCategory: 'Beauty' },
+    { city: 'Ludhiana', state: 'Punjab', tier: 2, brands: ['Lahori Beverages'], signalCount: 8, topCategory: 'Food & Beverage' },
     { city: 'Surat', state: 'Gujarat', tier: 2, brands: ["Let's Dress Up"], signalCount: 6, topCategory: 'Fashion' },
     { city: 'Kolkata', state: 'West Bengal', tier: 2, brands: ['Nestasia'], signalCount: 9, topCategory: 'Home & Living' },
     { city: 'Kochi', state: 'Kerala', tier: 2, brands: ['Happy Rationals'], signalCount: 5, topCategory: 'Health & Wellness' },
