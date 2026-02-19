@@ -1746,7 +1746,7 @@ const REGIONAL_HOTSPOTS = [
 const LINKEDIN_HIRING_DATA = [
     {
         hireName: 'Rajesh Mehta',
-        linkedinUrl: 'https://www.linkedin.com/in/rajesh-mehta-fmcg/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Rajesh%20Mehta%20Hindustan%20Unilever',
         role: 'Chief Marketing Officer',
         workExYears: 18,
         lastCompany: 'Hindustan Unilever (HUL)',
@@ -1756,7 +1756,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Priya Sharma',
-        linkedinUrl: 'https://www.linkedin.com/in/priya-sharma-supply-chain/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Priya%20Sharma%20Marico',
         role: 'Chief Operating Officer',
         workExYears: 22,
         lastCompany: 'Marico',
@@ -1766,7 +1766,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Vikram Desai',
-        linkedinUrl: 'https://www.linkedin.com/in/vikram-desai-retail/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Vikram%20Desai%20DMart%20Avenue%20Supermarts',
         role: 'Chief Revenue Officer',
         workExYears: 16,
         lastCompany: 'Avenue Supermarts (D-Mart)',
@@ -1776,7 +1776,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Ananya Krishnan',
-        linkedinUrl: 'https://www.linkedin.com/in/ananya-krishnan-digital/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Ananya%20Krishnan%20Bharti%20Airtel',
         role: 'Chief Digital Officer',
         workExYears: 14,
         lastCompany: 'Bharti Airtel',
@@ -1786,7 +1786,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Suresh Iyer',
-        linkedinUrl: 'https://www.linkedin.com/in/suresh-iyer-cfo/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Suresh%20Iyer%20Dabur%20India',
         role: 'Chief Financial Officer',
         workExYears: 20,
         lastCompany: 'Dabur India',
@@ -1796,7 +1796,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Meera Patel',
-        linkedinUrl: 'https://www.linkedin.com/in/meera-patel-brand/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Meera%20Patel%20Godrej%20Consumer%20Products',
         role: 'VP - Brand & Communications',
         workExYears: 15,
         lastCompany: 'Godrej Consumer Products',
@@ -1806,7 +1806,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Arjun Nair',
-        linkedinUrl: 'https://www.linkedin.com/in/arjun-nair-ops/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Arjun%20Nair%20ITC%20Limited',
         role: 'Chief Supply Chain Officer',
         workExYears: 17,
         lastCompany: 'ITC Limited',
@@ -1816,7 +1816,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Deepika Reddy',
-        linkedinUrl: 'https://www.linkedin.com/in/deepika-reddy-hr/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Deepika%20Reddy%20Titan%20Company',
         role: 'Chief People Officer',
         workExYears: 13,
         lastCompany: 'Titan Company',
@@ -1826,7 +1826,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Karthik Sundaram',
-        linkedinUrl: 'https://www.linkedin.com/in/karthik-sundaram-tech/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Karthik%20Sundaram%20Reliance%20Retail',
         role: 'Chief Technology Officer',
         workExYears: 16,
         lastCompany: 'Reliance Retail',
@@ -1836,7 +1836,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Neha Gupta',
-        linkedinUrl: 'https://www.linkedin.com/in/neha-gupta-strategy/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Neha%20Gupta%20Tata%20Consumer%20Products',
         role: 'Chief Strategy Officer',
         workExYears: 19,
         lastCompany: 'Tata Consumer Products',
@@ -1846,7 +1846,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Rohit Bansal',
-        linkedinUrl: 'https://www.linkedin.com/in/rohit-bansal-growth/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Rohit%20Bansal%20Asian%20Paints',
         role: 'VP - Growth & Partnerships',
         workExYears: 12,
         lastCompany: 'Asian Paints',
@@ -1856,7 +1856,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Sanjana Bhatt',
-        linkedinUrl: 'https://www.linkedin.com/in/sanjana-bhatt-sales/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Sanjana%20Bhatt%20Britannia%20Industries',
         role: 'Chief Commercial Officer',
         workExYears: 15,
         lastCompany: 'Britannia Industries',
@@ -1866,7 +1866,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Aditya Verma',
-        linkedinUrl: 'https://www.linkedin.com/in/aditya-verma-product/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Aditya%20Verma%20Bajaj%20Electricals',
         role: 'Chief Product Officer',
         workExYears: 14,
         lastCompany: 'Bajaj Electricals',
@@ -1876,7 +1876,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Kavita Menon',
-        linkedinUrl: 'https://www.linkedin.com/in/kavita-menon-marketing/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Kavita%20Menon%20Colgate%20Palmolive%20India',
         role: 'VP - Marketing & D2C',
         workExYears: 11,
         lastCompany: 'Colgate-Palmolive India',
@@ -1886,7 +1886,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Amit Joshi',
-        linkedinUrl: 'https://www.linkedin.com/in/amit-joshi-logistics/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Amit%20Joshi%20Pidilite%20Industries',
         role: 'VP - Operations & Logistics',
         workExYears: 13,
         lastCompany: 'Pidilite Industries',
@@ -1896,7 +1896,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Shreya Agarwal',
-        linkedinUrl: 'https://www.linkedin.com/in/shreya-agarwal-finance/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Shreya%20Agarwal%20Nestle%20India',
         role: 'Chief Financial Officer',
         workExYears: 16,
         lastCompany: 'Nestle India',
@@ -1906,7 +1906,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Nikhil Rao',
-        linkedinUrl: 'https://www.linkedin.com/in/nikhil-rao-retail-strategy/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Nikhil%20Rao%20Hindustan%20Unilever',
         role: 'Chief Business Officer',
         workExYears: 18,
         lastCompany: 'Hindustan Unilever (HUL)',
@@ -1916,7 +1916,7 @@ const LINKEDIN_HIRING_DATA = [
     },
     {
         hireName: 'Pallavi Singh',
-        linkedinUrl: 'https://www.linkedin.com/in/pallavi-singh-d2c/',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Pallavi%20Singh%20Wipro%20Consumer%20Care',
         role: 'VP - E-commerce & Marketplace',
         workExYears: 12,
         lastCompany: 'Wipro Consumer Care',
