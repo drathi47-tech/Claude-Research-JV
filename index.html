@@ -51,6 +51,9 @@
                 <button class="nav-item" data-panel="brand-lookup" onclick="switchPanel('brand-lookup')">
                     <span class="nav-icon">&#128269;</span> Brand Lookup
                 </button>
+                <button class="nav-item" data-panel="methodology" onclick="switchPanel('methodology')">
+                    <span class="nav-icon">&#9881;</span> Methodology
+                </button>
             </nav>
 
             <div class="sidebar-footer">
@@ -677,6 +680,214 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Methodology Panel -->
+                <div class="panel" id="panel-methodology">
+                    <div class="panel-header">
+                        <h1>Methodology</h1>
+                        <p class="panel-description">How companies are selected, scored, and classified in the Consumer Trend Radar</p>
+                    </div>
+
+                    <!-- Selection Criteria -->
+                    <div class="methodology-section">
+                        <div class="methodology-card highlight">
+                            <div class="methodology-card-header">
+                                <span class="methodology-icon">&#9889;</span>
+                                <h3>Company Selection Criteria</h3>
+                            </div>
+                            <div class="methodology-rules">
+                                <div class="methodology-rule">
+                                    <div class="rule-badge rule-required">REQUIRED</div>
+                                    <div class="rule-content">
+                                        <strong>30% YoY Growth Threshold</strong>
+                                        <p>Companies must show at least 30% year-over-year growth across composite signals (Google Trends + E-commerce + Traffic + Social) to be included in the tracker.</p>
+                                    </div>
+                                </div>
+                                <div class="methodology-rule">
+                                    <div class="rule-badge rule-exception">EXCEPTION</div>
+                                    <div class="rule-content">
+                                        <strong>Social Breakout Override</strong>
+                                        <p>Brands below 30% composite growth can be included if they demonstrate breakout social signals — viral content, community-driven advocacy, or exceptional sentiment momentum that indicate imminent growth inflection.</p>
+                                    </div>
+                                </div>
+                                <div class="methodology-rule">
+                                    <div class="rule-badge rule-excluded">EXCLUDED</div>
+                                    <div class="rule-content">
+                                        <strong>Acquired Brands</strong>
+                                        <p>Companies that have been acquired are removed from tracking (e.g., Neemli Naturals &rarr; GOAT Brand Labs, Earth Rhythm &rarr; Nykaa). Acquisition removes them from the emerging D2C opportunity set.</p>
+                                    </div>
+                                </div>
+                                <div class="methodology-rule">
+                                    <div class="rule-badge rule-excluded">EXCLUDED</div>
+                                    <div class="rule-content">
+                                        <strong>Pre-Traction Brands</strong>
+                                        <p>Pre-seed companies with no measurable market traction are excluded. Signals require sufficient data points for meaningful scoring (minimum 6 months of trackable activity).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signal Scoring -->
+                    <div class="methodology-section">
+                        <h2 class="methodology-section-title">Signal Scoring Formulas</h2>
+                        <div class="methodology-grid">
+                            <div class="methodology-card signal-card">
+                                <div class="methodology-card-header">
+                                    <span class="methodology-icon" style="background: rgba(16,185,129,0.15); color: #10b981;">G</span>
+                                    <div>
+                                        <h3>Google Trends</h3>
+                                        <span class="signal-weight">25% weight</span>
+                                    </div>
+                                </div>
+                                <div class="methodology-formula">
+                                    <code>(90d momentum x 0.5) + (current / peak_12m x 50)</code>
+                                </div>
+                                <ul class="methodology-details">
+                                    <li><strong>90-day momentum (50%)</strong> — Percentage change in Google search interest over the past 90 days, measuring directional trend</li>
+                                    <li><strong>Peak proximity (50%)</strong> — How close the current search index is to the brand's 12-month peak, measuring sustained interest</li>
+                                    <li><strong>Data source</strong> — Weekly search interest index from Google Trends (52-week history)</li>
+                                    <li><strong>Range</strong> — 0 to 100 (capped)</li>
+                                </ul>
+                            </div>
+
+                            <div class="methodology-card signal-card">
+                                <div class="methodology-card-header">
+                                    <span class="methodology-icon" style="background: rgba(249,115,22,0.15); color: #f97316;">&#9733;</span>
+                                    <div>
+                                        <h3>E-commerce Reviews</h3>
+                                        <span class="signal-weight">20% weight</span>
+                                    </div>
+                                </div>
+                                <div class="methodology-formula">
+                                    <code>(amazon_sentiment + myntra_sentiment) / 2</code>
+                                </div>
+                                <ul class="methodology-details">
+                                    <li><strong>Amazon sentiment</strong> — Positive-to-negative review ratio weighted by recency on Amazon India</li>
+                                    <li><strong>Myntra sentiment</strong> — Same analysis for Myntra reviews (higher weight for fashion/beauty brands)</li>
+                                    <li><strong>Data points</strong> — Total reviews, avg rating, rating change, review velocity, sentiment score</li>
+                                    <li><strong>Range</strong> — 0 to 100</li>
+                                </ul>
+                            </div>
+
+                            <div class="methodology-card signal-card">
+                                <div class="methodology-card-header">
+                                    <span class="methodology-icon" style="background: rgba(59,130,246,0.15); color: #3b82f6;">&#8599;</span>
+                                    <div>
+                                        <h3>Website Traffic</h3>
+                                        <span class="signal-weight">30% weight (highest)</span>
+                                    </div>
+                                </div>
+                                <div class="methodology-formula">
+                                    <code>min(100, MoM_growth% x 2 + 50)</code>
+                                </div>
+                                <ul class="methodology-details">
+                                    <li><strong>Month-over-month growth</strong> — Percentage change in estimated monthly visits vs previous month</li>
+                                    <li><strong>Baseline 50</strong> — A score of 50 = flat traffic; above 50 = growing; below 50 = declining</li>
+                                    <li><strong>Why highest weight</strong> — Website traffic is the strongest leading indicator of commercial intent and conversion potential</li>
+                                    <li><strong>Range</strong> — 0 to 100 (capped)</li>
+                                </ul>
+                            </div>
+
+                            <div class="methodology-card signal-card">
+                                <div class="methodology-card-header">
+                                    <span class="methodology-icon" style="background: rgba(168,85,247,0.15); color: #a855f7;">&#9788;</span>
+                                    <div>
+                                        <h3>Social Sentiment</h3>
+                                        <span class="signal-weight">25% weight</span>
+                                    </div>
+                                </div>
+                                <div class="methodology-formula">
+                                    <code>(reddit + instagram + linkedin sentiment) / 3</code>
+                                </div>
+                                <ul class="methodology-details">
+                                    <li><strong>Reddit</strong> — Upvote ratios, comment tone analysis, and community engagement in relevant subreddits</li>
+                                    <li><strong>Instagram</strong> — Comment sentiment, engagement rate, and share velocity from brand mentions</li>
+                                    <li><strong>LinkedIn</strong> — Professional sentiment from posts, comments, and founder thought leadership</li>
+                                    <li><strong>Range</strong> — 0 to 100</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Composite & Classification -->
+                    <div class="methodology-section">
+                        <h2 class="methodology-section-title">Composite Score & Signal Classification</h2>
+                        <div class="methodology-card">
+                            <div class="methodology-card-header">
+                                <span class="methodology-icon" style="background: rgba(245,158,11,0.15); color: #f59e0b;">&#931;</span>
+                                <h3>Composite Score Formula</h3>
+                            </div>
+                            <div class="methodology-formula composite-formula">
+                                <code>Google (25%) + Reviews (20%) + Traffic (30%) + Social (25%) = Composite (0-100)</code>
+                            </div>
+                            <div class="classification-grid">
+                                <div class="classification-item classification-breakout">
+                                    <div class="classification-score">&ge; 75</div>
+                                    <div class="classification-label">Breakout</div>
+                                    <div class="classification-desc">Simultaneous strong signals across 3+ platforms. High-conviction investment signal.</div>
+                                </div>
+                                <div class="classification-item classification-trending">
+                                    <div class="classification-score">62 - 74</div>
+                                    <div class="classification-label">Trending</div>
+                                    <div class="classification-desc">Positive momentum with growing signals. Monitor closely for breakout potential.</div>
+                                </div>
+                                <div class="classification-item classification-watch">
+                                    <div class="classification-score">40 - 61</div>
+                                    <div class="classification-label">Watch</div>
+                                    <div class="classification-desc">Mixed signals or early-stage momentum. On the radar but not yet actionable.</div>
+                                </div>
+                                <div class="classification-item classification-declining">
+                                    <div class="classification-score">&lt; 40</div>
+                                    <div class="classification-label">Declining</div>
+                                    <div class="classification-desc">Weakening signals across platforms. Review for potential removal from tracker.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Sources -->
+                    <div class="methodology-section">
+                        <h2 class="methodology-section-title">Data Sources & Update Frequency</h2>
+                        <div class="methodology-card">
+                            <div class="data-sources-grid">
+                                <div class="data-source-item">
+                                    <div class="data-source-name">Google Trends</div>
+                                    <div class="data-source-detail">Weekly search interest index | 52 weeks history</div>
+                                </div>
+                                <div class="data-source-item">
+                                    <div class="data-source-name">Amazon India</div>
+                                    <div class="data-source-detail">Review volume, ratings, sentiment analysis | 26 weeks history</div>
+                                </div>
+                                <div class="data-source-item">
+                                    <div class="data-source-name">Myntra</div>
+                                    <div class="data-source-detail">Review volume, ratings, sentiment for fashion/beauty | 26 weeks history</div>
+                                </div>
+                                <div class="data-source-item">
+                                    <div class="data-source-name">SimilarWeb / Website Analytics</div>
+                                    <div class="data-source-detail">Monthly visits, bounce rate, avg duration, traffic sources | 12 months history</div>
+                                </div>
+                                <div class="data-source-item">
+                                    <div class="data-source-name">Reddit</div>
+                                    <div class="data-source-detail">Mention volume, upvote sentiment, subreddit engagement | 26 weeks history</div>
+                                </div>
+                                <div class="data-source-item">
+                                    <div class="data-source-name">Instagram</div>
+                                    <div class="data-source-detail">Mention volume, comment sentiment, engagement rate | 26 weeks history</div>
+                                </div>
+                                <div class="data-source-item">
+                                    <div class="data-source-name">LinkedIn</div>
+                                    <div class="data-source-detail">Post engagement, professional sentiment, founder activity | 26 weeks history</div>
+                                </div>
+                                <div class="data-source-item">
+                                    <div class="data-source-name">AmbitionBox / Glassdoor</div>
+                                    <div class="data-source-detail">Employee ratings, culture scores, CEO approval, recommend % | Quarterly snapshots</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>

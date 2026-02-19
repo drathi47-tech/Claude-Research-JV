@@ -1518,4 +1518,284 @@ body {
     .watchlist-grid {
         grid-template-columns: 1fr;
     }
+    .methodology-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Methodology Panel --- */
+.methodology-section {
+    margin-bottom: 28px;
+}
+
+.methodology-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.methodology-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.methodology-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.methodology-card.highlight {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(245, 158, 11, 0.03) 100%);
+}
+
+.methodology-card.signal-card {
+    transition: border-color 0.2s;
+}
+.methodology-card.signal-card:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+.methodology-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.methodology-card-header h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.methodology-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.signal-weight {
+    font-size: 11px;
+    color: var(--text-muted);
+    background: rgba(139, 92, 246, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.methodology-formula {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+.methodology-formula code {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    color: #10b981;
+    letter-spacing: 0.3px;
+}
+
+.methodology-formula.composite-formula {
+    text-align: center;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+.methodology-formula.composite-formula code {
+    font-size: 14px;
+    color: #f59e0b;
+}
+
+.methodology-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.methodology-details li {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.methodology-details li:last-child {
+    border-bottom: none;
+}
+.methodology-details li strong {
+    color: var(--text-primary);
+}
+
+/* Selection Rules */
+.methodology-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.methodology-rule {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.rule-badge {
+    flex-shrink: 0;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+.rule-required {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.rule-exception {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.rule-excluded {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.rule-content strong {
+    font-size: 13px;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 4px;
+}
+.rule-content p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Classification Grid */
+.classification-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.classification-item {
+    text-align: center;
+    padding: 16px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.classification-score {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.classification-label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.classification-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.classification-breakout {
+    background: rgba(16, 185, 129, 0.06);
+    border-color: rgba(16, 185, 129, 0.25);
+}
+.classification-breakout .classification-score,
+.classification-breakout .classification-label { color: #10b981; }
+
+.classification-trending {
+    background: rgba(59, 130, 246, 0.06);
+    border-color: rgba(59, 130, 246, 0.25);
+}
+.classification-trending .classification-score,
+.classification-trending .classification-label { color: #3b82f6; }
+
+.classification-watch {
+    background: rgba(245, 158, 11, 0.06);
+    border-color: rgba(245, 158, 11, 0.25);
+}
+.classification-watch .classification-score,
+.classification-watch .classification-label { color: #f59e0b; }
+
+.classification-declining {
+    background: rgba(239, 68, 68, 0.06);
+    border-color: rgba(239, 68, 68, 0.25);
+}
+.classification-declining .classification-score,
+.classification-declining .classification-label { color: #ef4444; }
+
+/* Data Sources */
+.data-sources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+}
+
+.data-source-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+.data-source-item:nth-child(2n) {
+    border-right: none;
+}
+.data-source-item:nth-last-child(-n+2) {
+    border-bottom: none;
+}
+
+.data-source-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+.data-source-detail {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+@media (max-width: 1200px) {
+    .methodology-grid {
+        grid-template-columns: 1fr;
+    }
+    .classification-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .data-sources-grid {
+        grid-template-columns: 1fr;
+    }
+    .data-source-item {
+        border-right: none;
+    }
 }
