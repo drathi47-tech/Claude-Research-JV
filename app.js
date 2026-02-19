@@ -1760,7 +1760,7 @@ function renderEarlySignalKpis() {
     const pipelineBrands = DISCOVERED_BRANDS.length;
 
     document.getElementById('kpiNewSignals').textContent = totalSignals;
-    document.getElementById('kpiNewSignalsDelta').textContent = `across 10 channels this period`;
+    document.getElementById('kpiNewSignalsDelta').textContent = `across 12 channels this period`;
     document.getElementById('kpiConvergence').textContent = convergenceBrands.length;
     document.getElementById('kpiConvergenceDelta').textContent = `brands in 3+ signal sources`;
     document.getElementById('kpiRegionalHotspots').textContent = tier2Cities.length;
@@ -1854,7 +1854,7 @@ function renderSignalMatrix(filter) {
             }
         });
 
-        html += `<td><strong>${signalCount}</strong>/10</td>`;
+        html += `<td><strong>${signalCount}</strong>/${SIGNAL_CHANNELS.length}</td>`;
         html += `<td><span class="signal-score-badge" style="background:${getDiscoveryScoreColor(b.discoveryScore)}20;color:${getDiscoveryScoreColor(b.discoveryScore)};">${b.discoveryScore}</span></td>`;
         html += `</tr>`;
     });
@@ -1997,7 +1997,7 @@ function renderConvergenceCards() {
             <div class="breakout-metrics">
                 <div class="breakout-metric">
                     <span class="breakout-metric-label">Signals</span>
-                    <span class="breakout-metric-value" style="color:#f59e0b;">${signalCount}/10</span>
+                    <span class="breakout-metric-value" style="color:#f59e0b;">${signalCount}/${SIGNAL_CHANNELS.length}</span>
                 </div>
                 <div class="breakout-metric">
                     <span class="breakout-metric-label">IG Growth</span>
@@ -2063,7 +2063,7 @@ function renderDiscoveryLeaderboard() {
             <td><strong>${b.name}</strong></td>
             <td>${b.city}, ${b.state}</td>
             <td>${b.sectorLabel}</td>
-            <td><strong>${signalCount}</strong>/10</td>
+            <td><strong>${signalCount}</strong>/${SIGNAL_CHANNELS.length}</td>
             <td><span style="font-size:11px;">${b.strongestSignal}</span></td>
             <td>${trendArrow(b.igGrowthRate)} <span style="font-size:10px;color:var(--text-muted);">(${b.igFollowers})</span></td>
             <td style="${b.estRevenue.startsWith('Verify') || b.estRevenue.startsWith('Pre-') ? 'color:var(--text-muted);font-size:11px;font-style:italic;' : ''}">${b.estRevenue}</td>

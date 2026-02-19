@@ -1510,10 +1510,10 @@ const DEFAULT_EMPLOYEE_REVIEWS = {
 };
 
 // =====================================================
-// Early Signal Scanner Data — 10-Channel Discovery Engine
+// Early Signal Scanner Data — 12-Channel Discovery Engine
 // =====================================================
 
-// Signal channel definitions
+// Signal channel definitions (12 channels — original 10 + Quick Commerce + GST Turnover)
 const SIGNAL_CHANNELS = [
     { id: 'mca', name: 'MCA/ROC Filings', icon: 'M', color: '#10b981', description: 'Ministry of Corporate Affairs revenue filings showing >100% YoY growth' },
     { id: 'ig_growth', name: 'IG Follower Growth', icon: 'I', color: '#e1306c', description: 'Instagram follower growth velocity >15% MoM with <500K total' },
@@ -1525,6 +1525,8 @@ const SIGNAL_CHANNELS = [
     { id: 'marketplace', name: 'Marketplace Onboarding', icon: 'P', color: '#d946ef', description: 'Brand appearing on 2+ marketplaces (Nykaa, Purplle, etc.) in 3 months' },
     { id: 'influencer', name: 'Micro-Influencer Density', icon: 'F', color: '#06b6d4', description: '>10 unique creator mentions in 30 days with <100K brand followers' },
     { id: 'fundraise', name: 'Fundraise Announcements', icon: '$', color: '#22c55e', description: 'First institutional round (Seed/Angel) raised in last 6 months' },
+    { id: 'qcommerce', name: 'Quick Commerce', icon: 'Q', color: '#ef4444', description: 'Brand listed on Blinkit/Zepto/Instamart — scaling signal for food/beauty' },
+    { id: 'gst', name: 'GST Turnover', icon: 'G', color: '#84cc16', description: 'GST filing turnover growth >80% YoY via Tofler/Zauba Corp' },
 ];
 
 // Discovery pipeline stages
@@ -1554,94 +1556,129 @@ const DISCOVERED_BRANDS = [
     {
         id: 'lahori', name: 'Lahori Beverages', city: 'Ludhiana', state: 'Punjab', tier: 2,
         sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false, qcommerce: true, gst: true },
         stage: 'Tracking', discoveryScore: 89, igFollowers: '290K', igGrowthRate: 20,
         strongestSignal: 'MCA/ROC Filings', detail: 'Traditional Indian beverages (Shikanji, Zeera Soda) from Ludhiana. Series B from Verlinvest. Expanding offline retail rapidly. Revenue: verify via MCA filing.'
     },
     {
         id: 'slurrpfarm', name: 'Slurrp Farm', city: 'Gurugram', state: 'Haryana', tier: 2,
         sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: false },
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: false, qcommerce: true, gst: true },
         stage: 'Verified', discoveryScore: 91, igFollowers: '450K', igGrowthRate: 12,
         strongestSignal: 'Amazon BSR', detail: 'Kids nutrition brand. Shark Tank S1 alumni. Strong BSR in Baby Foods. Multiple open roles on LinkedIn. Revenue: verify via MCA filing.'
     },
     {
         id: 'theformularx', name: 'The Formula Rx', city: 'India', state: 'India', tier: 2,
         sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'Verify via MCA',
-        signals: { mca: false, ig_growth: true, bsr: true, regional: true, hiring: false, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        signals: { mca: false, ig_growth: true, bsr: true, regional: true, hiring: false, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true, qcommerce: false, gst: false },
         stage: 'Detected', discoveryScore: 68, igFollowers: '57K', igGrowthRate: 28,
         strongestSignal: 'IG Follower Growth', detail: 'Dermocosmetics brand (theformularx.com). ~57K IG. Listed on Nykaa (KindLife). Dermatologist-backed sensitive skincare. City: verify. Revenue: not yet disclosed.'
     },
     {
         id: 'brownliving', name: 'Brown Living', city: 'Mumbai', state: 'Maharashtra', tier: 1,
         sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: false, regional: false, hiring: true, marketplace: false, influencer: true, fundraise: true, shark_tank: true, trademark: false },
+        signals: { mca: true, ig_growth: true, bsr: false, regional: false, hiring: true, marketplace: false, influencer: true, fundraise: true, shark_tank: true, trademark: false, qcommerce: false, gst: true },
         stage: 'Tracking', discoveryScore: 79, igFollowers: '210K', igGrowthRate: 14,
         strongestSignal: 'Fundraise Announcements', detail: 'Sustainable living marketplace. Shark Tank S2 featured. Seed round from Titan Capital. Active hiring. Revenue: verify via MCA filing.'
     },
     {
         id: 'bewakoof', name: 'Bewakoof', city: 'Mumbai', state: 'Maharashtra', tier: 1,
         sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false, qcommerce: false, gst: true },
         stage: 'Verified', discoveryScore: 85, igFollowers: '1.2M', igGrowthRate: 8,
         strongestSignal: 'MCA/ROC Filings', detail: 'Large-scale casual wear D2C. 7M+ app downloads. Strong BSR across categories. Active hiring. Funded by InvestCorp. Revenue: verify via MCA filing.'
     },
     {
         id: 'ellementry', name: 'Ellementry', city: 'Jaipur', state: 'Rajasthan', tier: 2,
         sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: false, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true },
+        signals: { mca: true, ig_growth: true, bsr: false, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: true, qcommerce: false, gst: true },
         stage: 'Tracking', discoveryScore: 76, igFollowers: '145K', igGrowthRate: 16,
         strongestSignal: 'Marketplace Onboarding', detail: 'Jaipur-based sustainable kitchenware. Listed on Nykaa + Amazon + Flipkart. Regional trend leader in Rajasthan. Revenue: verify via MCA filing.'
     },
     {
         id: 'kapiva', name: 'Kapiva', city: 'Bangalore', state: 'Karnataka', tier: 1,
         sector: 'health', sectorLabel: 'Health & Wellness', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false, qcommerce: true, gst: true },
         stage: 'Verified', discoveryScore: 87, igFollowers: '380K', igGrowthRate: 11,
         strongestSignal: 'Amazon BSR', detail: 'Modern Ayurveda brand. Strong BSR in Ayurvedic Health category. Series C from Fireside Ventures. Active hiring. Revenue: verify via MCA filing.'
     },
     {
         id: 'nestasia', name: 'Nestasia', city: 'Kolkata', state: 'West Bengal', tier: 2,
         sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false },
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false, qcommerce: false, gst: true },
         stage: 'Tracking', discoveryScore: 84, igFollowers: '280K', igGrowthRate: 15,
         strongestSignal: 'IG Follower Growth', detail: 'Kolkata-based premium home decor. Strong BSR in Home Decor. Trending in West Bengal + Odisha. Series A from Stellaris. Revenue: verify via MCA filing.'
     },
     {
         id: 'fixderma', name: 'Fixderma', city: 'Ahmedabad', state: 'Gujarat', tier: 2,
         sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: false },
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: false, shark_tank: false, trademark: false, qcommerce: false, gst: true },
         stage: 'Tracking', discoveryScore: 81, igFollowers: '200K', igGrowthRate: 17,
         strongestSignal: 'Regional Trends', detail: 'Ahmedabad-based dermatologist-backed skincare. Strong BSR in Sunscreen category. Breakout in Gujarat + Maharashtra. Revenue: verify via MCA filing.'
     },
+    {
+        id: 'theater', name: 'Theater.xyz', city: 'Chandigarh', state: 'Punjab', tier: 2,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: true, gst: true },
+        stage: 'Verified', discoveryScore: 93, igFollowers: '380K', igGrowthRate: 18,
+        strongestSignal: 'MCA/ROC Filings', detail: 'Chandigarh-based mass-premium western fashion (footwear, bags, perfumes). ~380K IG. Pre-Series A from Prath Ventures ($1.5M, Sep 2024). Featured in Vogue, Elle, Grazia. Expanding into quick commerce + offline retail. Revenue: verify via MCA/Tracxn.'
+    },
+    {
+        id: 'aretto', name: 'Aretto', city: 'Pune', state: 'Maharashtra', tier: 1,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: true, qcommerce: false, gst: true },
+        stage: 'Tracking', discoveryScore: 78, igFollowers: '71K', igGrowthRate: 15,
+        strongestSignal: 'Shark Tank Alumni', detail: 'Pune-based adaptive kids footwear with patented expanding-shoe tech. ~71K IG. Shark Tank India S3 (no deal but high visibility). Backed by Hardik Pandya. ~$1.29M across 3 seed rounds. ~77 employees. Revenue: verify via MCA filing.'
+    },
+    {
+        id: 'nbc', name: 'Nothing Before Coffee', city: 'Jaipur', state: 'Rajasthan', tier: 2,
+        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'Verify via MCA',
+        signals: { mca: true, ig_growth: true, bsr: false, regional: true, hiring: true, marketplace: false, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: true, gst: true },
+        stage: 'Tracking', discoveryScore: 83, igFollowers: '44K', igGrowthRate: 22,
+        strongestSignal: 'Regional Trends', detail: 'Jaipur-based QSR coffee chain. 100+ outlets across 39 cities. Pre-Series A from Prath Ventures ($2.3M). 70%+ revenue growth FY25. Expanding aggressively in Tier 2/3 cities. International presence (Portugal). Revenue: verify via MCA filing.'
+    },
 ];
 
-// Signal feed events (recent detections across all 10 channels)
+// Signal feed events (recent detections across all 12 channels)
 // NOTE: Revenue figures in MCA channel events are illustrative placeholders.
 // Replace with actual Tofler/Zauba/MCA data before using for investment decisions.
 const SIGNAL_FEED = [
+    { channel: 'fundraise', brand: 'Theater.xyz', city: 'Chandigarh', date: '2026-02-19', detail: 'Pre-Series A: $1.5M from Prath Ventures (Sep 2024). Same fund backed NBC. Verify via Inc42/Tracxn.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'Theater.xyz', city: 'Chandigarh', date: '2026-02-19', detail: '~380K IG followers. Featured in Vogue, Elle, Grazia, Cosmopolitan, Femina. Verify via Social Blade.', strength: 'strong' },
+    { channel: 'qcommerce', brand: 'Theater.xyz', city: 'Chandigarh', date: '2026-02-19', detail: 'Expanding into quick commerce channel per Inc42 report. Mass-premium fashion going omnichannel.', strength: 'strong' },
     { channel: 'mca', brand: 'Lahori Beverages', city: 'Ludhiana', date: '2026-02-18', detail: 'New MCA filing available for FY25. Revenue growth signal detected — verify exact figures via Tofler/Zauba Corp.', strength: 'strong' },
+    { channel: 'regional', brand: 'Nothing Before Coffee', city: 'Jaipur', date: '2026-02-18', detail: '100+ outlets across 39 cities. 52% YoY store count growth. Strongest in Tier 2/3 cities. Verify via company announcements.', strength: 'strong' },
+    { channel: 'fundraise', brand: 'Nothing Before Coffee', city: 'Jaipur', date: '2026-02-18', detail: 'Pre-Series A: $2.3M from Prath Ventures + SYL Investments. Targeting 150+ outlets by FY26. Verify via Tracxn.', strength: 'strong' },
     { channel: 'bsr', brand: 'Slurrp Farm', city: 'Gurugram', date: '2026-02-17', detail: 'Significant BSR improvement in Baby Foods category on Amazon. Track rank movement via Jungle Scout/Helium10.', strength: 'strong' },
+    { channel: 'shark_tank', brand: 'Aretto', city: 'Pune', date: '2026-02-17', detail: 'Shark Tank India S3 appearance (no deal). Patented expanding kids shoe tech. Post-episode search interest elevated. Verify via Google Trends.', strength: 'moderate' },
+    { channel: 'fundraise', brand: 'Aretto', city: 'Pune', date: '2026-02-17', detail: '~$1.29M across 3 seed rounds. Backed by cricketer Hardik Pandya. ~77 employees. Verify via Tracxn/Crunchbase.', strength: 'strong' },
     { channel: 'regional', brand: 'The Formula Rx', city: 'India', date: '2026-02-17', detail: 'Regional Google Trends breakout detected. Low national index suggests pre-national phase. Verify city of origin.', strength: 'strong' },
     { channel: 'shark_tank', brand: 'Brown Living', city: 'Mumbai', date: '2026-02-16', detail: 'Shark Tank S2 featured. Post-episode search interest sustaining well above baseline. Verify via Google Trends.', strength: 'moderate' },
     { channel: 'hiring', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-16', detail: 'Significant LinkedIn headcount growth detected. Multiple open roles including senior D2C positions. Verify via LinkedIn.', strength: 'strong' },
+    { channel: 'gst', brand: 'Theater.xyz', city: 'Chandigarh', date: '2026-02-16', detail: 'GST turnover growth signal. Tracxn reports significant revenue scale relative to minimal funding ($1.5M raised). Verify via Tofler.', strength: 'strong' },
     { channel: 'marketplace', brand: 'Ellementry', city: 'Jaipur', date: '2026-02-15', detail: 'Now listed on multiple marketplaces including Nykaa Home, Amazon, and Flipkart. Multi-platform onboarding signal.', strength: 'strong' },
+    { channel: 'qcommerce', brand: 'Lahori Beverages', city: 'Ludhiana', date: '2026-02-15', detail: 'Traditional beverages category expanding into quick commerce. Shikanji/Zeera Soda on Blinkit/Zepto. Verify listings.', strength: 'strong' },
     { channel: 'fundraise', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-14', detail: 'Series C round closed. Lead investors include Fireside Ventures. Verify round size via Tracxn/Crunchbase.', strength: 'strong' },
+    { channel: 'hiring', brand: 'Aretto', city: 'Pune', date: '2026-02-14', detail: '~77 employees as of Oct 2024. Growing headcount for a kids footwear startup. Verify via LinkedIn.', strength: 'moderate' },
     { channel: 'mca', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-13', detail: 'FY25 MCA filing available. Significant YoY revenue growth detected. Verify exact figures via Tofler/Zauba Corp.', strength: 'strong' },
+    { channel: 'qcommerce', brand: 'Nothing Before Coffee', city: 'Jaipur', date: '2026-02-13', detail: 'Online orders (Swiggy/Zomato) contributing 12-13% of total revenue. Quick commerce as growth lever. Verify via company reports.', strength: 'moderate' },
     { channel: 'bsr', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-12', detail: 'Fixderma Shadow SPF 50+ showing strong BSR improvement in Sunscreen category. Track via Jungle Scout.', strength: 'strong' },
     { channel: 'hiring', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-11', detail: 'Multiple senior open roles detected on LinkedIn: marketing, operations, data. Scaling signal. Verify via LinkedIn.', strength: 'moderate' },
     { channel: 'marketplace', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-10', detail: 'Added to multiple marketplaces in quick succession. Dermatologist-backed positioning. Verify listings directly.', strength: 'strong' },
     { channel: 'influencer', brand: 'The Formula Rx', city: 'India', date: '2026-02-10', detail: 'Rising micro-influencer mention density vs. small follower base. Organic creator buzz building. Verify via HypeAuditor.', strength: 'moderate' },
     { channel: 'fundraise', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-09', detail: 'Series A raised from Stellaris Venture Partners. Home decor D2C from Kolkata. Verify round details via Tracxn.', strength: 'strong' },
     { channel: 'shark_tank', brand: 'Slurrp Farm', city: 'Gurugram', date: '2026-02-09', detail: 'Shark Tank S1 alumni. Search interest showing sustained retention well above pre-episode baseline. Verify via Google Trends.', strength: 'moderate' },
+    { channel: 'gst', brand: 'Nothing Before Coffee', city: 'Jaipur', date: '2026-02-08', detail: '70%+ revenue growth FY25 per company reports. GST turnover growth signal. Verify via Tofler/Zauba Corp.', strength: 'strong' },
     { channel: 'mca', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-07', detail: 'FY25 MCA filing available. Significant YoY revenue growth detected. Home decor category. Verify via Tofler/Zauba Corp.', strength: 'strong' },
     { channel: 'bsr', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-07', detail: 'Kapiva products showing strong BSR improvement in Ayurvedic Health. Track rank movement via Jungle Scout/Helium10.', strength: 'strong' },
+    { channel: 'trademark', brand: 'Aretto', city: 'Pune', date: '2026-02-06', detail: 'Patented expanding-shoe technology (SuperGrooves, Aretto Squishy Foam, INFI-KNIT). Strong IP moat. Verify via IP India.', strength: 'strong' },
 ];
 
 // Regional hotspot data — cities with emerging brand signals
 const REGIONAL_HOTSPOTS = [
     { city: 'Chandigarh', state: 'Punjab', tier: 2, brands: ['Theater.xyz'], signalCount: 8, topCategory: 'Fashion & Beauty' },
-    { city: 'Jaipur', state: 'Rajasthan', tier: 2, brands: ['Ellementry'], signalCount: 12, topCategory: 'Home & Living' },
+    { city: 'Jaipur', state: 'Rajasthan', tier: 2, brands: ['Ellementry', 'Nothing Before Coffee'], signalCount: 14, topCategory: 'Home & F&B' },
+    { city: 'Pune', state: 'Maharashtra', tier: 1, brands: ['Aretto'], signalCount: 7, topCategory: 'Fashion & Footwear' },
     { city: 'Ludhiana', state: 'Punjab', tier: 2, brands: ['Lahori Beverages'], signalCount: 8, topCategory: 'Food & Beverage' },
     { city: 'Kolkata', state: 'West Bengal', tier: 2, brands: ['Nestasia'], signalCount: 9, topCategory: 'Home & Living' },
     { city: 'Ahmedabad', state: 'Gujarat', tier: 2, brands: ['Fixderma'], signalCount: 7, topCategory: 'Beauty' },
