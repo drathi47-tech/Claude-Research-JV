@@ -1,8 +1,19 @@
 // =====================================================
 // Consumer Trend Radar - Sample Data
 // Sub-$400M emerging D2C / consumer brands in India
-// 40 brands: FAST42-ranked + scaled D2C + early-stage
+// FAST42-ranked + scaled D2C + early-stage
 // Focused on breakout investment opportunities
+// =====================================================
+//
+// SELECTION CRITERIA:
+// - Minimum 30% YoY growth across composite signals (Google Trends,
+//   E-commerce reviews, website traffic, social sentiment)
+// - Exception: Brands below 30% growth are included ONLY if they show
+//   breakout social signals (viral content, community-driven advocacy,
+//   or exceptional sentiment momentum)
+// - Acquired brands are excluded (e.g., Neemli Naturals → GOAT,
+//   Earth Rhythm → Nykaa)
+// - Pre-seed brands with no measurable traction are excluded
 // =====================================================
 
 const COMPANIES = [
@@ -16,13 +27,13 @@ const COMPANIES = [
     { id: 'gynoveda', name: 'Gynoveda', sector: 'health', sectorLabel: 'Health & Wellness', website: 'gynoveda.com', color: '#d946ef', estValuation: 'INR 254Cr', estRevenue: 'INR 67Cr/yr' },
     { id: 'bareanatomy', name: 'Bare Anatomy', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'bareanatomy.com', color: '#a855f7', estValuation: '~$140M', estRevenue: 'INR 299Cr/yr (Innovist)' },
     { id: 'tbof', name: 'Two Brothers Organic Farms', sector: 'food', sectorLabel: 'Food & Beverage', website: 'twobrothersindiashop.com', color: '#22c55e', estValuation: 'INR 434Cr', estRevenue: 'INR 108Cr/yr' },
-    { id: 'ellementry', name: 'Ellementry', sector: 'home', sectorLabel: 'Home & Living', website: 'ellementry.com', color: '#f97316', estValuation: 'INR 100Cr', estRevenue: 'INR 15.8Cr/yr' },
+
     { id: 'cosmix', name: 'Cosmix', sector: 'health', sectorLabel: 'Health & Wellness', website: 'cosmix.in', color: '#14b8a6', estValuation: 'INR 375Cr', estRevenue: 'INR 51Cr/yr' },
-    { id: 'neemli', name: 'Neemli Naturals', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'neemlinaturals.com', color: '#8b5cf6', estValuation: 'Acquired (GOAT)', estRevenue: 'INR 1.9Cr/yr' },
+
     { id: 'samosaparty', name: 'Samosa Party', sector: 'food', sectorLabel: 'Food & Beverage', website: 'samosaparty.com', color: '#e11d48', estValuation: 'INR 274Cr', estRevenue: 'INR 58.5Cr/yr' },
-    { id: 'earthrhythm', name: 'Earth Rhythm', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'earthrhythm.com', color: '#0ea5e9', estValuation: 'Acquired (Nykaa)', estRevenue: 'INR 26.7Cr/yr' },
+
     { id: 'bombaysweets', name: 'Bombay Sweet Shop', sector: 'food', sectorLabel: 'Food & Beverage', website: 'bombaysweetshop.com', color: '#eab308', estValuation: 'INR 200Cr+ (grp)', estRevenue: 'INR 65Cr/yr' },
-    { id: 'staccato', name: 'Staccato Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'staccato.co.in', color: '#6366f1', estValuation: 'Pre-seed', estRevenue: 'Early stage' },
+
     // --- Scaled D2C Brands (sub-$400M valuation) ---
     { id: 'snitch', name: 'Snitch', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'snitch.co.in', color: '#f43f5e', estValuation: 'INR 2500Cr', estRevenue: 'INR 520Cr/yr' },
     { id: 'mokobara', name: 'Mokobara', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'mokobara.com', color: '#0d9488', estValuation: '~$80M', estRevenue: 'INR 230Cr/yr' },
@@ -32,6 +43,7 @@ const COMPANIES = [
     { id: 'bsc', name: 'Bombay Shaving Company', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'bombayshavingcompany.com', color: '#0369a1', estValuation: 'INR 824Cr+', estRevenue: 'INR 550Cr/yr (RR)' },
     { id: 'ragecoffee', name: 'Rage Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'ragecoffee.com', color: '#ea580c', estValuation: 'INR 186Cr', estRevenue: 'INR 25Cr/yr' },
     // --- FAST42 / Emerging D2C Brands ---
+    { id: 'theater', name: 'Theater.xyz', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'theater.xyz', color: '#6366f1', estValuation: 'INR 50-100Cr', estRevenue: 'INR 14.1Cr/yr (14x YoY)' },
     { id: 'pantproject', name: 'The Pant Project', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'thepantproject.com', color: '#334155', estValuation: 'INR 161Cr', estRevenue: 'INR 40.7Cr/yr' },
     { id: 'houseofem5', name: 'House of EM5', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'houseofem5.in', color: '#a16207', estValuation: 'INR 10Cr', estRevenue: 'INR 20Cr/yr' },
     { id: 'whatsupwellness', name: "What's Up Wellness", sector: 'health', sectorLabel: 'Health & Wellness', website: 'whatsupwellness.in', color: '#e879f9', estValuation: 'INR 64Cr', estRevenue: 'INR 25Cr/yr' },
@@ -82,8 +94,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, ellementry: 0.45, cosmix: 0.75, neemli: 0.50, samosaparty: 0.90, earthrhythm: 0.58, bombaysweets: 0.68, staccato: 0.48, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, pantproject: 0.95, houseofem5: 1.40, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
-const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, ellementry: 13, cosmix: 17, neemli: 14, samosaparty: 30, earthrhythm: 16, bombaysweets: 18, staccato: 10, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, pantproject: 20, houseofem5: 10, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
+const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, houseofem5: 1.40, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
+const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, houseofem5: 10, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -174,23 +186,11 @@ const RISING_QUERIES = {
         { text: 'premium organic staples india', growth: '+450%' },
         { text: 'bilona ghee online', growth: '+380%' },
     ],
-    ellementry: [
-        { text: 'ellementry ceramics', growth: '+520%' },
-        { text: 'handcrafted homeware india', growth: '+420%' },
-        { text: 'sustainable dinnerware', growth: '+350%' },
-        { text: 'ellementry store near me', growth: '+280%' },
-    ],
     cosmix: [
         { text: 'cosmix superfood blends', growth: '+880%' },
         { text: 'adaptogen powder india', growth: '+720%' },
         { text: 'cosmix sleep blend review', growth: '+580%' },
         { text: 'ashwagandha latte mix', growth: '+420%' },
-    ],
-    neemli: [
-        { text: 'neemli naturals serum review', growth: '+620%' },
-        { text: 'neemli hyaluronic acid', growth: '+480%' },
-        { text: 'clean active skincare india', growth: '+380%' },
-        { text: 'neemli vs minimalist', growth: '+290%' },
     ],
     samosaparty: [
         { text: 'samosa party frozen samosa', growth: '+1500%' },
@@ -198,23 +198,11 @@ const RISING_QUERIES = {
         { text: 'samosa party review bangalore', growth: '+780%' },
         { text: 'best frozen samosa online', growth: '+580%' },
     ],
-    earthrhythm: [
-        { text: 'earth rhythm shampoo bar', growth: '+650%' },
-        { text: 'refillable beauty products india', growth: '+520%' },
-        { text: 'earth rhythm sunscreen review', growth: '+420%' },
-        { text: 'zero waste beauty brand', growth: '+350%' },
-    ],
     bombaysweets: [
         { text: 'bombay sweet shop mithai', growth: '+780%' },
         { text: 'artisanal indian sweets online', growth: '+620%' },
         { text: 'bombay sweet shop review', growth: '+480%' },
         { text: 'premium mithai delivery', growth: '+350%' },
-    ],
-    staccato: [
-        { text: 'staccato coffee beans', growth: '+580%' },
-        { text: 'micro roaster coffee india', growth: '+450%' },
-        { text: 'staccato single origin', growth: '+350%' },
-        { text: 'specialty coffee subscription', growth: '+280%' },
     ],
     snitch: [
         { text: 'snitch clothing review', growth: '+2400%' },
@@ -227,6 +215,12 @@ const RISING_QUERIES = {
         { text: 'mokobara vs american tourister', growth: '+1200%' },
         { text: 'best cabin luggage india', growth: '+900%' },
         { text: 'mokobara backpack', growth: '+750%' },
+    ],
+    theater: [
+        { text: 'theater xyz clothing review', growth: '+2800%' },
+        { text: 'theater xyz chandigarh fashion', growth: '+2100%' },
+        { text: 'mass premium western wear india', growth: '+1600%' },
+        { text: 'theater xyz vogue feature', growth: '+1200%' },
     ],
     pantproject: [
         { text: 'pant project custom pants review', growth: '+1200%' },
@@ -418,18 +412,6 @@ const REVIEW_SUMMARIES = {
             summary: 'Two Brothers is an organic food brand. Not available on Myntra.',
         },
     },
-    ellementry: {
-        amazon: {
-            topLikes: ['Ceramic and terracotta products are genuinely handcrafted', 'Each piece feels unique with artisan touches', 'Sustainable materials and minimal plastic packaging', 'Beautiful tableware that elevates everyday dining'],
-            topDislikes: ['Fragile products — breakage during delivery is common', 'Pricing is premium for everyday homeware', 'Limited replacement policy for damaged items', 'Styles may be too minimal for traditional Indian homes'],
-            summary: 'Ellementry targets the urban, design-conscious homeowner who values craft and sustainability. Product quality is excellent but the fragile nature and premium pricing limit mass appeal. Strong gifting potential.',
-        },
-        myntra: {
-            topLikes: ['Not applicable — homeware brand'],
-            topDislikes: ['Not applicable — homeware brand'],
-            summary: 'Ellementry is a homeware brand. Sold on their website and Amazon.',
-        },
-    },
     cosmix: {
         amazon: {
             topLikes: ['Sleep blend actually works — noticeable difference in sleep quality', 'Tastes good mixed with milk — not bitter like most supplements', 'Clean ingredient list with no fillers', 'Beauty blend improved skin glow over 4-6 weeks'],
@@ -440,18 +422,6 @@ const REVIEW_SUMMARIES = {
             topLikes: ['Not applicable — supplement brand'],
             topDislikes: ['Not applicable — supplement brand'],
             summary: 'Cosmix is a wellness supplement brand. Not on Myntra.',
-        },
-    },
-    neemli: {
-        amazon: {
-            topLikes: ['Hyaluronic acid serum hydrates without feeling greasy', 'Clean formulations suitable for sensitive Indian skin', 'Affordable clean beauty compared to imports', 'Rosehip oil is excellent for acne scars'],
-            topDislikes: ['Brand awareness is very low — hard to trust initially', 'Some products have a short shelf life', 'Results take time compared to chemical actives', 'Packaging feels basic for the price'],
-            summary: 'Neemli Naturals fills a gap in affordable, clean active skincare. Products genuinely work but the brand lacks the marketing muscle of competitors like Be Minimalist. Early adopters become loyal advocates.',
-        },
-        myntra: {
-            topLikes: ['Good clean beauty option on Myntra', 'Suitable for sensitive skin types'],
-            topDislikes: ['Very few reviews — needs social proof', 'Hard to find on the platform'],
-            summary: 'Early presence on Myntra. The clean beauty angle aligns with Myntra\'s curation but needs more critical mass.',
         },
     },
     samosaparty: {
@@ -466,18 +436,6 @@ const REVIEW_SUMMARIES = {
             summary: 'Samosa Party is a frozen food brand. Not on Myntra.',
         },
     },
-    earthrhythm: {
-        amazon: {
-            topLikes: ['Shampoo bars last 2-3x longer than liquid shampoo', 'Refillable containers reduce plastic waste meaningfully', 'Lip balms and sunscreen are genuinely effective', 'Brand walks the sustainability talk'],
-            topDislikes: ['Transition period from liquid to bar shampoo is rough', 'Some products dry out skin — not for everyone', 'Pricing is premium for conscious beauty', 'Refill system isn\'t available everywhere yet'],
-            summary: 'Earth Rhythm is for the committed sustainable beauty buyer. Shampoo bars are the hero product and gateway to the brand. The refillable model is genuinely innovative but requires behavior change from consumers.',
-        },
-        myntra: {
-            topLikes: ['Sustainable beauty option on Myntra', 'Shampoo bars are unique in the category'],
-            topDislikes: ['Very niche appeal', 'Limited reviews on platform'],
-            summary: 'Small but growing Myntra presence. Appeals to the eco-conscious beauty buyer.',
-        },
-    },
     bombaysweets: {
         amazon: {
             topLikes: ['Mithai quality rivals the best halwais — artisanal perfection', 'Creative modern twists on classic Indian sweets', 'Packaging is gorgeous — perfect for festive gifting', 'No artificial colors or preservatives'],
@@ -490,16 +448,16 @@ const REVIEW_SUMMARIES = {
             summary: 'Bombay Sweet Shop is a confectionery brand. Not on Myntra.',
         },
     },
-    staccato: {
+    theater: {
         amazon: {
-            topLikes: ['Micro-lot coffee beans are incredibly flavorful', 'Roast-to-order freshness is noticeable', 'Founder\'s passion for coffee comes through in quality', 'Tasting notes are accurate and helpful'],
-            topDislikes: ['Very small brand — limited availability', 'Premium pricing even among specialty coffee', 'No cafe experience to try before buying', 'Delivery times can be unpredictable'],
-            summary: 'Staccato is a purist\'s coffee brand. Ultra-small batch, roast-to-order model delivers exceptional quality. The challenge is scaling without compromising the artisan positioning.',
+            topLikes: ['Design-led pieces feel premium and distinctive', 'Mass-premium pricing makes designer fashion accessible', 'Chandigarh-origin brand with a unique aesthetic', 'Vogue and Elle features validate the brand credibility'],
+            topDislikes: ['Limited product range — still expanding categories', 'Sizing can be inconsistent across collections', 'Delivery outside metros can be slow', 'Premium pricing compared to fast fashion alternatives'],
+            summary: 'Theater.xyz has carved a niche in design-led mass-premium western fashion. The Vogue/Elle features and 380K Instagram following indicate strong brand resonance. Revenue grew 14x YoY to INR 14.1Cr in FY24. Prath Ventures-backed with $1.5M Pre-Series A.',
         },
         myntra: {
-            topLikes: ['Not applicable — coffee brand'],
-            topDislikes: ['Not applicable — coffee brand'],
-            summary: 'Staccato is a specialty coffee brand. Not on Myntra.',
+            topLikes: ['Unique designs stand out from typical Myntra fare', 'Premium western wear at accessible price points', 'Growing brand with strong visual identity'],
+            topDislikes: ['Limited SKUs on platform', 'New brand — needs more reviews for trust building', 'Return window could be longer'],
+            summary: 'Early Myntra presence building momentum. The design-first positioning differentiates from mass fashion brands on the platform.',
         },
     },
     snitch: {
@@ -636,7 +594,7 @@ const REVIEW_SUMMARIES = {
     },
 };
 
-const EC_AMAZON_BASE = { wakao: 280, aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, ellementry: 350, cosmix: 420, neemli: 280, samosaparty: 900, earthrhythm: 380, bombaysweets: 450, staccato: 180, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950 };
+const EC_AMAZON_BASE = { wakao: 280, aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, cosmix: 420, samosaparty: 900, bombaysweets: 450, theater: 320, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950 };
 COMPANIES.forEach(c => {
     const amazonBase = EC_AMAZON_BASE[c.id] || 250;
     const myntraBase = c.sector === 'fashion' ? 300 + Math.random() * 800 :
@@ -708,8 +666,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, ellementry: 120000, cosmix: 110000, neemli: 75000, samosaparty: 320000, earthrhythm: 130000, bombaysweets: 160000, staccato: 35000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, houseofem5: 65000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000 };
-const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, ellementry: 0.40, cosmix: 0.72, neemli: 0.45, samosaparty: 0.92, earthrhythm: 0.52, bombaysweets: 0.68, staccato: 0.42, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, houseofem5: 1.30, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
+const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, houseofem5: 65000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000 };
+const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, houseofem5: 1.30, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -890,6 +848,11 @@ const SOCIAL_SUMMARIES = {
             topDislikes: ['Very limited brand presence on LinkedIn', 'Need more business metrics'],
         },
     },
+    theater: {
+        reddit: { summary: 'Theater.xyz is gaining attention on r/IndianFashionAdvice as a design-led western wear brand from Chandigarh. The mass-premium positioning and Vogue/Elle features drive aspirational discussions. 14x YoY revenue growth is frequently cited.', topLikes: ['Design aesthetic is distinctly unique — not another fast fashion brand', 'Mass-premium pricing makes designer fashion accessible', 'Chandigarh origin story resonates beyond metros', 'Vogue and Elle features add credibility'], topDislikes: ['Limited product range still expanding', 'Availability outside their website is limited', 'Premium pricing compared to Zara/H&M alternatives'] },
+        instagram: { summary: 'Instagram is Theater.xyz\'s primary discovery channel with 380K followers. The visual-first brand identity, editorial-style shoots, and Vogue/Elle feature reposts drive high engagement. Fashion influencer collaborations are growing rapidly.', topLikes: ['Editorial-quality brand photography', '380K followers with strong engagement', 'Vogue/Elle features reposted widely', 'Design-first aesthetic stands out in feeds'], topDislikes: ['Need more diverse model representation', 'Limited behind-the-scenes content', 'Could show more styling/occasion content'] },
+        linkedin: { summary: 'Theater.xyz founders share the design-led mass-premium fashion brand journey. The 14x YoY revenue growth and Prath Ventures $1.5M Pre-Series A generate strong VC circle engagement.', topLikes: ['14x YoY revenue growth is compelling', 'Prath Ventures backing adds credibility', 'Design-led D2C fashion brand story'], topDislikes: ['Very early stage — scale questions remain', 'Need more operational transparency'] },
+    },
     snitch: {
         reddit: { summary: 'Snitch dominates r/IndianFashionAdvice and menswear threads. Users love the trend-first designs at accessible prices. Quality debates exist but value-for-money consensus is strong.', topLikes: ['Best affordable trendy menswear in India', 'Co-ord sets are unbeatable', 'New drops every week keep it fresh', 'Instagram reels drive viral discovery'], topDislikes: ['Quality inconsistency across orders', 'Fast fashion sustainability concerns', 'Sizing runs small', 'Durability after multiple washes'] },
         instagram: { summary: 'Instagram is Snitch\'s primary channel with 1M+ followers. Reel-first strategy with trending audio and fashion transitions drives massive engagement. Influencer army creates constant content.', topLikes: ['Reel content is incredibly engaging', 'Influencer collaborations are spot-on', 'New collection drops create FOMO', 'Styling content is highly shareable'], topDislikes: ['Content can feel repetitive', 'Over-reliance on influencer marketing', 'Need more size-inclusive content'] },
@@ -1001,6 +964,20 @@ const MOOD_TIMELINE = {
             { quarter: 'Q1 2026', mood: 'cult status', score: 86, theme: 'Cult following established. Social media is the primary discovery channel. LinkedIn food-tech discussions feature the brand.' },
         ],
     },
+    theater: {
+        ecommerce: [
+            { quarter: 'Q1 2025', mood: 'discovery', score: 45, theme: 'Early buyers discovering design-led western wear from Chandigarh. Vogue feature drives first wave of curious shoppers. Product quality exceeds expectations at mass-premium pricing.' },
+            { quarter: 'Q2 2025', mood: 'accelerating', score: 62, theme: 'Revenue growing 14x YoY. Repeat customers emerging. Elle feature adds momentum. Design aesthetic creating word-of-mouth among fashion-conscious millennials.' },
+            { quarter: 'Q3 2025', mood: 'explosive', score: 78, theme: 'Prath Ventures $1.5M Pre-Series A validates opportunity. Product range expanding. Instagram driving 60%+ of discovery. Category expansion into accessories.' },
+            { quarter: 'Q1 2026', mood: 'breakout', score: 88, theme: 'Revenue trajectory towards INR 50Cr+ run rate. Brand becoming synonymous with design-led mass-premium in India. Multi-city pop-ups planned.' },
+        ],
+        social: [
+            { quarter: 'Q1 2025', mood: 'niche', score: 40, theme: 'Small but passionate following on Instagram. Chandigarh fashion community strong advocates. Limited national awareness.' },
+            { quarter: 'Q2 2025', mood: 'buzzing', score: 58, theme: 'Vogue and Elle features shared widely on social media. Fashion influencers discovering the brand. Instagram followers crossing 200K.' },
+            { quarter: 'Q3 2025', mood: 'viral', score: 75, theme: '380K Instagram followers. Fashion bloggers creating organic content. LinkedIn fundraise story gets attention. Reddit fashion threads recommending.' },
+            { quarter: 'Q1 2026', mood: 'iconic', score: 85, theme: 'Social media driving majority of revenue. Brand becoming an Instagram fashion discovery. LinkedIn growth story inspires D2C founders.' },
+        ],
+    },
     aukera: {
         ecommerce: [
             { quarter: 'Q1 2025', mood: 'discovery', score: 55, theme: 'Early buyers intrigued by lab-grown diamonds. IGI certification builds confidence. Store experience in Bangalore drives conversions. Online discovery, offline purchase pattern emerging.' },
@@ -1048,9 +1025,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, ellementry: 500, cosmix: 1100, neemli: 600, samosaparty: 2800, earthrhythm: 800, bombaysweets: 1200, staccato: 400, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, houseofem5: 600, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
-const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, ellementry: 11000, cosmix: 15000, neemli: 7000, samosaparty: 65000, earthrhythm: 12000, bombaysweets: 32000, staccato: 5000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, houseofem5: 18000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
-const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, ellementry: 3000, cosmix: 4000, neemli: 1800, samosaparty: 6000, earthrhythm: 3500, bombaysweets: 5000, staccato: 1500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, houseofem5: 2000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
+const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, houseofem5: 600, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
+const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, houseofem5: 18000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
+const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, houseofem5: 2000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
@@ -1107,6 +1084,9 @@ const SOCIAL_POSTS = [
     { platform: 'instagram', handle: '@fitnessjunkie.in', title: 'Boldfit gym accessories haul — resistance bands, shaker, yoga mat. All under Rs 2000!', likes: 3800, comments: 245, time: '5h ago', sentiment: 'positive', brand: 'boldfit' },
     { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Neemans wool sneakers 6-month review. Sustainable footwear that actually lasts?', upvotes: 1400, comments: 190, time: '11h ago', sentiment: 'positive', brand: 'neemans' },
     { platform: 'instagram', handle: '@ragecoffeeofficial', title: 'New Irish Hazelnut Rage Coffee. Instant coffee that doesn\'t taste instant. Available now.', likes: 3400, comments: 210, time: '9h ago', sentiment: 'positive', brand: 'ragecoffee' },
+    { platform: 'instagram', handle: '@vogueindia', title: 'Theater.xyz is the Chandigarh-born brand redefining mass-premium fashion. 14x revenue growth. The future of Indian design.', likes: 12500, comments: 890, time: '3h ago', sentiment: 'positive', brand: 'theater' },
+    { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Theater.xyz — found this brand through Vogue India. Design quality is insane for the price. Anyone else tried them?', upvotes: 2400, comments: 345, time: '6h ago', sentiment: 'positive', brand: 'theater' },
+    { platform: 'linkedin', handle: 'D2C Insider', title: 'Theater.xyz raised $1.5M Pre-Series A from Prath Ventures. 14x YoY revenue growth. Chandigarh fashion going national.', likes: 7200, comments: 520, time: '8h ago', sentiment: 'positive', brand: 'theater' },
 ];
 
 // --- Employee Reviews Data (AmbitionBox + Glassdoor) ---
@@ -1273,24 +1253,6 @@ const EMPLOYEE_REVIEWS = {
             { quarter: 'Q1 2026', mood: 'strong', score: 76, theme: 'Premium positioning paying off. Better compensation. Team retention solid.' },
         ],
     },
-    ellementry: {
-        ambitionbox: { rating: 3.8, totalReviews: 28, recommend: 72, ceoApproval: 76, workLife: 3.9, salary: 3.2, security: 3.4, culture: 4.1, growth: 3.5,
-            likes: ['Beautiful products — proud to show friends', 'Creative work environment', 'Sustainability mission is genuine'],
-            dislikes: ['Retail hours can be long', 'Limited online growth means retail-heavy model', 'Compensation could be better'],
-            summary: 'Ellementry offers a creative, design-focused work environment. Good for those passionate about sustainable homeware and craft.'
-        },
-        glassdoor: { rating: 3.6, totalReviews: 22, recommend: 68, ceoApproval: 72, workLife: 3.7, salary: 3.0, security: 3.2, culture: 3.9, growth: 3.3,
-            likes: ['Design-led brand — creative satisfaction', 'Good work culture', 'Products you can be proud of'],
-            dislikes: ['Growth slower than typical D2C', 'Retail model has inherent challenges', 'Need more digital focus'],
-            summary: 'Creative workplace with genuine design passion. Growth pace and compensation are areas for improvement.'
-        },
-        moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'creative', score: 60, theme: 'Design team thriving. Retail operations steady. Growth slow but stable.' },
-            { quarter: 'Q2 2025', mood: 'steady', score: 62, theme: 'New collections well-received. Online channel growing slowly.' },
-            { quarter: 'Q3 2025', mood: 'improving', score: 66, theme: 'Festive season boosts retail. Team morale up with good sales.' },
-            { quarter: 'Q1 2026', mood: 'positive', score: 70, theme: 'Online growth accelerating. New store openings creating opportunities.' },
-        ],
-    },
     cosmix: {
         ambitionbox: { rating: 3.9, totalReviews: 30, recommend: 76, ceoApproval: 80, workLife: 4.0, salary: 3.3, security: 3.4, culture: 4.1, growth: 3.6,
             likes: ['Wellness industry is exciting and growing', 'Team genuinely uses and believes in the products', 'Good work-life balance'],
@@ -1307,24 +1269,6 @@ const EMPLOYEE_REVIEWS = {
             { quarter: 'Q2 2025', mood: 'steady', score: 64, theme: 'Sales growing. Content marketing driving awareness. Team stable.' },
             { quarter: 'Q3 2025', mood: 'growing', score: 68, theme: 'Hero products gaining traction. Team confidence building.' },
             { quarter: 'Q1 2026', mood: 'positive', score: 74, theme: 'Superfood trend accelerating. Brand recognition improving. Team optimistic.' },
-        ],
-    },
-    neemli: {
-        ambitionbox: { rating: 3.6, totalReviews: 22, recommend: 68, ceoApproval: 72, workLife: 3.7, salary: 3.0, security: 3.1, culture: 3.8, growth: 3.3,
-            likes: ['Clean beauty space is growing and exciting', 'Good formulations team', 'Founders care about product quality'],
-            dislikes: ['Very small team — burnout risk', 'Brand awareness too low for the product quality', 'Need more marketing investment'],
-            summary: 'Neemli offers good product work in clean beauty but struggles with the same awareness challenges the brand faces externally.'
-        },
-        glassdoor: { rating: 3.4, totalReviews: 16, recommend: 64, ceoApproval: 68, workLife: 3.5, salary: 2.8, security: 2.9, culture: 3.6, growth: 3.1,
-            likes: ['Product quality is genuinely good', 'Clean beauty mission', 'Learning opportunity in formulation'],
-            dislikes: ['Compensation is below market', 'Small team stretched very thin', 'Growth is slow compared to funded competitors'],
-            summary: 'Product-quality focused workplace. Resource constraints and competitive pressure are ongoing challenges.'
-        },
-        moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'determined', score: 54, theme: 'Small team working hard. Good products but limited reach.' },
-            { quarter: 'Q2 2025', mood: 'hopeful', score: 58, theme: 'Some traction on Amazon. Clean beauty trend helping.' },
-            { quarter: 'Q3 2025', mood: 'improving', score: 62, theme: 'Customer reviews building. Word-of-mouth starting.' },
-            { quarter: 'Q1 2026', mood: 'cautiously positive', score: 66, theme: 'Growth visible. Team cautiously optimistic. Need funding for next leap.' },
         ],
     },
     samosaparty: {
@@ -1345,24 +1289,6 @@ const EMPLOYEE_REVIEWS = {
             { quarter: 'Q1 2026', mood: 'thriving', score: 82, theme: 'Established brand. Good retention. Career paths clearer. Operations stabilized.' },
         ],
     },
-    earthrhythm: {
-        ambitionbox: { rating: 3.8, totalReviews: 34, recommend: 74, ceoApproval: 78, workLife: 3.9, salary: 3.2, security: 3.4, culture: 4.0, growth: 3.5,
-            likes: ['Sustainability mission is real, not just marketing', 'Refillable model is innovative', 'Good creative work in product design'],
-            dislikes: ['Consumer education about sustainable beauty is slow', 'Margins are tight in sustainable products', 'Need more D2C digital expertise'],
-            summary: 'Earth Rhythm attracts sustainability-passionate employees. The refillable beauty model is innovative but market education pace is the challenge.'
-        },
-        glassdoor: { rating: 3.6, totalReviews: 28, recommend: 70, ceoApproval: 74, workLife: 3.7, salary: 3.0, security: 3.2, culture: 3.8, growth: 3.3,
-            likes: ['Working in sustainable beauty feels impactful', 'Good formulations and product R&D', 'Brand values are genuinely practiced'],
-            dislikes: ['Sustainability premium limits market size', 'Compensation is modest', 'Growth slower than mainstream beauty brands'],
-            summary: 'Mission-aligned workplace with genuine sustainability practices. Market adoption pace and compensation are key concerns.'
-        },
-        moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'committed', score: 60, theme: 'Team committed to sustainable beauty. Market adoption slow but steady.' },
-            { quarter: 'Q2 2025', mood: 'hopeful', score: 64, theme: 'Shampoo bars gaining traction. Consumer sustainability awareness growing.' },
-            { quarter: 'Q3 2025', mood: 'positive', score: 68, theme: 'Refillable model attracting attention. Media coverage boosting morale.' },
-            { quarter: 'Q1 2026', mood: 'growing', score: 72, theme: 'Sustainable beauty trend accelerating. Brand well-positioned. Team optimistic.' },
-        ],
-    },
     bombaysweets: {
         ambitionbox: { rating: 4.0, totalReviews: 40, recommend: 78, ceoApproval: 82, workLife: 3.7, salary: 3.3, security: 3.5, culture: 4.1, growth: 3.6,
             likes: ['Working with artisan mithai makers is unique', 'Brand is beloved by customers — pride in the product', 'Creative food innovation encouraged'],
@@ -1381,22 +1307,22 @@ const EMPLOYEE_REVIEWS = {
             { quarter: 'Q1 2026', mood: 'proud', score: 78, theme: 'Record Diwali sales. Team rewarded. Brand expanding to new cities.' },
         ],
     },
-    staccato: {
-        ambitionbox: { rating: 3.7, totalReviews: 12, recommend: 70, ceoApproval: 76, workLife: 3.8, salary: 3.0, security: 3.1, culture: 4.0, growth: 3.3,
-            likes: ['Passion for coffee makes work enjoyable', 'Founder is a genuine coffee expert', 'Small team with close bonds'],
-            dislikes: ['Very small operation — limited growth', 'Below market compensation', 'Niche market limits scale potential'],
-            summary: 'Staccato is a passion project for coffee lovers. Small team, artisanal approach. Best for those prioritizing passion over scale.'
+    theater: {
+        ambitionbox: { rating: 4.0, totalReviews: 18, recommend: 78, ceoApproval: 84, workLife: 3.8, salary: 3.2, security: 3.3, culture: 4.3, growth: 3.7,
+            likes: ['Design-first culture is inspiring and creatively fulfilling', 'Explosive 14x growth makes every day exciting', 'Chandigarh-based — great work-life vs metro startups', 'Founders have a clear design vision'],
+            dislikes: ['Very early stage — processes still forming', 'Small team means wearing many hats', 'Compensation is startup-level', 'Need more structured career paths'],
+            summary: 'Theater.xyz offers a design-led creative environment with explosive growth energy. Chandigarh location is a unique perk. Early-stage challenges around compensation and structure are typical.'
         },
-        glassdoor: { rating: 3.5, totalReviews: 8, recommend: 65, ceoApproval: 72, workLife: 3.6, salary: 2.8, security: 2.9, culture: 3.8, growth: 3.0,
-            likes: ['Learning about specialty coffee is rewarding', 'Artisanal work environment', 'Close-knit team'],
-            dislikes: ['Very limited scale and resources', 'Salary is below market', 'Career path is unclear'],
-            summary: 'Micro-roaster culture. Great for coffee enthusiasts but limited career growth potential.'
+        glassdoor: { rating: 3.8, totalReviews: 12, recommend: 75, ceoApproval: 82, workLife: 3.7, salary: 3.0, security: 3.1, culture: 4.1, growth: 3.5,
+            likes: ['Working for a Vogue/Elle-featured brand is exciting', 'Creative freedom in design decisions', 'Rapid growth creates learning opportunities'],
+            dislikes: ['Early stage means limited benefits', 'Need more senior leadership hires', 'Scaling challenges as growth accelerates'],
+            summary: 'Creative startup with strong design DNA. The 14x growth pace is exhilarating but brings typical early-stage growing pains.'
         },
         moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'passionate', score: 58, theme: 'Small team roasting great coffee. Resources limited but passion high.' },
-            { quarter: 'Q2 2025', mood: 'steady', score: 60, theme: 'Online orders growing slowly. Quality recognition increasing.' },
-            { quarter: 'Q3 2025', mood: 'hopeful', score: 64, theme: 'Specialty coffee market growing. Brand building momentum.' },
-            { quarter: 'Q1 2026', mood: 'cautious optimism', score: 68, theme: 'Market recognition improving. Seeking funding for expansion. Team hopeful.' },
+            { quarter: 'Q1 2025', mood: 'excited', score: 65, theme: 'Small team riding design wave. Revenue growing fast. Creative energy high.' },
+            { quarter: 'Q2 2025', mood: 'accelerating', score: 72, theme: 'Vogue feature energizes team. New hires joining. Brand recognition growing.' },
+            { quarter: 'Q3 2025', mood: 'proud', score: 80, theme: 'Prath Ventures funding validates mission. Team expansion. Media coverage boosts morale.' },
+            { quarter: 'Q1 2026', mood: 'ambitious', score: 86, theme: 'Revenue trajectory exciting. National expansion planned. Team confident in brand vision.' },
         ],
     },
     snitch: {
