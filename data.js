@@ -1746,13 +1746,82 @@ const REGIONAL_HOTSPOTS = [
 // Sources: Exchange4Media, Storyboard18, Indian Retailer, AdGully, MediaBrief, Inc42
 const LINKEDIN_HIRING_DATA = [
     // =====================================================
-    // Last 12 months — Senior hires from large corporates into
-    // early-stage consumer-focused startups (VC investment signals)
-    // Sectors: D2C brands, FMCG, consumer retail, consumer
-    // durables, consumer electronics
+    // Last 12 months — Senior hires from large corporates /
+    // established companies into early-stage consumer startups
+    // (VC investment signal: scaling intent)
+    // Sectors: D2C, FMCG, consumer retail, consumer durables
+    // Source: LinkedIn profiles, verified via public announcements
     // =====================================================
 
-    // --- Sweet Karam Coffee ---
+    // --- The Sleep Company (D2C mattress/sleep, ~₹500Cr rev) ---
+    {
+        hireName: 'Udhaya Shankar M',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Udhaya%20Shankar%20M%20Sleep%20Company%20CHRO',
+        role: 'Chief Human Resources Officer',
+        workExYears: 17,
+        lastCompany: 'Metro Brands / Landmark Group / Vodafone',
+        lastRole: 'Head - HR Operations, Metro Brands Ltd (ex-Landmark Group 14 yrs)',
+        currentCompany: 'The Sleep Company',
+        hireDate: '2026-02-01',
+    },
+    {
+        hireName: 'Hemal Jain',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Hemal%20Jain%20Sleep%20Company%20CFO',
+        role: 'Chief Financial Officer',
+        workExYears: 20,
+        lastCompany: 'Eternal (Zomato) / HUL',
+        lastRole: 'Global Head of Finance & CFO, Hyperpure - Zomato (ex-HUL)',
+        currentCompany: 'The Sleep Company',
+        hireDate: '2026-01-15',
+    },
+    {
+        hireName: 'Alpesh Jain',
+        linkedinUrl: 'https://www.linkedin.com/in/alpeshjain/',
+        role: 'Chief Technology Officer',
+        workExYears: 16,
+        lastCompany: 'The Good Glamm Group (MyGlamm)',
+        lastRole: 'VP of Technology, The Good Glamm Group (scaled digital platforms)',
+        currentCompany: 'The Sleep Company',
+        hireDate: '2025-05-01',
+    },
+
+    // --- Kapiva (Ayurveda wellness, Series B, ~₹240Cr val) ---
+    {
+        hireName: 'Piyal Das',
+        linkedinUrl: 'https://www.linkedin.com/in/piyal-das-2024611a2/',
+        role: 'Head of Creative & Director, Marketing',
+        workExYears: 12,
+        lastCompany: 'Leo Burnett (Reckitt brands)',
+        lastRole: 'Creative Director, Leo Burnett (led Durex, Dettol, Veet, Moov, Gaviscon)',
+        currentCompany: 'Kapiva',
+        hireDate: '2026-01-14',
+    },
+
+    // --- mCaffeine / PEP Brands (D2C beauty, ₹1000Cr val) ---
+    {
+        hireName: 'Shashwat Jain',
+        linkedinUrl: 'https://www.linkedin.com/in/shashwat-jain-65522162/',
+        role: 'Chief Commercial Officer',
+        workExYears: 14,
+        lastCompany: 'Dangal Games (Co-founder)',
+        lastRole: 'Co-founder & CEO, Dangal Games / Poker Dangal (scaled consumer gaming)',
+        currentCompany: 'mcaffeine',
+        hireDate: '2025-09-08',
+    },
+
+    // --- Nat Habit (D2C ayurveda beauty, ₹343Cr val) ---
+    {
+        hireName: 'Kushal Gupta',
+        linkedinUrl: 'https://in.linkedin.com/in/kushal-gupta-8a557b4',
+        role: 'Chief Retail Officer',
+        workExYears: 20,
+        lastCompany: 'PepsiCo / HUL / Tata Consumer',
+        lastRole: 'Senior Leadership, Tata Consumer Products (scaled JV ₹174Cr → ₹1,000Cr)',
+        currentCompany: 'nathabit',
+        hireDate: '2025-05-27',
+    },
+
+    // --- Sweet Karam Coffee (D2C snacks, Series A, ₹313Cr val) ---
     {
         hireName: 'Nandhitha Indermohan',
         linkedinUrl: 'https://www.linkedin.com/in/nandhitha-indermohan-9640a815/',
@@ -1764,19 +1833,7 @@ const LINKEDIN_HIRING_DATA = [
         hireDate: '2025-03-15',
     },
 
-    // --- Nat Habit ---
-    {
-        hireName: 'Kushal Gupta',
-        linkedinUrl: 'https://in.linkedin.com/in/kushal-gupta-8a557b4',
-        role: 'Chief Retail Officer',
-        workExYears: 20,
-        lastCompany: 'HUL / PepsiCo / Tata Consumer',
-        lastRole: 'Senior Leadership, Tata Consumer Products (scaled JV from ₹174Cr to ₹1,000Cr)',
-        currentCompany: 'nathabit',
-        hireDate: '2025-05-27',
-    },
-
-    // --- Bombay Shaving Company ---
+    // --- Bombay Shaving Company (D2C personal care, ₹824Cr val) ---
     {
         hireName: 'Archana Rajan',
         linkedinUrl: 'https://www.linkedin.com/in/archana-rajan-1004b0a/',
@@ -1788,19 +1845,7 @@ const LINKEDIN_HIRING_DATA = [
         hireDate: '2025-02-01',
     },
 
-    // --- The Sleep Company ---
-    {
-        hireName: 'Hemal Jain',
-        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Hemal%20Jain%20Sleep%20Company%20CFO',
-        role: 'Chief Financial Officer',
-        workExYears: 20,
-        lastCompany: 'Eternal (Zomato) / HUL',
-        lastRole: 'Global Head of Finance & CFO, Hyperpure - Zomato (ex-HUL)',
-        currentCompany: 'The Sleep Company',
-        hireDate: '2026-01-15',
-    },
-
-    // --- Neeman\'s ---
+    // --- Neeman\'s (D2C footwear, Series B, ₹268Cr val) ---
     {
         hireName: 'Sumit Maloo',
         linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Sumit%20Maloo%20Neemans%20CFO',
@@ -1810,31 +1855,6 @@ const LINKEDIN_HIRING_DATA = [
         lastRole: 'CFO, Skechers South Asia (led financial strategy, planning & treasury)',
         currentCompany: 'neemans',
         hireDate: '2024-11-16',
-    },
-];
-
-    // --- Bombay Shaving Company ---
-    {
-        hireName: 'Archana Rajan',
-        linkedinUrl: 'https://www.linkedin.com/in/archana-rajan-1004b0a/',
-        role: 'Chief People Officer',
-        workExYears: 20,
-        lastCompany: 'Jio (Reliance)',
-        lastRole: 'Head of HR - Jio Enterprise Business',
-        currentCompany: 'bsc',
-        hireDate: '2025-02-01',
-    },
-
-    // --- Nat Habit ---
-    {
-        hireName: 'Kushal Gupta',
-        linkedinUrl: 'https://in.linkedin.com/in/kushal-gupta-8a557b4',
-        role: 'Chief Retail Officer',
-        workExYears: 20,
-        lastCompany: 'HUL / PepsiCo / Tata Consumer',
-        lastRole: 'Senior Leadership, Tata Consumer Products',
-        currentCompany: 'nathabit',
-        hireDate: '2025-05-27',
     },
 ];
 
