@@ -1432,11 +1432,9 @@ function renderHiringKpis() {
 function renderHiringTable() {
     if (typeof LINKEDIN_HIRING_DATA === 'undefined') return;
     const tbody = document.getElementById('hiringLinkedinTableBody');
-    const companies = getFilteredCompanies();
-    const companyIds = new Set(companies.map(c => c.id));
 
-    const filtered = LINKEDIN_HIRING_DATA.filter(h => companyIds.has(h.currentCompany));
-    const sorted = [...filtered].sort((a, b) => new Date(b.hireDate) - new Date(a.hireDate));
+    // Show all hiring data — hires span companies beyond the dashboard's tracked set
+    const sorted = [...LINKEDIN_HIRING_DATA].sort((a, b) => new Date(b.hireDate) - new Date(a.hireDate));
 
     tbody.innerHTML = sorted.map(h => {
         const company = COMPANIES.find(c => c.id === h.currentCompany);
