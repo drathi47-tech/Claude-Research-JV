@@ -19,7 +19,8 @@
 // SECTORS COVERED:
 // Beauty & Personal Care | Food & Beverage | Fashion & Apparel |
 // Health & Wellness | Home & Living | Consumer Electronics |
-// Consumer Durables | Pet Care | Kids & Baby Care
+// Consumer Durables | Pet Care | Kids & Baby Care | Footwear |
+// QSR & Coffee Chains | Offline Retail | Consumer Services
 //
 // EXCLUSIONS:
 // - Acquired brands (e.g., Neemli → GOAT, Earth Rhythm → Nykaa,
@@ -30,7 +31,6 @@
 
 const COMPANIES = [
     // --- Original Dashboard Brands ---
-    { id: 'wakao', name: 'Wakao Foods', sector: 'food', sectorLabel: 'Food & Beverage', website: 'wakaofoods.com', color: '#f59e0b', estValuation: '~INR 3.6Cr', estRevenue: 'INR 1-1.5Cr/yr' },
     { id: 'aukera', name: 'Aukera Diamonds', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'aukerajewellery.com', color: '#ec4899', estValuation: 'INR 600Cr', estRevenue: 'INR 200Cr/yr (ARR)' },
     { id: 'aretto', name: 'Aretto', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'wearetto.com', color: '#3b82f6', estValuation: 'INR 60-110Cr', estRevenue: 'INR 10-15Cr/yr' },
     { id: 'phool', name: 'Phool', sector: 'home', sectorLabel: 'Home & Living', website: 'phool.co', color: '#10b981', estValuation: 'INR 175Cr', estRevenue: 'INR 50Cr/yr' },
@@ -83,6 +83,18 @@ const COMPANIES = [
     { id: 'napchief', name: 'Nap Chief', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'napchief.com', color: '#7c3aed', estValuation: 'Seed (Titan Capital)', estRevenue: 'INR 25Cr/yr' },
     { id: 'desifarms', name: 'Desi Farms', sector: 'food', sectorLabel: 'Food & Beverage', website: 'desifarmsindia.in', color: '#15803d', estValuation: 'Series A', estRevenue: 'INR 50Cr/yr' },
     { id: 'berrylush', name: 'BerryLush', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'berrylush.com', color: '#e11d48', estValuation: 'Near-bootstrapped', estRevenue: 'INR 85Cr/yr' },
+
+    // --- New Sector Expansion (Footwear, Kids, QSR, Durables, Retail, Services) ---
+    { id: 'comet', name: 'Comet', sector: 'footwear', sectorLabel: 'Footwear', website: 'wearcomet.com', color: '#1e40af', estValuation: 'INR 167Cr (~$20M)', estRevenue: 'INR 29Cr/yr (4x YoY)' },
+    { id: 'solethreads', name: 'Solethreads', sector: 'footwear', sectorLabel: 'Footwear', website: 'solethreads.com', color: '#f97316', estValuation: 'INR 145Cr (~$17M)', estRevenue: 'INR 43Cr/yr' },
+    { id: 'rforrabbit', name: 'R for Rabbit', sector: 'kids', sectorLabel: 'Kids & Baby Care', website: 'rforrabbit.com', color: '#f472b6', estValuation: 'INR 850Cr (~$100M)', estRevenue: 'INR 252Cr/yr' },
+    { id: 'superbottoms', name: 'SuperBottoms', sector: 'kids', sectorLabel: 'Kids & Baby Care', website: 'superbottoms.com', color: '#38bdf8', estValuation: 'INR 191Cr (~$23M)', estRevenue: 'INR 84Cr/yr' },
+    { id: 'slurrpfarm', name: 'Slurrp Farm', sector: 'kids', sectorLabel: 'Kids & Baby Care', website: 'slurrpfarm.com', color: '#a3e635', estValuation: 'INR 810Cr (~$90M)', estRevenue: 'INR 97Cr/yr' },
+    { id: 'thirdwave', name: 'Third Wave Coffee', sector: 'qsr', sectorLabel: 'QSR & Coffee Chains', website: 'thirdwavecoffee.in', color: '#92400e', estValuation: 'INR 1300Cr (~$150M)', estRevenue: 'INR 285Cr/yr' },
+    { id: 'chaayos', name: 'Chaayos', sector: 'qsr', sectorLabel: 'QSR & Coffee Chains', website: 'chaayos.com', color: '#c2410c', estValuation: 'INR 2600Cr (~$250M)', estRevenue: 'INR 330Cr/yr' },
+    { id: 'beyondappliances', name: 'Beyond Appliances', sector: 'durables', sectorLabel: 'Consumer Durables', website: 'beyondappliances.in', color: '#1d4ed8', estValuation: '~INR 50-80Cr', estRevenue: 'INR 50Cr/yr ARR' },
+    { id: 'sumosave', name: 'SumoSave', sector: 'retail', sectorLabel: 'Offline Retail', website: 'sumosave.in', color: '#059669', estValuation: 'Seed ($3.3M)', estRevenue: 'INR 13.2Cr/yr (17x YoY)' },
+    { id: 'bodycraft', name: 'Bodycraft', sector: 'services', sectorLabel: 'Consumer Services', website: 'bodycraft.co.in', color: '#be185d', estValuation: '~INR 200-300Cr', estRevenue: 'INR 130Cr/yr' },
 ];
 
 // --- Helper: generate time-series data ---
@@ -116,8 +128,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75, wishcare: 1.35, indoera: 1.05, godesi: 1.15, beco: 1.20, supertails: 1.28, longway: 1.10, bearhouse: 1.18, napchief: 1.30, desifarms: 0.90, berrylush: 1.00 };
-const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8, wishcare: 38, indoera: 42, godesi: 15, beco: 18, supertails: 28, longway: 22, bearhouse: 24, napchief: 10, desifarms: 14, berrylush: 20 };
+const GT_GROWTH = { aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75, wishcare: 1.35, indoera: 1.05, godesi: 1.15, beco: 1.20, supertails: 1.28, longway: 1.10, bearhouse: 1.18, napchief: 1.30, desifarms: 0.90, berrylush: 1.00, comet: 1.65, solethreads: 1.15, rforrabbit: 1.20, superbottoms: 1.10, slurrpfarm: 1.25, thirdwave: 1.40, chaayos: 1.15, beyondappliances: 1.50, sumosave: 0.85, bodycraft: 0.95 };
+const GT_BASE = { aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8, wishcare: 38, indoera: 42, godesi: 15, beco: 18, supertails: 28, longway: 22, bearhouse: 24, napchief: 10, desifarms: 14, berrylush: 20, comet: 22, solethreads: 15, rforrabbit: 32, superbottoms: 25, slurrpfarm: 28, thirdwave: 45, chaayos: 48, beyondappliances: 10, sumosave: 8, bodycraft: 18 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -154,12 +166,6 @@ COMPANIES.forEach(c => {
 
 // Rising queries
 const RISING_QUERIES = {
-    wakao: [
-        { text: 'wakao jackfruit meat review', growth: '+1400%' },
-        { text: 'plant based meat india', growth: '+950%' },
-        { text: 'wakao foods shark tank', growth: '+820%' },
-        { text: 'jackfruit biryani recipe', growth: '+540%' },
-    ],
     aukera: [
         { text: 'aukera lab grown diamond review', growth: '+2400%' },
         { text: 'lab grown diamond jewellery india', growth: '+1800%' },
@@ -376,6 +382,66 @@ const RISING_QUERIES = {
         { text: 'affordable western wear india women', growth: '+780%' },
         { text: 'berrylush quality myntra', growth: '+580%' },
     ],
+    comet: [
+        { text: 'comet sneakers review india', growth: '+2800%' },
+        { text: 'comet shoes drop date', growth: '+2200%' },
+        { text: 'wearcomet jognu sneaker', growth: '+1600%' },
+        { text: 'indian sneaker brand premium', growth: '+1100%' },
+    ],
+    solethreads: [
+        { text: 'solethreads flip flops review', growth: '+1200%' },
+        { text: 'solethreads slides men', growth: '+950%' },
+        { text: 'best flip flops india premium', growth: '+720%' },
+        { text: 'solethreads vs crocs india', growth: '+580%' },
+    ],
+    rforrabbit: [
+        { text: 'r for rabbit stroller review', growth: '+1600%' },
+        { text: 'best baby car seat india', growth: '+1300%' },
+        { text: 'r for rabbit high chair', growth: '+980%' },
+        { text: 'baby products safe india certified', growth: '+750%' },
+    ],
+    superbottoms: [
+        { text: 'superbottoms cloth diaper review', growth: '+1800%' },
+        { text: 'reusable diapers india best', growth: '+1400%' },
+        { text: 'superbottoms padded underwear', growth: '+1050%' },
+        { text: 'eco friendly diapers baby india', growth: '+780%' },
+    ],
+    slurrpfarm: [
+        { text: 'slurrp farm cereal baby review', growth: '+1500%' },
+        { text: 'millet snacks kids healthy', growth: '+1200%' },
+        { text: 'slurrp farm pancake mix', growth: '+920%' },
+        { text: 'anushka sharma baby food brand', growth: '+750%' },
+    ],
+    thirdwave: [
+        { text: 'third wave coffee near me', growth: '+1900%' },
+        { text: 'third wave coffee menu prices', growth: '+1500%' },
+        { text: 'specialty coffee bangalore chain', growth: '+1100%' },
+        { text: 'third wave coffee franchise', growth: '+850%' },
+    ],
+    chaayos: [
+        { text: 'chaayos near me menu', growth: '+1400%' },
+        { text: 'chaayos chai subscription', growth: '+1100%' },
+        { text: 'best chai cafe india chain', growth: '+850%' },
+        { text: 'chaayos franchise cost india', growth: '+620%' },
+    ],
+    beyondappliances: [
+        { text: 'beyond appliances chimney review', growth: '+2400%' },
+        { text: 'android chimney kitchen india', growth: '+1800%' },
+        { text: 'smart kitchen chimney voice control', growth: '+1300%' },
+        { text: 'beyond appliances smart hob', growth: '+950%' },
+    ],
+    sumosave: [
+        { text: 'sumosave store near me kolkata', growth: '+1600%' },
+        { text: 'discount supermarket kolkata', growth: '+1100%' },
+        { text: 'sumosave ration shop prices', growth: '+850%' },
+        { text: 'cheapest grocery store kolkata', growth: '+620%' },
+    ],
+    bodycraft: [
+        { text: 'bodycraft salon near me', growth: '+1300%' },
+        { text: 'bodycraft spa bangalore review', growth: '+1000%' },
+        { text: 'bodycraft dermatology treatment', growth: '+780%' },
+        { text: 'best salon chain india premium', growth: '+580%' },
+    ],
 };
 Object.keys(RISING_QUERIES).forEach(k => {
     if (GOOGLE_TRENDS_DATA[k]) {
@@ -386,18 +452,6 @@ Object.keys(RISING_QUERIES).forEach(k => {
 const ECOMMERCE_DATA = {};
 
 const REVIEW_SUMMARIES = {
-    wakao: {
-        amazon: {
-            topLikes: ['Jackfruit meat texture is surprisingly close to real meat', 'Great taste in biryani and curry preparations', 'Clean label — no artificial preservatives', 'Innovative plant-based option for Indian cooking'],
-            topDislikes: ['Expensive for the quantity provided', 'Requires proper cooking — raw taste is bland', 'Limited availability and frequent stockouts', 'Packaging could be more eco-friendly'],
-            summary: 'Wakao has created genuine excitement in India\'s nascent plant-based meat space. The jackfruit meat is praised for its versatility in Indian recipes. Price and availability are the main barriers to repeat purchase.',
-        },
-        myntra: {
-            topLikes: ['Not applicable — food brand'],
-            topDislikes: ['Not applicable — food brand'],
-            summary: 'Wakao Foods is a food brand, not available on Myntra.',
-        },
-    },
     aukera: {
         amazon: {
             topLikes: ['Lab-grown diamonds are visually indistinguishable from mined ones', 'IGI certification adds trust and confidence', 'Buyback guarantee is a strong differentiator', 'Stunning designs — especially the polki collection', 'Ethical and sustainable — no mining involved'],
@@ -794,9 +848,129 @@ const REVIEW_SUMMARIES = {
             summary: 'Growing Myntra seller. Volume-driven affordable fashion for young women. 93% marketplace sales. Expanding to 30 stores under FOFO model.',
         },
     },
+    comet: {
+        amazon: {
+            topLikes: ['Sneaker quality rivals international brands at half the price', 'Limited drops create excitement and exclusivity', 'Indian-inspired designs (Mango, Pataka, Ludo) are unique', 'SpaceWalk sole system is genuinely comfortable', 'Packaging and unboxing experience is premium'],
+            topDislikes: ['Drops sell out in minutes — hard to buy', 'Limited size availability in some drops', 'Premium pricing vs mass-market Indian brands', 'Resellers driving up prices on sold-out models'],
+            summary: 'Comet has built cult-like demand with limited drops selling out in 15 minutes. 300K+ Instagram community. 4x revenue growth YoY to INR 29Cr. Elevation Capital + Nexus backed at $20M valuation.',
+        },
+        myntra: {
+            topLikes: ['Great designs not available elsewhere', 'Premium feel for the price point'],
+            topDislikes: ['Limited availability — most drops are D2C only', 'Higher price than typical Myntra sneakers'],
+            summary: 'Limited Myntra presence — Comet is primarily D2C. 3 brand-owned stores + 9 MBO partners.',
+        },
+    },
+    solethreads: {
+        amazon: {
+            topLikes: ['Extremely comfortable flip-flops and slides', 'Durable build quality — lasts seasons', 'Design variety is excellent', 'Good arch support for open footwear', 'Value for money in the INR 500-1500 range'],
+            topDislikes: ['Sizing can be inconsistent across models', 'Some models lose grip after heavy use', 'Limited sneaker range compared to sandals', 'Strap durability on some designs'],
+            summary: 'Solethreads dominates the premium flip-flop/slide segment on Amazon. INR 43Cr revenue, 70% YoY growth. Fireside + DSG backed. 600+ MBOs and expanding to 1,500.',
+        },
+        myntra: {
+            topLikes: ['Good range of casual footwear options', 'Competitive pricing on slides'],
+            topDislikes: ['Not as well-known as established footwear brands'],
+            summary: 'Growing Myntra presence. Open footwear focus differentiates from sneaker-heavy competition.',
+        },
+    },
+    rforrabbit: {
+        amazon: {
+            topLikes: ['International safety certifications at Indian prices', 'Strollers are sturdy and well-built', 'Car seats meet European safety standards', 'Customer service is responsive', 'Wide product range covers all baby needs'],
+            topDislikes: ['Assembly instructions could be clearer', 'Some products are bulky for Indian apartments', 'Premium pricing vs unbranded alternatives', 'Warranty claim process can be slow'],
+            summary: 'R for Rabbit is the dominant Indian baby gear brand on Amazon. INR 252Cr revenue, profitable. NPS 80+. Series B from Filter Capital + 3one4 at INR 850Cr valuation.',
+        },
+        myntra: {
+            topLikes: ['Not a primary channel — baby gear brand'],
+            topDislikes: ['Limited presence on fashion platforms'],
+            summary: 'R for Rabbit is primarily Amazon + D2C. Not a Myntra category.',
+        },
+    },
+    superbottoms: {
+        amazon: {
+            topLikes: ['Cloth diapers actually work — saves money long-term', 'Padded underwear is a game-changer for potty training', 'Eco-friendly alternative to disposables', 'Soft fabric gentle on baby skin', '35-45% monthly repeat purchase rate'],
+            topDislikes: ['Washing cloth diapers is extra effort', 'Initial cost is higher than disposable packs', 'Drying time is long in humid weather', 'Limited designs compared to disposables'],
+            summary: 'SuperBottoms owns ~60% of India reusable bottomwear market. INR 84Cr revenue, approaching EBITDA-positive. 46% D2C, 42% marketplaces. Expanding to full kids clothing.',
+        },
+        myntra: {
+            topLikes: ['Good kids clothing range beyond diapers', 'Cute designs for toddlers'],
+            topDislikes: ['Limited Myntra presence — primarily Amazon + D2C'],
+            summary: 'Growing Myntra seller for kids clothing line. Core diaper business is Amazon + D2C.',
+        },
+    },
+    slurrpfarm: {
+        amazon: {
+            topLikes: ['Kids actually eat the millet cereals willingly', 'No maida, no refined sugar — clean ingredients', 'Pancake mix is a breakfast game-changer', 'Good variety for different age groups', 'Anushka Sharma backing adds trust'],
+            topDislikes: ['Premium pricing vs regular kids snacks', 'Some products taste too healthy for picky eaters', 'Packaging quantity is small for the price', 'Not available in all pin codes'],
+            summary: 'Slurrp Farm owns the millet-based kids nutrition category. INR 97Cr revenue, expanding from 2K to 40K retail stores. Anushka Sharma invested. Fireside + Scarlet Ventures backed.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — kids food brand'],
+            topDislikes: ['Not applicable — kids food brand'],
+            summary: 'Slurrp Farm is a food brand. Not available on Myntra.',
+        },
+    },
+    thirdwave: {
+        amazon: {
+            topLikes: ['Single-origin coffee beans are excellent quality', 'Fresh roast dates on every pack', 'Good variety of roast profiles', 'Cafe-quality coffee for home brewing'],
+            topDislikes: ['Premium pricing vs mass-market coffee', 'Bean freshness varies with delivery time', 'Limited grind options'],
+            summary: 'Third Wave Coffee primarily a cafe chain (200+ outlets, 12+ cities). Amazon presence for packaged coffee beans. INR 285Cr revenue. Series C from Creaegis + WestBridge.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — coffee chain'],
+            topDislikes: ['Not applicable — coffee chain'],
+            summary: 'Third Wave Coffee is a QSR/cafe chain. Not on Myntra.',
+        },
+    },
+    chaayos: {
+        amazon: {
+            topLikes: ['Chai premixes capture the cafe taste at home', 'Good variety of flavors', 'Convenient for office/home chai breaks', 'Recognizable brand from cafe experience'],
+            topDislikes: ['Premix not as good as fresh cafe chai', 'Pricing higher than loose-leaf alternatives', 'Sugar content in some variants is high'],
+            summary: 'Chaayos is India largest organized chai cafe chain (200+ stores). Amazon for packaged products. INR 330Cr revenue. Tiger Global + Elevation backed at $250M.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — chai cafe chain'],
+            topDislikes: ['Not applicable — chai cafe chain'],
+            summary: 'Chaayos is a QSR chain. Not on Myntra.',
+        },
+    },
+    beyondappliances: {
+        amazon: {
+            topLikes: ['Android chimney is genuinely innovative — timer, whistle counter', 'Voice control works well in kitchen setting', 'Build quality is solid for the price', 'Installation support is professional'],
+            topDislikes: ['New brand — limited long-term reliability data', 'Software updates could be more frequent', 'Smart features have a learning curve', 'Premium pricing vs non-smart chimneys'],
+            summary: 'Beyond Appliances makes Android-powered kitchen chimneys — first in India. Revenue doubled post-seed to INR 50Cr ARR. Fireside Ventures doubled down (seed + Series A). boAt co-founder as angel.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — kitchen appliances brand'],
+            topDislikes: ['Not applicable — kitchen appliances brand'],
+            summary: 'Beyond Appliances is a consumer durables brand. Not on Myntra.',
+        },
+    },
+    sumosave: {
+        amazon: {
+            topLikes: ['Not applicable — offline retail chain'],
+            topDislikes: ['Not applicable — offline retail chain'],
+            summary: 'SumoSave is an offline discount supermarket chain in Kolkata. No Amazon presence.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — offline grocery retail'],
+            topDislikes: ['Not applicable — offline grocery retail'],
+            summary: 'SumoSave operates physical stores. Not on Myntra.',
+        },
+    },
+    bodycraft: {
+        amazon: {
+            topLikes: ['Not applicable — salon/spa service chain'],
+            topDislikes: ['Not applicable — salon/spa service chain'],
+            summary: 'Bodycraft is an offline salon, spa, and dermatology chain. No Amazon presence.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — consumer services'],
+            topDislikes: ['Not applicable — consumer services'],
+            summary: 'Bodycraft is a service business (25+ salons/clinics). Not on Myntra.',
+        },
+    },
 };
 
-const EC_AMAZON_BASE = { wakao: 280, aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, cosmix: 420, samosaparty: 900, bombaysweets: 450, theater: 320, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950, wishcare: 2800, indoera: 1800, godesi: 650, beco: 850, supertails: 1400, longway: 1600, bearhouse: 720, napchief: 380, desifarms: 550, berrylush: 900 };
+const EC_AMAZON_BASE = { aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, cosmix: 420, samosaparty: 900, bombaysweets: 450, theater: 320, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950, wishcare: 2800, indoera: 1800, godesi: 650, beco: 850, supertails: 1400, longway: 1600, bearhouse: 720, napchief: 380, desifarms: 550, berrylush: 900, comet: 420, solethreads: 850, rforrabbit: 2200, superbottoms: 1400, slurrpfarm: 1200, thirdwave: 600, chaayos: 400, beyondappliances: 350, sumosave: 50, bodycraft: 80 };
 COMPANIES.forEach(c => {
     const amazonBase = EC_AMAZON_BASE[c.id] || 250;
     const myntraBase = c.sector === 'fashion' ? 300 + Math.random() * 800 :
@@ -868,8 +1042,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000, wishcare: 720000, indoera: 480000, godesi: 140000, beco: 200000, supertails: 420000, longway: 320000, bearhouse: 250000, napchief: 95000, desifarms: 110000, berrylush: 180000 };
-const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70, wishcare: 1.25, indoera: 0.95, godesi: 1.10, beco: 1.18, supertails: 1.22, longway: 1.05, bearhouse: 1.08, napchief: 1.20, desifarms: 0.82, berrylush: 0.92 };
+const TR_BASE = { aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000, wishcare: 720000, indoera: 480000, godesi: 140000, beco: 200000, supertails: 420000, longway: 320000, bearhouse: 250000, napchief: 95000, desifarms: 110000, berrylush: 180000, comet: 380000, solethreads: 280000, rforrabbit: 520000, superbottoms: 380000, slurrpfarm: 420000, thirdwave: 650000, chaayos: 750000, beyondappliances: 85000, sumosave: 45000, bodycraft: 180000 };
+const TR_GROWTH = { aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70, wishcare: 1.25, indoera: 0.95, godesi: 1.10, beco: 1.18, supertails: 1.22, longway: 1.05, bearhouse: 1.08, napchief: 1.20, desifarms: 0.82, berrylush: 0.92, comet: 1.45, solethreads: 1.10, rforrabbit: 1.05, superbottoms: 1.00, slurrpfarm: 1.15, thirdwave: 1.20, chaayos: 1.08, beyondappliances: 1.35, sumosave: 0.75, bodycraft: 0.92 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -897,23 +1071,6 @@ COMPANIES.forEach(c => {
 });
 // --- Social Commentary Summaries (Reddit / Instagram / LinkedIn per company) ---
 const SOCIAL_SUMMARIES = {
-    wakao: {
-        reddit: {
-            summary: 'Wakao Foods appears in r/IndianFood and r/PlantBasedDiet threads as India\'s answer to Beyond Meat. Users share recipe experiments with jackfruit meat. The Shark Tank appearance drove a spike in curiosity posts.',
-            topLikes: ['Jackfruit meat works brilliantly in biryani and curry', 'Finally a plant-based option designed for Indian cooking', 'Clean label with no weird additives', 'Shark Tank validation adds credibility'],
-            topDislikes: ['Premium pricing limits regular use', 'Requires proper seasoning — bland on its own', 'Availability is patchy across cities', 'Texture not convincing for hardcore meat lovers'],
-        },
-        instagram: {
-            summary: 'Instagram presence growing via food blogger collaborations. Recipe reels featuring Wakao in Indian dishes perform well. The "plant-based biryani" content goes viral periodically.',
-            topLikes: ['Recipe content is creative and shareable', 'Plant-based Indian food narrative resonates', 'Founder story is compelling'],
-            topDislikes: ['Low follower count limits organic reach', 'Need more relatable everyday cooking content', 'Product photography could be more appetizing'],
-        },
-        linkedin: {
-            summary: 'Wakao founders are active on LinkedIn sharing the plant-based meat opportunity in India. Posts about Shark Tank journey and food-tech innovation get engagement from VC and food industry circles.',
-            topLikes: ['Plant-based meat market in India narrative', 'Shark Tank journey storytelling', 'Sustainability + food-tech positioning'],
-            topDislikes: ['Niche audience on LinkedIn', 'Limited business metrics shared'],
-        },
-    },
     phool: {
         reddit: {
             summary: 'Phool\'s story of upcycling temple flowers into incense and vegan leather (Fleather) is one of the most-shared Indian startup stories on Reddit. r/ZeroWaste and r/Sustainability threads feature them regularly. The social impact angle drives emotional engagement.',
@@ -1227,9 +1384,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400, wishcare: 4800, indoera: 2200, godesi: 1800, beco: 2400, supertails: 3800, longway: 1600, bearhouse: 2000, napchief: 1200, desifarms: 900, berrylush: 1400 };
-const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000, wishcare: 220000, indoera: 180000, godesi: 55000, beco: 65000, supertails: 120000, longway: 42000, bearhouse: 85000, napchief: 45000, desifarms: 28000, berrylush: 95000 };
-const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500, wishcare: 8000, indoera: 5500, godesi: 4000, beco: 6500, supertails: 12000, longway: 3500, bearhouse: 7000, napchief: 3000, desifarms: 4000, berrylush: 4500 };
+const SO_REDDIT = { aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400, wishcare: 4800, indoera: 2200, godesi: 1800, beco: 2400, supertails: 3800, longway: 1600, bearhouse: 2000, napchief: 1200, desifarms: 900, berrylush: 1400, comet: 3200, solethreads: 1800, rforrabbit: 2400, superbottoms: 2800, slurrpfarm: 3000, thirdwave: 4500, chaayos: 5200, beyondappliances: 800, sumosave: 600, bodycraft: 1200 };
+const SO_INSTA = { aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000, wishcare: 220000, indoera: 180000, godesi: 55000, beco: 65000, supertails: 120000, longway: 42000, bearhouse: 85000, napchief: 45000, desifarms: 28000, berrylush: 95000, comet: 300000, solethreads: 85000, rforrabbit: 120000, superbottoms: 95000, slurrpfarm: 180000, thirdwave: 250000, chaayos: 200000, beyondappliances: 15000, sumosave: 5000, bodycraft: 65000 };
+const SO_LINKEDIN = { aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500, wishcare: 8000, indoera: 5500, godesi: 4000, beco: 6500, supertails: 12000, longway: 3500, bearhouse: 7000, napchief: 3000, desifarms: 4000, berrylush: 4500, comet: 8000, solethreads: 6000, rforrabbit: 10000, superbottoms: 8500, slurrpfarm: 12000, thirdwave: 18000, chaayos: 22000, beyondappliances: 5000, sumosave: 4500, bodycraft: 7000 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
@@ -1256,7 +1413,12 @@ COMPANIES.forEach(c => {
 
 // --- Social Feed Posts ---
 const SOCIAL_POSTS = [
-    { platform: 'reddit', subreddit: 'r/IndianFood', title: 'Made jackfruit biryani with Wakao — mind blown!', upvotes: 847, comments: 134, time: '4h ago', sentiment: 'positive', brand: 'wakao' },
+    { platform: 'reddit', subreddit: 'r/IndianSneakerHeads', title: 'Comet Jugnu drop sold out in 12 minutes — Indian sneaker culture is finally here', upvotes: 2400, comments: 380, time: '3h ago', sentiment: 'positive', brand: 'comet' },
+    { platform: 'instagram', handle: '@sneakerheadindia', title: 'Comet x Ludo sneaker unboxing — the detailing on these is insane for ₹4500', likes: 8900, comments: 620, time: '4h ago', sentiment: 'positive', brand: 'comet' },
+    { platform: 'reddit', subreddit: 'r/IndianParenting', title: 'R for Rabbit stroller survived 2 kids and still looks new. Best baby purchase ever.', upvotes: 1800, comments: 290, time: '6h ago', sentiment: 'positive', brand: 'rforrabbit' },
+    { platform: 'instagram', handle: '@momlife.india', title: 'SuperBottoms cloth diapers — 18 months in, saved ₹40K vs disposables. Full review.', likes: 4200, comments: 380, time: '5h ago', sentiment: 'positive', brand: 'superbottoms' },
+    { platform: 'reddit', subreddit: 'r/bangalore', title: 'Third Wave Coffee hit 200 outlets. Still the best specialty coffee chain in India?', upvotes: 3100, comments: 456, time: '7h ago', sentiment: 'positive', brand: 'thirdwave' },
+    { platform: 'linkedin', handle: 'Rajat Luthra', title: 'From KFC India CEO to Third Wave Coffee. Here\'s why I believe India\'s coffee market is just getting started.', likes: 9500, comments: 670, time: '8h ago', sentiment: 'positive', brand: 'thirdwave' },
     { platform: 'reddit', subreddit: 'r/IndianProducts', title: 'Phool incense sticks from temple flowers — what a beautiful concept', upvotes: 1250, comments: 198, time: '6h ago', sentiment: 'positive', brand: 'phool' },
     { platform: 'instagram', handle: '@foodiesinhyderabad', title: 'Day 365 of Sid\'s Farm milk subscription — never going back to packaged milk', likes: 3420, comments: 287, time: '2h ago', sentiment: 'positive', brand: 'sidsfarm' },
     { platform: 'reddit', subreddit: 'r/IndianSkincareAddicts', title: 'Gynoveda 90-day PCOD update — my experience and results', upvotes: 2100, comments: 456, time: '8h ago', sentiment: 'positive', brand: 'gynoveda' },
@@ -1292,24 +1454,6 @@ const SOCIAL_POSTS = [
 
 // --- Employee Reviews Data (AmbitionBox + Glassdoor) ---
 const EMPLOYEE_REVIEWS = {
-    wakao: {
-        ambitionbox: { rating: 3.8, totalReviews: 24, recommend: 72, ceoApproval: 78, workLife: 3.9, salary: 3.2, security: 3.4, culture: 4.1, growth: 3.5,
-            likes: ['Mission-driven culture motivates the team', 'Startup energy — every voice matters', 'Innovative product space is exciting to work in'],
-            dislikes: ['Early-stage salary constraints', 'Small team means wearing many hats', 'Limited HR processes and structure'],
-            summary: 'Wakao employees appreciate the mission-driven culture and innovative product space. Typical early-stage challenges around compensation and structure.'
-        },
-        glassdoor: { rating: 3.6, totalReviews: 18, recommend: 68, ceoApproval: 75, workLife: 3.7, salary: 3.0, security: 3.2, culture: 3.9, growth: 3.4,
-            likes: ['Purpose-driven work in plant-based food', 'Flat hierarchy — direct access to founders', 'Fast learning environment'],
-            dislikes: ['Compensation below market for food-tech', 'Work-life balance can be tough in peak seasons', 'Benefits package is basic'],
-            summary: 'Glassdoor reviews mirror AmbitionBox — strong culture but compensation gaps typical of early-stage food startups.'
-        },
-        moodTimeline: [
-            { quarter: 'Q1 2025', mood: 'energetic', score: 62, theme: 'Team excited post Shark Tank. Hiring ramp-up. Culture is strong but processes lacking.' },
-            { quarter: 'Q2 2025', mood: 'growing pains', score: 58, theme: 'Rapid hiring creating culture dilution concerns. Salary benchmarking issues surfacing.' },
-            { quarter: 'Q3 2025', mood: 'stabilizing', score: 65, theme: 'HR processes introduced. Team settling into roles. Product success boosting morale.' },
-            { quarter: 'Q1 2026', mood: 'positive', score: 72, theme: 'Funding round improved salaries. Clear growth paths emerging. Mission continues to drive retention.' },
-        ],
-    },
     aukera: {
         ambitionbox: { rating: 4.4, totalReviews: 48, recommend: 88, ceoApproval: 92, workLife: 4.0, salary: 3.8, security: 4.0, culture: 4.5, growth: 4.4,
             likes: ['Explosive growth — INR 5Cr to 200Cr ARR in 2 years', 'Peak XV backing signals strong future', 'Premium luxury brand building is exciting', 'Retail + tech hybrid role variety'],
@@ -1728,6 +1872,9 @@ const SIGNAL_CHANNELS = [
     { id: 'fundraise', name: 'Fundraise Announcements', icon: '$', color: '#22c55e', description: 'First institutional round (Seed/Angel) raised in last 6 months' },
     { id: 'qcommerce', name: 'Quick Commerce', icon: 'Q', color: '#ef4444', description: 'Brand listed on Blinkit/Zepto/Instamart — scaling signal for food/beauty' },
     { id: 'gst', name: 'GST Turnover', icon: 'G', color: '#84cc16', description: 'GST filing turnover growth >80% YoY via Tofler/Zauba Corp' },
+    { id: 'store_expansion', name: 'Store Expansion', icon: 'E', color: '#0d9488', description: 'Offline store count growing >50% YoY or 10+ new locations in 6 months' },
+    { id: 'franchise_velocity', name: 'Franchise Velocity', icon: 'V', color: '#7c2d12', description: 'New franchise/FOFO locations opening at >5/month rate with unit economics proof' },
+    { id: 'vc_round', name: 'VC Round Alert', icon: '$', color: '#4f46e5', description: 'New institutional round from Tier-1 VC (Elevation, Fireside, Nexus, Lightspeed, Matrix, etc.)' },
 ];
 
 // Discovery pipeline stages
@@ -1761,13 +1908,7 @@ const DISCOVERED_BRANDS = [
         stage: 'Tracking', discoveryScore: 89, igFollowers: '290K', igGrowthRate: 20,
         strongestSignal: 'MCA/ROC Filings', detail: 'Traditional Indian beverages (Shikanji, Zeera Soda) from Ludhiana. Series B from Verlinvest. Expanding offline retail rapidly. Revenue: verify via MCA filing.'
     },
-    {
-        id: 'slurrpfarm', name: 'Slurrp Farm', city: 'Gurugram', state: 'Haryana', tier: 2,
-        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: false, qcommerce: true, gst: true },
-        stage: 'Verified', discoveryScore: 91, igFollowers: '450K', igGrowthRate: 12,
-        strongestSignal: 'Amazon BSR', detail: 'Kids nutrition brand. Shark Tank S1 alumni. Strong BSR in Baby Foods. Multiple open roles on LinkedIn. Revenue: verify via MCA filing.'
-    },
+    // Slurrp Farm promoted to main tracker (Kids & Baby Care sector)
     {
         id: 'theformularx', name: 'The Formula Rx', city: 'India', state: 'India', tier: 2,
         sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'Verify via MCA',
@@ -1886,6 +2027,14 @@ const DISCOVERED_BRANDS = [
 // NOTE: Revenue figures in MCA channel events are illustrative placeholders.
 // Replace with actual Tofler/Zauba/MCA data before using for investment decisions.
 const SIGNAL_FEED = [
+    { channel: 'vc_round', brand: 'Comet', city: 'Bengaluru', date: '2026-02-21', detail: 'Series A: $5.08M from Elevation Capital + Nexus Venture Partners (May 2024). INR 167Cr valuation. Sneakers selling out in 15 min.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'Comet', city: 'Bengaluru', date: '2026-02-21', detail: '300K IG followers. Limited drops creating cult-like demand. Revenue 4x to INR 29Cr. Verify via Social Blade.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'Third Wave Coffee', city: 'Bengaluru', date: '2026-02-21', detail: 'Hit 200-cafe milestone (Dec 2025). From 90 to 200 stores in ~2 years. Hired ex-KFC India CEO.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'SumoSave', city: 'Kolkata', date: '2026-02-20', detail: 'Rapidly expanding COCO stores in Kolkata suburbs. 163 employees (122% YoY growth). Lightspeed India backed.', strength: 'strong' },
+    { channel: 'vc_round', brand: 'R for Rabbit', city: 'Pune', date: '2026-02-20', detail: 'Series B: $27M co-led by Filter Capital + 3one4 Capital (Aug 2025). INR 850Cr valuation. Profitable growth.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'Chaayos', city: 'Delhi NCR', date: '2026-02-20', detail: '200+ stores, patented IoT Chai Monk bots. Tiger Global + Elevation backed. Acquired Dohful (cookies).', strength: 'strong' },
+    { channel: 'vc_round', brand: 'Beyond Appliances', city: 'Mumbai', date: '2026-02-19', detail: 'Series A: $4M from Fireside Ventures + Dharana Capital (Aug 2025). Revenue doubled post-seed. Android chimney pioneer.', strength: 'strong' },
+    { channel: 'franchise_velocity', brand: 'Bodycraft', city: 'Bengaluru', date: '2026-02-19', detail: 'Planning 16 new stores in 2025 (18 COCO + 7 FOFO). Targeting INR 215Cr revenue. 11-12% EBITDA margin.', strength: 'strong' },
     { channel: 'fundraise', brand: 'Theater.xyz', city: 'Chandigarh', date: '2026-02-19', detail: 'Pre-Series A: $1.5M from Prath Ventures (Sep 2024). Same fund backed NBC. Verify via Inc42/Tracxn.', strength: 'strong' },
     { channel: 'ig_growth', brand: 'Theater.xyz', city: 'Chandigarh', date: '2026-02-19', detail: '~380K IG followers. Featured in Vogue, Elle, Grazia, Cosmopolitan, Femina. Verify via Social Blade.', strength: 'strong' },
     { channel: 'qcommerce', brand: 'Theater.xyz', city: 'Chandigarh', date: '2026-02-19', detail: 'Expanding into quick commerce channel per Inc42 report. Mass-premium fashion going omnichannel.', strength: 'strong' },
@@ -1942,6 +2091,10 @@ const REGIONAL_HOTSPOTS = [
     { city: 'Hyderabad', state: 'Telangana', tier: 1, brands: ["Sid's Farm"], signalCount: 6, topCategory: 'Food & Beverage' },
     { city: 'Bangalore', state: 'Karnataka', tier: 1, brands: ['Kapiva', 'Samosa Party', 'Snitch'], signalCount: 14, topCategory: 'Health & Fashion' },
     { city: 'Kerala', state: 'Kerala', tier: 2, brands: ['Beyond Snack'], signalCount: 8, topCategory: 'Food & Beverage' },
+    { city: 'Bengaluru', state: 'Karnataka', tier: 1, brands: ['Comet', 'Third Wave Coffee', 'Bodycraft'], signalCount: 18, topCategory: 'Footwear & QSR' },
+    { city: 'Gurugram', state: 'Haryana', tier: 1, brands: ['Slurrp Farm', 'SuperBottoms', 'Chaayos'], signalCount: 15, topCategory: 'Kids & QSR' },
+    { city: 'Kolkata', state: 'West Bengal', tier: 2, brands: ['SumoSave', 'Nestasia'], signalCount: 12, topCategory: 'Retail & Home' },
+    { city: 'Mumbai', state: 'Maharashtra', tier: 1, brands: ['Beyond Appliances', 'Solethreads', 'R for Rabbit'], signalCount: 14, topCategory: 'Durables & Kids' },
 ];
 
 // --- LinkedIn Senior Hiring Data ---
@@ -2059,6 +2212,52 @@ const LINKEDIN_HIRING_DATA = [
         currentCompany: 'neemans',
         hireDate: '2024-11-16',
     },
+];
+
+// --- Funding Rounds & VC Activity Tracker ---
+// Tracks recent funding rounds in the consumer space for deal-flow intelligence
+// Helps answer: "Who just raised?", "Who's about to raise?", "Which VCs are active?"
+const FUNDING_ROUNDS = [
+    // --- Tracked Companies (in COMPANIES array) ---
+    { company: 'comet', companyName: 'Comet', round: 'Series A', amount: '$5.08M', date: '2024-05', leadInvestor: 'Elevation Capital', coInvestors: ['Nexus Venture Partners', 'AngelList India'], valuation: 'INR 167Cr', sector: 'footwear' },
+    { company: 'comet', companyName: 'Comet', round: 'Seed', amount: '$1.5M', date: '2023-02', leadInvestor: 'Nexus Venture Partners', coInvestors: ['AngelList India'], valuation: 'Undisclosed', sector: 'footwear' },
+    { company: 'solethreads', companyName: 'Solethreads', round: 'Series A', amount: '$3.7M', date: '2023-07', leadInvestor: 'Fireside Ventures', coInvestors: ['DSG Consumer Partners', 'Saama Capital'], valuation: 'INR 145Cr', sector: 'footwear' },
+    { company: 'rforrabbit', companyName: 'R for Rabbit', round: 'Series B', amount: '$27M', date: '2025-08', leadInvestor: 'Filter Capital', coInvestors: ['3one4 Capital'], valuation: 'INR 850Cr', sector: 'kids' },
+    { company: 'superbottoms', companyName: 'SuperBottoms', round: 'Series A', amount: '$5M', date: '2023-06', leadInvestor: 'Lok Capital', coInvestors: ['Sharrp Ventures', 'DSG Consumer Partners', 'Saama Capital'], valuation: 'INR 191Cr', sector: 'kids' },
+    { company: 'slurrpfarm', companyName: 'Slurrp Farm', round: 'Series C Extension', amount: 'INR 30Cr', date: '2026-02', leadInvestor: 'Scarlet Ventures', coInvestors: ['Fireside Ventures', 'Raed Capital'], valuation: 'INR 810Cr', sector: 'kids' },
+    { company: 'thirdwave', companyName: 'Third Wave Coffee', round: 'Series C', amount: '$35M', date: '2024-06', leadInvestor: 'Creaegis', coInvestors: ['WestBridge Capital'], valuation: 'INR 1300Cr', sector: 'qsr' },
+    { company: 'chaayos', companyName: 'Chaayos', round: 'Series C', amount: '$53M', date: '2022-06', leadInvestor: 'Alpha Wave Global', coInvestors: ['Tiger Global', 'Elevation Capital', 'Think Investments'], valuation: 'INR 2600Cr', sector: 'qsr' },
+    { company: 'beyondappliances', companyName: 'Beyond Appliances', round: 'Series A', amount: '$4M', date: '2025-08', leadInvestor: 'Fireside Ventures', coInvestors: ['Dharana Capital'], valuation: '~INR 50-80Cr', sector: 'durables' },
+    { company: 'beyondappliances', companyName: 'Beyond Appliances', round: 'Seed', amount: '$2M', date: '2024-11', leadInvestor: 'Fireside Ventures', coInvestors: [], valuation: 'Undisclosed', sector: 'durables' },
+    { company: 'sumosave', companyName: 'SumoSave', round: 'Seed', amount: '$3.3M', date: '2024-03', leadInvestor: 'Lightspeed India', coInvestors: ['Stride Ventures', 'Kettleborough VC', 'Faad Network'], valuation: 'Undisclosed', sector: 'retail' },
+    { company: 'bodycraft', companyName: 'Bodycraft', round: 'Angel', amount: 'INR 18Cr', date: '2017-01', leadInvestor: 'Venture Catalysts', coInvestors: [], valuation: 'Undisclosed', sector: 'services' },
+    { company: 'snitch', companyName: 'Snitch', round: 'Series B', amount: '$40M', date: '2025-06', leadInvestor: '360 ONE Asset', coInvestors: [], valuation: 'INR 2500Cr', sector: 'fashion' },
+    { company: 'foxtale', companyName: 'Foxtale', round: 'Series C', amount: '$30M', date: '2025-01', leadInvestor: 'KOSE Corporation Japan', coInvestors: [], valuation: 'INR 1530Cr', sector: 'beauty' },
+    { company: 'mokobara', companyName: 'Mokobara', round: 'Series B', amount: '$12M', date: '2024-08', leadInvestor: 'Sauce VC', coInvestors: ['Saama Capital', 'Nexus Venture Partners'], valuation: '~$80M', sector: 'fashion' },
+    { company: 'nathabit', companyName: 'Nat Habit', round: 'Series A', amount: '$10M', date: '2024-03', leadInvestor: 'Fireside Ventures', coInvestors: ['Lightspeed India'], valuation: 'INR 343Cr', sector: 'beauty' },
+    { company: 'eggoz', companyName: 'Eggoz', round: 'Series B', amount: '$10M', date: '2024-01', leadInvestor: 'Rebright Partners', coInvestors: ['Aavishkaar Capital', 'ORIX'], valuation: 'INR 458Cr', sector: 'food' },
+    { company: 'perfora', companyName: 'Perfora', round: 'Series A', amount: '$10M', date: '2024-06', leadInvestor: 'Bessemer Venture Partners', coInvestors: ['Mensa Brands'], valuation: 'INR 240Cr', sector: 'health' },
+    // --- Discovered Brands (not in main tracker yet) ---
+    { company: 'farmley', companyName: 'Farmley', round: 'Series C', amount: '$40M', date: '2025-01', leadInvestor: 'L Catterton', coInvestors: [], valuation: 'Undisclosed', sector: 'food' },
+    { company: 'beyondsnack', companyName: 'Beyond Snack', round: 'Series A', amount: '$8.3M', date: '2024-12', leadInvestor: '12 Flags', coInvestors: [], valuation: 'Undisclosed', sector: 'food' },
+    { company: 'zofffoods', companyName: 'Zoff Foods', round: 'Series A', amount: 'INR 40Cr', date: '2024-08', leadInvestor: 'JM Financial PE', coInvestors: [], valuation: 'Undisclosed', sector: 'food' },
+];
+
+// --- VC Activity Tracker ---
+// Which top-tier VCs are actively deploying in consumer and where
+const VC_ACTIVITY = [
+    { vc: 'Fireside Ventures', focus: 'Consumer-only fund', activeDeals: ['Solethreads', 'Slurrp Farm', 'Beyond Appliances', 'Nat Habit', 'Kapiva'], recentDeployment: '$15M+ in last 12 months', sectors: ['footwear', 'kids', 'durables', 'beauty', 'health'], thesis: 'Backs emerging consumer brands at Seed-Series A. Deepest consumer-only fund in India.' },
+    { vc: 'Elevation Capital', focus: 'Multi-stage', activeDeals: ['Comet', 'Chaayos'], recentDeployment: '$58M+ in consumer', sectors: ['footwear', 'qsr'], thesis: 'Growth-stage bets on category leaders. Consumer is ~25% of portfolio.' },
+    { vc: 'Nexus Venture Partners', focus: 'Multi-stage', activeDeals: ['Comet', 'Mokobara'], recentDeployment: '$17M+ in consumer', sectors: ['footwear', 'fashion'], thesis: 'Early-stage conviction plays. Backs founders with strong differentiation.' },
+    { vc: 'Lightspeed India', focus: 'Multi-stage', activeDeals: ['SumoSave', 'Nat Habit'], recentDeployment: '$13M+ in consumer', sectors: ['retail', 'beauty'], thesis: 'Bets on large market opportunities with operator-founders.' },
+    { vc: 'DSG Consumer Partners', focus: 'Consumer-focused', activeDeals: ['Solethreads', 'SuperBottoms'], recentDeployment: '$8M+ in consumer', sectors: ['footwear', 'kids'], thesis: 'Pure-play consumer fund. Backs brands from Series A through growth.' },
+    { vc: 'Tiger Global', focus: 'Growth/Late-stage', activeDeals: ['Chaayos'], recentDeployment: 'Limited new consumer bets', sectors: ['qsr'], thesis: 'Selective growth-stage in India consumer. Looking for $100M+ revenue scale.' },
+    { vc: 'WestBridge Capital', focus: 'Growth/Public', activeDeals: ['Third Wave Coffee'], recentDeployment: '$35M in QSR', sectors: ['qsr'], thesis: 'Growth capital for proven unit economics. Heavy on QSR/food services.' },
+    { vc: 'Filter Capital', focus: 'Growth-stage', activeDeals: ['R for Rabbit'], recentDeployment: '$27M in baby care', sectors: ['kids'], thesis: 'Ex-McKinsey team. Backs profitable growth-stage consumer companies.' },
+    { vc: 'Bessemer Venture Partners', focus: 'Multi-stage global', activeDeals: ['Perfora'], recentDeployment: '$10M in consumer health', sectors: ['health'], thesis: 'Selective India consumer bets. Looks for category-defining brands.' },
+    { vc: 'KOSE Corporation', focus: 'Strategic investor (Japan)', activeDeals: ['Foxtale'], recentDeployment: '$30M strategic investment', sectors: ['beauty'], thesis: 'Japanese cosmetics conglomerate taking strategic 10% stakes in high-growth Indian beauty brands.' },
+    { vc: 'L Catterton', focus: 'Global consumer PE', activeDeals: ['Farmley'], recentDeployment: '$40M in food/snacks', sectors: ['food'], thesis: 'LVMH-backed consumer PE. First India consumer bets in healthy snacks vertical.' },
+    { vc: 'Creaegis', focus: 'Growth-stage India', activeDeals: ['Third Wave Coffee'], recentDeployment: '$35M in QSR', sectors: ['qsr'], thesis: 'Growth capital in consumer services. Co-investing with WestBridge in specialty QSR.' },
 ];
 
 // --- Composite Scoring ---
