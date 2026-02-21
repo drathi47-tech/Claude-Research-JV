@@ -22,11 +22,18 @@
 // Consumer Durables | Pet Care | Kids & Baby Care | Footwear |
 // QSR & Coffee Chains | Offline Retail | Consumer Services
 //
+// INVESTMENT SCREEN (applied to all entries):
+// - Valuation: Under ~$120M (INR ~1000Cr) — enough upside for 5-10x
+// - Stage: Seed to Series B — not Series C/D (too late for meaningful entry)
+// - Growth: 30%+ YoY or strong proxy signals
+// - Must have equity story (VC-investable, not bootstrapped marketplace sellers)
+//
 // EXCLUSIONS:
 // - Acquired brands (e.g., Neemli → GOAT, Earth Rhythm → Nykaa,
 //   Minimalist → HUL)
 // - Pre-seed with no measurable traction
-// - Public companies or brands with >$500M valuation
+// - Public companies or brands with >$120M valuation / Series C+
+// - Stagnating brands (<20% YoY growth without clear inflection)
 // =====================================================
 
 const COMPANIES = [
@@ -36,8 +43,8 @@ const COMPANIES = [
     { id: 'phool', name: 'Phool', sector: 'home', sectorLabel: 'Home & Living', website: 'phool.co', color: '#10b981', estValuation: 'INR 175Cr', estRevenue: 'INR 50Cr/yr' },
     { id: 'sidsfarm', name: "Sid's Farm", sector: 'food', sectorLabel: 'Food & Beverage', website: 'sidsfarm.com', color: '#06b6d4', estValuation: 'INR 279Cr', estRevenue: 'INR 168Cr/yr' },
     { id: 'koparo', name: 'Koparo', sector: 'home', sectorLabel: 'Home & Living', website: 'koparoclean.com', color: '#84cc16', estValuation: 'INR 124Cr', estRevenue: 'INR 23.4Cr/yr' },
-    { id: 'gynoveda', name: 'Gynoveda', sector: 'health', sectorLabel: 'Health & Wellness', website: 'gynoveda.com', color: '#d946ef', estValuation: 'INR 254Cr', estRevenue: 'INR 67Cr/yr' },
-    { id: 'bareanatomy', name: 'Bare Anatomy', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'bareanatomy.com', color: '#a855f7', estValuation: '~$140M', estRevenue: 'INR 299Cr/yr (Innovist)' },
+    // Gynoveda removed — stagnating (17% YoY, no funding 3 years, revenue narrative gap)
+    // Bare Anatomy removed — ~$140M valuation, Innovist group, not standalone target
     { id: 'tbof', name: 'Two Brothers Organic Farms', sector: 'food', sectorLabel: 'Food & Beverage', website: 'twobrothersindiashop.com', color: '#22c55e', estValuation: 'INR 434Cr', estRevenue: 'INR 108Cr/yr' },
 
     { id: 'cosmix', name: 'Cosmix', sector: 'health', sectorLabel: 'Health & Wellness', website: 'cosmix.in', color: '#14b8a6', estValuation: 'INR 375Cr', estRevenue: 'INR 51Cr/yr' },
@@ -47,12 +54,12 @@ const COMPANIES = [
     { id: 'bombaysweets', name: 'Bombay Sweet Shop', sector: 'food', sectorLabel: 'Food & Beverage', website: 'bombaysweetshop.com', color: '#eab308', estValuation: 'INR 200Cr+ (grp)', estRevenue: 'INR 65Cr/yr' },
 
     // --- Scaled D2C Brands (sub-$400M valuation) ---
-    { id: 'snitch', name: 'Snitch', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'snitch.co.in', color: '#f43f5e', estValuation: 'INR 2500Cr', estRevenue: 'INR 520Cr/yr' },
+    // Snitch removed — INR 2500Cr ($300M), graduated beyond growth-stage VC range
     { id: 'mokobara', name: 'Mokobara', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'mokobara.com', color: '#0d9488', estValuation: '~$80M', estRevenue: 'INR 230Cr/yr' },
-    { id: 'mcaffeine', name: 'mCaffeine', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mcaffeine.com', color: '#78350f', estValuation: 'INR 1000Cr', estRevenue: 'INR 239Cr/yr' },
-    { id: 'vahdamteas', name: 'Vahdam Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'vahdamindia.com', color: '#059669', estValuation: '$114M', estRevenue: 'INR 268Cr/yr' },
-    { id: 'plumgoodness', name: 'Plum Goodness', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'plumgoodness.com', color: '#7c3aed', estValuation: '$250M', estRevenue: 'INR 419Cr/yr' },
-    { id: 'bsc', name: 'Bombay Shaving Company', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'bombayshavingcompany.com', color: '#0369a1', estValuation: 'INR 824Cr+', estRevenue: 'INR 550Cr/yr (RR)' },
+    // mCaffeine removed — INR 1000Cr ($120M), graduated
+    // Vahdam Teas removed — $114M, Series D, $34M raised, too late stage
+    // Plum Goodness removed — $250M, graduated
+    // BSC removed — INR 824Cr, INR 550Cr revenue, graduated
     { id: 'ragecoffee', name: 'Rage Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'ragecoffee.com', color: '#ea580c', estValuation: 'INR 186Cr', estRevenue: 'INR 25Cr/yr' },
     // --- FAST42 / Emerging D2C Brands ---
     { id: 'theater', name: 'Theater.xyz', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'theater.xyz', color: '#6366f1', estValuation: 'INR 50-100Cr', estRevenue: 'INR 14.1Cr/yr (14x YoY)' },
@@ -62,11 +69,11 @@ const COMPANIES = [
     { id: 'nathabit', name: 'Nat Habit', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'nathabit.in', color: '#65a30d', estValuation: 'INR 343Cr', estRevenue: 'INR 72Cr/yr' },
     { id: 'anveshan', name: 'Anveshan', sector: 'food', sectorLabel: 'Food & Beverage', website: 'anveshan.farm', color: '#ca8a04', estValuation: 'INR 430Cr', estRevenue: 'INR 58Cr/yr' },
     { id: 'eggoz', name: 'Eggoz', sector: 'food', sectorLabel: 'Food & Beverage', website: 'eggoz.in', color: '#ea580c', estValuation: 'INR 458Cr', estRevenue: 'INR 130Cr/yr' },
-    { id: 'foxtale', name: 'Foxtale', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'foxtale.in', color: '#c026d3', estValuation: 'INR 1530Cr', estRevenue: 'INR 206Cr/yr' },
-    { id: 'pilgrim', name: 'Pilgrim', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'discoverpilgrim.com', color: '#0891b2', estValuation: 'INR 3000Cr', estRevenue: 'INR 204Cr/yr' },
+    // Foxtale removed — INR 1530Cr ($180M), Series C, beyond range
+    // Pilgrim removed — INR 3000Cr ($360M), far beyond range
     { id: 'neemans', name: 'Neemans', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'neemans.com', color: '#16a34a', estValuation: 'INR 268Cr', estRevenue: 'INR 77Cr/yr' },
     { id: 'perfora', name: 'Perfora', sector: 'health', sectorLabel: 'Health & Wellness', website: 'perfora.in', color: '#2563eb', estValuation: 'INR 240Cr', estRevenue: 'INR 42Cr/yr' },
-    { id: 'boldfit', name: 'Boldfit', sector: 'health', sectorLabel: 'Health & Wellness', website: 'boldfit.in', color: '#b91c1c', estValuation: 'INR 1020Cr', estRevenue: 'INR 140Cr/yr' },
+    // Boldfit removed — INR 1020Cr ($120M+), beyond threshold
     { id: 'sweetkaramcoffee', name: 'Sweet Karam Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'sweetkaramcoffee.in', color: '#92400e', estValuation: 'INR 313Cr', estRevenue: 'INR 11.5Cr/yr' },
     { id: 'drinkprime', name: 'DrinkPrime', sector: 'home', sectorLabel: 'Home & Living', website: 'drinkprime.in', color: '#0284c7', estValuation: 'INR 260Cr', estRevenue: 'INR 75Cr/yr' },
     { id: 'flomattress', name: 'Flo Mattress', sector: 'home', sectorLabel: 'Home & Living', website: 'flomattress.com', color: '#4f46e5', estValuation: 'INR 66Cr', estRevenue: 'INR 36Cr/yr' },
@@ -74,7 +81,7 @@ const COMPANIES = [
     { id: 'dorjeteas', name: 'Dorje Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'dorjeteas.com', color: '#047857', estValuation: 'INR 20.5Cr', estRevenue: 'INR 2.3Cr/yr' },
     // --- Signal-Discovered Brands (surfaced via growth signals, not static curation) ---
     { id: 'wishcare', name: 'WishCare', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mywishcare.com', color: '#db2777', estValuation: '~INR 140Cr (outdated)', estRevenue: 'INR 200Cr/yr (₹300Cr ARR)' },
-    { id: 'indoera', name: 'Indo Era', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'indoera.com', color: '#a21caf', estValuation: 'Bootstrapped', estRevenue: 'INR 500Cr/yr (gross)' },
+    // Indo Era removed — bootstrapped marketplace seller, no equity story
     { id: 'godesi', name: 'GO DESi', sector: 'food', sectorLabel: 'Food & Beverage', website: 'godesi.in', color: '#ea580c', estValuation: 'INR 500Cr (target)', estRevenue: 'INR 56Cr/yr (run rate)' },
     { id: 'beco', name: 'Beco', sector: 'home', sectorLabel: 'Home & Living', website: 'letsbeco.com', color: '#059669', estValuation: '~$11M', estRevenue: 'INR 111Cr/yr' },
     { id: 'supertails', name: 'Supertails', sector: 'pets', sectorLabel: 'Pet Care', website: 'supertails.com', color: '#0891b2', estValuation: '~$130M', estRevenue: 'INR 108Cr/yr (₹250Cr ARR)' },
@@ -90,8 +97,8 @@ const COMPANIES = [
     { id: 'rforrabbit', name: 'R for Rabbit', sector: 'kids', sectorLabel: 'Kids & Baby Care', website: 'rforrabbit.com', color: '#f472b6', estValuation: 'INR 850Cr (~$100M)', estRevenue: 'INR 252Cr/yr' },
     { id: 'superbottoms', name: 'SuperBottoms', sector: 'kids', sectorLabel: 'Kids & Baby Care', website: 'superbottoms.com', color: '#38bdf8', estValuation: 'INR 191Cr (~$23M)', estRevenue: 'INR 84Cr/yr' },
     { id: 'slurrpfarm', name: 'Slurrp Farm', sector: 'kids', sectorLabel: 'Kids & Baby Care', website: 'slurrpfarm.com', color: '#a3e635', estValuation: 'INR 810Cr (~$90M)', estRevenue: 'INR 97Cr/yr' },
-    { id: 'thirdwave', name: 'Third Wave Coffee', sector: 'qsr', sectorLabel: 'QSR & Coffee Chains', website: 'thirdwavecoffee.in', color: '#92400e', estValuation: 'INR 1300Cr (~$150M)', estRevenue: 'INR 285Cr/yr' },
-    { id: 'chaayos', name: 'Chaayos', sector: 'qsr', sectorLabel: 'QSR & Coffee Chains', website: 'chaayos.com', color: '#c2410c', estValuation: 'INR 2600Cr (~$250M)', estRevenue: 'INR 330Cr/yr' },
+    // Third Wave Coffee removed — INR 1300Cr ($150M), Series C $70M raised, beyond range
+    // Chaayos removed — INR 2600Cr ($250M), Series C $94M raised, beyond range
     { id: 'beyondappliances', name: 'Beyond Appliances', sector: 'durables', sectorLabel: 'Consumer Durables', website: 'beyondappliances.in', color: '#1d4ed8', estValuation: '~INR 50-80Cr', estRevenue: 'INR 50Cr/yr ARR' },
     { id: 'sumosave', name: 'SumoSave', sector: 'retail', sectorLabel: 'Offline Retail', website: 'sumosave.in', color: '#059669', estValuation: 'Seed ($3.3M)', estRevenue: 'INR 13.2Cr/yr (17x YoY)' },
     { id: 'bodycraft', name: 'Bodycraft', sector: 'services', sectorLabel: 'Consumer Services', website: 'bodycraft.co.in', color: '#be185d', estValuation: '~INR 200-300Cr', estRevenue: 'INR 130Cr/yr' },
@@ -2225,14 +2232,12 @@ const FUNDING_ROUNDS = [
     { company: 'rforrabbit', companyName: 'R for Rabbit', round: 'Series B', amount: '$27M', date: '2025-08', leadInvestor: 'Filter Capital', coInvestors: ['3one4 Capital'], valuation: 'INR 850Cr', sector: 'kids' },
     { company: 'superbottoms', companyName: 'SuperBottoms', round: 'Series A', amount: '$5M', date: '2023-06', leadInvestor: 'Lok Capital', coInvestors: ['Sharrp Ventures', 'DSG Consumer Partners', 'Saama Capital'], valuation: 'INR 191Cr', sector: 'kids' },
     { company: 'slurrpfarm', companyName: 'Slurrp Farm', round: 'Series C Extension', amount: 'INR 30Cr', date: '2026-02', leadInvestor: 'Scarlet Ventures', coInvestors: ['Fireside Ventures', 'Raed Capital'], valuation: 'INR 810Cr', sector: 'kids' },
-    { company: 'thirdwave', companyName: 'Third Wave Coffee', round: 'Series C', amount: '$35M', date: '2024-06', leadInvestor: 'Creaegis', coInvestors: ['WestBridge Capital'], valuation: 'INR 1300Cr', sector: 'qsr' },
-    { company: 'chaayos', companyName: 'Chaayos', round: 'Series C', amount: '$53M', date: '2022-06', leadInvestor: 'Alpha Wave Global', coInvestors: ['Tiger Global', 'Elevation Capital', 'Think Investments'], valuation: 'INR 2600Cr', sector: 'qsr' },
+    // Third Wave Coffee & Chaayos removed from tracker (beyond valuation range)
     { company: 'beyondappliances', companyName: 'Beyond Appliances', round: 'Series A', amount: '$4M', date: '2025-08', leadInvestor: 'Fireside Ventures', coInvestors: ['Dharana Capital'], valuation: '~INR 50-80Cr', sector: 'durables' },
     { company: 'beyondappliances', companyName: 'Beyond Appliances', round: 'Seed', amount: '$2M', date: '2024-11', leadInvestor: 'Fireside Ventures', coInvestors: [], valuation: 'Undisclosed', sector: 'durables' },
     { company: 'sumosave', companyName: 'SumoSave', round: 'Seed', amount: '$3.3M', date: '2024-03', leadInvestor: 'Lightspeed India', coInvestors: ['Stride Ventures', 'Kettleborough VC', 'Faad Network'], valuation: 'Undisclosed', sector: 'retail' },
     { company: 'bodycraft', companyName: 'Bodycraft', round: 'Angel', amount: 'INR 18Cr', date: '2017-01', leadInvestor: 'Venture Catalysts', coInvestors: [], valuation: 'Undisclosed', sector: 'services' },
-    { company: 'snitch', companyName: 'Snitch', round: 'Series B', amount: '$40M', date: '2025-06', leadInvestor: '360 ONE Asset', coInvestors: [], valuation: 'INR 2500Cr', sector: 'fashion' },
-    { company: 'foxtale', companyName: 'Foxtale', round: 'Series C', amount: '$30M', date: '2025-01', leadInvestor: 'KOSE Corporation Japan', coInvestors: [], valuation: 'INR 1530Cr', sector: 'beauty' },
+    // Snitch & Foxtale removed from tracker (beyond valuation range)
     { company: 'mokobara', companyName: 'Mokobara', round: 'Series B', amount: '$12M', date: '2024-08', leadInvestor: 'Sauce VC', coInvestors: ['Saama Capital', 'Nexus Venture Partners'], valuation: '~$80M', sector: 'fashion' },
     { company: 'nathabit', companyName: 'Nat Habit', round: 'Series A', amount: '$10M', date: '2024-03', leadInvestor: 'Fireside Ventures', coInvestors: ['Lightspeed India'], valuation: 'INR 343Cr', sector: 'beauty' },
     { company: 'eggoz', companyName: 'Eggoz', round: 'Series B', amount: '$10M', date: '2024-01', leadInvestor: 'Rebright Partners', coInvestors: ['Aavishkaar Capital', 'ORIX'], valuation: 'INR 458Cr', sector: 'food' },
@@ -2247,17 +2252,15 @@ const FUNDING_ROUNDS = [
 // Which top-tier VCs are actively deploying in consumer and where
 const VC_ACTIVITY = [
     { vc: 'Fireside Ventures', focus: 'Consumer-only fund', activeDeals: ['Solethreads', 'Slurrp Farm', 'Beyond Appliances', 'Nat Habit', 'Kapiva'], recentDeployment: '$15M+ in last 12 months', sectors: ['footwear', 'kids', 'durables', 'beauty', 'health'], thesis: 'Backs emerging consumer brands at Seed-Series A. Deepest consumer-only fund in India.' },
-    { vc: 'Elevation Capital', focus: 'Multi-stage', activeDeals: ['Comet', 'Chaayos'], recentDeployment: '$58M+ in consumer', sectors: ['footwear', 'qsr'], thesis: 'Growth-stage bets on category leaders. Consumer is ~25% of portfolio.' },
+    { vc: 'Elevation Capital', focus: 'Multi-stage', activeDeals: ['Comet'], recentDeployment: '$5M+ in consumer', sectors: ['footwear'], thesis: 'Growth-stage bets on category leaders. Consumer is ~25% of portfolio.' },
     { vc: 'Nexus Venture Partners', focus: 'Multi-stage', activeDeals: ['Comet', 'Mokobara'], recentDeployment: '$17M+ in consumer', sectors: ['footwear', 'fashion'], thesis: 'Early-stage conviction plays. Backs founders with strong differentiation.' },
     { vc: 'Lightspeed India', focus: 'Multi-stage', activeDeals: ['SumoSave', 'Nat Habit'], recentDeployment: '$13M+ in consumer', sectors: ['retail', 'beauty'], thesis: 'Bets on large market opportunities with operator-founders.' },
     { vc: 'DSG Consumer Partners', focus: 'Consumer-focused', activeDeals: ['Solethreads', 'SuperBottoms'], recentDeployment: '$8M+ in consumer', sectors: ['footwear', 'kids'], thesis: 'Pure-play consumer fund. Backs brands from Series A through growth.' },
-    { vc: 'Tiger Global', focus: 'Growth/Late-stage', activeDeals: ['Chaayos'], recentDeployment: 'Limited new consumer bets', sectors: ['qsr'], thesis: 'Selective growth-stage in India consumer. Looking for $100M+ revenue scale.' },
-    { vc: 'WestBridge Capital', focus: 'Growth/Public', activeDeals: ['Third Wave Coffee'], recentDeployment: '$35M in QSR', sectors: ['qsr'], thesis: 'Growth capital for proven unit economics. Heavy on QSR/food services.' },
+    // Tiger Global, WestBridge — primarily backing companies beyond our valuation range
     { vc: 'Filter Capital', focus: 'Growth-stage', activeDeals: ['R for Rabbit'], recentDeployment: '$27M in baby care', sectors: ['kids'], thesis: 'Ex-McKinsey team. Backs profitable growth-stage consumer companies.' },
     { vc: 'Bessemer Venture Partners', focus: 'Multi-stage global', activeDeals: ['Perfora'], recentDeployment: '$10M in consumer health', sectors: ['health'], thesis: 'Selective India consumer bets. Looks for category-defining brands.' },
-    { vc: 'KOSE Corporation', focus: 'Strategic investor (Japan)', activeDeals: ['Foxtale'], recentDeployment: '$30M strategic investment', sectors: ['beauty'], thesis: 'Japanese cosmetics conglomerate taking strategic 10% stakes in high-growth Indian beauty brands.' },
     { vc: 'L Catterton', focus: 'Global consumer PE', activeDeals: ['Farmley'], recentDeployment: '$40M in food/snacks', sectors: ['food'], thesis: 'LVMH-backed consumer PE. First India consumer bets in healthy snacks vertical.' },
-    { vc: 'Creaegis', focus: 'Growth-stage India', activeDeals: ['Third Wave Coffee'], recentDeployment: '$35M in QSR', sectors: ['qsr'], thesis: 'Growth capital in consumer services. Co-investing with WestBridge in specialty QSR.' },
+    // Creaegis — primarily backing companies beyond our valuation range
 ];
 
 // --- Composite Scoring ---
