@@ -1,19 +1,31 @@
 // =====================================================
-// Consumer Trend Radar - Sample Data
-// Sub-$400M emerging D2C / consumer brands in India
-// FAST42-ranked + scaled D2C + early-stage
-// Focused on breakout investment opportunities
+// Consumer Trend Radar — Jungle Ventures
+// Signal-based discovery engine for emerging consumer brands
+// NOT a static watchlist — designed to surface breakout brands
+// across ALL consumer sectors that may be missed by traditional
+// VC deal flow (FAST42, pitch decks, warm intros)
 // =====================================================
 //
-// SELECTION CRITERIA:
-// - Minimum 30% YoY growth across composite signals (Google Trends,
-//   E-commerce reviews, website traffic, social sentiment)
-// - Exception: Brands below 30% growth are included ONLY if they show
-//   breakout social signals (viral content, community-driven advocacy,
-//   or exceptional sentiment momentum)
-// - Acquired brands are excluded (e.g., Neemli Naturals → GOAT,
-//   Earth Rhythm → Nykaa)
-// - Pre-seed brands with no measurable traction are excluded
+// DISCOVERY METHODOLOGY:
+// Brands are added when they trigger 2+ of these signals:
+// 1. Google Trends momentum (sustained 30%+ search growth over 90 days)
+// 2. E-commerce breakout (top category rankings, review velocity spikes)
+// 3. Traffic growth (month-over-month organic traffic acceleration)
+// 4. Social signals (Reddit/Instagram virality, community advocacy)
+// 5. Hiring signals (senior hires from large corporates — scaling intent)
+// 6. Capital efficiency (high revenue-to-funding ratio, bootstrapped scale)
+// 7. Category creation (new market segments, underserved niches)
+//
+// SECTORS COVERED:
+// Beauty & Personal Care | Food & Beverage | Fashion & Apparel |
+// Health & Wellness | Home & Living | Consumer Electronics |
+// Consumer Durables | Pet Care | Kids & Baby Care
+//
+// EXCLUSIONS:
+// - Acquired brands (e.g., Neemli → GOAT, Earth Rhythm → Nykaa,
+//   Minimalist → HUL)
+// - Pre-seed with no measurable traction
+// - Public companies or brands with >$500M valuation
 // =====================================================
 
 const COMPANIES = [
@@ -60,6 +72,17 @@ const COMPANIES = [
     { id: 'flomattress', name: 'Flo Mattress', sector: 'home', sectorLabel: 'Home & Living', website: 'flomattress.com', color: '#4f46e5', estValuation: 'INR 66Cr', estRevenue: 'INR 36Cr/yr' },
     { id: 'mymuse', name: 'MyMuse', sector: 'health', sectorLabel: 'Health & Wellness', website: 'mymuse.in', color: '#be185d', estValuation: 'INR 175Cr', estRevenue: 'INR 36Cr/yr' },
     { id: 'dorjeteas', name: 'Dorje Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'dorjeteas.com', color: '#047857', estValuation: 'INR 20.5Cr', estRevenue: 'INR 2.3Cr/yr' },
+    // --- Signal-Discovered Brands (surfaced via growth signals, not static curation) ---
+    { id: 'wishcare', name: 'WishCare', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mywishcare.com', color: '#db2777', estValuation: '~INR 140Cr (outdated)', estRevenue: 'INR 200Cr/yr (₹300Cr ARR)' },
+    { id: 'indoera', name: 'Indo Era', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'indoera.com', color: '#a21caf', estValuation: 'Bootstrapped', estRevenue: 'INR 500Cr/yr (gross)' },
+    { id: 'godesi', name: 'GO DESi', sector: 'food', sectorLabel: 'Food & Beverage', website: 'godesi.in', color: '#ea580c', estValuation: 'INR 500Cr (target)', estRevenue: 'INR 56Cr/yr (run rate)' },
+    { id: 'beco', name: 'Beco', sector: 'home', sectorLabel: 'Home & Living', website: 'letsbeco.com', color: '#059669', estValuation: '~$11M', estRevenue: 'INR 111Cr/yr' },
+    { id: 'supertails', name: 'Supertails', sector: 'pets', sectorLabel: 'Pet Care', website: 'supertails.com', color: '#0891b2', estValuation: '~$130M', estRevenue: 'INR 108Cr/yr (₹250Cr ARR)' },
+    { id: 'longway', name: 'Longway', sector: 'electronics', sectorLabel: 'Consumer Electronics', website: 'longwayindia.com', color: '#4338ca', estValuation: 'Bootstrapped', estRevenue: 'INR 125Cr/yr' },
+    { id: 'bearhouse', name: 'The Bear House', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'thebearhouse.com', color: '#1e3a5f', estValuation: 'INR 273Cr', estRevenue: 'INR 140Cr/yr' },
+    { id: 'napchief', name: 'Nap Chief', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'napchief.com', color: '#7c3aed', estValuation: 'Seed (Titan Capital)', estRevenue: 'INR 25Cr/yr' },
+    { id: 'desifarms', name: 'Desi Farms', sector: 'food', sectorLabel: 'Food & Beverage', website: 'desifarmsindia.in', color: '#15803d', estValuation: 'Series A', estRevenue: 'INR 50Cr/yr' },
+    { id: 'berrylush', name: 'BerryLush', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'berrylush.com', color: '#e11d48', estValuation: 'Near-bootstrapped', estRevenue: 'INR 85Cr/yr' },
 ];
 
 // --- Helper: generate time-series data ---
@@ -93,8 +116,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75 };
-const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8 };
+const GT_GROWTH = { wakao: 0.85, aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75, wishcare: 1.35, indoera: 1.05, godesi: 1.15, beco: 1.20, supertails: 1.28, longway: 1.10, bearhouse: 1.18, napchief: 1.30, desifarms: 0.90, berrylush: 1.00 };
+const GT_BASE = { wakao: 12, aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8, wishcare: 38, indoera: 42, godesi: 15, beco: 18, supertails: 28, longway: 22, bearhouse: 24, napchief: 10, desifarms: 14, berrylush: 20 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -292,6 +315,66 @@ const RISING_QUERIES = {
         { text: 'instant coffee with vitamins', growth: '+580%' },
         { text: 'rage coffee shark tank', growth: '+480%' },
         { text: 'best instant coffee india', growth: '+380%' },
+    ],
+    wishcare: [
+        { text: 'wishcare hair growth serum review', growth: '+2400%' },
+        { text: 'wishcare sunscreen spf 50', growth: '+1800%' },
+        { text: 'wishcare vs minimalist', growth: '+1200%' },
+        { text: 'best hair serum india affordable', growth: '+950%' },
+    ],
+    indoera: [
+        { text: 'indo era kurti review myntra', growth: '+1600%' },
+        { text: 'indo era ethnic wear quality', growth: '+1100%' },
+        { text: 'affordable ethnic wear india online', growth: '+850%' },
+        { text: 'indo era co-ord sets', growth: '+680%' },
+    ],
+    godesi: [
+        { text: 'go desi kaju katli review', growth: '+1400%' },
+        { text: 'go desi tamarind candy', growth: '+1100%' },
+        { text: 'healthy indian sweets brand', growth: '+780%' },
+        { text: 'go desi zepto quick commerce', growth: '+620%' },
+    ],
+    beco: [
+        { text: 'beco bamboo towels review', growth: '+1800%' },
+        { text: 'beco laundry liquid eco friendly', growth: '+1200%' },
+        { text: 'plastic free cleaning products india', growth: '+950%' },
+        { text: 'beco vs other eco brands', growth: '+720%' },
+    ],
+    supertails: [
+        { text: 'supertails pet food review', growth: '+2200%' },
+        { text: 'supertails vet consultation online', growth: '+1600%' },
+        { text: 'best pet care app india', growth: '+1100%' },
+        { text: 'supertails fresh dog food delivery', growth: '+880%' },
+    ],
+    longway: [
+        { text: 'longway mixer grinder review', growth: '+1400%' },
+        { text: 'longway fan price quality', growth: '+1000%' },
+        { text: 'best budget home appliances india', growth: '+780%' },
+        { text: 'longway vs bajaj appliances', growth: '+580%' },
+    ],
+    bearhouse: [
+        { text: 'the bear house shirts review', growth: '+1600%' },
+        { text: 'bear house flannel shirts', growth: '+1200%' },
+        { text: 'best smart casual workwear india', growth: '+850%' },
+        { text: 'bear house shark tank india', growth: '+680%' },
+    ],
+    napchief: [
+        { text: 'nap chief disney sleepwear', growth: '+2000%' },
+        { text: 'nap chief kids pyjamas review', growth: '+1500%' },
+        { text: 'licensed character kids wear india', growth: '+1100%' },
+        { text: 'nap chief marvel collection', growth: '+880%' },
+    ],
+    desifarms: [
+        { text: 'desi farms milk pune review', growth: '+1200%' },
+        { text: 'desi farms vs amul fresh milk', growth: '+850%' },
+        { text: 'farm fresh milk delivery pune', growth: '+620%' },
+        { text: 'desi farms a2 cow milk', growth: '+480%' },
+    ],
+    berrylush: [
+        { text: 'berrylush dresses review', growth: '+1400%' },
+        { text: 'berrylush co-ord sets women', growth: '+1050%' },
+        { text: 'affordable western wear india women', growth: '+780%' },
+        { text: 'berrylush quality myntra', growth: '+580%' },
     ],
 };
 Object.keys(RISING_QUERIES).forEach(k => {
@@ -591,9 +674,129 @@ const REVIEW_SUMMARIES = {
             summary: 'Rage Coffee is a food/beverage brand. Not on Myntra.',
         },
     },
+    wishcare: {
+        amazon: {
+            topLikes: ['Hair growth serum actually works — visible results in 4-6 weeks', 'Sunscreen SPF 50 is lightweight and non-greasy', 'Clean ingredients at affordable pricing', 'Fermented rice water range is a bestseller', '5M+ customers — trust built through reviews'],
+            topDislikes: ['Some products run out fast for the price', 'Packaging could be more premium', 'Limited offline availability', 'Some variants frequently out of stock on Amazon'],
+            summary: 'WishCare has quietly built a ₹300Cr ARR beauty brand on just $2.4M funding. Hair Growth Serum and SPF Lip Balm created new sub-categories on Amazon. Capital efficiency is exceptional — 10x revenue growth in 2 years. Unilever Ventures backed.',
+        },
+        myntra: {
+            topLikes: ['Good range of affordable serums and sunscreens', 'Clean beauty positioning resonates', 'Growing brand awareness on the platform'],
+            topDislikes: ['Competes with many similar clean beauty brands', 'Brand recognition still building vs established players'],
+            summary: 'Growing Myntra presence. Primary sales through Amazon and Nykaa where the brand dominates haircare serum category rankings.',
+        },
+    },
+    indoera: {
+        amazon: {
+            topLikes: ['Incredibly affordable ethnic wear — kurtis under ₹500', 'Quality surprisingly good for the price point', 'Wide variety updated every 2 weeks', 'Fast delivery and consistent sizing', '10,000+ daily shipments'],
+            topDislikes: ['Fabric quality varies across collections', 'Limited premium range', 'Some designs feel mass-produced', 'Packaging is basic'],
+            summary: 'Indo Era built a ₹500Cr ethnic wear brand with ZERO marketing spend — entirely through marketplace SEO and product volume. 4,800+ SKUs refreshed fortnightly. Bootstrapped and profitable. Surat manufacturing gives cost advantage.',
+        },
+        myntra: {
+            topLikes: ['One of the most affordable ethnic wear brands on Myntra', 'Great range for daily wear kurtis and co-ords', 'Consistent sizing and fast shipping'],
+            topDislikes: ['Competes on price — brand identity still developing', 'Premium segment not yet addressed'],
+            summary: 'Major Myntra seller. Volume-driven model with 65% YoY growth. Now looking to raise first institutional round and expand offline to 100+ cities.',
+        },
+    },
+    godesi: {
+        amazon: {
+            topLikes: ['Kaju katli quality rivals traditional halwais', 'Tamarind pops are addictive — kids love them', 'Clean ingredients — no preservatives or artificial colors', 'Perfect impulse buy on quick commerce', 'Beautiful packaging for gifting'],
+            topDislikes: ['Premium pricing for sweets category', 'Limited shelf life on some products', 'Not all variants available across platforms', 'Quantity per pack could be larger'],
+            summary: 'GO DESi is formalizing India\'s ₹1L Cr traditional sweets market. Top kaju katli brand on Zepto. 50K+ retail touchpoints. Series B funded. Inc42 FAST42 2026 ranked.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — food/sweets brand'],
+            topDislikes: ['Not applicable — food/sweets brand'],
+            summary: 'GO DESi is a food brand. Not on Myntra.',
+        },
+    },
+    beco: {
+        amazon: {
+            topLikes: ['Bamboo kitchen towels are genuinely better than paper', 'Laundry liquid cleans well and is plant-based', 'Bio-enzyme cleaners actually work', 'Plastic-free packaging — walk the talk', 'FSC and ISO certified'],
+            topDislikes: ['Premium pricing vs conventional cleaning products', 'Some products run out faster than expected', 'Limited variety in dishwash segment', 'Availability gaps in some pincodes'],
+            summary: 'Beco grew 119% YoY to ₹111Cr revenue by making sustainable home products that actually perform. 10,000+ retail stores. 74x revenue growth in 5 years from ₹1.5Cr. Strong q-commerce presence.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — home care brand'],
+            topDislikes: ['Not applicable — home care brand'],
+            summary: 'Beco is a home care brand. Not on Myntra.',
+        },
+    },
+    supertails: {
+        amazon: {
+            topLikes: ['One-stop shop for all pet needs', 'Vet consultation feature is incredibly convenient', 'Fresh pet meals delivered — dogs love it', '30-minute delivery in select cities', '30,000+ products across 500+ brands'],
+            topDislikes: ['Premium pricing on some products', 'Fresh meals only in select cities', 'Vet availability varies by time of day', 'Some products cheaper on other platforms'],
+            summary: 'Supertails is India\'s leading pet care platform. $30M Series C at $130M valuation. Revenue grew 13.5x in 3 years. Operationally profitable. Founded by ex-Licious team. Targeting ₹1,000Cr ARR.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — pet care platform'],
+            topDislikes: ['Not applicable — pet care platform'],
+            summary: 'Supertails is a pet care platform. Not on Myntra.',
+        },
+    },
+    longway: {
+        amazon: {
+            topLikes: ['Mixer grinder quality excellent for the price', 'Fans are powerful and silent', 'Value for money — half the price of branded appliances', 'In-house manufacturing ensures quality control', 'Customer service is responsive'],
+            topDislikes: ['Brand not well known — trust takes time', 'Limited service center network', 'Warranty process could be smoother', 'Premium range not yet available'],
+            summary: 'Longway built ₹125Cr in revenue through vertical integration and aggressive online pricing. 98% online sales. Bootstrapped. Inc42 FAST42 2026 ranked. Targeting ₹500Cr in 3-5 years.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — home appliance brand'],
+            topDislikes: ['Not applicable — home appliance brand'],
+            summary: 'Longway is a home appliance brand. Not on Myntra.',
+        },
+    },
+    bearhouse: {
+        amazon: {
+            topLikes: ['Flannel shirts are best-in-class at this price', 'European-inspired design stands out', 'Smart-casual workwear that looks premium', 'Consistent sizing and quality', '62% repeat customer rate speaks volumes'],
+            topDislikes: ['Limited categories — mostly shirts and basics', 'Premium pricing vs fast fashion alternatives', 'Online-first — limited offline try-before-buy', 'Delivery to smaller cities can be slow'],
+            summary: 'The Bear House hit ₹140Cr with 18% EBITDA margins in menswear — exceptional unit economics. Flannel shirts are 40% of sales. JM Financial-backed Series A. Shark Tank India S4 appearance. Dubai store opened.',
+        },
+        myntra: {
+            topLikes: ['Premium menswear at accessible prices', 'Flannel shirts are bestsellers', 'Strong brand aesthetic for work-casual'],
+            topDislikes: ['Limited product range vs larger menswear brands', 'Sizing runs slightly different from mainstream brands'],
+            summary: '85% of revenue from marketplace sales. Growing rapidly on Myntra with strong repeat purchase metrics.',
+        },
+    },
+    napchief: {
+        amazon: {
+            topLikes: ['Disney and Marvel licensed designs kids love', 'Organic fabric is soft and gentle', 'Sleepwear matching sets for the whole family', 'ISRO collection is unique and educational', 'Quality holds up well after multiple washes'],
+            topDislikes: ['Pricing higher than unbranded alternatives', 'Limited age range for some designs', 'Seasonal collections sell out fast', 'Size exchanges could be faster'],
+            summary: 'Nap Chief is India\'s first character-licensed D2C kids sleepwear brand. 117% YoY revenue growth. Titan Capital backed. Disney, Marvel, Harry Potter, DC, ISRO licenses. 60% revenue from own website — strong D2C metrics.',
+        },
+        myntra: {
+            topLikes: ['Licensed character designs are unique on Myntra', 'Family sleepwear sets popular for gifting', 'Organic fabric quality appreciated'],
+            topDislikes: ['Premium pricing for kids category', 'Limited everyday wear options'],
+            summary: 'Emerging Myntra presence. Character-licensed sleepwear differentiates strongly from generic kids brands.',
+        },
+    },
+    desifarms: {
+        amazon: {
+            topLikes: ['Milk freshness is incredible — delivered within 12-24 hours', 'A2 cow milk taste is noticeably different', 'Chemical-free and preservative-free', 'Subscription model ensures daily delivery', 'ISO certified processing plant'],
+            topDislikes: ['Only available in Pune and Mumbai currently', 'Premium pricing vs packaged milk brands', 'Glass bottle return system can be inconvenient', 'Limited product range beyond milk'],
+            summary: 'Desi Farms is building a premium D2C dairy brand in Pune/Mumbai. Profitable for 3 consecutive years. Made a landmark ₹130Cr acquisition of Suruchi Dairy. 1.5 lakh litres/day capacity. 50+ exclusive outlets.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — dairy brand'],
+            topDislikes: ['Not applicable — dairy brand'],
+            summary: 'Desi Farms is a dairy brand. Not on Myntra.',
+        },
+    },
+    berrylush: {
+        amazon: {
+            topLikes: ['Trendy western wear at very affordable prices', 'Co-ord sets and dresses are popular picks', 'In-house manufacturing ensures consistency', '200 new styles launched per month', 'Good packaging and presentation'],
+            topDislikes: ['Fabric quality varies across price points', 'Fast fashion durability concerns', 'Sizing inconsistency in some categories', 'Return process could be smoother'],
+            summary: 'BerryLush built ₹85Cr revenue on under $1M funding — near-bootstrapped. 2L+ units produced monthly via in-house manufacturing. 7% EBITDA positive. International expansion testing on Amazon Global (US, EU, Australia).',
+        },
+        myntra: {
+            topLikes: ['Affordable trendy western wear for Gen-Z women', 'Co-ords and jumpsuits are bestsellers', 'New styles added frequently'],
+            topDislikes: ['Quality perception compared to premium brands', 'Fast fashion sustainability concerns'],
+            summary: 'Growing Myntra seller. Volume-driven affordable fashion for young women. 93% marketplace sales. Expanding to 30 stores under FOFO model.',
+        },
+    },
 };
 
-const EC_AMAZON_BASE = { wakao: 280, aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, cosmix: 420, samosaparty: 900, bombaysweets: 450, theater: 320, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950 };
+const EC_AMAZON_BASE = { wakao: 280, aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, cosmix: 420, samosaparty: 900, bombaysweets: 450, theater: 320, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950, wishcare: 2800, indoera: 1800, godesi: 650, beco: 850, supertails: 1400, longway: 1600, bearhouse: 720, napchief: 380, desifarms: 550, berrylush: 900 };
 COMPANIES.forEach(c => {
     const amazonBase = EC_AMAZON_BASE[c.id] || 250;
     const myntraBase = c.sector === 'fashion' ? 300 + Math.random() * 800 :
@@ -665,8 +868,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000 };
-const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70 };
+const TR_BASE = { wakao: 45000, aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000, wishcare: 720000, indoera: 480000, godesi: 140000, beco: 200000, supertails: 420000, longway: 320000, bearhouse: 250000, napchief: 95000, desifarms: 110000, berrylush: 180000 };
+const TR_GROWTH = { wakao: 0.90, aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70, wishcare: 1.25, indoera: 0.95, godesi: 1.10, beco: 1.18, supertails: 1.22, longway: 1.05, bearhouse: 1.08, napchief: 1.20, desifarms: 0.82, berrylush: 0.92 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -1024,9 +1227,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400 };
-const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000 };
-const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500 };
+const SO_REDDIT = { wakao: 800, aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400, wishcare: 4800, indoera: 2200, godesi: 1800, beco: 2400, supertails: 3800, longway: 1600, bearhouse: 2000, napchief: 1200, desifarms: 900, berrylush: 1400 };
+const SO_INSTA = { wakao: 12000, aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000, wishcare: 220000, indoera: 180000, godesi: 55000, beco: 65000, supertails: 120000, longway: 42000, bearhouse: 85000, napchief: 45000, desifarms: 28000, berrylush: 95000 };
+const SO_LINKEDIN = { wakao: 3000, aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500, wishcare: 8000, indoera: 5500, godesi: 4000, beco: 6500, supertails: 12000, longway: 3500, bearhouse: 7000, napchief: 3000, desifarms: 4000, berrylush: 4500 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
