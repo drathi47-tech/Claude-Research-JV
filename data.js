@@ -1746,75 +1746,46 @@ const REGIONAL_HOTSPOTS = [
 // Sources: Exchange4Media, Storyboard18, Indian Retailer, AdGully, MediaBrief, Inc42
 const LINKEDIN_HIRING_DATA = [
     // =====================================================
-    // Last 12 months only (Feb 2025 – Feb 2026)
-    // Senior hires from large corporates into consumer-focused
-    // startups / D2C brands / FMCG / consumer electronics
+    // Last 12 months — Senior hires from large corporates into
+    // early-stage consumer-focused startups (VC investment signals)
+    // Sectors: D2C brands, FMCG, consumer retail, consumer
+    // durables, consumer electronics
     // =====================================================
 
-    // --- Honasa Consumer (Mamaearth) ---
+    // --- Sweet Karam Coffee ---
     {
-        hireName: 'Yatish Bhargava',
-        linkedinUrl: 'https://www.linkedin.com/in/yatish-bhargava-4922971/',
-        role: 'Chief Business Officer',
-        workExYears: 17,
-        lastCompany: 'Flipkart / HUL',
-        lastRole: 'Business Head - Home & Furniture, Flipkart (ex-HUL, Nokia)',
-        currentCompany: 'Honasa Consumer (Mamaearth)',
-        hireDate: '2025-06-17',
-    },
-    {
-        hireName: 'Avinash Dhagat',
-        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Avinash%20Dhagat%20Honasa',
-        role: 'Chief Supply Chain Officer',
-        workExYears: 15,
-        lastCompany: 'L\'Oreal India',
-        lastRole: 'Head of Supply Chain - Consumer Division, L\'Oreal India (10+ yrs at L\'Oreal)',
-        currentCompany: 'Honasa Consumer (Mamaearth)',
-        hireDate: '2025-04-24',
-    },
-    {
-        hireName: 'Karan Bajwa',
-        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Karan%20Bajwa%20Honasa',
-        role: 'Chief Human Resources Officer',
-        workExYears: 12,
-        lastCompany: 'Reckitt / Airtel',
-        lastRole: 'HR Leadership, Reckitt (ex-Airtel)',
-        currentCompany: 'Honasa Consumer (Mamaearth)',
-        hireDate: '2025-04-24',
-    },
-    {
-        hireName: 'Harleen Bhatti',
-        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Harleen%20Bhatti%20Honasa',
-        role: 'VP - Direct-to-Consumer',
-        workExYears: 15,
-        lastCompany: 'Wellbeing Nutrition / Lenskart / KPMG',
-        lastRole: 'VP D2C, Wellbeing Nutrition (ex-Lenskart, Cure.Fit, KPMG)',
-        currentCompany: 'Honasa Consumer (Mamaearth)',
-        hireDate: '2025-04-01',
+        hireName: 'Nandhitha Indermohan',
+        linkedinUrl: 'https://www.linkedin.com/in/nandhitha-indermohan-9640a815/',
+        role: 'Chief Operating Officer',
+        workExYears: 24,
+        lastCompany: 'Hindustan Unilever (HUL)',
+        lastRole: 'Senior Supply Chain & Operations Leader, HUL (24 yrs at Unilever)',
+        currentCompany: 'sweetkaramcoffee',
+        hireDate: '2025-03-15',
     },
 
-    // --- boAt (Imagine Marketing) ---
+    // --- Nat Habit ---
     {
-        hireName: 'Gaurav Nayyar',
-        linkedinUrl: 'https://www.linkedin.com/in/gaurav-nayyar-03a11a1b/',
-        role: 'Chief Executive Officer',
+        hireName: 'Kushal Gupta',
+        linkedinUrl: 'https://in.linkedin.com/in/kushal-gupta-8a557b4',
+        role: 'Chief Retail Officer',
         workExYears: 20,
-        lastCompany: 'Bain & Company / KPMG',
-        lastRole: 'Partner, Bain & Company (led India Manufacturing & Services practice)',
-        currentCompany: 'boAt (Imagine Marketing)',
-        hireDate: '2025-09-01',
+        lastCompany: 'HUL / PepsiCo / Tata Consumer',
+        lastRole: 'Senior Leadership, Tata Consumer Products (scaled JV from ₹174Cr to ₹1,000Cr)',
+        currentCompany: 'nathabit',
+        hireDate: '2025-05-27',
     },
 
-    // --- Licious ---
+    // --- Bombay Shaving Company ---
     {
-        hireName: 'Gaurav Mathur',
-        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Gaurav%20Mathur%20Licious%20CTO',
-        role: 'Chief Technology Officer',
-        workExYears: 22,
-        lastCompany: 'Flipkart / Oracle',
-        lastRole: 'Senior Tech Leadership, HealthPlix (ex-Flipkart, Oracle, FICO)',
-        currentCompany: 'Licious',
-        hireDate: '2025-04-01',
+        hireName: 'Archana Rajan',
+        linkedinUrl: 'https://www.linkedin.com/in/archana-rajan-1004b0a/',
+        role: 'Chief People Officer',
+        workExYears: 23,
+        lastCompany: 'Jio (Reliance)',
+        lastRole: 'HR Head - Enterprise Business (Strategic & Large), Jio',
+        currentCompany: 'bsc',
+        hireDate: '2025-02-01',
     },
 
     // --- The Sleep Company ---
@@ -1829,41 +1800,18 @@ const LINKEDIN_HIRING_DATA = [
         hireDate: '2026-01-15',
     },
 
-    // --- GlobalBees Brands ---
+    // --- Neeman\'s ---
     {
-        hireName: 'Anuj Jain',
-        linkedinUrl: 'https://in.linkedin.com/in/anuj19',
-        role: 'Chief Executive Officer',
-        workExYears: 23,
-        lastCompany: 'ITC / L\'Oreal / FirstCry',
-        lastRole: 'CBO & SVP Marketing, FirstCry (ex-ITC, L\'Oreal)',
-        currentCompany: 'GlobalBees Brands',
-        hireDate: '2025-04-25',
-    },
-
-    // --- SUGAR Cosmetics ---
-    {
-        hireName: 'Naveen Bhadada',
-        linkedinUrl: 'https://in.linkedin.com/in/naveen-bhadada',
+        hireName: 'Sumit Maloo',
+        linkedinUrl: 'https://www.linkedin.com/search/results/people/?keywords=Sumit%20Maloo%20Neemans%20CFO',
         role: 'Chief Financial Officer',
-        workExYears: 18,
-        lastCompany: 'L\'Oreal / PepsiCo / Colgate-Palmolive',
-        lastRole: 'GM - Financial Accounting & Treasury, L\'Oreal (ex-PepsiCo, Colgate, Pidilite)',
-        currentCompany: 'SUGAR Cosmetics',
-        hireDate: '2025-05-01',
+        workExYears: 15,
+        lastCompany: 'Skechers South Asia / Reliance Brands / ICICI Bank',
+        lastRole: 'CFO, Skechers South Asia (led financial strategy, planning & treasury)',
+        currentCompany: 'neemans',
+        hireDate: '2024-11-16',
     },
-
-    // --- Wakefit ---
-    {
-        hireName: 'Parul Gupta',
-        linkedinUrl: 'https://www.linkedin.com/in/parul-gupta-a4600122/',
-        role: 'Chief Financial Officer',
-        workExYears: 20,
-        lastCompany: 'Myntra / Syngene',
-        lastRole: 'Head Finance (Large Molecule), Syngene International (ex-Myntra Sr. Dir. Finance)',
-        currentCompany: 'Wakefit',
-        hireDate: '2026-02-10',
-    },
+];
 
     // --- Bombay Shaving Company ---
     {
