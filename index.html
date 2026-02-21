@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a href="#panel-overview" class="skip-link" tabindex="1">Skip to main content</a>
     <div id="app">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -55,6 +56,9 @@
                 </button>
                 <button class="nav-item" data-panel="watchlist" onclick="switchPanel('watchlist')">
                     <span class="nav-icon">&#9734;</span> Watchlist
+                </button>
+                <button class="nav-item" data-panel="compare" onclick="switchPanel('compare')">
+                    <span class="nav-icon">&#8646;</span> Compare
                 </button>
                 <button class="nav-item" data-panel="brand-lookup" onclick="switchPanel('brand-lookup')">
                     <span class="nav-icon">&#128269;</span> Brand Lookup
@@ -103,6 +107,10 @@
                         <option value="pets">Pet Care</option>
                     </select>
                     <button class="btn-add-company" onclick="openAddCompanyModal()">+ Add Company</button>
+                    <div class="data-freshness" id="dataFreshness" title="Last data refresh date">
+                        <span class="freshness-dot"></span>
+                        <span class="freshness-text" id="freshnessText">Updated: --</span>
+                    </div>
                 </div>
             </header>
 
@@ -164,6 +172,7 @@
                                 <button class="chip active" onclick="filterMovers('all', this)">All</button>
                                 <button class="chip" onclick="filterMovers('up', this)">Trending Up</button>
                                 <button class="chip" onclick="filterMovers('breakout', this)">Breakout</button>
+                                <button class="btn-export" onclick="exportTableToCSV('topMoversTable', 'top-movers')" title="Export to CSV">CSV</button>
                             </div>
                         </div>
                         <div class="table-container">
@@ -231,6 +240,7 @@
                     <div class="chart-card">
                         <div class="chart-header">
                             <h3>Google Trends Leaderboard</h3>
+                            <button class="btn-export" onclick="exportTableToCSV('googleTrendsTableBody', 'google-trends')" title="Export to CSV">CSV</button>
                         </div>
                         <div class="table-container">
                             <table class="data-table">
@@ -347,6 +357,7 @@
                     <div class="chart-card">
                         <div class="chart-header">
                             <h3>Company Review Metrics</h3>
+                            <button class="btn-export" onclick="exportTableToCSV('ecommerceTableBody', 'ecommerce-reviews')" title="Export to CSV">CSV</button>
                         </div>
                         <div class="table-container">
                             <table class="data-table">
@@ -426,6 +437,7 @@
                     <div class="chart-card">
                         <div class="chart-header">
                             <h3>Traffic Leaderboard</h3>
+                            <button class="btn-export" onclick="exportTableToCSV('trafficTableBody', 'traffic-leaderboard')" title="Export to CSV">CSV</button>
                         </div>
                         <div class="table-container">
                             <table class="data-table">
@@ -529,6 +541,7 @@
                     <div class="chart-card">
                         <div class="chart-header">
                             <h3>Social Signal Leaderboard</h3>
+                            <button class="btn-export" onclick="exportTableToCSV('socialTableBody', 'social-signals')" title="Export to CSV">CSV</button>
                         </div>
                         <div class="table-container">
                             <table class="data-table">
@@ -902,6 +915,34 @@
                             <span class="lookup-suggestion" onclick="quickLookup('Wow Skin Science')">Wow Skin Science</span>
                             <span class="lookup-suggestion" onclick="quickLookup('Plum Goodness')">Plum Goodness</span>
                             <span class="lookup-suggestion" onclick="quickLookup('Rage Coffee')">Rage Coffee</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compare Panel -->
+                <div class="panel" id="panel-compare">
+                    <div class="panel-header">
+                        <h1>Company Comparison</h1>
+                        <p class="panel-description">Select 2-4 companies for a side-by-side signal comparison</p>
+                    </div>
+
+                    <div class="compare-selectors">
+                        <select class="mini-select compare-select" id="compareCompany1" onchange="renderComparison()"></select>
+                        <span class="compare-vs">vs</span>
+                        <select class="mini-select compare-select" id="compareCompany2" onchange="renderComparison()"></select>
+                        <span class="compare-vs">vs</span>
+                        <select class="mini-select compare-select" id="compareCompany3" onchange="renderComparison()">
+                            <option value="">-- Optional --</option>
+                        </select>
+                        <span class="compare-vs">vs</span>
+                        <select class="mini-select compare-select" id="compareCompany4" onchange="renderComparison()">
+                            <option value="">-- Optional --</option>
+                        </select>
+                    </div>
+
+                    <div id="comparisonContent">
+                        <div class="compare-empty">
+                            <p>Select companies above to begin comparing signals side-by-side</p>
                         </div>
                     </div>
                 </div>

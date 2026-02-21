@@ -36,6 +36,14 @@
 // - Stagnating brands (<20% YoY growth without clear inflection)
 // =====================================================
 
+// Data freshness metadata
+const DATA_META = {
+    lastUpdated: '2026-02-21',
+    version: '2.1',
+    totalCompanies: 0, // computed after COMPANIES init
+    dataDisclaimer: 'Time-series data is simulated for trend visualization. Verify with primary sources before investment decisions.',
+};
+
 const COMPANIES = [
     // --- Original Dashboard Brands ---
     { id: 'aukera', name: 'Aukera Diamonds', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'aukerajewellery.com', color: '#ec4899', estValuation: 'INR 600Cr', estRevenue: 'INR 200Cr/yr (ARR)' },
@@ -135,8 +143,9 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
-const GT_GROWTH = { aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, gynoveda: 0.82, bareanatomy: 0.60, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, snitch: 1.20, mokobara: 1.10, mcaffeine: 0.80, vahdamteas: 0.60, plumgoodness: 0.70, bsc: 0.62, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, foxtale: 1.25, pilgrim: 1.08, neemans: 0.72, perfora: 0.88, boldfit: 1.00, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75, wishcare: 1.35, indoera: 1.05, godesi: 1.15, beco: 1.20, supertails: 1.28, longway: 1.10, bearhouse: 1.18, napchief: 1.30, desifarms: 0.90, berrylush: 1.00, comet: 1.65, solethreads: 1.15, rforrabbit: 1.20, superbottoms: 1.10, slurrpfarm: 1.25, thirdwave: 1.40, chaayos: 1.15, beyondappliances: 1.50, sumosave: 0.85, bodycraft: 0.95 };
-const GT_BASE = { aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, gynoveda: 25, bareanatomy: 16, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, snitch: 55, mokobara: 38, mcaffeine: 42, vahdamteas: 30, plumgoodness: 48, bsc: 40, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, foxtale: 28, pilgrim: 32, neemans: 15, perfora: 12, boldfit: 25, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8, wishcare: 38, indoera: 42, godesi: 15, beco: 18, supertails: 28, longway: 22, bearhouse: 24, napchief: 10, desifarms: 14, berrylush: 20, comet: 22, solethreads: 15, rforrabbit: 32, superbottoms: 25, slurrpfarm: 28, thirdwave: 45, chaayos: 48, beyondappliances: 10, sumosave: 8, bodycraft: 18 };
+// Growth rates and base indices for active companies only (removed: gynoveda, bareanatomy, snitch, mcaffeine, vahdamteas, plumgoodness, bsc, foxtale, pilgrim, boldfit, indoera, thirdwave, chaayos)
+const GT_GROWTH = { aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, mokobara: 1.10, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, neemans: 0.72, perfora: 0.88, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75, wishcare: 1.35, godesi: 1.15, beco: 1.20, supertails: 1.28, longway: 1.10, bearhouse: 1.18, napchief: 1.30, desifarms: 0.90, berrylush: 1.00, comet: 1.65, solethreads: 1.15, rforrabbit: 1.20, superbottoms: 1.10, slurrpfarm: 1.25, beyondappliances: 1.50, sumosave: 0.85, bodycraft: 0.95 };
+const GT_BASE = { aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, mokobara: 38, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, neemans: 15, perfora: 12, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8, wishcare: 38, godesi: 15, beco: 18, supertails: 28, longway: 22, bearhouse: 24, napchief: 10, desifarms: 14, berrylush: 20, comet: 22, solethreads: 15, rforrabbit: 32, superbottoms: 25, slurrpfarm: 28, beyondappliances: 10, sumosave: 8, bodycraft: 18 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -2296,3 +2305,6 @@ function computeCompositeScores() {
 const _computed = computeCompositeScores();
 const COMPOSITE_SCORES = _computed.scores;
 const COMPANY_SIGNALS = _computed.signals;
+
+// Update data meta
+DATA_META.totalCompanies = COMPANIES.length;

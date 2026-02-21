@@ -42,6 +42,7 @@ function initPanel(panelId) {
         case 'early-signals': initEarlySignals(); break;
         case 'breakout': initBreakout(); break;
         case 'watchlist': initWatchlist(); break;
+        case 'compare': initCompare(); break;
         case 'brand-lookup': /* no-op, stays as-is */ break;
     }
 }
@@ -1667,7 +1668,21 @@ function initWatchlist() {
 
 function renderWatchlist() {
     const companies = getFilteredCompanies();
-    const sorted = [...companies].sort((a, b) => COMPOSITE_SCORES[b.id].composite - COMPOSITE_SCORES[a.id].composite);
+    const sortBy = document.getElementById('watchlistSort')?.value || 'score';
+    let sorted;
+    switch (sortBy) {
+        case 'momentum':
+            sorted = [...companies].sort((a, b) => GOOGLE_TRENDS_DATA[b.id].change30d - GOOGLE_TRENDS_DATA[a.id].change30d);
+            break;
+        case 'name':
+            sorted = [...companies].sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'sector':
+            sorted = [...companies].sort((a, b) => a.sectorLabel.localeCompare(b.sectorLabel) || COMPOSITE_SCORES[b.id].composite - COMPOSITE_SCORES[a.id].composite);
+            break;
+        default:
+            sorted = [...companies].sort((a, b) => COMPOSITE_SCORES[b.id].composite - COMPOSITE_SCORES[a.id].composite);
+    }
 
     const container = document.getElementById('watchlistGrid');
     container.innerHTML = sorted.map(c => {
@@ -2436,8 +2451,212 @@ function addCompany() {
     showNotification(`${name} added successfully`);
 }
 
+// --- CSV Export ---
+function exportTableToCSV(tableId, filename) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    // Get the parent table (tbody needs its parent table's thead)
+    const fullTable = table.tagName === 'TBODY' ? table.closest('table') : table;
+    const rows = fullTable.querySelectorAll('tr');
+    const csvRows = [];
+
+    rows.forEach(row => {
+        if (row.style.display === 'none') return; // skip hidden rows
+        const cells = row.querySelectorAll('th, td');
+        const rowData = [];
+        cells.forEach(cell => {
+            let text = cell.textContent.trim().replace(/"/g, '""');
+            if (text.includes(',') || text.includes('"') || text.includes('\n')) {
+                text = `"${text}"`;
+            }
+            rowData.push(text);
+        });
+        csvRows.push(rowData.join(','));
+    });
+
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${filename}-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    showNotification(`Exported ${filename}.csv`);
+}
+
+// --- Company Comparison ---
+function initCompare() {
+    const selects = ['compareCompany1', 'compareCompany2', 'compareCompany3', 'compareCompany4'];
+    const companies = getFilteredCompanies();
+
+    selects.forEach((selectId, idx) => {
+        const select = document.getElementById(selectId);
+        const currentValue = select.value;
+        const isOptional = idx >= 2;
+
+        select.innerHTML = isOptional ? '<option value="">-- Optional --</option>' : '';
+        companies.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.textContent = c.name;
+            select.appendChild(opt);
+        });
+
+        // Set sensible defaults for first two selects
+        if (!isOptional && companies.length > idx) {
+            select.value = currentValue || companies[idx].id;
+        }
+    });
+
+    renderComparison();
+}
+
+function renderComparison() {
+    const ids = ['compareCompany1', 'compareCompany2', 'compareCompany3', 'compareCompany4']
+        .map(id => document.getElementById(id)?.value)
+        .filter(Boolean);
+
+    if (ids.length < 2) {
+        document.getElementById('comparisonContent').innerHTML = `
+            <div class="compare-empty"><p>Select at least 2 companies to compare</p></div>`;
+        return;
+    }
+
+    const companies = ids.map(id => COMPANIES.find(c => c.id === id)).filter(Boolean);
+
+    // Build comparison table
+    const metrics = [
+        { label: 'Sector', fn: c => c.sectorLabel },
+        { label: 'Est. Valuation', fn: c => c.estValuation },
+        { label: 'Est. Revenue', fn: c => c.estRevenue || 'N/A' },
+        { label: 'Composite Score', fn: c => COMPOSITE_SCORES[c.id].composite + '/100' },
+        { label: 'Signal', fn: c => COMPANY_SIGNALS[c.id] },
+        { label: 'Google Trend (30d)', fn: c => (GOOGLE_TRENDS_DATA[c.id].change30d > 0 ? '+' : '') + GOOGLE_TRENDS_DATA[c.id].change30d + '%' },
+        { label: 'Google Trend (90d)', fn: c => (GOOGLE_TRENDS_DATA[c.id].change90d > 0 ? '+' : '') + GOOGLE_TRENDS_DATA[c.id].change90d + '%' },
+        { label: 'Search Index', fn: c => GOOGLE_TRENDS_DATA[c.id].currentIndex },
+        { label: 'Amazon Rating', fn: c => ECOMMERCE_DATA[c.id].amazon.avgRating + '/5.0' },
+        { label: 'Myntra Rating', fn: c => ECOMMERCE_DATA[c.id].myntra.avgRating + '/5.0' },
+        { label: 'Amazon Reviews', fn: c => formatNumber(ECOMMERCE_DATA[c.id].amazon.totalReviews) },
+        { label: 'Amazon Sentiment', fn: c => ECOMMERCE_DATA[c.id].amazon.sentiment + '%' },
+        { label: 'Traffic Growth (MoM)', fn: c => (TRAFFIC_DATA[c.id].momGrowth > 0 ? '+' : '') + TRAFFIC_DATA[c.id].momGrowth + '%' },
+        { label: 'Bounce Rate', fn: c => TRAFFIC_DATA[c.id].bounceRate + '%' },
+        { label: 'Reddit Sentiment', fn: c => SOCIAL_DATA[c.id].reddit.sentiment + '%' },
+        { label: 'Instagram Sentiment', fn: c => SOCIAL_DATA[c.id].instagram.sentiment + '%' },
+        { label: 'Viral Score', fn: c => SOCIAL_DATA[c.id].viralScore + '/100' },
+    ];
+
+    let html = `<div class="chart-card"><table class="data-table compare-table"><thead><tr><th>Metric</th>`;
+    companies.forEach(c => {
+        html += `<th style="color:${c.color}">${c.name}</th>`;
+    });
+    html += `</tr></thead><tbody>`;
+
+    metrics.forEach(m => {
+        html += `<tr><td><strong>${m.label}</strong></td>`;
+        const values = companies.map(c => m.fn(c));
+
+        // Determine best value for highlighting (for numeric-like fields)
+        companies.forEach((c, i) => {
+            const val = values[i];
+            const isSignal = m.label === 'Signal';
+            let cellClass = '';
+            if (isSignal) {
+                cellClass = val === 'breakout' ? 'compare-best' : val === 'declining' ? 'compare-worst' : '';
+            }
+            html += `<td class="${cellClass}">${isSignal ? signalBadge(val) : val}</td>`;
+        });
+        html += `</tr>`;
+    });
+
+    html += `</tbody></table></div>`;
+
+    // Add radar chart
+    html += `<div class="chart-card"><div class="chart-header"><h3>Signal Comparison Radar</h3></div><canvas id="compareRadarChart"></canvas></div>`;
+
+    document.getElementById('comparisonContent').innerHTML = html;
+
+    // Render radar chart
+    renderCompareRadarChart(companies);
+}
+
+function renderCompareRadarChart(companies) {
+    destroyChart('compareRadar');
+    const ctx = document.getElementById('compareRadarChart');
+    if (!ctx) return;
+
+    const datasets = companies.map(c => ({
+        label: c.name,
+        data: [
+            COMPOSITE_SCORES[c.id].google,
+            COMPOSITE_SCORES[c.id].reviews,
+            COMPOSITE_SCORES[c.id].traffic,
+            COMPOSITE_SCORES[c.id].social,
+            SOCIAL_DATA[c.id].viralScore,
+            COMPOSITE_SCORES[c.id].composite,
+        ],
+        borderColor: c.color,
+        backgroundColor: c.color + '20',
+        borderWidth: 2,
+        pointBackgroundColor: c.color,
+    }));
+
+    charts.compareRadar = new Chart(ctx.getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['Google Trends', 'E-commerce', 'Traffic', 'Social', 'Viral Score', 'Composite'],
+            datasets,
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.4,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: 'rgba(42, 45, 62, 0.6)' },
+                    angleLines: { color: 'rgba(42, 45, 62, 0.4)' },
+                    pointLabels: { color: '#9aa0b0', font: { size: 11 } },
+                    ticks: { display: false },
+                },
+            },
+            plugins: {
+                legend: { position: 'bottom' },
+            },
+        },
+    });
+}
+
+// --- Data Freshness ---
+function updateFreshnessIndicator() {
+    const el = document.getElementById('freshnessText');
+    if (el && typeof DATA_META !== 'undefined') {
+        const updated = new Date(DATA_META.lastUpdated);
+        const now = new Date();
+        const daysDiff = Math.floor((now - updated) / (1000 * 60 * 60 * 24));
+        let freshLabel = '';
+        if (daysDiff === 0) freshLabel = 'Today';
+        else if (daysDiff === 1) freshLabel = 'Yesterday';
+        else freshLabel = `${daysDiff}d ago`;
+        el.textContent = `Updated: ${freshLabel}`;
+
+        const dot = document.querySelector('.freshness-dot');
+        if (dot) {
+            if (daysDiff <= 1) dot.style.background = 'var(--accent-green)';
+            else if (daysDiff <= 7) dot.style.background = 'var(--accent-yellow)';
+            else dot.style.background = 'var(--accent-red)';
+        }
+    }
+}
+
+// --- Improved sortWatchlist ---
+// (Replace the no-op version)
+
 // --- Initialize ---
 document.addEventListener('DOMContentLoaded', () => {
     initOverview();
     document.getElementById('companyCount').textContent = COMPANIES.length + ' companies';
+    updateFreshnessIndicator();
 });
