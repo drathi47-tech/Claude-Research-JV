@@ -34,14 +34,17 @@
 // - Pre-seed with no measurable traction
 // - Public companies or brands with >$120M valuation / Series C+
 // - Stagnating brands (<20% YoY growth without clear inflection)
+// - Brands owned by listed conglomerates (e.g., Bewakoof → Aditya Birla)
+// - Revenue floor: INR 15Cr/yr minimum — Shark Tank/social buzz alone
+//   does not qualify without proportionate commercial traction
 // =====================================================
 
 // Data freshness metadata
 const DATA_META = {
-    lastUpdated: '2026-02-21',
-    version: '2.1',
+    lastUpdated: '2026-02-22',
+    version: '3.0',
     totalCompanies: 0, // computed after COMPANIES init
-    dataDisclaimer: 'Time-series data is simulated for trend visualization. Verify with primary sources before investment decisions.',
+    dataDisclaimer: 'Time-series data is simulated for trend visualization. Verify with primary sources before investment decisions. Revenue floor: INR 15Cr/yr minimum for tracked brands.',
 };
 
 const COMPANIES = [
@@ -68,7 +71,7 @@ const COMPANIES = [
     // Vahdam Teas removed — $114M, Series D, $34M raised, too late stage
     // Plum Goodness removed — $250M, graduated
     // BSC removed — INR 824Cr, INR 550Cr revenue, graduated
-    { id: 'ragecoffee', name: 'Rage Coffee', sector: 'food', sectorLabel: 'Food & Beverage', website: 'ragecoffee.com', color: '#ea580c', estValuation: 'INR 186Cr', estRevenue: 'INR 25Cr/yr' },
+    // Rage Coffee removed — INR 25Cr/yr revenue too small, Shark Tank halo bias inflated signals without proportionate commercial traction
     // --- FAST42 / Emerging D2C Brands ---
     { id: 'theater', name: 'Theater.xyz', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'theater.xyz', color: '#6366f1', estValuation: 'INR 50-100Cr', estRevenue: 'INR 14.1Cr/yr (14x YoY)' },
     { id: 'pantproject', name: 'The Pant Project', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'thepantproject.com', color: '#334155', estValuation: 'INR 161Cr', estRevenue: 'INR 40.7Cr/yr' },
@@ -86,7 +89,7 @@ const COMPANIES = [
     { id: 'drinkprime', name: 'DrinkPrime', sector: 'home', sectorLabel: 'Home & Living', website: 'drinkprime.in', color: '#0284c7', estValuation: 'INR 260Cr', estRevenue: 'INR 75Cr/yr' },
     { id: 'flomattress', name: 'Flo Mattress', sector: 'home', sectorLabel: 'Home & Living', website: 'flomattress.com', color: '#4f46e5', estValuation: 'INR 66Cr', estRevenue: 'INR 36Cr/yr' },
     { id: 'mymuse', name: 'MyMuse', sector: 'health', sectorLabel: 'Health & Wellness', website: 'mymuse.in', color: '#be185d', estValuation: 'INR 175Cr', estRevenue: 'INR 36Cr/yr' },
-    { id: 'dorjeteas', name: 'Dorje Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'dorjeteas.com', color: '#047857', estValuation: 'INR 20.5Cr', estRevenue: 'INR 2.3Cr/yr' },
+    // Dorje Teas removed — minimal growth (<20% YoY), INR 2.3Cr revenue too small for meaningful VC entry
     // --- Signal-Discovered Brands (surfaced via growth signals, not static curation) ---
     { id: 'wishcare', name: 'WishCare', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mywishcare.com', color: '#db2777', estValuation: '~INR 140Cr (outdated)', estRevenue: 'INR 200Cr/yr (₹300Cr ARR)' },
     // Indo Era removed — bootstrapped marketplace seller, no equity story
@@ -98,6 +101,17 @@ const COMPANIES = [
     { id: 'napchief', name: 'Nap Chief', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'napchief.com', color: '#7c3aed', estValuation: 'Seed (Titan Capital)', estRevenue: 'INR 25Cr/yr' },
     { id: 'desifarms', name: 'Desi Farms', sector: 'food', sectorLabel: 'Food & Beverage', website: 'desifarmsindia.in', color: '#15803d', estValuation: 'Series A', estRevenue: 'INR 50Cr/yr' },
     { id: 'berrylush', name: 'BerryLush', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'berrylush.com', color: '#e11d48', estValuation: 'Near-bootstrapped', estRevenue: 'INR 85Cr/yr' },
+
+    // --- Research-Identified Brands (Feb 2026 Consumer Sector Trends research) ---
+    // Tier 1 — strong conviction additions
+    { id: 'koskii', name: 'Koskii', sector: 'ethnic', sectorLabel: 'Ethnic Wear', website: 'koskii.com', color: '#c026d3', estValuation: 'INR 300-500Cr (raising)', estRevenue: 'INR 150Cr/yr FY25' },
+    { id: 'moxiebeauty', name: 'Moxie Beauty', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'moxiebeauty.in', color: '#f43f5e', estValuation: '~$50-60M (post Series A)', estRevenue: 'INR 100Cr/yr (ARR)' },
+    { id: '4700bc', name: '4700BC', sector: 'food', sectorLabel: 'Food & Beverage', website: '4700bc.com', color: '#d97706', estValuation: 'INR 100-200Cr', estRevenue: 'INR 40-60Cr/yr' },
+    { id: 'barfindia', name: 'BARF India', sector: 'pets', sectorLabel: 'Pet Care', website: 'barfindia.com', color: '#16a34a', estValuation: 'Seed (FAST42)', estRevenue: 'INR 5-15Cr/yr' },
+    // Tier 2 — worth monitoring
+    { id: 'uppercase', name: 'uppercase', sector: 'fashion', sectorLabel: 'Fashion & Apparel', website: 'uppercase.co.in', color: '#0369a1', estValuation: 'INR 50-100Cr', estRevenue: 'INR 30-50Cr/yr' },
+    { id: 'wiggles', name: 'Wiggles', sector: 'pets', sectorLabel: 'Pet Care', website: 'wiggles.in', color: '#65a30d', estValuation: '~$20M', estRevenue: 'INR 15-25Cr/yr' },
+    { id: 'antinorm', name: 'Antinorm', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'antinorm.com', color: '#a855f7', estValuation: '~INR 100Cr (post seed)', estRevenue: 'INR 10-20Cr/yr' },
 
     // --- New Sector Expansion (Footwear, Kids, QSR, Durables, Retail, Services) ---
     { id: 'comet', name: 'Comet', sector: 'footwear', sectorLabel: 'Footwear', website: 'wearcomet.com', color: '#1e40af', estValuation: 'INR 167Cr (~$20M)', estRevenue: 'INR 29Cr/yr (4x YoY)' },
@@ -144,8 +158,8 @@ function generateWeeklyTimeSeries(weeks, baseValue, growthRate, volatility) {
 // --- Google Trends Data ---
 const GOOGLE_TRENDS_DATA = {};
 // Growth rates and base indices for active companies only (removed: gynoveda, bareanatomy, snitch, mcaffeine, vahdamteas, plumgoodness, bsc, foxtale, pilgrim, boldfit, indoera, thirdwave, chaayos)
-const GT_GROWTH = { aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, mokobara: 1.10, ragecoffee: 0.78, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, neemans: 0.72, perfora: 0.88, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, dorjeteas: 0.75, wishcare: 1.35, godesi: 1.15, beco: 1.20, supertails: 1.28, longway: 1.10, bearhouse: 1.18, napchief: 1.30, desifarms: 0.90, berrylush: 1.00, comet: 1.65, solethreads: 1.15, rforrabbit: 1.20, superbottoms: 1.10, slurrpfarm: 1.25, beyondappliances: 1.50, sumosave: 0.85, bodycraft: 0.95 };
-const GT_BASE = { aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, mokobara: 38, ragecoffee: 28, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, neemans: 15, perfora: 12, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, dorjeteas: 8, wishcare: 38, godesi: 15, beco: 18, supertails: 28, longway: 22, bearhouse: 24, napchief: 10, desifarms: 14, berrylush: 20, comet: 22, solethreads: 15, rforrabbit: 32, superbottoms: 25, slurrpfarm: 28, beyondappliances: 10, sumosave: 8, bodycraft: 18 };
+const GT_GROWTH = { aukera: 1.35, aretto: 1.10, phool: 0.92, sidsfarm: 0.88, koparo: 0.65, tbof: 0.70, cosmix: 0.75, samosaparty: 0.90, bombaysweets: 0.68, mokobara: 1.10, theater: 1.40, pantproject: 0.95, whatsupwellness: 1.15, masterchow: 1.05, nathabit: 1.10, anveshan: 0.85, eggoz: 0.92, neemans: 0.72, perfora: 0.88, sweetkaramcoffee: 0.82, drinkprime: 0.95, flomattress: 0.78, mymuse: 1.05, wishcare: 1.35, godesi: 1.15, beco: 1.20, supertails: 1.28, longway: 1.10, bearhouse: 1.18, napchief: 1.30, desifarms: 0.90, berrylush: 1.00, comet: 1.65, solethreads: 1.15, rforrabbit: 1.20, superbottoms: 1.10, slurrpfarm: 1.25, beyondappliances: 1.50, sumosave: 0.85, bodycraft: 0.95, koskii: 1.25, moxiebeauty: 1.55, '4700bc': 1.30, barfindia: 0.95, uppercase: 1.05, wiggles: 1.10, antinorm: 1.40 };
+const GT_BASE = { aukera: 30, aretto: 18, phool: 18, sidsfarm: 28, koparo: 14, tbof: 20, cosmix: 17, samosaparty: 30, bombaysweets: 18, mokobara: 38, theater: 15, pantproject: 20, whatsupwellness: 16, masterchow: 22, nathabit: 35, anveshan: 14, eggoz: 18, neemans: 15, perfora: 12, sweetkaramcoffee: 10, drinkprime: 18, flomattress: 16, mymuse: 12, wishcare: 38, godesi: 15, beco: 18, supertails: 28, longway: 22, bearhouse: 24, napchief: 10, desifarms: 14, berrylush: 20, comet: 22, solethreads: 15, rforrabbit: 32, superbottoms: 25, slurrpfarm: 28, beyondappliances: 10, sumosave: 8, bodycraft: 18, koskii: 25, moxiebeauty: 18, '4700bc': 22, barfindia: 8, uppercase: 15, wiggles: 12, antinorm: 10 };
 COMPANIES.forEach(c => {
     const growth = GT_GROWTH[c.id] || 0.3;
     const base = GT_BASE[c.id] || 12;
@@ -457,6 +471,48 @@ const RISING_QUERIES = {
         { text: 'bodycraft spa bangalore review', growth: '+1000%' },
         { text: 'bodycraft dermatology treatment', growth: '+780%' },
         { text: 'best salon chain india premium', growth: '+580%' },
+    ],
+    koskii: [
+        { text: 'koskii bridal lehenga review', growth: '+2200%' },
+        { text: 'koskii ethnic wear online', growth: '+1800%' },
+        { text: 'koskii saree collection 2026', growth: '+1400%' },
+        { text: 'best occasion wear brand india', growth: '+950%' },
+    ],
+    moxiebeauty: [
+        { text: 'moxie beauty review india', growth: '+2800%' },
+        { text: 'moxie beauty bessemer backed', growth: '+2100%' },
+        { text: 'best new skincare brand india 2026', growth: '+1500%' },
+        { text: 'moxie beauty products list', growth: '+1100%' },
+    ],
+    '4700bc': [
+        { text: '4700bc popcorn flavors', growth: '+1800%' },
+        { text: '4700bc gourmet popcorn review', growth: '+1400%' },
+        { text: 'best popcorn brand india blinkit', growth: '+1100%' },
+        { text: '4700bc quick commerce', growth: '+850%' },
+    ],
+    barfindia: [
+        { text: 'barf india raw dog food review', growth: '+1600%' },
+        { text: 'biologically appropriate raw food dogs india', growth: '+1200%' },
+        { text: 'barf india subscription', growth: '+900%' },
+        { text: 'raw pet food delivery india', growth: '+650%' },
+    ],
+    uppercase: [
+        { text: 'uppercase luggage review', growth: '+1500%' },
+        { text: 'uppercase recycled plastic bags', growth: '+1100%' },
+        { text: 'sustainable luggage brand india', growth: '+850%' },
+        { text: 'uppercase vs mokobara', growth: '+650%' },
+    ],
+    wiggles: [
+        { text: 'wiggles pet care review', growth: '+1400%' },
+        { text: 'wiggles dog supplements', growth: '+1100%' },
+        { text: 'wiggles preventive pet healthcare', growth: '+850%' },
+        { text: 'best pet wellness brand india', growth: '+620%' },
+    ],
+    antinorm: [
+        { text: 'antinorm beauty review', growth: '+2400%' },
+        { text: 'antinorm fireside ventures', growth: '+1800%' },
+        { text: 'antinorm multitasking beauty', growth: '+1200%' },
+        { text: 'new beauty brand india 2026', growth: '+900%' },
     ],
 };
 Object.keys(RISING_QUERIES).forEach(k => {
@@ -984,9 +1040,93 @@ const REVIEW_SUMMARIES = {
             summary: 'Bodycraft is a service business (25+ salons/clinics). Not on Myntra.',
         },
     },
+    koskii: {
+        amazon: {
+            topLikes: ['Not applicable — ethnic occasion wear brand'],
+            topDislikes: ['Not applicable — ethnic occasion wear brand'],
+            summary: 'Koskii is a bridal/festive occasion wear brand with 30 owned stores. Not on Amazon.',
+        },
+        myntra: {
+            topLikes: ['Beautiful bridal lehengas and festive sarees', 'Quality craftsmanship for the price point', 'Growing range of ethnic fusion wear', 'Good customer service for high-value orders'],
+            topDislikes: ['Premium pricing — lehengas start INR 10K+', 'Sizing inconsistency in heavy embroidered pieces', 'Delivery timelines long for customized pieces', 'Limited return window for bridal wear'],
+            summary: 'Koskii is Hyderabad-based ethnic occasion wear hitting INR 150Cr FY25 revenue with 30 stores and 5M footfall. Targeting INR 200-240Cr FY26. Actively raising funding. The bridal/festive positioning commands premium pricing and repeat occasions.',
+        },
+    },
+    moxiebeauty: {
+        amazon: {
+            topLikes: ['Products show results within 2 weeks', 'Bessemer-backed adds credibility', 'Formulations feel premium and effective', 'Clean ingredients list', 'Affordable luxury positioning'],
+            topDislikes: ['Very new brand — limited long-term reviews', 'Small product range currently', 'Availability gaps during restocking', 'Need more shade/variant options'],
+            summary: 'Moxie Beauty crossed INR 100Cr ARR in under 2 years — one of the fastest beauty brand ramps in India. Bessemer Venture Partners led the $15M Series A (Dec 2025). Science-backed formulations targeting the gap between mass and premium.',
+        },
+        myntra: {
+            topLikes: ['Exciting new beauty brand on Myntra', 'Effective products at accessible prices', 'Growing brand awareness rapidly'],
+            topDislikes: ['Still building reviews — new brand', 'Limited SKUs on the platform'],
+            summary: 'Early Myntra presence with rapid growth. Primary sales through D2C website and Amazon.',
+        },
+    },
+    '4700bc': {
+        amazon: {
+            topLikes: ['Gourmet popcorn flavors are incredible — Himalayan cheese is addictive', 'Perfect snack for movie nights and parties', 'Premium packaging great for gifting', 'Consistently available on Blinkit within 10 minutes'],
+            topDislikes: ['Expensive for popcorn — INR 150-300 per pack', 'Pack sizes feel small for the price', 'Some flavors are too adventurous', 'Availability of limited editions is inconsistent'],
+            summary: '4700BC is the poster child for quick-commerce-native brands — 87% of total sales come through Blinkit/Zepto/Instamart. Gourmet popcorn positioned as premium impulse purchase. Strong q-commerce velocity signals.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — food/snacks brand'],
+            topDislikes: ['Not applicable — food/snacks brand'],
+            summary: '4700BC is a food brand. Not on Myntra.',
+        },
+    },
+    barfindia: {
+        amazon: {
+            topLikes: ['Dogs absolutely love the raw food — visible health improvement', 'Biologically appropriate diet concept is compelling', 'FAST42 alumni adds credibility', 'Fresh delivery maintains quality'],
+            topDislikes: ['Very niche — not for all pet owners', 'Premium pricing vs kibble', 'Limited city availability', 'Raw food handling requires education'],
+            summary: 'BARF India (Biologically Appropriate Raw Food) is creating a new category in Indian pet food. FAST42 2026 alumni. Targets health-conscious pet parents willing to pay premium for raw, species-appropriate nutrition.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — pet food brand'],
+            topDislikes: ['Not applicable — pet food brand'],
+            summary: 'BARF India is a pet food brand. Not on Myntra.',
+        },
+    },
+    uppercase: {
+        amazon: {
+            topLikes: ['Luggage made from recycled plastic — great concept', 'Build quality is surprisingly sturdy', 'Made-in-India manufacturing gives confidence', 'Competitive with premium international brands', 'Sustainability story without compromising design'],
+            topDislikes: ['Brand awareness still low', 'Limited color/design options vs Mokobara', 'Price point similar to conventional luggage brands', 'Distribution still limited'],
+            summary: 'uppercase differentiates from Mokobara with a sustainability-first positioning — luggage from recycled ocean plastic. End-to-end India manufacturing. The eco-conscious traveler segment is growing rapidly.',
+        },
+        myntra: {
+            topLikes: ['Sustainable luggage option on Myntra', 'Good design aesthetics'],
+            topDislikes: ['Low brand awareness', 'Limited range compared to established brands'],
+            summary: 'Growing Myntra presence. Sustainability angle resonates with the platform\'s conscious consumer segment.',
+        },
+    },
+    wiggles: {
+        amazon: {
+            topLikes: ['Preventive healthcare approach for pets is refreshing', 'Supplements actually show results in coat/digestion', 'Vet-formulated products build trust', 'Good range from grooming to nutrition'],
+            topDislikes: ['Premium pricing vs generic pet products', 'Some supplements taste issues — dogs resist', 'Limited offline availability', 'Packaging could be more premium'],
+            summary: 'Wiggles has raised $5.5M for preventive pet healthcare + nutrition. R&D-heavy, category-creating products. The wellness angle in pet care is early but growing fast as pet humanization trends accelerate.',
+        },
+        myntra: {
+            topLikes: ['Not applicable — pet care brand'],
+            topDislikes: ['Not applicable — pet care brand'],
+            summary: 'Wiggles is a pet care brand. Not on Myntra.',
+        },
+    },
+    antinorm: {
+        amazon: {
+            topLikes: ['Multitasking beauty products save time and money', 'Formulations feel innovative and different', 'Fireside Ventures backing adds credibility', 'Clean, modern packaging'],
+            topDislikes: ['Very new brand — limited reviews', 'Small product range', 'Need more shade diversity', 'Availability is limited'],
+            summary: 'Antinorm raised Rs 28Cr seed from Fireside Ventures (Jan 2026) for multitasking consumer beauty. Early stage but strong VC signal — Fireside is India\'s deepest consumer-only fund. Category bet on time-saving beauty for busy urban consumers.',
+        },
+        myntra: {
+            topLikes: ['Fresh new beauty brand with modern positioning', 'Multitasking products appeal to busy consumers'],
+            topDislikes: ['Too new for meaningful reviews', 'Limited presence on the platform'],
+            summary: 'Very early Myntra presence. Fireside Ventures seed backing signals confidence in the brand\'s potential.',
+        },
+    },
 };
 
-const EC_AMAZON_BASE = { aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, cosmix: 420, samosaparty: 900, bombaysweets: 450, theater: 320, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, ragecoffee: 950, wishcare: 2800, indoera: 1800, godesi: 650, beco: 850, supertails: 1400, longway: 1600, bearhouse: 720, napchief: 380, desifarms: 550, berrylush: 900, comet: 420, solethreads: 850, rforrabbit: 2200, superbottoms: 1400, slurrpfarm: 1200, thirdwave: 600, chaayos: 400, beyondappliances: 350, sumosave: 50, bodycraft: 80 };
+const EC_AMAZON_BASE = { aukera: 900, aretto: 450, phool: 520, sidsfarm: 1100, koparo: 380, gynoveda: 850, bareanatomy: 480, tbof: 720, cosmix: 420, samosaparty: 900, bombaysweets: 450, theater: 320, snitch: 3200, mokobara: 1800, noise: 8500, atomberg: 4200, countrydelight: 2800, licious: 2200, mcaffeine: 2500, vahdamteas: 1500, plumgoodness: 3800, bsc: 2000, wishcare: 2800, indoera: 1800, godesi: 650, beco: 850, supertails: 1400, longway: 1600, bearhouse: 720, napchief: 380, desifarms: 550, berrylush: 900, comet: 420, solethreads: 850, rforrabbit: 2200, superbottoms: 1400, slurrpfarm: 1200, thirdwave: 600, chaayos: 400, beyondappliances: 350, sumosave: 50, bodycraft: 80, koskii: 200, moxiebeauty: 650, '4700bc': 1200, barfindia: 180, uppercase: 350, wiggles: 420, antinorm: 150 };
 COMPANIES.forEach(c => {
     const amazonBase = EC_AMAZON_BASE[c.id] || 250;
     const myntraBase = c.sector === 'fashion' ? 300 + Math.random() * 800 :
@@ -1058,8 +1198,8 @@ const REVIEW_KEYWORDS = {
 
 // --- Website Traffic Data ---
 const TRAFFIC_DATA = {};
-const TR_BASE = { aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, ragecoffee: 420000, pantproject: 280000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, dorjeteas: 25000, wishcare: 720000, indoera: 480000, godesi: 140000, beco: 200000, supertails: 420000, longway: 320000, bearhouse: 250000, napchief: 95000, desifarms: 110000, berrylush: 180000, comet: 380000, solethreads: 280000, rforrabbit: 520000, superbottoms: 380000, slurrpfarm: 420000, thirdwave: 650000, chaayos: 750000, beyondappliances: 85000, sumosave: 45000, bodycraft: 180000 };
-const TR_GROWTH = { aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, ragecoffee: 0.70, pantproject: 0.92, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, dorjeteas: 0.70, wishcare: 1.25, indoera: 0.95, godesi: 1.10, beco: 1.18, supertails: 1.22, longway: 1.05, bearhouse: 1.08, napchief: 1.20, desifarms: 0.82, berrylush: 0.92, comet: 1.45, solethreads: 1.10, rforrabbit: 1.05, superbottoms: 1.00, slurrpfarm: 1.15, thirdwave: 1.20, chaayos: 1.08, beyondappliances: 1.35, sumosave: 0.75, bodycraft: 0.92 };
+const TR_BASE = { aukera: 520000, aretto: 140000, phool: 220000, sidsfarm: 350000, koparo: 95000, gynoveda: 280000, bareanatomy: 150000, tbof: 200000, cosmix: 110000, samosaparty: 320000, bombaysweets: 160000, theater: 180000, snitch: 2800000, mokobara: 850000, mcaffeine: 1500000, vahdamteas: 680000, plumgoodness: 2000000, bsc: 1100000, pantproject: 280000, whatsupwellness: 140000, masterchow: 320000, nathabit: 480000, anveshan: 280000, eggoz: 450000, foxtale: 920000, pilgrim: 1100000, neemans: 320000, perfora: 180000, boldfit: 680000, sweetkaramcoffee: 55000, drinkprime: 350000, flomattress: 160000, mymuse: 120000, wishcare: 720000, indoera: 480000, godesi: 140000, beco: 200000, supertails: 420000, longway: 320000, bearhouse: 250000, napchief: 95000, desifarms: 110000, berrylush: 180000, comet: 380000, solethreads: 280000, rforrabbit: 520000, superbottoms: 380000, slurrpfarm: 420000, thirdwave: 650000, chaayos: 750000, beyondappliances: 85000, sumosave: 45000, bodycraft: 180000, koskii: 380000, moxiebeauty: 280000, '4700bc': 220000, barfindia: 45000, uppercase: 120000, wiggles: 95000, antinorm: 55000 };
+const TR_GROWTH = { aukera: 1.30, aretto: 0.95, phool: 0.85, sidsfarm: 0.88, koparo: 0.60, gynoveda: 0.82, bareanatomy: 0.55, tbof: 0.65, cosmix: 0.72, samosaparty: 0.92, bombaysweets: 0.68, theater: 1.25, snitch: 1.15, mokobara: 0.95, mcaffeine: 0.72, vahdamteas: 0.55, plumgoodness: 0.65, bsc: 0.50, pantproject: 0.92, whatsupwellness: 1.10, masterchow: 1.00, nathabit: 1.05, anveshan: 0.80, eggoz: 0.88, foxtale: 1.15, pilgrim: 1.02, neemans: 0.68, perfora: 0.82, boldfit: 0.95, sweetkaramcoffee: 0.78, drinkprime: 0.92, flomattress: 0.72, mymuse: 1.00, wishcare: 1.25, indoera: 0.95, godesi: 1.10, beco: 1.18, supertails: 1.22, longway: 1.05, bearhouse: 1.08, napchief: 1.20, desifarms: 0.82, berrylush: 0.92, comet: 1.45, solethreads: 1.10, rforrabbit: 1.05, superbottoms: 1.00, slurrpfarm: 1.15, thirdwave: 1.20, chaayos: 1.08, beyondappliances: 1.35, sumosave: 0.75, bodycraft: 0.92, koskii: 1.15, moxiebeauty: 1.45, '4700bc': 1.25, barfindia: 0.85, uppercase: 1.00, wiggles: 1.05, antinorm: 1.30 };
 COMPANIES.forEach(c => {
     const base = TR_BASE[c.id] || 60000;
     const growth = TR_GROWTH[c.id] || 0.3;
@@ -1400,9 +1540,9 @@ const DEFAULT_MOOD_TIMELINE = {
 };
 // --- Social Media Data ---
 const SOCIAL_DATA = {};
-const SO_REDDIT = { aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, ragecoffee: 2200, pantproject: 1800, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, dorjeteas: 400, wishcare: 4800, indoera: 2200, godesi: 1800, beco: 2400, supertails: 3800, longway: 1600, bearhouse: 2000, napchief: 1200, desifarms: 900, berrylush: 1400, comet: 3200, solethreads: 1800, rforrabbit: 2400, superbottoms: 2800, slurrpfarm: 3000, thirdwave: 4500, chaayos: 5200, beyondappliances: 800, sumosave: 600, bodycraft: 1200 };
-const SO_INSTA = { aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, ragecoffee: 75000, pantproject: 55000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, dorjeteas: 12000, wishcare: 220000, indoera: 180000, godesi: 55000, beco: 65000, supertails: 120000, longway: 42000, bearhouse: 85000, napchief: 45000, desifarms: 28000, berrylush: 95000, comet: 300000, solethreads: 85000, rforrabbit: 120000, superbottoms: 95000, slurrpfarm: 180000, thirdwave: 250000, chaayos: 200000, beyondappliances: 15000, sumosave: 5000, bodycraft: 65000 };
-const SO_LINKEDIN = { aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, ragecoffee: 8000, pantproject: 8000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, dorjeteas: 1500, wishcare: 8000, indoera: 5500, godesi: 4000, beco: 6500, supertails: 12000, longway: 3500, bearhouse: 7000, napchief: 3000, desifarms: 4000, berrylush: 4500, comet: 8000, solethreads: 6000, rforrabbit: 10000, superbottoms: 8500, slurrpfarm: 12000, thirdwave: 18000, chaayos: 22000, beyondappliances: 5000, sumosave: 4500, bodycraft: 7000 };
+const SO_REDDIT = { aukera: 2800, aretto: 1200, phool: 2200, sidsfarm: 1800, koparo: 700, gynoveda: 2500, bareanatomy: 900, tbof: 1600, cosmix: 1100, samosaparty: 2800, bombaysweets: 1200, theater: 1800, snitch: 8500, mokobara: 4200, mcaffeine: 5000, vahdamteas: 2800, plumgoodness: 6500, bsc: 4000, pantproject: 1800, whatsupwellness: 1200, masterchow: 2000, nathabit: 3500, anveshan: 1000, eggoz: 1400, foxtale: 5500, pilgrim: 6800, neemans: 1800, perfora: 1400, boldfit: 3500, sweetkaramcoffee: 500, drinkprime: 1600, flomattress: 900, mymuse: 1400, wishcare: 4800, indoera: 2200, godesi: 1800, beco: 2400, supertails: 3800, longway: 1600, bearhouse: 2000, napchief: 1200, desifarms: 900, berrylush: 1400, comet: 3200, solethreads: 1800, rforrabbit: 2400, superbottoms: 2800, slurrpfarm: 3000, thirdwave: 4500, chaayos: 5200, beyondappliances: 800, sumosave: 600, bodycraft: 1200, koskii: 1800, moxiebeauty: 1400, '4700bc': 2200, barfindia: 600, uppercase: 800, wiggles: 900, antinorm: 500 };
+const SO_INSTA = { aukera: 95000, aretto: 28000, phool: 45000, sidsfarm: 28000, koparo: 9000, gynoveda: 55000, bareanatomy: 18000, tbof: 22000, cosmix: 15000, samosaparty: 65000, bombaysweets: 32000, theater: 380000, snitch: 450000, mokobara: 120000, mcaffeine: 350000, vahdamteas: 85000, plumgoodness: 420000, bsc: 280000, pantproject: 55000, whatsupwellness: 45000, masterchow: 85000, nathabit: 180000, anveshan: 35000, eggoz: 42000, foxtale: 380000, pilgrim: 450000, neemans: 65000, perfora: 48000, boldfit: 180000, sweetkaramcoffee: 15000, drinkprime: 38000, flomattress: 22000, mymuse: 35000, wishcare: 220000, indoera: 180000, godesi: 55000, beco: 65000, supertails: 120000, longway: 42000, bearhouse: 85000, napchief: 45000, desifarms: 28000, berrylush: 95000, comet: 300000, solethreads: 85000, rforrabbit: 120000, superbottoms: 95000, slurrpfarm: 180000, thirdwave: 250000, chaayos: 200000, beyondappliances: 15000, sumosave: 5000, bodycraft: 65000, koskii: 120000, moxiebeauty: 85000, '4700bc': 55000, barfindia: 15000, uppercase: 35000, wiggles: 28000, antinorm: 12000 };
+const SO_LINKEDIN = { aukera: 14000, aretto: 4500, phool: 18000, sidsfarm: 12000, koparo: 2500, gynoveda: 8000, bareanatomy: 3500, tbof: 9000, cosmix: 4000, samosaparty: 6000, bombaysweets: 5000, theater: 4500, snitch: 25000, mokobara: 15000, mcaffeine: 18000, vahdamteas: 12000, plumgoodness: 20000, bsc: 16000, pantproject: 8000, whatsupwellness: 4000, masterchow: 6000, nathabit: 12000, anveshan: 4500, eggoz: 5000, foxtale: 22000, pilgrim: 25000, neemans: 8000, perfora: 5000, boldfit: 12000, sweetkaramcoffee: 1800, drinkprime: 8000, flomattress: 3500, mymuse: 5000, wishcare: 8000, indoera: 5500, godesi: 4000, beco: 6500, supertails: 12000, longway: 3500, bearhouse: 7000, napchief: 3000, desifarms: 4000, berrylush: 4500, comet: 8000, solethreads: 6000, rforrabbit: 10000, superbottoms: 8500, slurrpfarm: 12000, thirdwave: 18000, chaayos: 22000, beyondappliances: 5000, sumosave: 4500, bodycraft: 7000, koskii: 8000, moxiebeauty: 6000, '4700bc': 4500, barfindia: 2000, uppercase: 3500, wiggles: 3000, antinorm: 2500 };
 COMPANIES.forEach(c => {
     SOCIAL_DATA[c.id] = {
         reddit: {
@@ -1462,7 +1602,7 @@ const SOCIAL_POSTS = [
 { platform: 'reddit', subreddit: 'r/IndianProducts', title: 'DrinkPrime water purifier subscription vs buying — 6 month cost comparison. Worth it?', upvotes: 1600, comments: 240, time: '8h ago', sentiment: 'positive', brand: 'drinkprime' },
     { platform: 'instagram', handle: '@fitnessjunkie.in', title: 'Boldfit gym accessories haul — resistance bands, shaker, yoga mat. All under Rs 2000!', likes: 3800, comments: 245, time: '5h ago', sentiment: 'positive', brand: 'boldfit' },
     { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Neemans wool sneakers 6-month review. Sustainable footwear that actually lasts?', upvotes: 1400, comments: 190, time: '11h ago', sentiment: 'positive', brand: 'neemans' },
-    { platform: 'instagram', handle: '@ragecoffeeofficial', title: 'New Irish Hazelnut Rage Coffee. Instant coffee that doesn\'t taste instant. Available now.', likes: 3400, comments: 210, time: '9h ago', sentiment: 'positive', brand: 'ragecoffee' },
+    { platform: 'instagram', handle: '@koskii.official', title: 'Koskii bridal lehenga collection for summer weddings — handcrafted ethnic wear from 30 stores across India.', likes: 4800, comments: 320, time: '9h ago', sentiment: 'positive', brand: 'koskii' },
     { platform: 'instagram', handle: '@vogueindia', title: 'Theater.xyz is the Chandigarh-born brand redefining mass-premium fashion. 14x revenue growth. The future of Indian design.', likes: 12500, comments: 890, time: '3h ago', sentiment: 'positive', brand: 'theater' },
     { platform: 'reddit', subreddit: 'r/IndianFashionAdvice', title: 'Theater.xyz — found this brand through Vogue India. Design quality is insane for the price. Anyone else tried them?', upvotes: 2400, comments: 345, time: '6h ago', sentiment: 'positive', brand: 'theater' },
     { platform: 'linkedin', handle: 'D2C Insider', title: 'Theater.xyz raised $1.5M Pre-Series A from Prath Ventures. 14x YoY revenue growth. Chandigarh fashion going national.', likes: 7200, comments: 520, time: '8h ago', sentiment: 'positive', brand: 'theater' },
@@ -1946,13 +2086,7 @@ const DISCOVERED_BRANDS = [
         stage: 'Tracking', discoveryScore: 79, igFollowers: '210K', igGrowthRate: 14,
         strongestSignal: 'Fundraise Announcements', detail: 'Sustainable living marketplace. Shark Tank S2 featured. Seed round from Titan Capital. Active WhatsApp community for eco-conscious products. Revenue: verify via MCA filing.'
     },
-    {
-        id: 'bewakoof', name: 'Bewakoof', city: 'Mumbai', state: 'Maharashtra', tier: 1,
-        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'Verify via MCA',
-        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: false, qcommerce: false, gst: true, app_rank: true, creator_collab: true, media_velocity: true, inventory: true, community: false, retention: true },
-        stage: 'Verified', discoveryScore: 85, igFollowers: '1.2M', igGrowthRate: 8,
-        strongestSignal: 'App Store Ranking', detail: 'Large-scale casual wear D2C. 7M+ app downloads — top 50 in Shopping category on Google Play. Strong BSR across categories. Funded by InvestCorp. High repeat purchase pattern. Revenue: verify via MCA filing.'
-    },
+    // Bewakoof removed — part of Aditya Birla Group (listed company), not VC-investable as standalone D2C
     {
         id: 'ellementry', name: 'Ellementry', city: 'Jaipur', state: 'Rajasthan', tier: 2,
         sector: 'home', sectorLabel: 'Home & Living', estRevenue: 'Verify via MCA',
@@ -2044,6 +2178,42 @@ const DISCOVERED_BRANDS = [
         stage: 'Tracking', discoveryScore: 85, igFollowers: '50K+', igGrowthRate: 16,
         strongestSignal: 'Inventory Turnover', detail: 'Kerala banana chips brand. Shark Tank S1 (Ashneer + Aman). Series A: $8.3M from 12 Flags (Dec 2024). 10K+ retail outlets. On Blinkit, Zepto, Instamart. Frequent quick-commerce stock-outs indicating high velocity. Present in 18 cities, 12 countries. Revenue: verify via MCA.'
     },
+    // --- Research-Identified Brands (Feb 2026 Consumer Sector Trends) ---
+    {
+        id: 'koskii_d', name: 'Koskii', city: 'Hyderabad', state: 'Telangana', tier: 1,
+        sector: 'ethnic', sectorLabel: 'Ethnic Wear', estRevenue: 'INR 150Cr FY25',
+        signals: { mca: true, ig_growth: true, bsr: false, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: false, gst: true, app_rank: false, creator_collab: true, media_velocity: true, inventory: false, community: false, retention: true },
+        stage: 'Verified', discoveryScore: 88, igFollowers: '120K', igGrowthRate: 16,
+        strongestSignal: 'Fundraise Announcements', detail: 'Hyderabad-based bridal/festive ethnic occasion wear. INR 150Cr FY25 revenue, targeting INR 200-240Cr FY26 (33-60% growth). 30 owned stores, 5M footfall. Actively raising new funding round (Jun 2025). Merged India textile heritage with D2C tech. Revenue: INR 150Cr verified via Inc42.'
+    },
+    {
+        id: 'moxie_d', name: 'Moxie Beauty', city: 'Mumbai', state: 'Maharashtra', tier: 1,
+        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'INR 100Cr ARR',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: true, gst: true, app_rank: false, creator_collab: true, media_velocity: true, inventory: true, community: false, retention: true },
+        stage: 'Verified', discoveryScore: 91, igFollowers: '85K', igGrowthRate: 25,
+        strongestSignal: 'Fundraise Announcements', detail: 'Crossed INR 100Cr ARR in under 2 years — one of the fastest beauty brand ramps in India. Bessemer Venture Partners led $15M Series A (Dec 2025). Science-backed formulations bridging mass and premium beauty. Strong q-commerce presence. Revenue: INR 100Cr ARR verified via Inc42.'
+    },
+    {
+        id: '4700bc_d', name: '4700BC', city: 'Mumbai', state: 'Maharashtra', tier: 1,
+        sector: 'food', sectorLabel: 'Food & Beverage', estRevenue: 'INR 40-60Cr/yr',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: true, gst: true, app_rank: false, creator_collab: false, media_velocity: true, inventory: true, community: false, retention: true },
+        stage: 'Verified', discoveryScore: 86, igFollowers: '55K', igGrowthRate: 14,
+        strongestSignal: 'Q-Commerce Velocity', detail: 'Poster child for quick-commerce-native brands — 87% of total sales from Blinkit/Zepto/Instamart. Gourmet popcorn positioned as premium impulse purchase. High restock velocity signals strong demand pull. Pioneer of q-commerce-first distribution strategy.'
+    },
+    {
+        id: 'goodfellows_d', name: 'GoodFellows', city: 'Mumbai', state: 'Maharashtra', tier: 1,
+        sector: 'services', sectorLabel: 'Consumer Services', estRevenue: 'Early stage',
+        signals: { mca: false, ig_growth: true, bsr: false, regional: false, hiring: true, marketplace: false, influencer: false, fundraise: false, shark_tank: false, trademark: true, qcommerce: false, gst: false, app_rank: false, creator_collab: false, media_velocity: true, inventory: false, community: true, retention: false },
+        stage: 'Tracking', discoveryScore: 72, igFollowers: '45K', igGrowthRate: 20,
+        strongestSignal: 'Media Velocity', detail: 'Elder care companionship services. Founded by Shantanu Naidu (late Ratan Tata\'s assistant). India has 200M citizens 60+ by 2030 — $12B opportunity. Silver Economy sector is greenfield for VC. High search traction driven by founder narrative.'
+    },
+    {
+        id: 'antinorm_d', name: 'Antinorm', city: 'Mumbai', state: 'Maharashtra', tier: 1,
+        sector: 'beauty', sectorLabel: 'Beauty & Personal Care', estRevenue: 'INR 10-20Cr/yr',
+        signals: { mca: false, ig_growth: true, bsr: false, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: false, gst: false, app_rank: false, creator_collab: true, media_velocity: true, inventory: false, community: false, retention: false },
+        stage: 'Tracking', discoveryScore: 78, igFollowers: '12K', igGrowthRate: 30,
+        strongestSignal: 'Fundraise Announcements', detail: 'Multitasking consumer beauty brand. Rs 28Cr seed from Fireside Ventures (Jan 2026) — Fireside is India\'s deepest consumer-only fund. Early stage but strong VC conviction signal. Time-saving beauty for busy urban consumers.'
+    },
 ];
 
 // Signal feed events (recent detections across all 12 channels)
@@ -2075,10 +2245,9 @@ const SIGNAL_FEED = [
     { channel: 'qcommerce', brand: 'Lahori Beverages', city: 'Ludhiana', date: '2026-02-15', detail: 'Traditional beverages category expanding into quick commerce. Shikanji/Zeera Soda on Blinkit/Zepto. Verify listings.', strength: 'strong' },
     { channel: 'fundraise', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-14', detail: 'Series C round closed. Lead investors include Fireside Ventures. Verify round size via Tracxn/Crunchbase.', strength: 'strong' },
     { channel: 'hiring', brand: 'Aretto', city: 'Pune', date: '2026-02-14', detail: '~77 employees as of Oct 2024. Growing headcount for a kids footwear startup. Verify via LinkedIn.', strength: 'moderate' },
-    { channel: 'mca', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-13', detail: 'FY25 MCA filing available. Significant YoY revenue growth detected. Verify exact figures via Tofler/Zauba Corp.', strength: 'strong' },
+    // Bewakoof removed — part of Aditya Birla Group (listed)
     { channel: 'qcommerce', brand: 'Nothing Before Coffee', city: 'Jaipur', date: '2026-02-13', detail: 'Online orders (Swiggy/Zomato) contributing 12-13% of total revenue. Quick commerce as growth lever. Verify via company reports.', strength: 'moderate' },
     { channel: 'bsr', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-12', detail: 'Fixderma Shadow SPF 50+ showing strong BSR improvement in Sunscreen category. Track via Jungle Scout.', strength: 'strong' },
-    { channel: 'hiring', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-11', detail: 'Multiple senior open roles detected on LinkedIn: marketing, operations, data. Scaling signal. Verify via LinkedIn.', strength: 'moderate' },
     { channel: 'marketplace', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-10', detail: 'Added to multiple marketplaces in quick succession. Dermatologist-backed positioning. Verify listings directly.', strength: 'strong' },
     { channel: 'influencer', brand: 'The Formula Rx', city: 'India', date: '2026-02-10', detail: 'Rising micro-influencer mention density vs. small follower base. Organic creator buzz building. Verify via HypeAuditor.', strength: 'moderate' },
     { channel: 'fundraise', brand: 'Nestasia', city: 'Kolkata', date: '2026-02-09', detail: 'Series A raised from Stellaris Venture Partners. Home decor D2C from Kolkata. Verify round details via Tracxn.', strength: 'strong' },
@@ -2099,9 +2268,20 @@ const SIGNAL_FEED = [
     { channel: 'ig_growth', brand: 'Adil Qadri', city: 'Bilimora', date: '2026-02-02', detail: '~955K IG followers. 95% online sales. Bootstrapped and profitable. Largest perfume/attar D2C IG presence in India. Verify via Social Blade.', strength: 'strong' },
     { channel: 'shark_tank', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-01', detail: 'Shark Tank S1 (Ashneer + Aman). Series A: $8.3M from 12 Flags (Dec 2024). Now in 18 cities, 12 countries. Verify via Inc42.', strength: 'strong' },
     { channel: 'qcommerce', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-01', detail: 'Present on Blinkit, Zepto, Instamart + 10K retail outlets (DMart, Reliance). Quick commerce as growth lever. Verify listings.', strength: 'strong' },
+    // --- Research-Identified Brand Signal Events (Feb 2026) ---
+    { channel: 'fundraise', brand: 'Moxie Beauty', city: 'Mumbai', date: '2026-02-22', detail: 'Series A: $15M from Bessemer Venture Partners (Dec 2025). Crossed INR 100Cr ARR in <2 years. Fastest beauty brand ramp in India. Verify via Inc42.', strength: 'strong' },
+    { channel: 'qcommerce', brand: '4700BC', city: 'Mumbai', date: '2026-02-22', detail: '87% of total sales from quick commerce (Blinkit, Zepto, Instamart). Poster child for q-commerce-native brand strategy. High restock velocity. Verify via platform listings.', strength: 'strong' },
+    { channel: 'fundraise', brand: 'Koskii', city: 'Hyderabad', date: '2026-02-22', detail: 'Actively raising new funding round. INR 150Cr FY25 revenue, targeting INR 200-240Cr FY26. 30 owned stores, 5M footfall. Ethnic occasion wear category leader. Verify via Inc42.', strength: 'strong' },
+    { channel: 'fundraise', brand: 'Antinorm', city: 'Mumbai', date: '2026-02-22', detail: 'Seed: Rs 28Cr from Fireside Ventures (Jan 2026). Multitasking consumer beauty. Fireside — India\'s deepest consumer-only fund. Verify via Inc42/Tracxn.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'Koskii', city: 'Hyderabad', date: '2026-02-21', detail: '120K+ IG followers. Ethnic wear bridal content driving high engagement. 30 stores across India. Verify via Social Blade.', strength: 'strong' },
+    { channel: 'retention', brand: '4700BC', city: 'Mumbai', date: '2026-02-21', detail: 'High repeat purchase signal on quick commerce — same addresses ordering weekly. Gourmet popcorn as impulse + habitual consumption. Verify via platform data.', strength: 'strong' },
+    { channel: 'bsr', brand: 'Moxie Beauty', city: 'Mumbai', date: '2026-02-20', detail: 'Multiple Moxie Beauty SKUs showing strong BSR improvement in Beauty & Personal Care on Amazon. Verify via Jungle Scout.', strength: 'strong' },
+    { channel: 'ig_growth', brand: 'BARF India', city: 'India', date: '2026-02-20', detail: 'Inc42 FAST42 2026 alumni. Raw pet food category creator. Growing pet parent community. Verify via Social Blade.', strength: 'moderate' },
+    { channel: 'fundraise', brand: 'Wiggles', city: 'India', date: '2026-02-19', detail: '$5.5M raised for preventive pet healthcare + nutrition. R&D-heavy, category-creating products. Pet care market at $884M, growing 18-20% CAGR. Verify via Tracxn.', strength: 'strong' },
+    { channel: 'marketplace', brand: 'uppercase', city: 'India', date: '2026-02-18', detail: 'Sustainable luggage from recycled ocean plastic. Made-in-India end-to-end manufacturing. Listed on Amazon + own D2C. Sustainability moat vs Mokobara. Verify via listings.', strength: 'moderate' },
     // --- NEW SIGNAL CHANNEL EVENTS ---
     // App Store Rankings
-    { channel: 'app_rank', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-22', detail: 'Bewakoof app ranked #38 in Shopping category on Google Play India. 7M+ downloads. D2C app install velocity accelerating. Verify via AppAnnie/Sensor Tower.', strength: 'strong' },
+    // Bewakoof app_rank removed — part of Aditya Birla Group (listed)
     { channel: 'app_rank', brand: 'Snitch', city: 'Bengaluru', date: '2026-02-22', detail: 'Snitch app entered Top 50 Shopping on Google Play. App-first strategy driving 40%+ of revenue. 15-min sellout drops creating install urgency. Verify via AppAnnie.', strength: 'strong' },
     { channel: 'app_rank', brand: 'Kapiva', city: 'Bangalore', date: '2026-02-21', detail: 'Kapiva app entered Top 200 in Health & Fitness on Google Play. Subscription model driving app installs. Verify via Sensor Tower.', strength: 'moderate' },
     { channel: 'app_rank', brand: 'Nothing Before Coffee', city: 'Jaipur', date: '2026-02-20', detail: 'NBC loyalty app entered Top 200 Food & Drink category on Google Play. QSR chain using app for repeat orders + store locator. Verify via AppAnnie.', strength: 'moderate' },
@@ -2125,7 +2305,6 @@ const SIGNAL_FEED = [
     { channel: 'inventory', brand: 'Fixderma', city: 'Ahmedabad', date: '2026-02-20', detail: 'Shadow SPF 50+ consistently in limited stock on Amazon. BSR climber + stock constraints = high demand signal. Verify via Keepa price/stock tracker.', strength: 'strong' },
     { channel: 'inventory', brand: 'Snitch', city: 'Bengaluru', date: '2026-02-19', detail: 'Limited edition drops selling out in 15 minutes consistently. SKU-level stock-out velocity highest among tracked fashion brands. Verify via website monitoring.', strength: 'strong' },
     { channel: 'inventory', brand: 'Farmley', city: 'Jaipur', date: '2026-02-18', detail: 'Dry fruit combo packs showing stock-outs on Blinkit/Zepto during peak hours. Quick commerce restock velocity increased 3x in 90 days. Verify via platform listings.', strength: 'strong' },
-    { channel: 'inventory', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-17', detail: 'Trending T-shirt designs showing stock-out patterns within 48-72 hours of launch. App push notifications driving instant sellouts. Verify via website monitoring.', strength: 'moderate' },
     { channel: 'inventory', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-16', detail: 'Banana chips SKUs showing high restock velocity on Blinkit Delhi NCR — restocking 2x/day in some dark stores. Regional snack going national via quick commerce. Verify via Blinkit.', strength: 'strong' },
     // Community Growth (WhatsApp / Telegram / Discord)
     { channel: 'community', brand: 'Adil Qadri', city: 'Bilimora', date: '2026-02-22', detail: 'WhatsApp community estimated at 50K+ members (multiple groups). 95% online sales model built on direct community engagement. Tier 3 brand with Tier 1 community economics. Verify via brand website/order flow.', strength: 'strong' },
@@ -2142,7 +2321,6 @@ const SIGNAL_FEED = [
     { channel: 'retention', brand: 'Adil Qadri', city: 'Bilimora', date: '2026-02-16', detail: 'Attar/perfume as repeat consumption category — community data suggests 60%+ repeat purchase rate. WhatsApp reorder flow driving retention. Verify via brand order data.', strength: 'strong' },
     { channel: 'retention', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-15', detail: 'Banana chips as habitual snack — repeat purchase signal from same Amazon reviewers across multiple flavors. Quick commerce reorder frequency high. Verify via review analysis.', strength: 'moderate' },
     { channel: 'retention', brand: 'Ellementry', city: 'Jaipur', date: '2026-02-14', detail: 'Home decor repeat purchase pattern — same customers buying across categories (mugs, plates, bowls). Gift-driven repeat behavior detected. Verify via review analysis.', strength: 'moderate' },
-    { channel: 'retention', brand: 'Bewakoof', city: 'Mumbai', date: '2026-02-13', detail: 'App loyalty program showing 30%+ repeat purchase rate. T-shirt and casual wear as repeat consumption category. 7M downloads = large retention base. Verify via app analytics.', strength: 'strong' },
 ];
 
 // Regional hotspot data — cities with emerging brand signals
@@ -2302,6 +2480,14 @@ const FUNDING_ROUNDS = [
     { company: 'nathabit', companyName: 'Nat Habit', round: 'Series A', amount: '$10M', date: '2024-03', leadInvestor: 'Fireside Ventures', coInvestors: ['Lightspeed India'], valuation: 'INR 343Cr', sector: 'beauty' },
     { company: 'eggoz', companyName: 'Eggoz', round: 'Series B', amount: '$10M', date: '2024-01', leadInvestor: 'Rebright Partners', coInvestors: ['Aavishkaar Capital', 'ORIX'], valuation: 'INR 458Cr', sector: 'food' },
     { company: 'perfora', companyName: 'Perfora', round: 'Series A', amount: '$10M', date: '2024-06', leadInvestor: 'Bessemer Venture Partners', coInvestors: ['Mensa Brands'], valuation: 'INR 240Cr', sector: 'health' },
+    // --- Research-Identified Brands (Feb 2026) ---
+    { company: 'koskii', companyName: 'Koskii', round: 'Series A (raising)', amount: 'TBD', date: '2026-H1', leadInvestor: 'TBD (actively fundraising)', coInvestors: [], valuation: 'INR 300-500Cr (target)', sector: 'ethnic' },
+    { company: 'moxiebeauty', companyName: 'Moxie Beauty', round: 'Series A', amount: '$15M', date: '2025-12', leadInvestor: 'Bessemer Venture Partners', coInvestors: [], valuation: '~$50-60M', sector: 'beauty' },
+    { company: '4700bc', companyName: '4700BC', round: 'Series A', amount: '$3M', date: '2024-06', leadInvestor: 'DSG Consumer Partners', coInvestors: [], valuation: 'INR 100-200Cr', sector: 'food' },
+    { company: 'barfindia', companyName: 'BARF India', round: 'Seed', amount: 'Undisclosed', date: '2025-06', leadInvestor: 'FAST42 cohort', coInvestors: [], valuation: 'Undisclosed', sector: 'pets' },
+    { company: 'uppercase', companyName: 'uppercase', round: 'Series A', amount: '$5M', date: '2024-09', leadInvestor: 'Undisclosed', coInvestors: [], valuation: 'INR 50-100Cr', sector: 'fashion' },
+    { company: 'wiggles', companyName: 'Wiggles', round: 'Series A', amount: '$5.5M', date: '2024-04', leadInvestor: 'Undisclosed', coInvestors: [], valuation: '~$20M', sector: 'pets' },
+    { company: 'antinorm', companyName: 'Antinorm', round: 'Seed', amount: 'Rs 28Cr (~$3.3M)', date: '2026-01', leadInvestor: 'Fireside Ventures', coInvestors: [], valuation: '~INR 100Cr', sector: 'beauty' },
     // --- Discovered Brands (not in main tracker yet) ---
     { company: 'farmley', companyName: 'Farmley', round: 'Series C', amount: '$40M', date: '2025-01', leadInvestor: 'L Catterton', coInvestors: [], valuation: 'Undisclosed', sector: 'food' },
     { company: 'beyondsnack', companyName: 'Beyond Snack', round: 'Series A', amount: '$8.3M', date: '2024-12', leadInvestor: '12 Flags', coInvestors: [], valuation: 'Undisclosed', sector: 'food' },
@@ -2311,14 +2497,14 @@ const FUNDING_ROUNDS = [
 // --- VC Activity Tracker ---
 // Which top-tier VCs are actively deploying in consumer and where
 const VC_ACTIVITY = [
-    { vc: 'Fireside Ventures', focus: 'Consumer-only fund', activeDeals: ['Solethreads', 'Slurrp Farm', 'Beyond Appliances', 'Nat Habit', 'Kapiva'], recentDeployment: '$15M+ in last 12 months', sectors: ['footwear', 'kids', 'durables', 'beauty', 'health'], thesis: 'Backs emerging consumer brands at Seed-Series A. Deepest consumer-only fund in India.' },
+    { vc: 'Fireside Ventures', focus: 'Consumer-only fund', activeDeals: ['Solethreads', 'Slurrp Farm', 'Beyond Appliances', 'Nat Habit', 'Kapiva', 'Antinorm'], recentDeployment: '$18M+ in last 12 months', sectors: ['footwear', 'kids', 'durables', 'beauty', 'health'], thesis: 'Backs emerging consumer brands at Seed-Series A. Deepest consumer-only fund in India. Led Antinorm Rs 28Cr seed (Jan 2026) for multitasking beauty.' },
     { vc: 'Elevation Capital', focus: 'Multi-stage', activeDeals: ['Comet'], recentDeployment: '$5M+ in consumer', sectors: ['footwear'], thesis: 'Growth-stage bets on category leaders. Consumer is ~25% of portfolio.' },
     { vc: 'Nexus Venture Partners', focus: 'Multi-stage', activeDeals: ['Comet', 'Mokobara'], recentDeployment: '$17M+ in consumer', sectors: ['footwear', 'fashion'], thesis: 'Early-stage conviction plays. Backs founders with strong differentiation.' },
     { vc: 'Lightspeed India', focus: 'Multi-stage', activeDeals: ['SumoSave', 'Nat Habit'], recentDeployment: '$13M+ in consumer', sectors: ['retail', 'beauty'], thesis: 'Bets on large market opportunities with operator-founders.' },
     { vc: 'DSG Consumer Partners', focus: 'Consumer-focused', activeDeals: ['Solethreads', 'SuperBottoms'], recentDeployment: '$8M+ in consumer', sectors: ['footwear', 'kids'], thesis: 'Pure-play consumer fund. Backs brands from Series A through growth.' },
     // Tiger Global, WestBridge — primarily backing companies beyond our valuation range
     { vc: 'Filter Capital', focus: 'Growth-stage', activeDeals: ['R for Rabbit'], recentDeployment: '$27M in baby care', sectors: ['kids'], thesis: 'Ex-McKinsey team. Backs profitable growth-stage consumer companies.' },
-    { vc: 'Bessemer Venture Partners', focus: 'Multi-stage global', activeDeals: ['Perfora'], recentDeployment: '$10M in consumer health', sectors: ['health'], thesis: 'Selective India consumer bets. Looks for category-defining brands.' },
+    { vc: 'Bessemer Venture Partners', focus: 'Multi-stage global', activeDeals: ['Perfora', 'Moxie Beauty'], recentDeployment: '$25M in consumer (health + beauty)', sectors: ['health', 'beauty'], thesis: 'Selective India consumer bets. Looks for category-defining brands. Led Moxie Beauty $15M Series A (Dec 2025).' },
     { vc: 'L Catterton', focus: 'Global consumer PE', activeDeals: ['Farmley'], recentDeployment: '$40M in food/snacks', sectors: ['food'], thesis: 'LVMH-backed consumer PE. First India consumer bets in healthy snacks vertical.' },
     // Creaegis — primarily backing companies beyond our valuation range
 ];

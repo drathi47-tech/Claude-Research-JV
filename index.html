@@ -105,6 +105,7 @@
                         <option value="retail">Offline Retail</option>
                         <option value="services">Consumer Services</option>
                         <option value="pets">Pet Care</option>
+                        <option value="ethnic">Ethnic Wear</option>
                     </select>
                     <button class="btn-add-company" onclick="openAddCompanyModal()">+ Add Company</button>
                     <div class="data-freshness" id="dataFreshness" title="Last data refresh date">
@@ -1005,6 +1006,20 @@
                                         <p>Pre-seed companies with no measurable market traction are excluded. Signals require sufficient data points for meaningful scoring (minimum 6 months of trackable activity).</p>
                                     </div>
                                 </div>
+                                <div class="methodology-rule">
+                                    <div class="rule-badge rule-excluded">EXCLUDED</div>
+                                    <div class="rule-content">
+                                        <strong>Listed Conglomerate Subsidiaries</strong>
+                                        <p>Brands owned by publicly listed groups are excluded as they are not VC-investable standalone D2C opportunities (e.g., Bewakoof &rarr; Aditya Birla Group).</p>
+                                    </div>
+                                </div>
+                                <div class="methodology-rule">
+                                    <div class="rule-badge rule-required">REQUIRED</div>
+                                    <div class="rule-content">
+                                        <strong>Revenue Floor: INR 15Cr/yr Minimum</strong>
+                                        <p>Brands must demonstrate at least INR 15Cr/yr revenue to be tracked. Shark Tank visibility or social buzz alone does not qualify without proportionate commercial traction.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1201,6 +1216,7 @@
                         <option value="retail">Offline Retail</option>
                         <option value="services">Consumer Services</option>
                         <option value="pets">Pet Care</option>
+                        <option value="ethnic">Ethnic Wear</option>
                     </select>
                 </div>
                 <div class="form-group">

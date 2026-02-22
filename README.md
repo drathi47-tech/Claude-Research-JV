@@ -30,7 +30,7 @@ A multi-platform consumer trend analysis dashboard for identifying breakout D2C 
 
 ## Pre-loaded Companies
 
-Mamaearth, boAt, Wakefit, Lenskart, SUGAR Cosmetics, Noise, Mokobara, Yogabar, Plum Goodness, Bewakoof, SleepyCat, The Whole Truth
+Mamaearth, boAt, Wakefit, Lenskart, SUGAR Cosmetics, Noise, Mokobara, Yogabar, Plum Goodness, SleepyCat, The Whole Truth, Koskii, Moxie Beauty, 4700BC, BARF India, uppercase, Wiggles, Antinorm
 
 ## Tech Stack
 
