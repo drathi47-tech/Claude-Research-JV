@@ -35,7 +35,7 @@
 // - Public companies or brands with >$120M valuation / Series C+
 // - Stagnating brands (<20% YoY growth without clear inflection)
 // - Brands owned by listed conglomerates (e.g., Bewakoof → Aditya Birla)
-// - Revenue floor: INR 15Cr/yr minimum — Shark Tank/social buzz alone
+// - Revenue floor: INR 40Cr/yr minimum — Shark Tank/social buzz alone
 //   does not qualify without proportionate commercial traction
 // =====================================================
 
@@ -44,7 +44,7 @@ const DATA_META = {
     lastUpdated: '2026-02-22',
     version: '3.0',
     totalCompanies: 0, // computed after COMPANIES init
-    dataDisclaimer: 'Time-series data is simulated for trend visualization. Verify with primary sources before investment decisions. Revenue floor: INR 15Cr/yr minimum for tracked brands.',
+    dataDisclaimer: 'Time-series data is simulated for trend visualization. Verify with primary sources before investment decisions. Revenue floor: INR 40Cr/yr minimum for tracked brands.',
 };
 
 const COMPANIES = [
