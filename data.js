@@ -42,7 +42,7 @@
 // Data freshness metadata
 const DATA_META = {
     lastUpdated: '2026-02-22',
-    version: '3.0',
+    version: '3.1',
     totalCompanies: 0, // computed after COMPANIES init
     dataDisclaimer: 'Time-series data is simulated for trend visualization. Verify with primary sources before investment decisions. Revenue floor: INR 40Cr/yr minimum for tracked brands.',
 };
@@ -2214,6 +2214,35 @@ const DISCOVERED_BRANDS = [
         stage: 'Tracking', discoveryScore: 78, igFollowers: '12K', igGrowthRate: 30,
         strongestSignal: 'Fundraise Announcements', detail: 'Multitasking consumer beauty brand. Rs 28Cr seed from Fireside Ventures (Jan 2026) — Fireside is India\'s deepest consumer-only fund. Early stage but strong VC conviction signal. Time-saving beauty for busy urban consumers.'
     },
+    // --- Store Expansion-Surfaced Brands (Feb 2026) ---
+    {
+        id: 'damensch_d', name: 'DaMENSCH', city: 'Bengaluru', state: 'Karnataka', tier: 1,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'INR 150-200Cr (verify MCA)',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: false, gst: true, store_expansion: true, franchise_velocity: false, vc_round: true, app_rank: false, creator_collab: true, media_velocity: true, inventory: false, community: false, retention: true },
+        stage: 'Verified', discoveryScore: 87, igFollowers: '180K', igGrowthRate: 14,
+        strongestSignal: 'Store Expansion', detail: 'Men\'s essentials brand (innerwear → loungewear → casual). 42 COCO stores, targeting 100 by FY27. Series B from A91 Partners. 300% YoY store velocity. 18-month payback per store. Expanding to Tier 2 cities. Revenue: verify via MCA.'
+    },
+    {
+        id: 'jokerandwitch_d', name: 'Joker & Witch', city: 'Pune', state: 'Maharashtra', tier: 1,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'INR 80-120Cr (verify MCA)',
+        signals: { mca: false, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: true, trademark: true, qcommerce: false, gst: true, store_expansion: true, franchise_velocity: false, vc_round: false, app_rank: false, creator_collab: true, media_velocity: true, inventory: false, community: false, retention: true },
+        stage: 'Tracking', discoveryScore: 79, igFollowers: '350K', igGrowthRate: 16,
+        strongestSignal: 'Store Expansion', detail: 'Watches + fashion accessories D2C. First offline store at Lulu Mall Bengaluru. Planning 100+ stores in 3-5 years. Shark Tank alumni. Strong IG community (350K). Going omnichannel from pure D2C. Revenue: verify via MCA.'
+    },
+    {
+        id: 'huft_d', name: 'Heads Up For Tails', city: 'Gurugram', state: 'Haryana', tier: 1,
+        sector: 'pets', sectorLabel: 'Pet Care', estRevenue: 'INR 400Cr ARR',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: false, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: false, gst: true, store_expansion: true, franchise_velocity: true, vc_round: true, app_rank: false, creator_collab: true, media_velocity: true, inventory: true, community: true, retention: true },
+        stage: 'Verified', discoveryScore: 93, igFollowers: '320K', igGrowthRate: 12,
+        strongestSignal: 'Store Expansion', detail: 'India\'s largest pet products retailer. 105 stores + 80 pet spas in 20+ cities. Series B: ~$25M. INR 400Cr ARR. Airport store at T3 Delhi. 100th store milestone in 2025. Franchise + COCO hybrid model. Pet care market INR 10K Cr+.'
+    },
+    {
+        id: 'giva_d', name: 'GIVA', city: 'Bengaluru', state: 'Karnataka', tier: 1,
+        sector: 'fashion', sectorLabel: 'Fashion & Apparel', estRevenue: 'INR 510Cr FY25',
+        signals: { mca: true, ig_growth: true, bsr: true, regional: true, hiring: true, marketplace: true, influencer: true, fundraise: true, shark_tank: false, trademark: true, qcommerce: false, gst: true, store_expansion: true, franchise_velocity: true, vc_round: true, app_rank: true, creator_collab: true, media_velocity: true, inventory: true, community: false, retention: true },
+        stage: 'Verified', discoveryScore: 96, igFollowers: '500K+', igGrowthRate: 18,
+        strongestSignal: 'Store Expansion', detail: '280 stores — fastest jewelry store network build in India. Series C: $60M (Creaegis + Premji Invest) at $465M. INR 510Cr FY25 → 809Cr FY26 target. Silver-first strategy: 3-4x annual purchase frequency vs gold. 400K daily web visitors. Graduated beyond VC range but benchmark for velocity.'
+    },
 ];
 
 // Signal feed events (recent detections across all 12 channels)
@@ -2268,6 +2297,15 @@ const SIGNAL_FEED = [
     { channel: 'ig_growth', brand: 'Adil Qadri', city: 'Bilimora', date: '2026-02-02', detail: '~955K IG followers. 95% online sales. Bootstrapped and profitable. Largest perfume/attar D2C IG presence in India. Verify via Social Blade.', strength: 'strong' },
     { channel: 'shark_tank', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-01', detail: 'Shark Tank S1 (Ashneer + Aman). Series A: $8.3M from 12 Flags (Dec 2024). Now in 18 cities, 12 countries. Verify via Inc42.', strength: 'strong' },
     { channel: 'qcommerce', brand: 'Beyond Snack', city: 'Kerala', date: '2026-02-01', detail: 'Present on Blinkit, Zepto, Instamart + 10K retail outlets (DMart, Reliance). Quick commerce as growth lever. Verify listings.', strength: 'strong' },
+    // --- Store Expansion Discovery Signal Events (Feb 2026) ---
+    { channel: 'store_expansion', brand: 'DaMENSCH', city: 'Bengaluru', date: '2026-02-22', detail: '42 COCO stores open, targeting 100 by FY27. 300% YoY store velocity. Men\'s essentials brand expanding from online-first to omnichannel. 18-month per-store payback. Series B from A91 Partners.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'GIVA', city: 'Bengaluru', date: '2026-02-22', detail: '280 stores — fastest jewelry store network build in India. Added 130 stores in 12 months (+65% YoY). Franchise + COCO hybrid. Series C: $60M at $465M valuation. INR 510Cr FY25 revenue. Benchmark velocity.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'HUFT', city: 'Gurugram', date: '2026-02-22', detail: 'Crossed 100-store milestone. 105 stores + 80 pet spas in 20+ cities. 100th store at T3 Delhi Airport. Series B: ~$25M. INR 400Cr ARR. India\'s largest pet retail chain.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'Joker & Witch', city: 'Pune', date: '2026-02-21', detail: 'First offline store at Lulu Mall Bengaluru. Targeting 100+ stores in 3-5 years. Watches + accessories D2C going omnichannel. Shark Tank alumni. 350K IG followers.', strength: 'moderate' },
+    { channel: 'store_expansion', brand: 'Koskii', city: 'Hyderabad', date: '2026-02-21', detail: '30 owned stores with 5M annual footfall. Ethnic occasion wear. INR 150Cr FY25 revenue. Store expansion accelerating — targeting 50 stores by FY27. Actively raising funding.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'Snitch', city: 'Bengaluru', date: '2026-02-21', detail: '72 stores across 36 cities. From 0 to 72 stores in 2 years. Targeting 100 by FY27. 10 new stores planned for Jan 2026 alone. Series B: $40M from 360 ONE.', strength: 'strong' },
+    { channel: 'franchise_velocity', brand: 'HUFT', city: 'Gurugram', date: '2026-02-20', detail: 'Franchise model accelerating — FOFO stores complementing COCO. Nilesh Ved (Apparel Group founder) leading Series B, bringing franchise expertise from 2,000+ retail stores in Middle East.', strength: 'strong' },
+    { channel: 'store_expansion', brand: 'Wakefit', city: 'Bengaluru', date: '2026-02-20', detail: '125 stores in 62 cities. Adding 100+ new stores. IPO raised Rs 1,289Cr. INR 1,305Cr revenue (+28% YoY). Profitable in H1 FY26. Benchmark for home retail store velocity.', strength: 'strong' },
     // --- Research-Identified Brand Signal Events (Feb 2026) ---
     { channel: 'fundraise', brand: 'Moxie Beauty', city: 'Mumbai', date: '2026-02-22', detail: 'Series A: $15M from Bessemer Venture Partners (Dec 2025). Crossed INR 100Cr ARR in <2 years. Fastest beauty brand ramp in India. Verify via Inc42.', strength: 'strong' },
     { channel: 'qcommerce', brand: '4700BC', city: 'Mumbai', date: '2026-02-22', detail: '87% of total sales from quick commerce (Blinkit, Zepto, Instamart). Poster child for q-commerce-native brand strategy. High restock velocity. Verify via platform listings.', strength: 'strong' },
@@ -2341,6 +2379,239 @@ const REGIONAL_HOTSPOTS = [
     { city: 'Kolkata', state: 'West Bengal', tier: 2, brands: ['SumoSave', 'Nestasia'], signalCount: 12, topCategory: 'Retail & Home' },
     { city: 'Mumbai', state: 'Maharashtra', tier: 1, brands: ['Beyond Appliances', 'Solethreads', 'R for Rabbit'], signalCount: 14, topCategory: 'Durables & Kids' },
 ];
+
+// =====================================================
+// Store Expansion Tracker — Offline Velocity Discovery Signal
+// =====================================================
+// Tracks brands aggressively expanding offline store networks.
+// Store velocity is a high-conviction signal: brands opening stores
+// at >50% YoY rate signal unit economics confidence, PMF, and
+// often precede fundraising rounds.
+//
+// DATA SOURCES for store count tracking:
+// 1. Google Maps API / Places API — new location listings
+// 2. FSSAI license registrations — new food/QSR outlets
+// 3. GST state-wise registrations — new taxable locations
+// 4. Company careers pages — "Store Manager" job postings = new store
+// 5. Commercial real estate platforms (CRE India, Magicbricks Commercial)
+// 6. Franchise disclosure filings — FOFO/FOCO expansion
+// 7. Social media store launch announcements
+// 8. CBRE/JLL retail leasing reports — D2C brands leased 5.95L sqft H1 2025
+// 9. Inc42/YourStory/Indian Retailer store count mentions
+// =====================================================
+
+const STORE_EXPANSION_TRACKER = [
+    // --- Brands already in our tracker with store expansion signals ---
+    {
+        brand: 'Snitch', brandId: 'snitch',
+        sector: 'Fashion & Apparel', city: 'Bengaluru',
+        model: 'COCO',
+        storeTimeline: [
+            { date: '2024-01', count: 0 }, { date: '2024-06', count: 10 },
+            { date: '2024-09', count: 35 }, { date: '2025-03', count: 45 },
+            { date: '2025-06', count: 55 }, { date: '2025-09', count: 65 },
+            { date: '2026-01', count: 72 },
+        ],
+        currentStores: 72, targetStores: 100, targetDate: 'FY27',
+        expansionCities: ['Bengaluru', 'Delhi NCR', 'Mumbai', 'Pune', 'Chennai', 'Guwahati', 'Lucknow'],
+        velocity: 37, // stores opened in last 12 months
+        velocityPct: '+155%', // YoY velocity growth
+        avgStoreSize: '800 sq ft',
+        investmentPerStore: 'INR 25-35L',
+        vcRelevance: 'high',
+        signal: 'Series B ($40M, 360 ONE). 15-20 day design-to-shelf. App in Top 30 Shopping. All 5 Shark Tank sharks invested.',
+    },
+    {
+        brand: 'Koskii', brandId: 'koskii',
+        sector: 'Ethnic Wear', city: 'Hyderabad',
+        model: 'COCO',
+        storeTimeline: [
+            { date: '2023-01', count: 8 }, { date: '2023-06', count: 12 },
+            { date: '2024-01', count: 16 }, { date: '2024-06', count: 21 },
+            { date: '2025-01', count: 26 }, { date: '2025-06', count: 28 },
+            { date: '2026-01', count: 30 },
+        ],
+        currentStores: 30, targetStores: 50, targetDate: 'FY27',
+        expansionCities: ['Hyderabad', 'Bengaluru', 'Chennai', 'Delhi NCR', 'Mumbai', 'Pune'],
+        velocity: 9,
+        velocityPct: '+56%',
+        avgStoreSize: '2000 sq ft',
+        investmentPerStore: 'INR 60-80L',
+        vcRelevance: 'high',
+        signal: 'INR 150Cr FY25, targeting 200-240Cr FY26. 5M annual footfall. Actively raising funding round.',
+    },
+    {
+        brand: 'Nothing Before Coffee', brandId: 'nbc',
+        sector: 'QSR & Coffee', city: 'Jaipur',
+        model: 'Hybrid',
+        storeTimeline: [
+            { date: '2023-01', count: 25 }, { date: '2023-06', count: 40 },
+            { date: '2024-01', count: 55 }, { date: '2024-06', count: 72 },
+            { date: '2025-01', count: 88 }, { date: '2025-06', count: 95 },
+            { date: '2026-01', count: 107 },
+        ],
+        currentStores: 107, targetStores: 150, targetDate: 'FY27',
+        expansionCities: ['Jaipur', 'Delhi NCR', 'Lucknow', 'Ahmedabad', 'Indore', 'Chandigarh', 'Bhopal'],
+        velocity: 35,
+        velocityPct: '+52%',
+        avgStoreSize: '600 sq ft',
+        investmentPerStore: 'INR 15-25L',
+        vcRelevance: 'high',
+        signal: 'Pre-Series A: $2.3M from Prath Ventures. 70%+ revenue growth FY25. Tier 2/3 stronghold. 39 cities.',
+    },
+    {
+        brand: 'Bodycraft', brandId: 'bodycraft',
+        sector: 'Consumer Services', city: 'Bengaluru',
+        model: 'Hybrid',
+        storeTimeline: [
+            { date: '2023-01', count: 12 }, { date: '2023-06', count: 14 },
+            { date: '2024-01', count: 17 }, { date: '2024-06', count: 19 },
+            { date: '2025-01', count: 22 }, { date: '2025-06', count: 25 },
+            { date: '2026-01', count: 25 },
+        ],
+        currentStores: 25, targetStores: 41, targetDate: 'FY27',
+        expansionCities: ['Bengaluru', 'Hyderabad', 'Chennai', 'Kochi', 'Pune'],
+        velocity: 6,
+        velocityPct: '+50%',
+        avgStoreSize: '3000 sq ft',
+        investmentPerStore: 'INR 80L-1.2Cr',
+        vcRelevance: 'medium',
+        signal: '18 COCO + 7 FOFO planned. INR 215Cr revenue target. 11-12% EBITDA margin. Premium salon + clinic model.',
+    },
+    {
+        brand: 'Adil Qadri', brandId: 'adilqadri',
+        sector: 'Beauty & Fragrances', city: 'Bilimora',
+        model: 'COCO',
+        storeTimeline: [
+            { date: '2023-06', count: 5 }, { date: '2024-01', count: 10 },
+            { date: '2024-06', count: 15 }, { date: '2025-01', count: 22 },
+            { date: '2025-06', count: 25 }, { date: '2026-01', count: 27 },
+        ],
+        currentStores: 27, targetStores: 50, targetDate: 'FY28',
+        expansionCities: ['Gujarat', 'Mumbai', 'Delhi NCR', 'Dubai', 'Hyderabad'],
+        velocity: 12,
+        velocityPct: '+80%',
+        avgStoreSize: '400 sq ft',
+        investmentPerStore: 'INR 10-15L',
+        vcRelevance: 'medium',
+        signal: 'Bootstrapped + profitable. 4,500 orders/day. 955K IG. Tier 3 → international (Dubai). 95% online but stores growing.',
+    },
+    {
+        brand: 'SumoSave', brandId: 'sumosave',
+        sector: 'Offline Retail', city: 'Kolkata',
+        model: 'COCO',
+        storeTimeline: [
+            { date: '2024-01', count: 1 }, { date: '2024-06', count: 3 },
+            { date: '2025-01', count: 6 }, { date: '2025-06', count: 9 },
+            { date: '2026-01', count: 12 },
+        ],
+        currentStores: 12, targetStores: 30, targetDate: 'FY27',
+        expansionCities: ['Kolkata', 'Howrah', 'Durgapur', 'Siliguri'],
+        velocity: 9,
+        velocityPct: '+200%',
+        avgStoreSize: '5000 sq ft',
+        investmentPerStore: 'INR 40-60L',
+        vcRelevance: 'high',
+        signal: 'Seed: $3.3M from Lightspeed India. Revenue 17x YoY. 122% employee growth. Value-retail play for Tier 2/3.',
+    },
+    // --- NEW: Brands discovered via store expansion signal (not yet in main tracker) ---
+    {
+        brand: 'DaMENSCH', brandId: 'damensch_store',
+        sector: 'Fashion & Apparel', city: 'Bengaluru',
+        model: 'COCO',
+        storeTimeline: [
+            { date: '2024-01', count: 2 }, { date: '2024-06', count: 8 },
+            { date: '2025-01', count: 18 }, { date: '2025-06', count: 30 },
+            { date: '2026-01', count: 42 },
+        ],
+        currentStores: 42, targetStores: 100, targetDate: 'FY27',
+        expansionCities: ['Bengaluru', 'Delhi NCR', 'Mumbai', 'Hyderabad', 'Chennai', 'Pune'],
+        velocity: 34,
+        velocityPct: '+300%',
+        avgStoreSize: '600 sq ft',
+        investmentPerStore: 'INR 20-30L',
+        vcRelevance: 'high',
+        signal: 'Series B from A91 Partners. Men\'s essentials (innerwear → loungewear → casual). Store economics: 18-month payback. High repeat purchase.',
+    },
+    {
+        brand: 'GIVA', brandId: 'giva_store',
+        sector: 'Jewelry', city: 'Bengaluru',
+        model: 'Hybrid',
+        storeTimeline: [
+            { date: '2023-01', count: 30 }, { date: '2023-06', count: 60 },
+            { date: '2024-01', count: 100 }, { date: '2024-06', count: 150 },
+            { date: '2025-01', count: 200 }, { date: '2025-06', count: 247 },
+            { date: '2026-01', count: 280 },
+        ],
+        currentStores: 280, targetStores: 430, targetDate: 'FY27',
+        expansionCities: ['Bengaluru', 'Delhi NCR', 'Mumbai', 'Indore', 'Lucknow', 'Jaipur', 'Kochi'],
+        velocity: 130,
+        velocityPct: '+65%',
+        avgStoreSize: '350 sq ft',
+        investmentPerStore: 'INR 15-25L',
+        vcRelevance: 'benchmark',
+        signal: 'Series C: $60M from Creaegis + Premji Invest ($465M val). INR 510Cr FY25 → 809Cr FY26. Silver-first strategy. 400K daily web visitors. Graduated beyond VC range but benchmark for store velocity.',
+    },
+    {
+        brand: 'Joker & Witch', brandId: 'jokerandwitch_store',
+        sector: 'Fashion Accessories', city: 'Pune',
+        model: 'COCO',
+        storeTimeline: [
+            { date: '2025-06', count: 0 }, { date: '2025-09', count: 1 },
+            { date: '2026-01', count: 3 },
+        ],
+        currentStores: 3, targetStores: 100, targetDate: 'FY29',
+        expansionCities: ['Bengaluru', 'Mumbai', 'Delhi NCR', 'Pune'],
+        velocity: 3,
+        velocityPct: 'New',
+        avgStoreSize: '500 sq ft',
+        investmentPerStore: 'INR 15-20L',
+        vcRelevance: 'high',
+        signal: 'First store at Lulu Mall Bengaluru. 100+ store target in 3-5 years. Watches + accessories D2C going omnichannel. Shark Tank alumni.',
+    },
+    {
+        brand: 'Wakefit', brandId: 'wakefit_store',
+        sector: 'Home & Living', city: 'Bengaluru',
+        model: 'COCO',
+        storeTimeline: [
+            { date: '2023-01', count: 20 }, { date: '2023-06', count: 35 },
+            { date: '2024-01', count: 55 }, { date: '2024-06', count: 80 },
+            { date: '2025-01', count: 100 }, { date: '2025-06', count: 115 },
+            { date: '2026-01', count: 125 },
+        ],
+        currentStores: 125, targetStores: 225, targetDate: 'FY27',
+        expansionCities: ['Bengaluru', 'Delhi NCR', 'Mumbai', 'Hyderabad', 'Pune', 'Chennai', 'Kolkata'],
+        velocity: 45,
+        velocityPct: '+64%',
+        avgStoreSize: '2500 sq ft',
+        investmentPerStore: 'INR 35-50L',
+        vcRelevance: 'benchmark',
+        signal: 'IPO: Rs 1,289Cr raised. INR 1,305Cr FY25 revenue (+28% YoY). 62 cities. Majority revenue from own channels. Graduated — benchmark for home retail velocity.',
+    },
+    {
+        brand: 'HUFT', brandId: 'huft_store',
+        sector: 'Pet Care', city: 'Gurugram',
+        model: 'Hybrid',
+        storeTimeline: [
+            { date: '2023-01', count: 35 }, { date: '2023-06', count: 45 },
+            { date: '2024-01', count: 60 }, { date: '2024-06', count: 75 },
+            { date: '2025-01', count: 90 }, { date: '2025-06', count: 100 },
+            { date: '2026-01', count: 105 },
+        ],
+        currentStores: 105, targetStores: 150, targetDate: 'FY27',
+        expansionCities: ['Delhi NCR', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Chennai', 'Pune', 'Kolkata'],
+        velocity: 30,
+        velocityPct: '+50%',
+        avgStoreSize: '800 sq ft',
+        investmentPerStore: 'INR 25-40L',
+        vcRelevance: 'benchmark',
+        signal: 'Series B: ~$25M (Nilesh Ved + Apparel Group). INR 400Cr ARR. 100+ stores + 80 pet spas across 20+ cities. Airport store at T3. Graduated — benchmark for pet retail velocity.',
+    },
+];
+
+// Store expansion velocity scoring formula
+// Score = (velocity_pct_yoy * 0.4) + (stores_vs_target_pct * 0.2) + (vc_signal * 0.2) + (tier_expansion * 0.2)
+// Brands with velocity >50% YoY + funded + expanding to Tier 2/3 get highest scores
 
 // --- LinkedIn Senior Hiring Data ---
 // Real verified senior hires at sub-$300M D2C startups from Top Indian corporates

@@ -1924,6 +1924,7 @@ function initEarlySignals() {
     renderRegionalRadar();
     renderGrowthVelocityChart();
     renderConvergenceCards();
+    renderStoreExpansionTracker();
     renderSignalFeed('all');
     renderDiscoveryLeaderboard();
 }
@@ -2195,6 +2196,136 @@ function renderConvergenceCards() {
             </div>
         </div>`;
     }).join('');
+}
+
+function renderStoreExpansionTracker() {
+    if (typeof STORE_EXPANSION_TRACKER === 'undefined' || !STORE_EXPANSION_TRACKER.length) return;
+
+    const sorted = [...STORE_EXPANSION_TRACKER].sort((a, b) => b.velocity - a.velocity);
+
+    // --- Line Chart: Store count over time (top 6 by velocity) ---
+    const lineCtx = document.getElementById('storeExpansionChart');
+    if (lineCtx) {
+        if (lineCtx._chartInstance) lineCtx._chartInstance.destroy();
+
+        const topBrands = sorted.slice(0, 6);
+        const brandColors = ['#0d9488', '#f43f5e', '#3b82f6', '#f59e0b', '#8b5cf6', '#10b981'];
+        const allDates = [...new Set(topBrands.flatMap(b => b.storeTimeline.map(t => t.date)))].sort();
+
+        const datasets = topBrands.map((b, i) => {
+            const dataMap = {};
+            b.storeTimeline.forEach(t => { dataMap[t.date] = t.count; });
+            let lastVal = 0;
+            const data = allDates.map(d => {
+                if (dataMap[d] !== undefined) lastVal = dataMap[d];
+                return lastVal;
+            });
+            return {
+                label: b.brand,
+                data: data,
+                borderColor: brandColors[i % brandColors.length],
+                backgroundColor: brandColors[i % brandColors.length] + '15',
+                borderWidth: 2,
+                pointRadius: 3,
+                tension: 0.3,
+                fill: false,
+            };
+        });
+
+        lineCtx._chartInstance = new Chart(lineCtx, {
+            type: 'line',
+            data: { labels: allDates, datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim(), font: { size: 10 }, boxWidth: 12 } },
+                    title: { display: true, text: 'Store Count Over Time (Top 6 by Velocity)', color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim(), font: { size: 12 } },
+                },
+                scales: {
+                    x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim(), font: { size: 9 }, maxRotation: 45 }, grid: { color: getComputedStyle(document.documentElement).getPropertyValue('--border-color').trim() } },
+                    y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim(), font: { size: 10 } }, grid: { color: getComputedStyle(document.documentElement).getPropertyValue('--border-color').trim() }, title: { display: true, text: 'Store Count', color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim(), font: { size: 10 } } },
+                },
+            },
+        });
+    }
+
+    // --- Bar Chart: 12-month velocity ---
+    const barCtx = document.getElementById('storeVelocityBarChart');
+    if (barCtx) {
+        if (barCtx._chartInstance) barCtx._chartInstance.destroy();
+
+        const vcColors = sorted.map(b =>
+            b.vcRelevance === 'high' ? '#10b981' :
+            b.vcRelevance === 'medium' ? '#f59e0b' : '#6b7280'
+        );
+
+        barCtx._chartInstance = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: sorted.map(b => b.brand),
+                datasets: [{
+                    label: 'Stores Opened (12mo)',
+                    data: sorted.map(b => b.velocity),
+                    backgroundColor: vcColors.map(c => c + '40'),
+                    borderColor: vcColors,
+                    borderWidth: 1.5,
+                }],
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Store Velocity — Stores Opened in Last 12 Months', color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim(), font: { size: 12 } },
+                    tooltip: {
+                        callbacks: {
+                            afterLabel: function(ctx) {
+                                const b = sorted[ctx.dataIndex];
+                                return `YoY: ${b.velocityPct} | Target: ${b.targetStores} by ${b.targetDate}\nModel: ${b.model} | VC: ${b.vcRelevance}`;
+                            }
+                        }
+                    },
+                },
+                scales: {
+                    x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim(), font: { size: 10 } }, grid: { color: getComputedStyle(document.documentElement).getPropertyValue('--border-color').trim() }, title: { display: true, text: 'Stores Opened', color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim(), font: { size: 10 } } },
+                    y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim(), font: { size: 10 } }, grid: { display: false } },
+                },
+            },
+        });
+    }
+
+    // --- Table ---
+    const tbody = document.getElementById('storeExpansionTableBody');
+    if (tbody) {
+        tbody.innerHTML = sorted.map(b => {
+            const vcColor = b.vcRelevance === 'high' ? '#10b981' : b.vcRelevance === 'medium' ? '#f59e0b' : '#6b7280';
+            const vcLabel = b.vcRelevance === 'benchmark' ? 'Graduated' : b.vcRelevance.charAt(0).toUpperCase() + b.vcRelevance.slice(1);
+            const progressPct = Math.min(100, Math.round((b.currentStores / b.targetStores) * 100));
+            const velocityColor = b.velocity >= 30 ? '#10b981' : b.velocity >= 10 ? '#f59e0b' : '#6b7280';
+
+            return `<tr>
+                <td><strong>${b.brand}</strong><br><span style="font-size:10px;color:var(--text-muted);">${b.city}</span></td>
+                <td style="font-size:11px;">${b.sector}</td>
+                <td><strong>${b.currentStores}</strong></td>
+                <td>
+                    <div style="display:flex;align-items:center;gap:6px;">
+                        <span>${b.targetStores}</span>
+                        <div style="width:50px;height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden;">
+                            <div style="width:${progressPct}%;height:100%;background:${vcColor};border-radius:3px;"></div>
+                        </div>
+                        <span style="font-size:9px;color:var(--text-muted);">${b.targetDate}</span>
+                    </div>
+                </td>
+                <td><span style="color:${velocityColor};font-weight:600;">+${b.velocity}</span></td>
+                <td><span style="color:${velocityColor};">${b.velocityPct}</span></td>
+                <td><span class="signal-badge" style="background:#0d948815;color:#0d9488;">${b.model}</span></td>
+                <td style="font-size:10px;max-width:180px;">${b.expansionCities.slice(0, 4).join(', ')}${b.expansionCities.length > 4 ? ' +' + (b.expansionCities.length - 4) : ''}</td>
+                <td><span class="signal-badge" style="background:${vcColor}15;color:${vcColor};">${vcLabel}</span></td>
+            </tr>`;
+        }).join('');
+    }
 }
 
 function renderSignalFeed(channelFilter) {
