@@ -1938,7 +1938,7 @@ function renderEarlySignalKpis() {
     const pipelineBrands = DISCOVERED_BRANDS.length;
 
     document.getElementById('kpiNewSignals').textContent = totalSignals;
-    document.getElementById('kpiNewSignalsDelta').textContent = `across 12 channels this period`;
+    document.getElementById('kpiNewSignalsDelta').textContent = `across ${SIGNAL_CHANNELS.length} channels this period`;
     document.getElementById('kpiConvergence').textContent = convergenceBrands.length;
     document.getElementById('kpiConvergenceDelta').textContent = `brands in 3+ signal sources`;
     document.getElementById('kpiRegionalHotspots').textContent = tier2Cities.length;

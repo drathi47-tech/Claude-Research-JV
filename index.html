@@ -708,7 +708,7 @@
                 <div class="panel" id="panel-early-signals">
                     <div class="panel-header">
                         <h1>Early Signal Scanner</h1>
-                        <p class="panel-description">12-channel discovery engine to catch fast-growing D2C brands before they appear on FAST42 or mainstream trackers — pan-India coverage</p>
+                        <p class="panel-description">21-channel discovery engine to catch fast-growing D2C brands before they appear on FAST42 or mainstream trackers — pan-India coverage</p>
                     </div>
 
                     <!-- KPI Cards -->
@@ -716,7 +716,7 @@
                         <div class="kpi-card">
                             <div class="kpi-label">New Signals Detected</div>
                             <div class="kpi-value" style="color: #10b981;" id="kpiNewSignals">--</div>
-                            <div class="kpi-delta positive" id="kpiNewSignalsDelta">across 12 channels</div>
+                            <div class="kpi-delta positive" id="kpiNewSignalsDelta">across 21 channels</div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-label">Signal Convergence Alerts</div>
@@ -747,7 +747,7 @@
                     <!-- Signal Source Matrix -->
                     <div class="chart-card">
                         <div class="chart-header">
-                            <h3>12-Channel Signal Matrix</h3>
+                            <h3>21-Channel Signal Matrix</h3>
                             <div class="chart-actions">
                                 <button class="chip active" onclick="filterSignalMatrix('all', this)">All Brands</button>
                                 <button class="chip" onclick="filterSignalMatrix('convergence', this)">3+ Signals Only</button>
@@ -789,7 +789,8 @@
                             <h3>Recent Signal Feed</h3>
                             <div class="chart-actions">
                                 <select class="mini-select" id="signalFeedFilter" onchange="filterSignalFeed(this.value)">
-                                    <option value="all">All Channels</option>
+                                    <option value="all">All Channels (21)</option>
+                                    <optgroup label="Core Signals">
                                     <option value="mca">MCA/ROC Filings</option>
                                     <option value="ig_growth">IG Follower Growth</option>
                                     <option value="bsr">Amazon BSR Climbers</option>
@@ -802,6 +803,20 @@
                                     <option value="fundraise">Fundraise Announcements</option>
                                     <option value="qcommerce">Quick Commerce</option>
                                     <option value="gst">GST Turnover</option>
+                                    </optgroup>
+                                    <optgroup label="Expansion Signals">
+                                    <option value="store_expansion">Store Expansion</option>
+                                    <option value="franchise_velocity">Franchise Velocity</option>
+                                    <option value="vc_round">VC Round Alert</option>
+                                    </optgroup>
+                                    <optgroup label="New Discovery Signals">
+                                    <option value="app_rank">App Store Ranking</option>
+                                    <option value="creator_collab">Creator Collab Density</option>
+                                    <option value="media_velocity">Press & Media Velocity</option>
+                                    <option value="inventory">Inventory Turnover</option>
+                                    <option value="community">Community Growth</option>
+                                    <option value="retention">Repeat Purchase Signal</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </div>
