@@ -80,7 +80,7 @@ const COMPANIES = [
     { id: 'mymuse', name: 'MyMuse', sector: 'health', sectorLabel: 'Health & Wellness', website: 'mymuse.in', color: '#be185d', estValuation: 'INR 175Cr', estRevenue: 'INR 36Cr/yr' },
     { id: 'dorjeteas', name: 'Dorje Teas', sector: 'food', sectorLabel: 'Food & Beverage', website: 'dorjeteas.com', color: '#047857', estValuation: 'INR 20.5Cr', estRevenue: 'INR 2.3Cr/yr' },
     // --- Signal-Discovered Brands (surfaced via growth signals, not static curation) ---
-    { id: 'wishcare', name: 'WishCare', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mywishcare.com', color: '#db2777', estValuation: '~INR 140Cr (outdated)', estRevenue: 'INR 200Cr/yr (₹300Cr ARR)' },
+    { id: 'wishcare', name: 'WishCare', sector: 'beauty', sectorLabel: 'Beauty & Personal Care', website: 'mywishcare.com', color: '#db2777', estValuation: '~INR 140Cr (est.)', estRevenue: 'INR 200Cr/yr (₹300Cr ARR)' },
     // Indo Era removed — bootstrapped marketplace seller, no equity story
     { id: 'godesi', name: 'GO DESi', sector: 'food', sectorLabel: 'Food & Beverage', website: 'godesi.in', color: '#ea580c', estValuation: 'INR 500Cr (target)', estRevenue: 'INR 56Cr/yr (run rate)' },
     { id: 'beco', name: 'Beco', sector: 'home', sectorLabel: 'Home & Living', website: 'letsbeco.com', color: '#059669', estValuation: '~$11M', estRevenue: 'INR 111Cr/yr' },

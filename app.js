@@ -43,6 +43,7 @@ function initPanel(panelId) {
         case 'breakout': initBreakout(); break;
         case 'watchlist': initWatchlist(); break;
         case 'brand-lookup': /* no-op, stays as-is */ break;
+        case 'methodology': /* static content, no initialization needed */ break;
     }
 }
 
@@ -84,9 +85,22 @@ function getHeatmapColor(value) {
 
 function destroyChart(key) {
     if (charts[key]) {
-        charts[key].destroy();
+        try {
+            charts[key].destroy();
+        } catch (e) {
+            console.warn(`Failed to destroy chart "${key}":`, e);
+        }
         delete charts[key];
     }
+}
+
+function getChartContext(elementId) {
+    const el = document.getElementById(elementId);
+    if (!el) {
+        console.warn(`Canvas element "${elementId}" not found`);
+        return null;
+    }
+    return el.getContext('2d');
 }
 
 function getFilteredCompanies() {
@@ -181,7 +195,8 @@ function renderOverviewHeatmap() {
 function renderCompositeScoreChart() {
     destroyChart('compositeScore');
     const companies = getFilteredCompanies().slice(0, 6);
-    const ctx = document.getElementById('compositeScoreChart').getContext('2d');
+    const ctx = getChartContext('compositeScoreChart');
+    if (!ctx) return;
 
     const datasets = companies.map(c => {
         const gt = GOOGLE_TRENDS_DATA[c.id].timeSeries;
@@ -281,8 +296,8 @@ function renderGoogleTrendsLineChart() {
     const companyId = document.getElementById('gtCompanySelect').value || COMPANIES[0].id;
     const company = COMPANIES.find(c => c.id === companyId);
     const data = GOOGLE_TRENDS_DATA[companyId].timeSeries;
-    const ctx = document.getElementById('googleTrendsLineChart').getContext('2d');
-
+    const ctx = getChartContext('googleTrendsLineChart');
+    if (!ctx) return;
     charts.gtLine = new Chart(ctx, {
         type: 'line',
         data: {
@@ -317,8 +332,8 @@ function updateGoogleTrendsChart() {
 function renderGoogleTrendsCompareChart() {
     destroyChart('gtCompare');
     const companies = getFilteredCompanies().slice(0, 8);
-    const ctx = document.getElementById('googleTrendsCompareChart').getContext('2d');
-
+    const ctx = getChartContext('googleTrendsCompareChart');
+    if (!ctx) return;
     charts.gtCompare = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -350,8 +365,8 @@ function renderGoogleTrendsRegionChart() {
     destroyChart('gtRegion');
     const companyId = document.getElementById('gtCompanySelect').value || COMPANIES[0].id;
     const regions = GOOGLE_TRENDS_DATA[companyId].regions;
-    const ctx = document.getElementById('googleTrendsRegionChart').getContext('2d');
-
+    const ctx = getChartContext('googleTrendsRegionChart');
+    if (!ctx) return;
     const labels = Object.keys(regions);
     const values = Object.values(regions);
 
@@ -598,8 +613,8 @@ function buildMoodTimeline(entries, color) {
 function renderReviewVolumeChart(platform) {
     destroyChart('reviewVolume');
     const companies = getFilteredCompanies().slice(0, 5);
-    const ctx = document.getElementById('reviewVolumeChart').getContext('2d');
-
+    const ctx = getChartContext('reviewVolumeChart');
+    if (!ctx) return;
     const datasets = [];
     companies.forEach(c => {
         if (platform === 'both' || platform === 'amazon') {
@@ -649,8 +664,8 @@ function renderReviewVolumeChart(platform) {
 function renderRatingTrendChart(platform) {
     destroyChart('ratingTrend');
     const companies = getFilteredCompanies().slice(0, 5);
-    const ctx = document.getElementById('ratingTrendChart').getContext('2d');
-
+    const ctx = getChartContext('ratingTrendChart');
+    if (!ctx) return;
     const datasets = companies.map(c => {
         const key = platform === 'myntra' ? 'myntra' : 'amazon';
         const ts = ECOMMERCE_DATA[c.id][key].ratingTimeSeries;
@@ -684,7 +699,8 @@ function renderRatingTrendChart(platform) {
 
 function renderSentimentDonut() {
     destroyChart('sentimentDonut');
-    const ctx = document.getElementById('sentimentDonutChart').getContext('2d');
+    const ctx = getChartContext('sentimentDonutChart');
+    if (!ctx) return;
     const allSentiments = getFilteredCompanies().map(c => ECOMMERCE_DATA[c.id].amazon.sentiment);
     const avg = Math.round(allSentiments.reduce((a, b) => a + b, 0) / allSentiments.length);
 
@@ -798,8 +814,8 @@ function updateTrafficChart() {
 function renderTrafficLineChart() {
     destroyChart('trafficLine');
     const companies = getFilteredCompanies().slice(0, 5);
-    const ctx = document.getElementById('trafficLineChart').getContext('2d');
-
+    const ctx = getChartContext('trafficLineChart');
+    if (!ctx) return;
     const datasets = companies.map(c => {
         const ts = TRAFFIC_DATA[c.id].monthlyVisits;
         return {
@@ -839,8 +855,8 @@ function renderTrafficSourceChart() {
     destroyChart('trafficSource');
     const companyId = document.getElementById('trafficCompanySelect').value || COMPANIES[0].id;
     const sources = TRAFFIC_DATA[companyId].sources;
-    const ctx = document.getElementById('trafficSourceChart').getContext('2d');
-
+    const ctx = getChartContext('trafficSourceChart');
+    if (!ctx) return;
     charts.trafficSource = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -1021,8 +1037,8 @@ function renderSocialMoodTimeline() {
 function renderSocialMentionsChart(platform) {
     destroyChart('socialMentions');
     const companies = getFilteredCompanies().slice(0, 6);
-    const ctx = document.getElementById('socialMentionsChart').getContext('2d');
-
+    const ctx = getChartContext('socialMentionsChart');
+    if (!ctx) return;
     const datasets = [];
     companies.forEach(c => {
         if (platform === 'all' || platform === 'reddit') {
@@ -1082,8 +1098,8 @@ function renderSocialMentionsChart(platform) {
 function renderSocialSentimentChart() {
     destroyChart('socialSentiment');
     const companies = getFilteredCompanies().slice(0, 8);
-    const ctx = document.getElementById('socialSentimentChart').getContext('2d');
-
+    const ctx = getChartContext('socialSentimentChart');
+    if (!ctx) return;
     charts.socialSentiment = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -1294,8 +1310,8 @@ function renderEmployeeMoodTimeline() {
 function renderEmployeeRatingChart() {
     destroyChart('employeeRating');
     const companies = getFilteredCompanies().slice(0, 10);
-    const ctx = document.getElementById('employeeRatingChart').getContext('2d');
-
+    const ctx = getChartContext('employeeRatingChart');
+    if (!ctx) return;
     const ambitionData = companies.map(c => {
         const d = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[c.id] : null;
         return d?.ambitionbox?.rating || 0;
@@ -1340,8 +1356,8 @@ function renderEmployeeRatingChart() {
 function renderEmployeeRecommendChart() {
     destroyChart('employeeRecommend');
     const companies = getFilteredCompanies().slice(0, 10);
-    const ctx = document.getElementById('employeeRecommendChart').getContext('2d');
-
+    const ctx = getChartContext('employeeRecommendChart');
+    if (!ctx) return;
     const data = companies.map(c => {
         const d = typeof EMPLOYEE_REVIEWS !== 'undefined' ? EMPLOYEE_REVIEWS[c.id] : null;
         return parseInt(d?.ambitionbox?.recommend) || 0;
@@ -1457,8 +1473,8 @@ function renderHiringTable() {
 function renderHiringSourceChart() {
     destroyChart('hiringSource');
     if (typeof LINKEDIN_HIRING_DATA === 'undefined') return;
-    const ctx = document.getElementById('hiringSourceChart').getContext('2d');
-
+    const ctx = getChartContext('hiringSourceChart');
+    if (!ctx) return;
     const sourceCounts = {};
     LINKEDIN_HIRING_DATA.forEach(h => {
         sourceCounts[h.lastCompany] = (sourceCounts[h.lastCompany] || 0) + 1;
@@ -1498,8 +1514,8 @@ function renderHiringSourceChart() {
 function renderHiringTimelineChart() {
     destroyChart('hiringTimeline');
     if (typeof LINKEDIN_HIRING_DATA === 'undefined') return;
-    const ctx = document.getElementById('hiringTimelineChart').getContext('2d');
-
+    const ctx = getChartContext('hiringTimelineChart');
+    if (!ctx) return;
     const monthCounts = {};
     LINKEDIN_HIRING_DATA.forEach(h => {
         const d = new Date(h.hireDate);
@@ -1595,8 +1611,8 @@ function renderBreakoutScoreChart() {
     const breakoutCompanies = COMPANIES
         .filter(c => COMPANY_SIGNALS[c.id] === 'breakout' || COMPANY_SIGNALS[c.id] === 'trending')
         .slice(0, 6);
-    const ctx = document.getElementById('breakoutScoreChart').getContext('2d');
-
+    const ctx = getChartContext('breakoutScoreChart');
+    if (!ctx) return;
     const datasets = breakoutCompanies.map(c => ({
         label: c.name,
         data: GOOGLE_TRENDS_DATA[c.id].timeSeries.slice(-12).map(d => d.value),
@@ -2077,8 +2093,8 @@ function renderGrowthVelocityChart() {
         .sort((a, b) => b.igGrowthRate - a.igGrowthRate)
         .slice(0, 10);
 
-    const ctx = document.getElementById('growthVelocityChart').getContext('2d');
-
+    const ctx = getChartContext('growthVelocityChart');
+    if (!ctx) return;
     charts.growthVelocity = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -2266,13 +2282,24 @@ function closeAddCompanyModal() {
 
 function addCompany() {
     const name = document.getElementById('newCompanyName').value.trim();
-    if (!name) {
+    if (!name || name.length < 2) {
         document.getElementById('newCompanyName').style.borderColor = 'var(--accent-red)';
         setTimeout(() => { document.getElementById('newCompanyName').style.borderColor = ''; }, 2000);
         return;
     }
 
+    // Check for duplicate company names
+    if (COMPANIES.some(c => c.name.toLowerCase() === name.toLowerCase())) {
+        showNotification(`"${name}" already exists in the tracker`);
+        return;
+    }
+
     const sector = document.getElementById('newCompanySector').value;
+    if (!sector) {
+        showNotification('Please select a sector');
+        return;
+    }
+
     const url = document.getElementById('newCompanyUrl').value.trim();
     const valuation = document.getElementById('newCompanyValuation').value;
     let id = name.toLowerCase().replace(/\s+/g, '');
@@ -2289,6 +2316,13 @@ function addCompany() {
         health: 'Health & Wellness',
         home: 'Home & Living',
         electronics: 'Consumer Electronics',
+        durables: 'Consumer Durables',
+        footwear: 'Footwear',
+        kids: 'Kids & Baby',
+        qsr: 'QSR & Fast Food',
+        retail: 'Retail',
+        services: 'Services',
+        pets: 'Pet Care',
     };
 
     const colors = ['#f43f5e', '#0ea5e9', '#d946ef', '#22d3ee', '#a3e635', '#fb923c'];
