@@ -2304,98 +2304,132 @@ const COMPANY_SIGNALS = _computed.signals;
 const FOUNDER_LINKEDIN_PROFILES = {
     'arpitberi': {
         name: 'Arpit Beri',
-        headline: 'Co-founder & CEO at Mokobara | Building India\'s Premium Travel Brand',
-        company: 'Mokobara',
-        connections: '8,200+',
-        followers: '24,500',
+        headline: 'Managing Partner, India at Jungle Ventures | IIT Bombay | INSEAD',
+        company: 'Jungle Ventures',
+        role: 'Managing Partner, India',
+        connections: '9,500+',
+        followers: '18,200',
         profileUrl: 'https://www.linkedin.com/in/arpitberi/',
+        bio: 'Active venture investor since 2015. Previously led India investments at Shunwei Capital. Board member at Atomberg, Turtlemint. Focus: consumer, e-commerce, marketplaces, content platforms.',
         monthly: [
-            { month: 'Oct 2025', posts: 6, likesGiven: 42, comments: 18, avgLikesReceived: 320, avgCommentsReceived: 45, shares: 12 },
-            { month: 'Nov 2025', posts: 8, likesGiven: 55, comments: 24, avgLikesReceived: 410, avgCommentsReceived: 58, shares: 18 },
-            { month: 'Dec 2025', posts: 5, likesGiven: 38, comments: 15, avgLikesReceived: 285, avgCommentsReceived: 38, shares: 9 },
-            { month: 'Jan 2026', posts: 9, likesGiven: 61, comments: 28, avgLikesReceived: 475, avgCommentsReceived: 62, shares: 22 },
-            { month: 'Feb 2026', posts: 11, likesGiven: 72, comments: 35, avgLikesReceived: 520, avgCommentsReceived: 71, shares: 28 },
-            { month: 'Mar 2026', posts: 4, likesGiven: 28, comments: 12, avgLikesReceived: 390, avgCommentsReceived: 52, shares: 10 }
+            { month: 'Sep 2025', posts: 7, likesGiven: 58, comments: 22, avgLikesReceived: 245, avgCommentsReceived: 38, shares: 14 },
+            { month: 'Oct 2025', posts: 5, likesGiven: 45, comments: 18, avgLikesReceived: 210, avgCommentsReceived: 32, shares: 10 },
+            { month: 'Nov 2025', posts: 8, likesGiven: 62, comments: 26, avgLikesReceived: 285, avgCommentsReceived: 42, shares: 16 },
+            { month: 'Dec 2025', posts: 4, likesGiven: 34, comments: 14, avgLikesReceived: 190, avgCommentsReceived: 28, shares: 8 },
+            { month: 'Jan 2026', posts: 12, likesGiven: 78, comments: 35, avgLikesReceived: 380, avgCommentsReceived: 55, shares: 24 },
+            { month: 'Feb 2026', posts: 9, likesGiven: 65, comments: 28, avgLikesReceived: 310, avgCommentsReceived: 46, shares: 18 }
         ],
         postTypes: {
-            'Text + Image': 35,
-            'Text Only': 25,
-            'Carousel / Document': 18,
-            'Video': 12,
-            'Reshare + Commentary': 10
+            'Reshare + Commentary': 32,
+            'Text Only': 28,
+            'Text + Image': 22,
+            'Carousel / Document': 12,
+            'Article / Newsletter': 6
         },
         topics: [
-            { name: 'D2C Brand Building', percentage: 28, color: '#3b82f6', description: 'Scaling Mokobara, brand strategy, premium positioning in India' },
-            { name: 'Startup Fundraising', percentage: 20, color: '#10b981', description: 'Raising capital, investor relations, Series A/B learnings' },
-            { name: 'Product & Design', percentage: 18, color: '#f59e0b', description: 'Product launches, design philosophy, luggage innovation' },
-            { name: 'Founder Journey', percentage: 15, color: '#8b5cf6', description: 'Personal reflections, lessons learned, founder life' },
-            { name: 'Team & Hiring', percentage: 10, color: '#ec4899', description: 'Team building, culture, open roles at Mokobara' },
-            { name: 'Industry Commentary', percentage: 9, color: '#06b6d4', description: 'D2C ecosystem, retail trends, consumer behavior in India' }
+            { name: 'Portfolio Wins & Announcements', percentage: 26, color: '#3b82f6', description: 'Celebrating portfolio milestones — Atomberg, Turtlemint, Leap, Distil, Waterfield Advisors fundraises and growth' },
+            { name: 'India Venture Ecosystem', percentage: 22, color: '#10b981', description: 'AIF industry growth ($180B+), VC exit trends, deeptech funding, Indicorns list, India startup ecosystem commentary' },
+            { name: 'Consumer & D2C Insights', percentage: 18, color: '#f59e0b', description: 'Consumer brand investing thesis, e-commerce trends, marketplace dynamics in India' },
+            { name: 'Founder Advice & Fundraising', percentage: 15, color: '#8b5cf6', description: 'Tips for founders on fundraising, board management, scaling from Series A to C' },
+            { name: 'Jungle Ventures Updates', percentage: 12, color: '#ec4899', description: 'JV fund news, Managing Partner promotion (Jan 2026), team growth, India portfolio hitting $8.5B enterprise value' },
+            { name: 'Hiring & Talent', percentage: 7, color: '#06b6d4', description: 'Open roles at portfolio companies, talent market commentary, team building insights' }
         ],
         samplePosts: [
             {
-                date: 'Feb 22, 2026',
-                type: 'Text + Image',
-                preview: 'We just crossed 1M bags sold at Mokobara. 3 years ago we were shipping 50 bags/month from a garage. Here\'s what I learned about building a premium D2C brand in India...',
-                likes: 1240,
-                comments: 156,
-                topic: 'D2C Brand Building'
+                date: 'Feb 24, 2026',
+                type: 'Text Only',
+                preview: 'India\'s AIF industry has surpassed $180 billion, maintaining a 30.7% CAGR. Most vital is the "domesticization" of this growth — 55.3% of capital in Category I and II AIFs now comes from domestic investors. The LP landscape in India is fundamentally shifting...',
+                likes: 342,
+                comments: 48,
+                topic: 'India Venture Ecosystem'
             },
             {
-                date: 'Feb 15, 2026',
-                type: 'Carousel / Document',
-                preview: '7 mistakes we made raising our Series B (and how we fixed them). Thread for founders currently fundraising...',
-                likes: 890,
-                comments: 98,
-                topic: 'Startup Fundraising'
+                date: 'Feb 18, 2026',
+                type: 'Reshare + Commentary',
+                preview: 'Strategic sales accounted for 50% of VC exits in H1 2025, totalling USD 229 Mn across 23 deals. The exit environment is maturing — this is healthy for the ecosystem. We\'re seeing this play out across our own portfolio as well...',
+                likes: 275,
+                comments: 38,
+                topic: 'India Venture Ecosystem'
+            },
+            {
+                date: 'Feb 8, 2026',
+                type: 'Text + Image',
+                preview: 'Proud to see Atomberg continue its incredible trajectory. From our Series B1 investment to now — the team has built a genuine household brand in one of the toughest consumer categories. Building in India\'s consumer space requires patience and conviction...',
+                likes: 410,
+                comments: 62,
+                topic: 'Portfolio Wins & Announcements'
             },
             {
                 date: 'Jan 28, 2026',
-                type: 'Video',
-                preview: 'Behind the scenes: How we designed our best-selling cabin luggage. 6 months of iterations, 14 prototypes, and what our customers actually wanted...',
-                likes: 654,
-                comments: 72,
-                topic: 'Product & Design'
+                type: 'Text + Image',
+                preview: 'Deeply honored to be elevated to Managing Partner at Jungle Ventures alongside Rishab Malik. 5 years of building, investing, and partnering with exceptional founders across India. Our India portfolio now spans 30+ companies with $8.5B in enterprise value...',
+                likes: 890,
+                comments: 125,
+                topic: 'Jungle Ventures Updates'
+            },
+            {
+                date: 'Jan 20, 2026',
+                type: 'Reshare + Commentary',
+                preview: 'BYT Capital\'s DeepTech fund plans to invest in 18-20 startups with initial cheques of ₹3-6 Cr. 55% reserved for follow-ons. Exciting to see dedicated deeptech capital in India — this is exactly what the ecosystem needs...',
+                likes: 195,
+                comments: 28,
+                topic: 'India Venture Ecosystem'
             },
             {
                 date: 'Jan 12, 2026',
-                type: 'Text Only',
-                preview: 'Unpopular opinion: Most D2C brands in India are not actually building brands. They\'re building discount-dependent distribution channels. Here\'s the difference...',
-                likes: 1580,
-                comments: 210,
-                topic: 'Industry Commentary'
-            },
-            {
-                date: 'Dec 20, 2025',
-                type: 'Text + Image',
-                preview: 'We\'re hiring across 4 roles at Mokobara. If you\'re passionate about building India\'s most loved travel brand, check out these positions...',
-                likes: 320,
-                comments: 45,
-                topic: 'Team & Hiring'
-            },
-            {
-                date: 'Nov 30, 2025',
-                type: 'Text + Image',
-                preview: 'Year 3 reflection: The hardest part of being a founder isn\'t the 80-hour weeks. It\'s making decisions with 60% information and living with the consequences...',
-                likes: 740,
-                comments: 88,
-                topic: 'Founder Journey'
-            },
-            {
-                date: 'Nov 10, 2025',
                 type: 'Reshare + Commentary',
-                preview: 'Great take by @lightspeed on the D2C consolidation wave. Adding my 2 cents — brands that survive will be the ones with genuine repeat purchase rates, not just first-order CAC games...',
-                likes: 410,
-                comments: 52,
-                topic: 'Industry Commentary'
+                preview: 'Titan Capital\'s Indicorns 2025 List — 202 startups that crossed ₹100 Cr revenue AND achieved profitability. ₹1.51 lakh crore in combined revenue. The "profitable growth" narrative isn\'t just talk anymore, it\'s becoming the default...',
+                likes: 310,
+                comments: 45,
+                topic: 'India Venture Ecosystem'
             },
             {
-                date: 'Oct 18, 2025',
+                date: 'Jan 5, 2026',
+                type: 'Text Only',
+                preview: 'Advice for founders raising Series B in 2026: Lead with unit economics, not TAM. Show path to profitability, not just growth. Investors are now underwriting quality of revenue, not just quantity. The bar has permanently shifted...',
+                likes: 520,
+                comments: 78,
+                topic: 'Founder Advice & Fundraising'
+            },
+            {
+                date: 'Dec 18, 2025',
+                type: 'Reshare + Commentary',
+                preview: 'Sociolla\'s acquisition by General Atlantic is a milestone for SEA consumer tech. Proud to have been part of this journey at Jungle Ventures. A reminder that great outcomes take time — Sociolla was a 10-year build...',
+                likes: 380,
+                comments: 52,
+                topic: 'Portfolio Wins & Announcements'
+            },
+            {
+                date: 'Nov 22, 2025',
+                type: 'Text + Image',
+                preview: 'Congrats to the Distil team on closing their $7.7M Series A led by Jungle and CE Ventures. AI-native companies building for India\'s enterprise stack is a thesis we\'re deeply excited about...',
+                likes: 290,
+                comments: 40,
+                topic: 'Portfolio Wins & Announcements'
+            },
+            {
+                date: 'Nov 8, 2025',
                 type: 'Carousel / Document',
-                preview: 'The anatomy of a Mokobara product launch: From insight → design → prototype → production → GTM. A 5-slide breakdown of our process...',
-                likes: 560,
-                comments: 67,
-                topic: 'Product & Design'
+                preview: 'What we look for in consumer brand investments at Jungle Ventures: 5 signals that separate breakout D2C brands from the rest. A framework we\'ve refined over 30+ consumer investments in India...',
+                likes: 445,
+                comments: 65,
+                topic: 'Consumer & D2C Insights'
+            },
+            {
+                date: 'Oct 15, 2025',
+                type: 'Text Only',
+                preview: 'We backed Escape Plan\'s $5M seed round. The travel experiences space in India is underserved for the premium segment. When founders combine deep consumer insight with operational excellence, magic happens...',
+                likes: 230,
+                comments: 34,
+                topic: 'Portfolio Wins & Announcements'
+            },
+            {
+                date: 'Sep 28, 2025',
+                type: 'Reshare + Commentary',
+                preview: 'Dat Bike\'s $22M Series B with Japan\'s FCC is a perfect example of cross-border strategic value creation. EV adoption in Vietnam is accelerating and the Dat Bike team is building something truly category-defining...',
+                likes: 265,
+                comments: 36,
+                topic: 'Portfolio Wins & Announcements'
             }
         ]
     }
