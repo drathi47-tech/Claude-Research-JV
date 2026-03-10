@@ -59,6 +59,13 @@
                 <button class="nav-item" data-panel="brand-lookup" onclick="switchPanel('brand-lookup')">
                     <span class="nav-icon">&#128269;</span> Brand Lookup
                 </button>
+
+                <div class="nav-section-label" style="margin-top: 24px;">Founder Intelligence</div>
+                <button class="nav-item" data-panel="founder-linkedin" onclick="switchPanel('founder-linkedin')">
+                    <span class="nav-icon">&#128100;</span> Founder LinkedIn
+                </button>
+
+                <div class="nav-section-label" style="margin-top: 24px;">Info</div>
                 <button class="nav-item" data-panel="methodology" onclick="switchPanel('methodology')">
                     <span class="nav-icon">&#9881;</span> Methodology
                 </button>
@@ -902,6 +909,164 @@
                             <span class="lookup-suggestion" onclick="quickLookup('Wow Skin Science')">Wow Skin Science</span>
                             <span class="lookup-suggestion" onclick="quickLookup('Plum Goodness')">Plum Goodness</span>
                             <span class="lookup-suggestion" onclick="quickLookup('Rage Coffee')">Rage Coffee</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Founder LinkedIn Activity Panel -->
+                <div class="panel" id="panel-founder-linkedin">
+                    <div class="panel-header">
+                        <h1>Founder LinkedIn Activity Tracker</h1>
+                        <p class="panel-description">Analyze a founder's LinkedIn presence over the last 6 months — posts, engagement, and content themes</p>
+                    </div>
+
+                    <!-- Profile Input -->
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="fl-search-container">
+                            <div class="fl-search-row">
+                                <input type="text" id="founderLinkedinUrl" class="fl-url-input" placeholder="Paste LinkedIn profile URL (e.g. https://www.linkedin.com/in/arpitberi/)" value="https://www.linkedin.com/in/arpitberi/">
+                                <button class="btn-primary fl-analyze-btn" onclick="analyzeFounderLinkedin()">
+                                    &#9654; Analyze Profile
+                                </button>
+                            </div>
+                            <div class="fl-quick-profiles">
+                                <span class="fl-quick-tag" onclick="setFounderUrl('https://www.linkedin.com/in/arpitberi/')">Arpit Beri</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Container (hidden until analysis) -->
+                    <div id="founderLinkedinResults" style="display: none;">
+
+                        <!-- Founder Profile Card -->
+                        <div class="card fl-profile-card" style="margin-bottom: 24px;">
+                            <div class="fl-profile-row">
+                                <div class="fl-avatar" id="flAvatar">AB</div>
+                                <div class="fl-profile-info">
+                                    <h2 id="flName">Arpit Beri</h2>
+                                    <p id="flHeadline" class="fl-headline"></p>
+                                    <div class="fl-meta">
+                                        <span id="flConnections" class="fl-meta-item"></span>
+                                        <span id="flFollowers" class="fl-meta-item"></span>
+                                    </div>
+                                </div>
+                                <div class="fl-activity-score">
+                                    <div class="fl-score-circle" id="flScoreCircle">
+                                        <span class="fl-score-value" id="flScoreValue">--</span>
+                                        <span class="fl-score-label">Activity Score</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Summary KPI Cards -->
+                        <div class="grid grid-4" style="margin-bottom: 24px;">
+                            <div class="card fl-kpi-card">
+                                <div class="fl-kpi-icon" style="background: rgba(59,130,246,0.15); color: #3b82f6;">&#9998;</div>
+                                <div class="fl-kpi-content">
+                                    <div class="fl-kpi-value" id="flTotalPosts">--</div>
+                                    <div class="fl-kpi-label">Posts (6 mo)</div>
+                                </div>
+                            </div>
+                            <div class="card fl-kpi-card">
+                                <div class="fl-kpi-icon" style="background: rgba(16,185,129,0.15); color: #10b981;">&#9829;</div>
+                                <div class="fl-kpi-content">
+                                    <div class="fl-kpi-value" id="flTotalLikes">--</div>
+                                    <div class="fl-kpi-label">Likes Given (6 mo)</div>
+                                </div>
+                            </div>
+                            <div class="card fl-kpi-card">
+                                <div class="fl-kpi-icon" style="background: rgba(245,158,11,0.15); color: #f59e0b;">&#128172;</div>
+                                <div class="fl-kpi-content">
+                                    <div class="fl-kpi-value" id="flTotalComments">--</div>
+                                    <div class="fl-kpi-label">Comments (6 mo)</div>
+                                </div>
+                            </div>
+                            <div class="card fl-kpi-card">
+                                <div class="fl-kpi-icon" style="background: rgba(139,92,246,0.15); color: #8b5cf6;">&#128200;</div>
+                                <div class="fl-kpi-content">
+                                    <div class="fl-kpi-value" id="flAvgEngagement">--</div>
+                                    <div class="fl-kpi-label">Avg Engagement / Post</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Breakdown Chart + Table -->
+                        <div class="grid grid-2" style="margin-bottom: 24px;">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Monthly Activity Breakdown</h3>
+                                </div>
+                                <div class="chart-container" style="height: 320px;">
+                                    <canvas id="flMonthlyChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Month-by-Month Detail</h3>
+                                </div>
+                                <div class="table-wrap">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Month</th>
+                                                <th>Posts</th>
+                                                <th>Likes</th>
+                                                <th>Comments</th>
+                                                <th>Engagement</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="flMonthlyTable"></tbody>
+                                        <tfoot id="flMonthlyTotals"></tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Engagement Trend + Post Type Distribution -->
+                        <div class="grid grid-2" style="margin-bottom: 24px;">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Engagement Trend</h3>
+                                </div>
+                                <div class="chart-container" style="height: 280px;">
+                                    <canvas id="flEngagementChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Post Type Distribution</h3>
+                                </div>
+                                <div class="chart-container" style="height: 280px;">
+                                    <canvas id="flPostTypeChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Topic Analysis -->
+                        <div class="card" style="margin-bottom: 24px;">
+                            <div class="card-header">
+                                <h3>Content Topic Analysis</h3>
+                                <p class="card-subtitle">What the founder talks about on LinkedIn</p>
+                            </div>
+                            <div class="fl-topics-grid" id="flTopicsGrid"></div>
+                        </div>
+
+                        <!-- Recent Posts Sample -->
+                        <div class="card" style="margin-bottom: 24px;">
+                            <div class="card-header">
+                                <h3>Recent Posts Sample</h3>
+                                <p class="card-subtitle">Representative posts from the last 6 months</p>
+                            </div>
+                            <div class="fl-posts-list" id="flPostsList"></div>
+                        </div>
+
+                        <!-- Assessment -->
+                        <div class="card fl-assessment-card">
+                            <div class="card-header">
+                                <h3>&#9889; Founder Social Media Assessment</h3>
+                            </div>
+                            <div id="flAssessment" class="fl-assessment-content"></div>
                         </div>
                     </div>
                 </div>

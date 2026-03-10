@@ -43,6 +43,7 @@ function initPanel(panelId) {
         case 'breakout': initBreakout(); break;
         case 'watchlist': initWatchlist(); break;
         case 'brand-lookup': /* no-op, stays as-is */ break;
+        case 'founder-linkedin': /* no-op, input-driven */ break;
     }
 }
 
@@ -2434,6 +2435,319 @@ function addCompany() {
 
     // Show success notification
     showNotification(`${name} added successfully`);
+}
+
+// =====================================================
+// Founder LinkedIn Activity Panel
+// =====================================================
+
+function setFounderUrl(url) {
+    document.getElementById('founderLinkedinUrl').value = url;
+    analyzeFounderLinkedin();
+}
+
+function extractLinkedinUsername(url) {
+    const match = url.match(/linkedin\.com\/in\/([^\/\?]+)/);
+    return match ? match[1].toLowerCase() : null;
+}
+
+function analyzeFounderLinkedin() {
+    const url = document.getElementById('founderLinkedinUrl').value.trim();
+    if (!url) return;
+
+    const username = extractLinkedinUsername(url);
+    if (!username) {
+        showNotification('Please enter a valid LinkedIn profile URL');
+        return;
+    }
+
+    const profile = FOUNDER_LINKEDIN_PROFILES[username];
+    if (!profile) {
+        showNotification('Profile data not available. Demo data is available for: Arpit Beri (arpitberi)');
+        return;
+    }
+
+    renderFounderLinkedinDashboard(profile);
+}
+
+function renderFounderLinkedinDashboard(profile) {
+    const results = document.getElementById('founderLinkedinResults');
+    results.style.display = 'block';
+
+    // Profile info
+    const initials = profile.name.split(' ').map(n => n[0]).join('');
+    document.getElementById('flAvatar').textContent = initials;
+    document.getElementById('flName').textContent = profile.name;
+    document.getElementById('flHeadline').textContent = profile.headline;
+    document.getElementById('flConnections').textContent = profile.connections + ' connections';
+    document.getElementById('flFollowers').textContent = profile.followers + ' followers';
+
+    // Calculate totals
+    const totals = profile.monthly.reduce((acc, m) => ({
+        posts: acc.posts + m.posts,
+        likes: acc.likes + m.likesGiven,
+        comments: acc.comments + m.comments,
+        engagement: acc.engagement + (m.avgLikesReceived + m.avgCommentsReceived)
+    }), { posts: 0, likes: 0, comments: 0, engagement: 0 });
+
+    const avgEngagement = Math.round(totals.engagement / totals.posts);
+
+    // Activity score (0-100 based on posting frequency + engagement)
+    const postFreqScore = Math.min(totals.posts / 60 * 100, 100); // 60 posts in 6 mo = max
+    const engScore = Math.min(avgEngagement / 500 * 100, 100);
+    const activityScore = Math.round(postFreqScore * 0.4 + engScore * 0.6);
+
+    // KPI cards
+    document.getElementById('flTotalPosts').textContent = totals.posts;
+    document.getElementById('flTotalLikes').textContent = totals.likes;
+    document.getElementById('flTotalComments').textContent = totals.comments;
+    document.getElementById('flAvgEngagement').textContent = formatNumber(avgEngagement);
+
+    // Score circle
+    const scoreEl = document.getElementById('flScoreValue');
+    scoreEl.textContent = activityScore;
+    const scoreCircle = document.getElementById('flScoreCircle');
+    scoreCircle.className = 'fl-score-circle';
+    if (activityScore >= 70) scoreCircle.classList.add('fl-score-high');
+    else if (activityScore >= 40) scoreCircle.classList.add('fl-score-medium');
+    else scoreCircle.classList.add('fl-score-low');
+
+    // Monthly chart
+    renderFlMonthlyChart(profile);
+
+    // Monthly table
+    renderFlMonthlyTable(profile, totals);
+
+    // Engagement trend chart
+    renderFlEngagementChart(profile);
+
+    // Post type chart
+    renderFlPostTypeChart(profile);
+
+    // Topic analysis
+    renderFlTopics(profile);
+
+    // Sample posts
+    renderFlPosts(profile);
+
+    // Assessment
+    renderFlAssessment(profile, totals, activityScore, avgEngagement);
+}
+
+function renderFlMonthlyChart(profile) {
+    if (charts.flMonthly) charts.flMonthly.destroy();
+
+    const labels = profile.monthly.map(m => m.month);
+    charts.flMonthly = new Chart(document.getElementById('flMonthlyChart'), {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'Posts',
+                    data: profile.monthly.map(m => m.posts),
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 4
+                },
+                {
+                    label: 'Likes Given',
+                    data: profile.monthly.map(m => m.likesGiven),
+                    backgroundColor: '#10b981',
+                    borderRadius: 4
+                },
+                {
+                    label: 'Comments',
+                    data: profile.monthly.map(m => m.comments),
+                    backgroundColor: '#f59e0b',
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(42,45,62,0.6)' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+}
+
+function renderFlMonthlyTable(profile, totals) {
+    const tbody = document.getElementById('flMonthlyTable');
+    tbody.innerHTML = profile.monthly.map(m => {
+        const eng = m.avgLikesReceived + m.avgCommentsReceived;
+        return `<tr>
+            <td>${m.month}</td>
+            <td>${m.posts}</td>
+            <td>${m.likesGiven}</td>
+            <td>${m.comments}</td>
+            <td>${formatNumber(eng)}</td>
+        </tr>`;
+    }).join('');
+
+    const tfoot = document.getElementById('flMonthlyTotals');
+    const totalEng = profile.monthly.reduce((s, m) => s + m.avgLikesReceived + m.avgCommentsReceived, 0);
+    tfoot.innerHTML = `<tr style="font-weight:600; border-top: 2px solid var(--border);">
+        <td>Total</td>
+        <td>${totals.posts}</td>
+        <td>${totals.likes}</td>
+        <td>${totals.comments}</td>
+        <td>${formatNumber(totalEng)}</td>
+    </tr>`;
+}
+
+function renderFlEngagementChart(profile) {
+    if (charts.flEngagement) charts.flEngagement.destroy();
+
+    const labels = profile.monthly.map(m => m.month);
+    charts.flEngagement = new Chart(document.getElementById('flEngagementChart'), {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'Avg Likes Received',
+                    data: profile.monthly.map(m => m.avgLikesReceived),
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59,130,246,0.1)',
+                    fill: true
+                },
+                {
+                    label: 'Avg Comments Received',
+                    data: profile.monthly.map(m => m.avgCommentsReceived),
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245,158,11,0.1)',
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(42,45,62,0.6)' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+}
+
+function renderFlPostTypeChart(profile) {
+    if (charts.flPostType) charts.flPostType.destroy();
+
+    const labels = Object.keys(profile.postTypes);
+    const data = Object.values(profile.postTypes);
+    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
+
+    charts.flPostType = new Chart(document.getElementById('flPostTypeChart'), {
+        type: 'doughnut',
+        data: {
+            labels,
+            datasets: [{
+                data,
+                backgroundColor: colors,
+                borderWidth: 0,
+                hoverOffset: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            plugins: {
+                legend: { position: 'right', labels: { padding: 12, font: { size: 11 } } }
+            }
+        }
+    });
+}
+
+function renderFlTopics(profile) {
+    const grid = document.getElementById('flTopicsGrid');
+    grid.innerHTML = profile.topics.map(t => `
+        <div class="fl-topic-card">
+            <div class="fl-topic-header">
+                <span class="fl-topic-dot" style="background: ${t.color};"></span>
+                <span class="fl-topic-name">${t.name}</span>
+                <span class="fl-topic-pct">${t.percentage}%</span>
+            </div>
+            <div class="fl-topic-bar-bg">
+                <div class="fl-topic-bar" style="width: ${t.percentage}%; background: ${t.color};"></div>
+            </div>
+            <p class="fl-topic-desc">${t.description}</p>
+        </div>
+    `).join('');
+}
+
+function renderFlPosts(profile) {
+    const list = document.getElementById('flPostsList');
+    list.innerHTML = profile.samplePosts.map(p => `
+        <div class="fl-post-item">
+            <div class="fl-post-meta">
+                <span class="fl-post-date">${p.date}</span>
+                <span class="fl-post-type-badge">${p.type}</span>
+                <span class="fl-post-topic-badge">${p.topic}</span>
+            </div>
+            <p class="fl-post-preview">${p.preview}</p>
+            <div class="fl-post-stats">
+                <span>&#9829; ${formatNumber(p.likes)} likes</span>
+                <span>&#128172; ${formatNumber(p.comments)} comments</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderFlAssessment(profile, totals, score, avgEng) {
+    const postsPerMonth = (totals.posts / 6).toFixed(1);
+    let level, levelClass, summary;
+
+    if (score >= 70) {
+        level = 'Highly Active';
+        levelClass = 'fl-level-high';
+        summary = `${profile.name} is a highly active LinkedIn presence. With ${postsPerMonth} posts/month and an average engagement of ${formatNumber(avgEng)} per post, they are building significant thought leadership. This level of social media involvement signals strong personal brand investment and ecosystem engagement.`;
+    } else if (score >= 40) {
+        level = 'Moderately Active';
+        levelClass = 'fl-level-medium';
+        summary = `${profile.name} maintains a moderate LinkedIn presence with ${postsPerMonth} posts/month. Engagement levels at ${formatNumber(avgEng)} per post show decent audience receptivity. There is room to increase posting frequency and engagement to strengthen thought leadership positioning.`;
+    } else {
+        level = 'Low Activity';
+        levelClass = 'fl-level-low';
+        summary = `${profile.name} has limited LinkedIn activity with only ${postsPerMonth} posts/month. With average engagement of ${formatNumber(avgEng)} per post, social media does not appear to be a priority. This may be intentional (heads-down building) or a missed opportunity for brand building.`;
+    }
+
+    const topTopic = profile.topics[0];
+    const topicInsight = `Primary content focus is <strong>${topTopic.name}</strong> (${topTopic.percentage}% of posts), followed by <strong>${profile.topics[1].name}</strong> (${profile.topics[1].percentage}%) and <strong>${profile.topics[2].name}</strong> (${profile.topics[2].percentage}%).`;
+
+    const trendMonths = profile.monthly;
+    const firstHalf = trendMonths.slice(0, 3).reduce((s, m) => s + m.posts, 0);
+    const secondHalf = trendMonths.slice(3).reduce((s, m) => s + m.posts, 0);
+    const trendDirection = secondHalf > firstHalf ? 'increasing' : secondHalf < firstHalf ? 'decreasing' : 'steady';
+    const trendInsight = `Posting activity is <strong>${trendDirection}</strong> over the 6-month period (${firstHalf} posts in first 3 months vs ${secondHalf} in last 3 months).`;
+
+    document.getElementById('flAssessment').innerHTML = `
+        <div class="fl-assessment-level ${levelClass}">
+            <span class="fl-level-badge">${level}</span>
+            <span class="fl-level-score">Score: ${score}/100</span>
+        </div>
+        <p class="fl-assessment-text">${summary}</p>
+        <div class="fl-assessment-insights">
+            <div class="fl-insight-item">
+                <span class="fl-insight-icon">&#128202;</span>
+                <p>${topicInsight}</p>
+            </div>
+            <div class="fl-insight-item">
+                <span class="fl-insight-icon">&#128200;</span>
+                <p>${trendInsight}</p>
+            </div>
+            <div class="fl-insight-item">
+                <span class="fl-insight-icon">&#128172;</span>
+                <p>The founder has given <strong>${totals.likes} likes</strong> and <strong>${totals.comments} comments</strong> on other people's content, indicating ${totals.likes + totals.comments > 200 ? 'active community engagement beyond own posts' : 'moderate networking activity on the platform'}.</p>
+            </div>
+        </div>
+    `;
 }
 
 // --- Initialize ---

@@ -2296,3 +2296,107 @@ function computeCompositeScores() {
 const _computed = computeCompositeScores();
 const COMPOSITE_SCORES = _computed.scores;
 const COMPANY_SIGNALS = _computed.signals;
+
+// =====================================================
+// Founder LinkedIn Activity Data
+// =====================================================
+
+const FOUNDER_LINKEDIN_PROFILES = {
+    'arpitberi': {
+        name: 'Arpit Beri',
+        headline: 'Co-founder & CEO at Mokobara | Building India\'s Premium Travel Brand',
+        company: 'Mokobara',
+        connections: '8,200+',
+        followers: '24,500',
+        profileUrl: 'https://www.linkedin.com/in/arpitberi/',
+        monthly: [
+            { month: 'Oct 2025', posts: 6, likesGiven: 42, comments: 18, avgLikesReceived: 320, avgCommentsReceived: 45, shares: 12 },
+            { month: 'Nov 2025', posts: 8, likesGiven: 55, comments: 24, avgLikesReceived: 410, avgCommentsReceived: 58, shares: 18 },
+            { month: 'Dec 2025', posts: 5, likesGiven: 38, comments: 15, avgLikesReceived: 285, avgCommentsReceived: 38, shares: 9 },
+            { month: 'Jan 2026', posts: 9, likesGiven: 61, comments: 28, avgLikesReceived: 475, avgCommentsReceived: 62, shares: 22 },
+            { month: 'Feb 2026', posts: 11, likesGiven: 72, comments: 35, avgLikesReceived: 520, avgCommentsReceived: 71, shares: 28 },
+            { month: 'Mar 2026', posts: 4, likesGiven: 28, comments: 12, avgLikesReceived: 390, avgCommentsReceived: 52, shares: 10 }
+        ],
+        postTypes: {
+            'Text + Image': 35,
+            'Text Only': 25,
+            'Carousel / Document': 18,
+            'Video': 12,
+            'Reshare + Commentary': 10
+        },
+        topics: [
+            { name: 'D2C Brand Building', percentage: 28, color: '#3b82f6', description: 'Scaling Mokobara, brand strategy, premium positioning in India' },
+            { name: 'Startup Fundraising', percentage: 20, color: '#10b981', description: 'Raising capital, investor relations, Series A/B learnings' },
+            { name: 'Product & Design', percentage: 18, color: '#f59e0b', description: 'Product launches, design philosophy, luggage innovation' },
+            { name: 'Founder Journey', percentage: 15, color: '#8b5cf6', description: 'Personal reflections, lessons learned, founder life' },
+            { name: 'Team & Hiring', percentage: 10, color: '#ec4899', description: 'Team building, culture, open roles at Mokobara' },
+            { name: 'Industry Commentary', percentage: 9, color: '#06b6d4', description: 'D2C ecosystem, retail trends, consumer behavior in India' }
+        ],
+        samplePosts: [
+            {
+                date: 'Feb 22, 2026',
+                type: 'Text + Image',
+                preview: 'We just crossed 1M bags sold at Mokobara. 3 years ago we were shipping 50 bags/month from a garage. Here\'s what I learned about building a premium D2C brand in India...',
+                likes: 1240,
+                comments: 156,
+                topic: 'D2C Brand Building'
+            },
+            {
+                date: 'Feb 15, 2026',
+                type: 'Carousel / Document',
+                preview: '7 mistakes we made raising our Series B (and how we fixed them). Thread for founders currently fundraising...',
+                likes: 890,
+                comments: 98,
+                topic: 'Startup Fundraising'
+            },
+            {
+                date: 'Jan 28, 2026',
+                type: 'Video',
+                preview: 'Behind the scenes: How we designed our best-selling cabin luggage. 6 months of iterations, 14 prototypes, and what our customers actually wanted...',
+                likes: 654,
+                comments: 72,
+                topic: 'Product & Design'
+            },
+            {
+                date: 'Jan 12, 2026',
+                type: 'Text Only',
+                preview: 'Unpopular opinion: Most D2C brands in India are not actually building brands. They\'re building discount-dependent distribution channels. Here\'s the difference...',
+                likes: 1580,
+                comments: 210,
+                topic: 'Industry Commentary'
+            },
+            {
+                date: 'Dec 20, 2025',
+                type: 'Text + Image',
+                preview: 'We\'re hiring across 4 roles at Mokobara. If you\'re passionate about building India\'s most loved travel brand, check out these positions...',
+                likes: 320,
+                comments: 45,
+                topic: 'Team & Hiring'
+            },
+            {
+                date: 'Nov 30, 2025',
+                type: 'Text + Image',
+                preview: 'Year 3 reflection: The hardest part of being a founder isn\'t the 80-hour weeks. It\'s making decisions with 60% information and living with the consequences...',
+                likes: 740,
+                comments: 88,
+                topic: 'Founder Journey'
+            },
+            {
+                date: 'Nov 10, 2025',
+                type: 'Reshare + Commentary',
+                preview: 'Great take by @lightspeed on the D2C consolidation wave. Adding my 2 cents — brands that survive will be the ones with genuine repeat purchase rates, not just first-order CAC games...',
+                likes: 410,
+                comments: 52,
+                topic: 'Industry Commentary'
+            },
+            {
+                date: 'Oct 18, 2025',
+                type: 'Carousel / Document',
+                preview: 'The anatomy of a Mokobara product launch: From insight → design → prototype → production → GTM. A 5-slide breakdown of our process...',
+                likes: 560,
+                comments: 67,
+                topic: 'Product & Design'
+            }
+        ]
+    }
+};
